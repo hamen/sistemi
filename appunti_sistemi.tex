@@ -324,13 +324,18 @@ TIPO & Definizione \\
 \hline
 \hline
 \hline
-ASINTOTICAMENTE STABILE & Quando tutti i MODI NATURALI sono convergenti ovvero tutti i poli sono a Sx (il \emph{polo dominante} è a Sx)\\
+ASINTOTICAMENTE STABILE & Quando tutti i MODI NATURALI sono
+convergenti ovvero tutti i poli sono a Sx (il \emph{polo dominante} è a Sx)\\
 \hline
 INSTABILE & $\exists$ un modo divergente ovvero il polo dominante è a Dx\\
 \hline
-(MARGINALMENTE) STABILE & $\nexists$ modi naturali divergenti, ma ne $\exists$ uno o + limitato che non tende a $0$ ovvero il polo dominante è sull'asse Im \\
+(MARGINALMENTE) STABILE & $\nexists$ modi naturali divergenti, ma ne
+$\exists$ uno o + limitato che non tende a $0$ ovvero il polo dominante è sull'asse Im \\
 \hline
-(DEBOLMENTE) INSTABILE & $\nexists$ modi divergenti esponenziali, ma ne $\exists$ uno divergente 'debolmente' (ad esempio, potenze della $t$ che crescono più lentamente dell'esponenziale) ovvero il polo è sull'asse $\Im m$ con molteplicità>1\\
+(DEBOLMENTE) INSTABILE & $\nexists$ modi divergenti esponenziali, ma
+ne $\exists$ uno divergente 'debolmente' (ad esempio, potenze della
+$t$ che crescono più lentamente dell'esponenziale) ovvero il polo è
+sull'asse $\Im m$ con molteplicità>1\\
 \hline
 \end{tabular}
 \caption{Stabilità dei sistemi}
@@ -570,66 +575,73 @@ della prima colonna sono di segno concorde.
 \end{Th6}
 Per approfondimenti vedere l'appendice ~\ref{apx:stabil}
 
- \section{Linearizzazione}
- Prendiamo in considerazione un generico sistema MIMO, non lineare, T.I. e proprio, descritto dalle equazioni precedentemente esposte (\ref{eq:ltisys})  e sollecitato da un ingresso costante $u(t)=\bar{u}$. \\
- Si fa poi riferimento al suo stato di equilibrio, ovvero quello stato per cui vale l'identità:
- \begin{equation}
- f(\bar{x},\bar{u})=0~\footnote{la dipendenza dal tempo è implicita, per cui la variabile \emph{t} può essere omessa}
- \end{equation} a cui corrisponde l'uscita di equilibrio:
- \begin{equation}
- \bar{y}=g(\bar{x},\bar{u})
- \end{equation}
- Il procedimento della \emph{linearizzazione} consiste nel descrivere il comportamento di un sistema NL (Non Lineare) attorno al suo punto di equilibrio nominale, approssimandolo ad un sistema lineare.
- Pertanto si pone:
- \begin{eqnarray}
- u(t)=\bar{u}+\delta u(t)\\
- x(t)=\bar{x}+\delta x(t)\\
- y(t)=\bar{y}+\delta y(t)\\
- x_{t_0}=v\bar{x}+\delta x_{t_0}
- \end{eqnarray}
- dove $\delta u(t)$, $\delta x(t)$, $\delta y(t)$ e $\delta x_{t_0}$ rappresentano le variazioni (scostamenti) di $ u, x, y $ e dello stato $x_{t_0}$.\\
- Con queste considerazioni, le equazioni \ref{eq:ltisys} e \ref{eq:ltisys2} diventano: 
- \begin{equation}\label{eq:linstate}
- \dot{\bar{x}}+\delta \dot{x}(t)=f(\bar{x}+\delta x(t),\bar{u} +\delta u(t))
- \end{equation}
- \begin{equation}\label{eq:linout}
- \bar{y}+\delta y(t)=g(\bar{x}+\delta x(t), \bar{u}+\delta u(t))
- \end{equation} assumendo come condizione iniziale:
- \begin{equation}\label{eq:lincondin}
- \bar{x}+\delta x(t_0)=\bar{x}+\delta x_{t_0}
- \end{equation}
- Sviluppando in serie di Taylor e troncando lo sviluppo al primo termine otteniamo:
- \begin{equation}\label{eq:statetaylor}
- \delta \dot{x}(t)=f(\bar{x},\bar{u})+\frac{\partial f(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\delta x(t)+\frac{\partial f(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\delta u(t)
- \end{equation}
- \begin{equation}\label{eq:outtaylor}
+\section{Linearizzazione}
+Prendiamo in considerazione un generico sistema MIMO, non lineare,
+T.I. e proprio, descritto dalle equazioni precedentemente esposte
+(\ref{eq:ltisys}) e sollecitato da un ingresso costante $u(t)=\bar{u}$. \\
+Si fa poi riferimento al suo stato di equilibrio, ovvero quello stato
+per cui vale l'identità:
+\begin{equation}
+  f(\bar{x},\bar{u})=0~\footnote{la dipendenza dal tempo è implicita,
+    per cui la variabile \emph{t} può essere omessa}
+\end{equation} a cui corrisponde l'uscita di equilibrio:
+\begin{equation}
+  \bar{y}=g(\bar{x},\bar{u})
+\end{equation}
+Il procedimento della \emph{linearizzazione} consiste nel descrivere
+il comportamento di un sistema NL (Non Lineare) attorno al suo punto
+di equilibrio nominale, approssimandolo ad un sistema lineare.
+Pertanto si pone:
+\begin{eqnarray}
+  u(t)=\bar{u}+\delta u(t)\\
+  x(t)=\bar{x}+\delta x(t)\\
+  y(t)=\bar{y}+\delta y(t)\\
+  x_{t_0}=v\bar{x}+\delta x_{t_0}
+\end{eqnarray}
+dove $\delta u(t)$, $\delta x(t)$, $\delta y(t)$ e $\delta x_{t_0}$
+rappresentano le variazioni (scostamenti) di $ u, x, y $ e dello stato $x_{t_0}$.\\
+Con queste considerazioni, le equazioni \ref{eq:ltisys} e \ref{eq:ltisys2} diventano: 
+\begin{equation}\label{eq:linstate}
+  \dot{\bar{x}}+\delta \dot{x}(t)=f(\bar{x}+\delta x(t),\bar{u} +\delta u(t))
+\end{equation}
+\begin{equation}\label{eq:linout}
+  \bar{y}+\delta y(t)=g(\bar{x}+\delta x(t), \bar{u}+\delta u(t))
+\end{equation} assumendo come condizione iniziale:
+\begin{equation}\label{eq:lincondin}
+  \bar{x}+\delta x(t_0)=\bar{x}+\delta x_{t_0}
+\end{equation}
+Sviluppando in serie di Taylor e troncando lo sviluppo al primo termine otteniamo:
+\begin{equation}\label{eq:statetaylor}
+  \delta \dot{x}(t)=f(\bar{x},\bar{u})+\frac{\partial f(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\delta x(t)+\frac{\partial f(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\delta u(t)
+\end{equation}
+\begin{equation}\label{eq:outtaylor}
   \bar{y}+\delta y(t)=g(\bar{x},\bar{u})+\frac{\partial g(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\delta x(t)+\frac{\partial g(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\delta u(t)
- \end{equation}
- Combinando le \ref{eq:statetaylor} e \ref{eq:outtaylor} con le \ref{eq:linstate}, \ref{eq:linout} e \ref{eq:lincondin} si ha :
- \begin{eqnarray}\label{eq:linsys}
- \left\{ \begin{array}{l}
- \delta \dot{x}(t)=A \delta x(t)+B \delta u(t)\\
- \delta y(t)=C \delta x(t)+d \delta u(t)\\
- \delta x((t_0)=\delta x_{t_0}
- \end{array}\right.
- \end{eqnarray}
- dove:
- \begin{eqnarray}\label{eq:linmatr}
- A=\frac{\partial f(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\\
- B=\frac{\partial f(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\\
- C=\frac{\partial g(x,u)}{\partial x }\Bigg |_{x=\bar{x},u=\bar{u}}\\
- D=\frac{\partial g(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}
- \end{eqnarray}
- In particolare, prendendo ad esempio un sistema del secondo ordine, ovvero con due stati $x_1$ e $x_2$, avente le  matrici dimensionate come segue:\\ 
- A[2x2], B[1x2], C[2x1] e D=0\\ 
- e caratterizzato dalla segg. rappresentazione ISU:
- \begin{equation}
- \left\{ \begin{array}{l}
- \dot{x_1}=f_1(x_1,x_2,u)\\
- \dot{x_2}=f_2(x_1,x_2,u)\\
- y=g(x_1.x_2.u)
- \end{array}\right.
- \end{equation}
+\end{equation}
+Combinando le \ref{eq:statetaylor} e \ref{eq:outtaylor} con le \ref{eq:linstate}, \ref{eq:linout} e \ref{eq:lincondin} si ha :
+\begin{eqnarray}\label{eq:linsys}
+  \left\{ \begin{array}{l}
+    \delta \dot{x}(t)=A \delta x(t)+B \delta u(t)\\
+    \delta y(t)=C \delta x(t)+d \delta u(t)\\
+    \delta x((t_0)=\delta x_{t_0}
+  \end{array}\right.
+\end{eqnarray}
+dove:
+\begin{eqnarray}\label{eq:linmatr}
+  A=\frac{\partial f(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\\
+  B=\frac{\partial f(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\\
+  C=\frac{\partial g(x,u)}{\partial x }\Bigg |_{x=\bar{x},u=\bar{u}}\\
+  D=\frac{\partial g(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}
+\end{eqnarray}
+In particolare, prendendo ad esempio un sistema del secondo ordine, ovvero con due stati $x_1$ e $x_2$, avente le  matrici dimensionate come segue:\\ 
+A[2x2], B[1x2], C[2x1] e D=0\\ 
+e caratterizzato dalla segg. rappresentazione ISU:
+\begin{equation}
+  \left\{ \begin{array}{l}
+    \dot{x_1}=f_1(x_1,x_2,u)\\
+    \dot{x_2}=f_2(x_1,x_2,u)\\
+    y=g(x_1.x_2.u)
+  \end{array}\right.
+\end{equation}
  
 le matrici del modello linearizzato (\ref{eq:linsys}) si calcolano in questo modo:
 \begin{displaymath}\label{eq:matrix}
@@ -662,72 +674,142 @@ le matrici del modello linearizzato (\ref{eq:linsys}) si calcolano in questo mod
 Va da se che si pu\`o evitare il cacolo degli autovalori e limitarsi a
 valutare il polinomio caratteristico, sulla base del Teorema \ref{th:routh}.
 
- \chapter{Funzione di Trasferimento}\label{ch:chapter4}
- \section{Definizione della Funzione di trasferimento(f.d.t)}
- Si considera il sistema \ref{eq:matltisys}. Applicando le t.d.L. (v. appendice \ref{apx:laplace}) ad ambo i membri si ha:
- \begin{displaymath}
- sX(s)-x(0)=AX(s)+BU(s)
- \end{displaymath}
- \begin{displaymath}
- Y(s)=CX(s)+DU(s)
- \end{displaymath}
- Attraverso semplici passaggi algebrici si ottengono le segg. equazioni:
- \begin{eqnarray}\label{eq:tdlstateout}
- X(s)=\underbrace{(sI-A)^{-1}BU(s)}_{\mathfrak{L}\{Risp. forzata\}}+\underbrace{(sI-A)^{-1}x(0)}_{\mathfrak{L}\{Risp. libera\}}\\
- Y(s)=\underbrace{(C(sI-A)^{-1}B+D)U(s)}_{\mathfrak{L}\{Risp. forzata\}}+\underbrace{C(sI-A)^{-1}x(0)}_{\mathfrak{L}\{Risp.libera\}}
- \end{eqnarray}
- che rappresentano le t.d.L. del movimento dello stato e dell'uscita.\\
- In particolare, considerando le condizioni iniziali nulle si ha:
- \begin{equation}\label{eq:transfout}
- Y(s)=G(s)U(s)
- \end{equation}
- Si definisce pertanto:
- \begin{equation}\label{eq:fdt}
- G(s)\triangleq(C(sI-A)^{-1}B+D) \qquad \textrm{\emph{funzione/matrice di trasferimento}}
- \end{equation}
- Effettuando l'antitrasformazione di $\mathfrak{L}$. (appendice \ref{apx:laplace}) della \ref{eq:transfout} si può conoscere il movimento forzato $y_f$ che, nel caso di stato iniziale nullo, coincide con il movimento d'uscita $y$.\\
- Nel caso di sistemi SISO, se $u(t)=\delta(t) \stackrel{\mathfrak{L}}{\Rightarrow} U(s)=1$ allora $Y(s)=G(s)$ ovvero la f.d.t. (funzione di trasferimento) la si può interpretare come la t.d.L. della risp. impulsiva (\ref{eq:eqpulseresp}).
- \newpage
- \subsection{Struttura della fdt}
- In generale la \ref{eq:fdt} è una funzione razionale in s data dal rapporto di due polinomi ovvero:
- \begin{equation}\label{eq:genfdt}
- G(s)=\frac{N(s)}{D(s)}=\frac{\beta_\nu s^\nu+\beta_{\nu-1}s^{\nu-1}+\ldots+\beta_1s+\beta_0}{\alpha_\nu s^\nu+\alpha_{\nu-1}s^{\nu-1}+\ldots+\alpha_1s+\alpha_0}
- \end{equation} 
- Senza perdita di generalità, si può considerare $D(s)$ come monico per cui $\alpha_\nu=1$.
- Se il sistema è strettamente proprio, allora il grado di $D(s)>$ del grado di $N(s)$;\\
- se il sistema è proprio, allora il grado di $D(s)=$ al grado di $N(s)$;\\
- Per i sistemi impropri il grado di $N(s)>$ del grado di $D(s)$.
- La differenza tra il grado di $D(s)$ e quello di $N(s)$ si chiama \emph{\textbf{grado relativo}} che indica la \emph{prontezza del sistema}.
- Le \emph{singolarità} di un sistema sono i \textbf{poli} e gli \textbf{zeri}.
- Per definizione:
- \begin{itemize}
- \item{$\bullet$}\textbf{Poli}: sono i valori che annullano il denominatore $D(s)$ (essi sono anche le radici dell'equazione $\det(sI-A)=0$)
- \item{$\bullet$}\textbf{Zeri}: sono i valori che annullano il numeratore $N(s)$
-  \end{itemize}
-  \subsection{Relazione tra fdt ed eq. differenziali}
-  Considerando un sistema rappresentato dall'equazione differenziale:
-  \begin{displaymath}
-  \frac{d^n y(t)}{dt^n}+\alpha_{n-1}\frac{d^{n-1} y(t)}{dt^{n-1}}+\ldots+\alpha_{1}\frac{dy(t)}{dt}+\alpha_0y(t)=
-  \end{displaymath}\label{eq:gendiffsys}
-  \begin{equation}
-  =\beta_n\frac{d^n u(t)}{dt^n}+\beta_{n-1}\frac{d^{n-1} u(t)}{dt^{n-1}}+\ldots+\beta_{1}\frac{du(t)}{dt}+\beta_0u(t)
-  \end{equation}
-  ed effettuando ad ambo i membri la t.d.L. tenendo conto delle sue proprietà (in particolare quelle di derivazione) ed imponendo 
-  \begin{displaymath}
+%% FUNZIONE DI TRASFERIMENTO
+\chapter{Funzione di Trasferimento}
+\`E una nuova rappresentazione dei sistemi dimanici a tempo continuo
+lineari e stazionari. Essa mette in relazione tra loro le trasformate
+di Laplace delle variabili di ingresso e di uscita.
+
+\section{Definizione della Funzione di trasferimento(f.d.t)}
+Si considera il sistema \ref{eq:matltisys}. Applicando le
+trasformate di Laplace (v. appendice \ref{apx:laplace}) ad ambo i membri si ha:
+\begin{displaymath}
+  sX(s)-x(0)=AX(s)+BU(s)
+\end{displaymath}
+\begin{displaymath}
+  Y(s)=CX(s)+DU(s)
+\end{displaymath}
+Attraverso semplici passaggi algebrici si ottengono le seguenti equazioni:
+\begin{eqnarray}\label{eq:tdlstateout}
+  X(s)=\underbrace{(sI-A)^{-1}BU(s)}_{\mathfrak{L}\{Risposta \; forzata\}} +
+  \underbrace{(sI-A)^{-1}x(0)}_{\mathfrak{L}\{Risposta \; libera\}}\\
+  Y(s)=\underbrace{(C(sI-A)^{-1}B+D)U(s)}_{\mathfrak{L}\{Risposta \;
+      forzata\}} +
+  \underbrace{C(sI-A)^{-1}x(0)}_{\mathfrak{L}\{Risposta \; libera\}}
+\end{eqnarray}
+che rappresentano le trasformate di Laplace del movimento dello stato
+e dell'uscita. In particolare, considerando le condizioni iniziali nulle si ha:
+\begin{equation}\label{eq:transfout}
+  Y(s)=G(s)U(s)
+\end{equation}
+Si definisce pertanto:
+\begin{equation}\label{eq:fdt}
+  G(s)\triangleq(C(sI-A)^{-1}B+D) \qquad \textrm{\emph{funzione/matrice di trasferimento}}
+\end{equation}
+Effettuando l'antitrasformazione di $\mathfrak{L}$. (appendice
+\ref{apx:laplace}) della \ref{eq:transfout} si può conoscere il
+movimento forzato $y_f$ che, nel caso di stato iniziale nullo,
+coincide con il movimento d'uscita $y$.
+
+Nel caso di sistemi SISO, se
+$u(t)=\delta(t) \stackrel{\mathfrak{L}}{\Rightarrow} U(s)=1$ allora
+$Y(s)=G(s)$ ovvero la f.d.t. (funzione di trasferimento) la si può
+interpretare come la trasformata di Laplace della risposta impulsiva
+(\ref{eq:eqpulseresp}). 
+
+\subsection{Struttura della funzione di trasferimento}
+In generale la \ref{eq:fdt} è una funzione razionale in $s$ data dal
+rapporto di due polinomi ovvero: 
+\begin{equation}\label{eq:genfdt}
+  G(s)=\frac{N(s)}{D(s)}=\frac{\beta_\nu s^\nu+\beta_{\nu-1}s^{\nu-1}+
+    \ldots+\beta_1s+\beta_0}{\alpha_\nu s^\nu+\alpha_{\nu-1}s^{\nu-1}+
+    \ldots+\alpha_1s+\alpha_0}
+\end{equation} 
+Senza perdita di generalità, si può considerare $D(s)$ come monico per
+cui $\alpha_\nu=1$.
+
+Se il sistema è strettamente proprio, allora il grado del denominatore
+$D(s)$ sar\`a maggiore  del grado del numeratore $N(s)$.
+Se il sistema è proprio, allora il grado del denominatore $D(s)$
+sar\`a pari al grado del numeratore $N(s)$.
+Per i sistemi impropri il grado del numeratore $N(s)$ sar\`a maggiore
+del grado del denominatore $D(s)$.
+La differenza tra il grado di $D(s)$ e quello di $N(s)$ \`e detta
+\emph{\textbf{grado relativo}} ed indica la \emph{prontezza del sistema}.
+
+\subsubsection{Poli e zeri}
+Le \emph{singolarità} di un sistema \`e l'insieme dei \textbf{poli} e
+degli \textbf{zeri}. zPer definizione:
+\begin{description}
+\item[Poli]: sono i valori che annullano il denominatore $D(s)$. Essi
+  sono anche le radici dell'equazione $\det(sI-A)=0$, cio\`e sono gli
+  autovalori del sistema;
+\item[Zeri]: sono i valori che annullano il numeratore $N(s)$.
+\end{description}
+
+\subsection{Relazione tra funzione di trasferimento ed equazioni differenziali}
+Considerando un sistema rappresentato dall'equazione differenziale:
+\begin{displaymath}
+  \frac{d^n y(t)}{dt^n}+\alpha_{n-1}\frac{d^{n-1} y(t)}{dt^{n-1}} +
+  \ldots+\alpha_{1}\frac{dy(t)}{dt} + \alpha_0y(t)=
+\end{displaymath}\label{eq:gendiffsys}
+\begin{equation}
+  =\beta_n\frac{d^n u(t)}{dt^n} + \beta_{n-1}\frac{d^{n-1}
+    u(t)}{dt^{n-1}} + \ldots+\beta_{1}\frac{du(t)}{dt}+\beta_0u(t)
+\end{equation}
+ed effettuando per ambo i membri la trasformata di Laplace, tenendo
+conto delle sue proprietà di derivazione, ed imponendo 
+\begin{displaymath}
   y(0)=0 ~, \qquad \frac{d^iy(0)}{dt^i}=0 ~, \qquad i=1,2,\ldots,n-1
-  \end{displaymath}
-  si ha:
-  \begin{displaymath}
+\end{displaymath}
+si ha:
+\begin{displaymath}
   s^nY(s)+\alpha_{n-1}s^{n-1}Y(s)+\ldots+\alpha_1sY(s)+\alpha_0Y(s)=
-  \end{displaymath}
-  \begin{equation}\label{eq:lapgendiffsys}
+\end{displaymath}
+\begin{equation}\label{eq:lapgendiffsys}
   = \beta_n s^nU(s)+\beta_{n-1}s^{n-1}U(s)+\ldots+\beta_1sU(s)+\beta_0U(s)
-   \end{equation}
-   da cui
-   \begin{equation}\label{eq:secgenfdt}
-   \frac{Y(s)}{U(s)}=G(s)\triangleq \frac{\beta_n s^n+\beta_{n-1}s^{n-1}+\ldots+\beta_1s+\beta_0}{s^n+\alpha_{n-1}s^{n-1}+\ldots+\alpha_1s+\alpha_0}
-   \end{equation}
-   \newpage
+\end{equation}
+da cui
+\begin{equation}\label{eq:secgenfdt}
+  \frac{Y(s)}{U(s)}=G(s)\triangleq \frac{\beta_n
+    s^n+\beta_{n-1}s^{n-1} +
+    \ldots+\beta_1s+\beta_0}{s^n+\alpha_{n-1}s^{n-1} + \ldots+\alpha_1s+\alpha_0}
+\end{equation}
+
+\subsection{Cancellazioni e stabilit\`a}
+Quando valutiamo la $G(s)$, pu\`o capitare che ci siano radici comuni
+tra numeratore e denominatore. Questa eventualit\`a pu\`o portarci nello
+scenario in cui il numero di poli $v$ \`e minore del numero degli $n$
+autovalori del polinomio. Com'\`e noto la $G(s)$, nota anche come
+rappresentazione esterna, descrive il legame tra l'ingresso e l'uscita
+del sistema. Qusto ci porta a considerare che gli autovalori che non
+coincidono con i poli di $G(s)$ sono associati a parti ``nascoste''
+del sistema. In questo caso, gli autovalori potrebbero perfino avere
+parte real positiva.
+
+In definitva, per assicurarci che il polinomio caratteristico descriva
+adeguatamente il sistema e ci garantisca l'asintotica stabilit\`a,
+dobbiamo accertarci dell'assenza di cancellazioni di radici. Quando
+nel calcolo della $G(s)$ non avvengono semplificazioni, il
+denominatore coincide con il polinomio caratteristico ed i poli
+coincidono con gli autovalori: la sola conoscenza dei poli \`e
+sufficiente ad accertare la stabilit\`a del sistema.
+
+\subsection{Ritardo di tempo}
+\begin{equation}\label{eq:ritardoDiTempo}
+  y(t) = u(t - \tau)
+\end{equation}
+L'equazione \ref{eq:ritardoDiTempo} descrive il ritardo di tempo, un
+sistema lineare stazionario. Applicando la trasformata di Laplace ad
+entrabi i membri otteniamo:
+\[
+  Y(s) = e^{- \tau s} U(s)
+\]
+che ci porta alla seguente funzione di trasferimento:
+\[
+  G(s) = e^{- \tau s}
+\]
+
  \section{Parametri della fdt e sue rappresentazioni}
  Molto spesso è conveniente rappresentare la G(s) di un sistema SISO in uno di questi due modi:
  \begin{equation}\label{eq:firstformfdt}
