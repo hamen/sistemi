@@ -7,7 +7,25 @@
 \hypersetup{linkcolor=blue}
 \usepackage{amssymb}
 \usepackage{verbatim}
-\author{Angelo Ciampa}
+
+\hypersetup{ colorlinks,
+  linkcolor=blue,
+  filecolor=green,
+  urlcolor=blue,
+  citecolor=blue }
+
+\usepackage[normalem]{ulem}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{teorema}{Teorema}
+\renewcommand{\arraystretch}{2}
+
+\usepackage{makeidx}
+
+\author{Collettivo studentesco Ingegneria Informatica Unisannio}
 \title{Appunti di Sistemi}
 \begin{document}
 \maketitle
@@ -215,32 +233,85 @@ se $u(t)=\delta(t) \Rightarrow Y_F(s)=G(s)\cdot 1\Rightarrow Y_F(s)=G(s) \stackr
 \begin{equation}\label{eq:eqpulseresp}
 \protect\mathfrak{L}^{-1}[G(s)\mathfrak{L}(\delta(t)]
 \end{equation}
+
 \section{Equilibrio e punti di equilibrio}
-Prendendo in considerazione i sistemi stazionari ed applicando ad essi ingressi costanti, indicati come $u(t) = \bar{u}(t)$, si hanno movimenti dello stato e dell'uscita anch'essi costanti nel tempo. Questi movimenti costanti sono detti rispettivamente \emph{stati} ed \emph{uscite di equilibrio}. \\
-Per definizione: \emph{"Uno stato di equilibrio (o \emph{steady state})  è uno stato in cui un sistema, sollecitato da un ingresso costante, in un qualunque istante di tempo, permane in questo stato indefinitamente"}~\footnote{Se il sistema da solo va in posizione di equilibrio, allora il punto di equilibrio è detto \emph{attrattivo} e il sistema è asintoticamente stabile} ovvero, se in $\bar{t}$ il sistema si trova nello stato $x(\bar{t})=\bar{x}$, allora $\forall t >\bar{t}$, il sistema si troverà nello stesso stato $x(t)=\bar{x}$.\\
-In termini matematici gli stati di equilibrio devono soddisfare l'equazione $\dot{x}(t)=0$, cioè sono le soluzioni $\bar{x}$ costanti nel tempo dell'equazione:
+Prendendo in considerazione i sistemi stazionari ed applicando ad essi
+ingressi costanti, indicati come $u(t) = \bar{u}(t)$, si hanno
+movimenti dello stato e dell'uscita anch'essi costanti nel
+tempo. Questi movimenti costanti sono detti rispettivamente {\em
+  stati} ed \emph{uscite di equilibrio}.
+
+Per definizione: "Uno stato di equilibrio (o \emph{steady state}) è
+uno stato in cui un sistema, sollecitato da un ingresso costante, in
+un qualunque istante di tempo, permane in questo stato
+indefinitamente"~\footnote{Se il sistema da solo va in posizione di
+  equilibrio, allora il punto di equilibrio è detto
+  \emph{attrattivo}\index{Punto di equilibrio attrattivo} e il sistema
+  è asintoticamente stabile} ovvero, se in $\bar{t}$ il sistema si
+trova nello stato $x(\bar{t})=\bar{x}$, allora $\forall t >\bar{t}$,
+il sistema si troverà nello stesso stato $x(t)=\bar{x}$.
+
+In termini matematici gli stati di equilibrio devono soddisfare
+l'equazione $\dot{x}(t)=0$, cioè sono le soluzioni $\bar{x}$ costanti
+nel tempo dell'equazione: 
 \begin{equation}\label{eq:eqsteady}
 f(\bar{x},\bar{u})=0
 \end{equation}
-a ciascuna delle soluzioni (se esistono), corrisponde un'uscita di equilibrio $\bar{y}$ calcolabile mediante la relazione 
+a ciascuna delle soluzioni (se ne esistono), corrisponde un'uscita di
+equilibrio $\bar{y}$ calcolabile mediante la relazione 
 \begin{equation}\label{eq:outsteady}
 \bar{y}=g(\bar{x},\bar{u})
 \end{equation}
-In particolare, gli stati di equilibrio $\bar{x}$ sono le soluzioni dell'equazione
+In particolare, gli stati di equilibrio $\bar{x}$ sono le soluzioni dell'equazione:
 \begin{equation}
 A\bar{x}+B\bar{u} = 0
 \end{equation}
-e $\forall$ stato di equilibrio corrisponde un uscita di equilibrio
+e ad ogni stato di equilibrio corrisponde un uscita di equilibrio:
 \begin{equation}
 \bar{y}=C\bar{x}+D\bar{u}
 \end{equation}
+
+\subsection{La matrice $A$}
+Se $A$ \`e invertibile, cio\`e se $det(A) \neq 0$ lo stato di
+equilibrio \`e:
+\[
+  \begin{array}{l}
+    \bar{x} = -A^{-1} B \bar{u}\\
+    \bar{y} = ( -C A^{-1} B + D) \bar{u}
+  \end{array}
+\]
+La matrice $D - CA^{-1} B$ \`e il {\bf Guadagno
+  statico}\index{Guadagno statico}, una costante che rappresenta il
+rapporto tra uscita ed ingresso quando il transitorio \`e esaurito.
+Se $det(A) = 0$ 
+\[
+  A \bar{x} + B \bar{u} = 0
+\]
+ammette infinite soluzioni o nessuna soluzione. Ci\`o implica infiniti
+possibili stati di equilibrio o nessuno stato di equilibrio. In questo
+caso la nozione di guadagno statico perde senso.
+
 \section{Stabilità}
-Il criterio di stabilità, fu introdotto dal matematico Liapunov il quale considerava che 'piccole' perturbazioni dello stato iniziale, rispetto ad un valore di riferimento, provocano solo 'piccole' perturbazioni del movimento dello stato, che si annulleranno eventualmente su tempi lunghi.
+Il criterio di stabilità, fu introdotto dal matematico Liapunov il
+quale considerava che 'piccole' perturbazioni dello stato iniziale,
+rispetto ad un valore di riferimento, provocano solo 'piccole'
+perturbazioni del movimento dello stato, che si annulleranno
+eventualmente su tempi lunghi. 
 \subsection{Stabilità dell'equilibrio}
-Si considera un sistema dinamico T.I. con ingresso costante $u(t)=\bar{u}$, con $t \ge 0$, e un corrispondente stato di equilibrio $\bar{x}$ detto \emph{nominale}. Inoltre si considera anche un movimento dello stato $x(t)$, detto \emph{perturbato}, generato a partire da $\bar{u}$ e da uno stato iniziale $x_0$. \\
-Definizione: \\
-\emph{"Uno stato di equilibrio si dice stabile se, ad una perturbazione arbitrariamente piccola, il movimento perturbato rimane 'vicino' all'equilibrio nominale.\\ E' instabile se si ha un allontanamento dello stato del sistema dall'equilibrio stesso."}\\
-Di seguito è mostrata la tabella che riassume i tipi di sistemi classificati secondo la stabilità: \footnote{Il polo dominante è il polo che si trova più a destra degli altri} \\
+Si considera un sistema dinamico T.I. con ingresso costante
+$u(t)=\bar{u}$, con $t \ge 0$, e un corrispondente stato di equilibrio
+$\bar{x}$ detto \emph{nominale}. Inoltre si considera anche un
+movimento dello stato $x(t)$, detto \emph{perturbato}, generato a
+partire da $\bar{u}$ e da uno stato iniziale $x_0$.
+
+Possiamo affermare che: \emph{"Uno stato di equilibrio si dice stabile se, ad una
+  perturbazione arbitrariamente piccola, il movimento perturbato
+  rimane 'vicino' all'equilibrio nominale. \`E instabile se si ha un
+  allontanamento dello stato del sistema dall'equilibrio stesso"}.
+
+Di seguito è mostrata la tabella che riassume i tipi di sistemi
+classificati secondo la stabilità: \footnote{Il polo dominante è il
+  polo che si trova più a destra degli altri} \\ 
 
 \begin{table}[hbp!]
 \begin{center}
@@ -261,175 +332,241 @@ INSTABILE & $\exists$ un modo divergente ovvero il polo dominante è a Dx\\
 \hline
 (DEBOLMENTE) INSTABILE & $\nexists$ modi divergenti esponenziali, ma ne $\exists$ uno divergente 'debolmente' (ad esempio, potenze della $t$ che crescono più lentamente dell'esponenziale) ovvero il polo è sull'asse $\Im m$ con molteplicità>1\\
 \hline
-
 \end{tabular}
 \caption{Stabilità dei sistemi}
 \label{tab:tab1}
 \end{center}
 \end{table}
 
- \chapter{Sistemi LTI a tempo continuo}
+\chapter{Sistemi LTI a tempo continuo}
 
- \section{Evoluzioni di un sistema}
- Nei movimenti dello stato e dell'uscita di un sistema, si può individuare un contributo dipendente solo dallo stato iniziale e uno dipendente solo dall'ingresso. In particolare:\\
- \emph{Evoluzione libera}: è il contributo al movimento dello stato e dell'uscita funzione solo dello stato iniziale, ovvero quello che, a parità di stato iniziale, si avrebbe se l'ingresso fosse nullo. \\
- \emph{Evoluzione forzata}: è il contributo funzione solo dell'ingresso, ovvero quello che si avrebbe se, a parità di ingresso, lo stato iniziale fosse nullo.
- Il sistema LTI (Lineare Tempo Invariante) a tempo continuo è descritto dalle equazioni \ref{eq:matltisys}.
- In questa sezione vengono presentati due schemi riassuntivi che descrivono i modi di tali sistemi con autovalori distinti e doppi. 
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/modisingol.png}\caption{Modi dei sistemi con autovalori distinti}\label{fig:modising}
-\end{center}
+\section{Evoluzioni di un sistema}
+Nei movimenti dello stato e dell'uscita di un sistema, si può
+individuare un contributo dipendente solo dallo stato iniziale e uno
+dipendente solo dall'ingresso. 
+
+\begin{description}
+\item[Evoluzione libera]\index{Evoluzione libera}: (o movimenti
+liberi) è il contributo al movimento dello stato e dell'uscita
+funzione solo dello stato iniziale, ovvero quello che, a parità di
+stato iniziale, si avrebbe se l'ingresso fosse nullo. 
+\item[Evoluzione forzata]\index{Evoluzione forzata}: è il contributo
+funzione solo dell'ingresso, ovvero quello che si avrebbe se, a parità
+di ingresso, lo stato iniziale fosse nullo. 
+\end{description}
+Il sistema LTI (Lineare Tempo Invariante) a tempo continuo è descritto
+dalle equazioni \ref{eq:matltisys}. In questa sezione vengono
+presentati due schemi riassuntivi che descrivono i modi di tali
+sistemi con autovalori distinti e doppi.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/modisingol.png}
+    \caption{Modi dei sistemi con autovalori distinti}\label{fig:modising}
+  \end{center}
 \end{figure} 
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/modidoppi.png}\caption{Modi dei sistemi con autovalori doppi}\label{fig:modidop}
-\end{center}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/modidoppi.png}
+    \caption{Modi dei sistemi con autovalori doppi}\label{fig:modidop}
+  \end{center}
 \end{figure} 
 
- \section{Criteri di stabilità}
- In un sistema stazionario lineare, la determinazione delle proprietà di stabilità dipendono solo dal movimento libero. Inoltre anche il calcolo del movimento libero può essere evitato in quanto è possibile (seppur in maniera sufficiente) verificare condizioni di asintotica stabilità e instabilità, valutando esclusivamente i soli autovalori del sistema.~\footnote{Non in tutti i sistemi è possibile valutare la stabilità prendendo in considerazione i soli autovalori}.
- Nell'appendice \ref{apx:jacob} viene mostrato come valutare la  stabilità dei punti di equilibrio di un sistema, attraverso il calcolo della matrice \textsl{Jacobiana}.
- Tre importanti teoremi sulla stabilità dei sistemi sono: \\
- \newtheorem{Th1}{Teorema}[section]
- \newtheorem{Th2}[Th1]{Teorema}
- \newtheorem{Th3}[Th1]{Teorema}
- \newtheorem{Th4}[Th1]{Teorema}
+\section{Criteri di stabilità}
+In un sistema stazionario lineare, la determinazione delle proprietà
+di stabilità dipendono solo dal movimento libero. Inoltre, anche il
+calcolo del movimento libero può essere evitato in quanto è possibile
+(seppur in maniera sufficiente) verificare condizioni di asintotica
+stabilità e instabilità, valutando esclusivamente i soli autovalori
+del sistema (ove possibile). Nell'appendice \ref{apx:jacob} viene
+mostrato come valutare la stabilità dei punti di equilibrio di un
+sistema, attraverso il calcolo della matrice \textsl{Jacobiana}.
+Tre importanti teoremi sulla stabilità dei sistemi sono: \\
+\newtheorem{Th1}{Teorema}[section]
+\newtheorem{Th2}[Th1]{Teorema}
+\newtheorem{Th3}[Th1]{Teorema}
+\newtheorem{Th4}[Th1]{Teorema}
  
- \begin{Th1}\label{th:th1}
- Lo stato di equilibrio di un sistema lineare stazionario è stabile, asintoticamente stabile o instabile se e solo se tutti gli stati di equilibrio del sistema sono rispettivamente stabili, asintoticamente stabili o instabili.
- \end{Th1}
- \begin{Th2}\label{th:th2}
- Un sistema lineare stazionario è stabile se e solo se tutti i movimenti liberi dello stato sono limitati (convergenti); è asintoticamente stabile se e solo se tutti i movimenti liberi dello stato sono tendenti a zero per $t \to \infty$; è instabile se e solo se almeno un movimento libero dello stato è divergente (ovvero non limitato).
- \end{Th2}
- \begin{Th3}\label{th:th3}
- Il sistema lineare stazionario è asintoticamente stabile se e solo se tutti i suoi autovalori hanno parte reale negativa ($\Re<0$).
- \end{Th3}
- \begin{Th4}\label{th:th4}
- Un sistema lineare stazionario è instabile se e solo se almeno uno dei suoi autovalori hanno $\Re>0$ (parte reale positiva).
- \end{Th4}
- \newpage
- \subsection{Teorema di Routh}\label{pg:routh}
- Il metodo utilizzato per valutare la stabilità asintotica di un sistema senza calcolare la sua evoluzione libera (che consiste nella risoluzione di un'equazione differenziale), è quello definito attraverso l'applicazione del \textsl{Teorema di Routh}. 
- Esso prende in considerazione gli autovalori di un sistema e ne valuta il segno. \\In particolare si utilizza il \emph{polinomio caratteristico} (nel dominio della s):~\footnote{E' il dominio di Laplace. Vedere Appendice \ref{apx:laplace}}
- \begin{equation}\label{eq:polycarat}
- \varphi(s)=det(sI-A)=s^n+p_1s^{n-1}+p_2s^{n-2}+\ldots+p_{n-1}s+p_n
- \end{equation} dove $n$ è il grado dell'equazione polinomiale
- e si considera l'\emph{equazione caratteristica}
- \begin{displaymath}
- \varphi(s)=0
- \end{displaymath}
- Applicando il teorema ~\ref{th:th3} si può valutare l'asintotica stabilità valutando i coefficienti del polinomio caratteristico~\ref{eq:polycarat} scritto in forma più generale:
- \begin{equation}\label{eq:polycaratgen}
- \varphi(s)=\varphi_0 s^n+\varphi_1s^{n-1}+\varphi_2s^{n-2}+\ldots+\varphi_{n-1}s+\varphi_n ~con ~\varphi_0 \ne 0
- \end{equation}
- Si osservi poi che
- \begin{equation}\label{eq:phigen}
- \varphi(s)=\varphi_0 \prod_{i=1}^{n}(s-s_i)
- \end{equation} per cui se il sistema è asintoticamente stabile, risulta $\sum_{i=1}^ns_i<0$. \\
- \newtheorem{Th5}{Teorema}[section]
- \begin{Th5}\label{th:th5}
- Se il sistema ~\ref{eq:matltisys} è asintoticamente stabile $\Rightarrow$ i coefficienti $\varphi_i$, $i=0,1,\ldots,n$, del polinomio caratteristico ~\ref{eq:polycarat} sono concordi, ovvero hanno tutti lo stesso segno.
- \end{Th5}
- A dimostrazione del teorema ~\ref{th:th5} si può imporre nella ~\ref{eq:phigen} la condizione \begin{displaymath} \Re (s_i) < 0 \end{displaymath}
- Di seguito verrà esposto il \textsl{criterio di Routh}.\\
- \\
- \framebox{
- \begin{minipage}{11cm}
- \emph{Criterio di Routh}\\
- Attraverso la definizione della cd. \textsl{tabella di Routh} è possibile formulare una condizione necessaria e sufficiente, di asintotica stabilità. \\
- Tale tabella si costruisce a partire dal polinomio caratteristico ~\ref{eq:polycarat} ed ha $n+1$ righe e una struttura triangolare in quanto ogni $2$ righe (eccetto la prima se $n$ è pari), il numero di elementi diminuisce di 1.\\
+\begin{Th1}\label{th:th1}
+  Lo stato di equilibrio di un sistema lineare stazionario è stabile,
+  asintoticamente stabile o instabile se e solo se tutti gli stati di
+  equilibrio del sistema sono rispettivamente stabili, asintoticamente
+  stabili o instabili. 
+\end{Th1}
+
+\begin{Th2}\label{th:th2}
+  Un sistema lineare stazionario è stabile se e solo se tutti i
+  movimenti liberi dello stato sono limitati, cio\`e non vadano
+  all'infinito, per tutti i $t \geq 0$ e per tutti gli stati iniziali;
+  è asintoticamente stabile se e solo se tutti i movimenti liberi dello
+  stato sono tendenti a zero per $t \to \infty$; è instabile se e solo
+  se almeno un movimento libero dello stato è divergente (ovvero non
+  limitato).
+\end{Th2}
+
+\begin{Th3}\label{th:th3}
+  Il sistema lineare stazionario è asintoticamente stabile se e solo
+  se tutti i suoi autovalori hanno parte reale negativa ($\Re<0$).
+\end{Th3}
+
+\begin{Th4}\label{th:th4}
+  Un sistema lineare stazionario è instabile se e solo se almeno uno
+  dei suoi autovalori ha parte reale positiva ($\Re>0$).
+\end{Th4}
+
+\subsubsection{Proprietà dei sistemi asintoticamente stabili}
+\begin{itemize}
+\item Il movimento asintotico coincide con quello forzato, visto che
+  il movimento libero tende ad annullarsi;
+\item La risposta all'impulso tende a zero, poich\`e coincide con un
+  movimento libero;
+\item La risposta ad un qualunque ingresso di durata limitata tende a
+  zero in modo asintotico;
+\item Lo stato e l'uscita di equilibrio conseguenti ad un qualunque
+  ingresso $u(t) = \bar{u}$ sono unici.
+\end{itemize}
+
+\subsection{Teorema di Routh}\label{pg:routh}\index{Teorema di Routh}
+Il metodo utilizzato per valutare la stabilità asintotica di un
+sistema senza calcolare la sua evoluzione libera, cio\`e senza la
+risoluzione di un'equazione differenziale, è quello definito
+attraverso l'applicazione del \textsl{Teorema di Routh}.
+Il Teorema di Routh prende in considerazione gli autovalori di un
+sistema e ne valuta il segno. In particolare si utilizza il
+\emph{polinomio caratteristico} nel dominio di Laplace:~\footnote{Vedere Appendice \ref{apx:laplace}}
+\begin{equation}\label{eq:polycarat}
+  \varphi(s)=det(sI-A)=s^n+p_1s^{n-1}+p_2s^{n-2}+\ldots+p_{n-1}s+p_n
+\end{equation}
+dove $n$ è il grado dell'equazione polinomiale e si considera l'\emph{equazione caratteristica}:
+\begin{displaymath}
+  \varphi(s)=0
+\end{displaymath}
+
+Applicando il teorema ~\ref{th:th3} si può valutare l'asintotica
+stabilità valutando i coefficienti del polinomio
+caratteristico~\ref{eq:polycarat} scritto in forma più generale:
+\begin{equation}\label{eq:polycaratgen}
+  \varphi(s)=\varphi_0 s^n+\varphi_1s^{n-1}+\varphi_2s^{n-2}+\ldots+\varphi_{n-1}s+\varphi_n ~con ~\varphi_0 \ne 0
+\end{equation}
+
+Si osservi poich\`e
+\begin{equation}\label{eq:phigen}
+  \varphi(s)=\varphi_0 \prod_{i=1}^{n}(s-s_i)
+\end{equation}
+per cui se il sistema è asintoticamente stabile, risulta $\sum_{i=1}^ns_i<0$.
+
+\newtheorem{Th5}{Teorema}[section]
+\begin{Th5}\label{th:th5}
+  Se il sistema ~\ref{eq:matltisys} è asintoticamente stabile
+  $\Rightarrow$ i coefficienti $\varphi_i$, $i=0,1,\ldots,n$, del
+  polinomio caratteristico ~\ref{eq:polycarat} sono concordi, ovvero
+  hanno tutti lo stesso segno.
+\end{Th5}
+A dimostrazione del teorema ~\ref{th:th5} si può imporre nella
+~\ref{eq:phigen} la condizione
+\begin{displaymath}
+  \Re (s_i) < 0
+\end{displaymath}
+
+\subsubsection{Applicazione del Teorema di Routh}
+Attraverso la definizione della cosiddetta \textsl{tabella di Routh}
+è possibile formulare una condizione necessaria e sufficiente di asintotica stabilità.
+Tale tabella si costruisce a partire dal polinomio caratteristico
+~\ref{eq:polycarat} ed ha $n+1$ righe e una struttura triangolare, in
+quanto ogni $2$ righe (eccetto la prima se $n$ è pari), il numero di elementi diminuisce di 1.
 In particolare la tabella si costruisce come segue:\\
 \begin{center}
-\begin{tabular}{|r|l|}
-potenze & coefficienti\\
-\hline
-n &
-$\varphi_0  ~\varphi_2 ~\varphi_4 ~\ldots ~\ldots$\\
-n-1 &
-$\varphi_1 ~\varphi_3  ~ \varphi_5  \ldots~\ldots$\\n-2 &
-$a_1 ~a_2 ~a_3 ~\ldots$\\
-n-3&
-$b_1 ~b_2 ~b_3 ~\ldots$\\
-n-4&
-$c_1 ~c_2 ~c_3 ~..$\\
-\ldots &\ldots ~\ldots\\
-1 &\ldots ~..\\
-0 & \ldots
+  \begin{tabular}{|r|l|}
+    potenze & coefficienti\\
+    \hline
+    n &
+    $\varphi_0  ~\varphi_2 ~\varphi_4 ~\ldots ~\ldots$\\
+    n-1 &
+    $\varphi_1 ~\varphi_3  ~ \varphi_5  \ldots~\ldots$\\n-2 &
+    $a_1 ~a_2 ~a_3 ~\ldots$\\
+    n-3&
+    $b_1 ~b_2 ~b_3 ~\ldots$\\
+    n-4&
+    $c_1 ~c_2 ~c_3 ~..$\\
+    \ldots &\ldots ~\ldots\\
+    1 &\ldots ~..\\
+    0 & \ldots
+  \end{tabular}
+\end{center}
+Le prime due righe contengono i coefficienti del polinomio
+caratteristico in ordine, fino all'esaurimento. Successivamente i
+coefficienti $a$, $b$ e $c$ si calcolano in base agli elementi delle
+righe che li precedono, ovvero:
+\begin{equation}
+  a_1=-\frac{1}{\varphi_1}det\left(\left[
+    \begin{array}{cc}
+      \varphi_0 & \varphi_{2} \\
+      \varphi_1&\varphi_{3}
+    \end{array}
+    \right]\right)
+\end{equation}
+\begin{equation}
+  a_2=-\frac{1}{\varphi_1}det\left(\left[
+    \begin{array}{cc}
+      \varphi_0 & \varphi_4 \\
+      \varphi_1 &\varphi_5
+    \end{array}
+    \right]\right)
+\end{equation}
+\begin{center}
+  \begin{displaymath}
+    \vdots
+  \end{displaymath}
+\end{center}
+\begin{equation}
+  b_1=-\frac{1}{a_1}det\left(\left[
+    \begin{array}{cc}
+      \varphi_1 & \varphi_3 \\
+      a_1 &a_2
+    \end{array}
+    \right]\right)
+\end{equation}
+\begin{equation}
+  b_2=-\frac{1}{a_1}det\left(\left[
+    \begin{array}{cc}
+      \varphi_1 & \varphi_5 \\
+      a_1 &a_3
+    \end{array}
+    \right]\right)
+\end{equation}
+\begin{center}
+  \begin{displaymath}
+    \vdots
+  \end{displaymath}
+\end{center}
+\begin{equation}
+  c_1=-\frac{1}{b_1}det\left(\left[
+    \begin{array}{cc}
+      a_1 & a_2 \\
+      b_1 &b_2
+    \end{array}
+    \right]\right)
+\end{equation}
+\begin{equation}
+  c_2=-\frac{1}{b1_1}det\left(\left[
+    \begin{array}{cc}
+      a_1 & a_3 \\
+      b_1 &b_3
+    \end{array}
+    \right]\right)
+\end{equation}
+\begin{center}
+  \begin{displaymath}
+    \vdots
+  \end{displaymath}
+\end{center}
 
-\end{tabular}
-\end{center}
-le prime due righe contengono i coefficienti del polinomio caratteristico in ordine, fino all'esaurimento. Successivamente i coefficienti a, b e c si calcolano in base agli elementi delle righe che li precedono, ovvero:
-   \begin{equation}
-a_1=-\frac{1}{\varphi_1}det\left(\left[
-\begin{array}{cc}
-\varphi_0 & \varphi_{2} \\
-\varphi_1&\varphi_{3}
-\end{array}
-\right]\right)
-\end{equation}
-   \begin{equation}
-a_2=-\frac{1}{\varphi_1}det\left(\left[
-\begin{array}{cc}
-\varphi_0 & \varphi_4 \\
-\varphi_1 &\varphi_5
-\end{array}
-\right]\right)
-\end{equation}
-\begin{center}
-\begin{displaymath}
-\vdots
-\end{displaymath}
-\end{center}
-   \begin{equation}
-b_1=-\frac{1}{a_1}det\left(\left[
-\begin{array}{cc}
-\varphi_1 & \varphi_3 \\
-a_1 &a_2
-\end{array}
-\right]\right)
-\end{equation}
-   \begin{equation}
-b_2=-\frac{1}{a_1}det\left(\left[
-\begin{array}{cc}
-\varphi_1 & \varphi_5 \\
-a_1 &a_3
-\end{array}
-\right]\right)
-\end{equation}
-\begin{center}
-\begin{displaymath}
-\vdots
-\end{displaymath}
-\end{center}
-\begin{equation}
-c_1=-\frac{1}{b_1}det\left(\left[
-\begin{array}{cc}
-a_1 & a_2 \\
-b_1 &b_2
-\end{array}
-\right]\right)
-\end{equation}
-\begin{equation}
-c_2=-\frac{1}{b1_1}det\left(\left[
-\begin{array}{cc}
-a_1 & a_3 \\
-b_1 &b_3
-\end{array}
-\right]\right)
-\end{equation}
-\begin{center}
-\begin{displaymath}
-\vdots
-\end{displaymath}
-\end{center}
-\end{minipage}
-}
-\newpage
 Dopo aver effettuato tali calcoli si può affermare che:
 \newtheorem{Th6}{Teorema}[section]
 \begin{Th6}\label{th:routh}
-Il sistema ~\ref{eq:matltisys} è asintoticamente stabile $\Longleftrightarrow$ la tabella di Routh è ben definita~\footnote{Se i termini che compaiono al denominatore sono $=0$, allora la tabella di Routh non è ben definita} e tutti gli elementi della prima colonna sono di segno concorde.
+Il sistema ~\ref{eq:matltisys} è asintoticamente stabile
+se la tabella di Routh è ben definita, cio\`e se i termini
+che compaiono al denominatore sono pari a zero e tutti gli elementi
+della prima colonna sono di segno concorde. 
 \end{Th6}
 Per approfondimenti vedere l'appendice ~\ref{apx:stabil}
 
@@ -515,6 +652,16 @@ le matrici del modello linearizzato (\ref{eq:linsys}) si calcolano in questo mod
 \frac{\partial g(x_1,x_2,u)}{\partial x_1}  & \frac{\partial g(x_1,x_2.u)}{\partial x_2} \\
 \end{array} \right)\Bigg |_{x_1=\bar{x_1},x_2=\bar{x_2},u=\bar{u}}
 \end{displaymath}
+
+\subsection{Stabilit\`a dell'equilibrio}
+\begin{teorema}
+  Lo stato di equilibrio $\bar{x}$, relativo all'ingresso $\bar{u}$, di un
+  sistema non lineare risulta asintoticamente stabile se tutti gli
+  autovalori del sistema linearizzato hanno parte reale negativa.
+\end{teorema}
+Va da se che si pu\`o evitare il cacolo degli autovalori e limitarsi a
+valutare il polinomio caratteristico, sulla base del Teorema \ref{th:routh}.
+
  \chapter{Funzione di Trasferimento}\label{ch:chapter4}
  \section{Definizione della Funzione di trasferimento(f.d.t)}
  Si considera il sistema \ref{eq:matltisys}. Applicando le t.d.L. (v. appendice \ref{apx:laplace}) ad ambo i membri si ha:
@@ -996,6 +1143,2135 @@ Le figure presenti in figura \ref{fig:blockex} aiutano a capire meglio le possib
 \includegraphics[scale=0.5]{./figures/block_example.png}\caption{Esempio di riduzione di schemi a blocchi}\label{fig:blockex}
 \end{center}
 \end{figure} 
+
+
+\chapter{Modelli matematici}
+Il primo passo per la costruzione di un sistema di controllo \`e lo
+sviluppo di una descrizione matematica del processo da
+controllare. L'insieme delle equazioni differenziali che descrivono il
+comportamento dinamico del processo \`e detto {\bf modello}.
+
+
+\section{Sistemi elettrici}
+
+\subsection{Legge di Kirchhoff ai nodi}
+\begin{equation}\label{eq:kirchhoff-nodi}
+  \sum_{i=1}^{N} I_k = 0
+\end{equation}
+La sommatoria delle correnti afferenti ad un nodo \`e nulla
+
+\subsection{Legge di Kirchhoff alle tensioni}
+\begin{equation}\label{eq:kirchhoff-tensioni}
+  \sum v_{ij} = 0
+\end{equation}
+La sommatoria delle tensioni appartenenti ad una maglia \`e nulla.
+
+\subsection{I principali elementi elettrici}
+
+\begin{itemize}
+  \item Il resistore
+    $$ V_R = R i_R \Rightarrow V_R = R I_R$$
+  \item Il condensatore
+    $$ i_C = C \frac{dV_c}{dt} \Rightarrow V_C = \frac{1}{sC} I_C$$
+  \item L'induttore
+    $$V_L = L \frac{di_l}{dt} \Rightarrow V_L = sL I_L$$
+\end{itemize}
+
+\subsection{Sistemi elettromagnetici}
+
+\begin{itemize}
+  \item Una carica elettrica\index{Carica elettrica} $q$, in moto in un campo di induzione
+    magnetica $B$ con velocit\`a $\vec{v}$, \`e soggetta ad una forza
+    magnetica $$ \vec{F} = q \vec{v} \times \vec{B}$$
+  \item Dato un filo rettilineo\index{Filo} di lunghezza $l$, percorso da corrente
+    di intensit\`a $I$, immerso in un campo di induzione magnetica
+    $B$, la forza magnetica agente sul filo \`e $$\vec{F} = I \vec{l}
+    \times \vec{B}$$
+  \item Data una spira\index{Spira} immersa in un campo di induzione
+    magnetica $\vec{B}$ entrante, il flusso magnetico concatenato con
+    la spira \`e $$\Phi_B = Blx$$ con $x$ pari alla distanza tra il
+    lato sinistro della spira ed il limite del campo magnetico. Quando
+    la spira si muove con velocit\`a $\vec{v}$ il flusso varia:
+    $$\dot{\Phi}_B = Bl \dot{x} = -Blv$$
+    Tale variazione di flusso produce una {\em forza
+      elettromotrice}\index{Forza elettromotrice}
+    $$e = Blv$$ sulla spira, che fa fluire nella spira stessa una
+    corrente $I$.
+\end{itemize}
+
+\subsection{Circuito RLC}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/circuitorlc.png}
+\caption{Circuito RLC\label{fig:circuitorlc}}
+\end{figure}
+Applicando le leggi di Kirchhoff (\ref{eq:kirchhoff-nodi} e
+\ref{eq:kirchhoff-tensioni}) otteniamo le seguenti equazioni:
+\[
+  \left\{
+  \begin{array}{l}
+    i_L + i_R + i_C = r\\
+    v_R = v_L = v_C = y
+  \end{array}
+  \right .
+\]
+Sostituendo le caratteristiche tensione-corrente per i singoli
+elementi elettrici, si ottiene:
+\[
+  \left\{
+  \begin{array}{l}
+   \dfrac{y}{R} + i_L + C \dfrac{dv_C}{dt} = r\\
+   y = L \dfrac{di_L}{dt}
+  \end{array}
+  \right .
+\]
+Derivando la prima equazione e sostituendo alla derivata di $i_L$ la
+seconda equazione, se ne ricava una finale pari a:
+\[
+  \ddot{y} + \dfrac{\dot{y}}{RC} + \dfrac{y}{LC} = \dfrac{\dot{r}}{C}
+\]
+Sostituendo $s$ a $\dfrac{d}{dt}$ possiamo ottenere la funzione di
+trasferimento: 
+\[
+  \begin{array}{l}
+    \ddot{y} + \dfrac{\dot{y}}{RC} + \dfrac{y}{LC} =
+    \dfrac{\dot{r}}{C}\\
+    s^2 Y + \dfrac{sY}{RC} + \dfrac{Y}{LC} = \dfrac{sr}{C}\\
+    Y(s^2 + \dfrac{s}{RC} + \dfrac{1}{LC}) = \dfrac{sr}{C}\\
+  \end{array}
+\]
+\begin{equation}\label{eq:fdt-circuitorlc}
+  G(s) = \dfrac{1}{sC + \dfrac{1}{R} + \dfrac{1}{sL}}
+\end{equation}
+Per ottenere la rappresentazione in forma di stato, poniamo $i_L =
+x_1$, $v_C = x_2$:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x}_1 = \dfrac{x_2}{L}\\
+    \dot{x}_2 = - \dfrac{x_1}{C} - \dfrac{x_2}{RC} + \dfrac{r}{C}\\
+    y = x_2
+  \end{array}
+  \right .
+\]
+
+
+\subsection{Amplificatore operazionale}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.8\textwidth]{./images/opamp.png}
+\caption{Amplificatore operazionale\label{fig:opamp}}
+\end{figure}
+\`E un elemento attivo e fornisce un alto guadagno nella regione di
+funzionamento lineare. L'amplificatore ideale ha le seguenti principali
+propriet\`a:
+\begin{itemize}
+\item $i_1 = i_2 = 0$ cio\`e la corrente entrante nell'amplificatore
+  \`e nulla, quindi si ha una impedenza d'ingresso infinita;
+\item $v_2 - v_1 = 0$ cio\`e il corto circuito virtuale tra i due
+  morsetti d'ingresso;
+\item $R_1 = \infty$, $R_O = 0$ e $K = \infty$;
+\end{itemize}
+Il legame ingresso-uscita \`e quindi:
+\[
+  v_O = - K (v_1 - v_2)
+\]
+\subsubsection{Configurazione invertente}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/opamp02.png}
+\caption{Amplificatore operazionale in configurazione invertente\label{fig:opamp-inv}}
+\end{figure}
+Il generatore \`e collegato al morsetto ``-'' e il morsetto ``+'' \`e
+posto a massa:
+\[
+  \begin{array}{c}
+    \dfrac{v_1 - v_{in}}{R_1} + \dfrac{v_1 - v_o}{R_2} = 0\\
+    \textrm{ che con } v_1 - v_2 = 0 \textrm{ e } v_2 \textrm{ a massa
+    ci porta a }\\
+    -\dfrac{v_{in}}{R_1} = \dfrac{v_o}{R_2}\\
+    \Downarrow\\
+    \dfrac{v_o}{v_{in}} = -\dfrac{R_2}{R_1}
+  \end{array}
+\]
+
+\subsubsection{Integratore di Miller}\index{Integratore di Miller}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/opamp03.png}
+\caption{Amplificatore operazionale - Integratore di Miller\label{fig:opamp-mil}}
+\end{figure}
+Date le propriet\`a dell'amplificatore ideale, si ha:
+\[
+  \left\{\begin{array}{l}
+    i_c = C \dfrac{d(v_1 - v_o)}{dt}\\
+    i_R = \dfrac{v_1 - v_{in}}{R}
+  \end{array}\right .
+  \Rightarrow - \dfrac{v_{in}}{R} - C \dfrac{dv_o}{dt} = 0
+\]
+\[
+  - \int\dfrac{v_{in}}{R} = \int C \dfrac{dv_o}{dt} \Rightarrow
+\]
+\[
+  - \dfrac{1}{RC}\int\limits_0^t v_{in}(\tau)d\tau = v_o(t) - v_o(0)
+\]
+Ecco l'integratore:
+\[
+  v_o(t) = - \dfrac{1}{RC}\int\limits_0^t v_{in}(\tau)d\tau + v_o(0)
+\]
+La funzione di trasferimento \`e:
+\[
+  \dfrac{V_O (s)}{V_{in} (s)} = G (s) = - \dfrac{1}{sRC}
+\]
+
+\subsection{Forza magnetica}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.2\textwidth]{./images/forza-magnetica.png}
+\caption{Forza magnetica\label{fig:forza-magnetica}}
+\end{figure}
+Una carica elettrica $q$, in moto in un campo di induzione magnetica $B$ con
+velocitÃ  $v$, \`e soggetta ad una forza magnetica
+\begin{equation}\label{eq:forza-magnetica}
+  \vec{F} = q \vec{v} \times \vec{B}
+\end{equation}
+Il modulo di $F$ \`e $q v B sin \theta$, il verso \`e perpendicolare a
+$v$ e $B$ e si calcola con la regola della mano destra.
+
+\subsubsection{Forza magnetica su un filo conduttore}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.2\textwidth]{./images/forza-magnetica02.png}
+\caption{Forza magnetica su un filo conduttore\label{fig:forza-magnetica02}}
+\end{figure}
+Dato un filo rettilineo di lunghezza $L$, percorso da corrente di
+intensit\`a $I$, immerso in un campo di induzione magnetica $B$, la
+forza magnetica agente sul filo \`e:
+\begin{equation}\label{eq:forza-magnetica-filo}
+  \vec{F} = I \vec{L} \times \vec{B}
+\end{equation}
+
+\subsubsection{Forza elettromotrice indotta}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.3\textwidth]{./images/forza-magnetica03.png}
+\caption{Forza elettromotrice indotta\label{fig:forza-magnetica03}}
+\end{figure}
+Data una spira immersa in un campo di induzione magnetica $B$
+entrante, il flusso magnetico concatenato con la spira
+\[
+  \Phi_B = B l x
+\]
+dove $x$ \`e la distanza tra il lato sinistro della spira e il limite
+destro del campo magnetico. Quando la spira si muove con velocit\`a
+$v$, il flusso varia:
+\[
+  \dot{\Phi}_B = B l \dot{x} = - B l v
+\]
+Tale variazione di flusso produce una forza elettromotrice 
+\[
+  e(t) = B l v
+\]
+sulla spira, che  fa fluire nella spira stessa una corrente $I$.
+\subsubsection{Forza contro-elettromotrice}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.3\textwidth]{./images/forza-magnetica04.png}
+\caption{Forza contro-elettromotrice\label{fig:forza-magnetica04}}
+\end{figure}
+Una spira percorsa da corrente $I$, che ruota in un campo di induzione
+magnetica $B$ con velocit\` angolare $\omega$ il flusso magnetico
+concatenato con la spira Ã¨
+\[
+  \Phi_B = B l sin \alpha
+\]
+con $\alpha$ pari all'angolo formato dalla spira con il campo $B$. Al
+ruotare della spira, il flusso varia:
+\[
+  \dot{\Phi}_B = B l x \dot{\alpha} cos \alpha = - B l x \omega cos \alpha
+\]
+La forza elettromotrice indotta, pari a
+\[
+  e = B l x \omega cos \alpha
+\]
+si oppone alla tensione d'alimentazione della spira ed \`e detta {\em
+  forza contro-elettromotrice}.
+
+\subsection{Altoparlante}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/altoparlante.png}
+\caption{Altoparlante\label{fig:altoparlante}}
+\end{figure}
+L'altoparlante \`e composto da $N$ spire di lunghezza $l$ avvolte
+intorno al polo $N$ dell'elemento ferromagnetico. Le spire sono
+attraversate dalla corrente $i$. Il campo di induzione magnetica \`e
+$B$. La forza magnetica che agisce sulle spire \`e:
+\[
+  F = N l i B
+\]
+Questa forza induce le spire ad un movimento orizzontale. Durante il
+loro movimento, le spire, di massa $M$, incontrano un attrico viscoso $b$ imposto
+dall'ambiente. Applicando la Legge di Newton (\ref{leggedinewton})
+abbiamo:
+\begin{equation}\label{eq:amplificatore}
+  M \ddot{x} + b \dot{x} = F
+\end{equation}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/altoparlante02.png}
+\caption{Altoparlante e circuito di alimentazione\label{fig:altoparlante02}}
+\end{figure}
+Consideriamo il circuito con cui sono alimentate le spire (figura
+\ref{fig:altoparlante02}). Questo circuito avr\`a una sua resistenza
+$R$ ed una induttanza $L$. \`E presente anche un generatore di
+tensione $v_a$. Lo spostamento delle spire nel campo $B$ produce una
+forza contro-elettromotrice
+\[
+  e = B l v
+\]
+dove $v = \dot{x}$. L'equazione alla maglia di alimentazione \`e:
+\begin{equation}\label{eq:Altoparlante-circuito}
+  L \dfrac{di}{dt} + Ri = v_a - e
+\end{equation}
+
+\subsection{Motore in corrente continua}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/motoreDC.png}
+\caption{Motore in corrente continua\label{fig:motoreDC}}
+\end{figure}
+Lo statore di figura \ref{fig:motoreDC} pu\`o essere di materiale ferromagnetico, oppure un magnete
+permanente. Il rotore \`e avvolto, parallelamente al suo asse di
+rotazione, da $N$ bobine. Le bobine sono alimentate a turno da un
+commutatore e due spazzole, alle quali arriva la corrente $i$ dal
+circuito di alimentazione. All'albero motore si collega un carico, che
+viene messo in rotazione dal motore.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.2\textwidth]{./images/motoreDC02.png}
+\caption{Motore in corrente continua - Vista frontale\label{fig:motoreDC02}}
+\end{figure}
+La corrente entra in ogni bobina nella parte superiore del rotore ed
+esce da quella inferiore. Su ogni bobina agisce la  forza magnetica
+\[
+F=Bli
+\]
+dal lato in ingresso della corrente e dal lato in uscita. La coppia
+prodotta su ciascuna bobina \`e:
+\[
+  T = F r sin \alpha
+\]
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.3\textwidth]{./images/motoreDC03.png}
+\caption{Motore in corrente continua - Vista frontale dettagliata\label{fig:motoreDC03}}
+\end{figure}
+La coppia prodotta sul rotore dipende dall'angolo $\alpha$ (figura \ref{fig:motoreDC03}): usando $N$
+bobine avvolte al rotore, la coppia totale sar\`a una media di tutte
+le coppie applicate alle singole bobine e sar\`a eliminata la dipendenza da
+$\alpha$. La coppia complessiva sar\`a
+\[
+  T = K_t i_a
+\]
+con $K_t$ costante di coppia ed $i_a$ corrente nelle
+armature. 
+
+Analogamente si pu\`o vedere che ogni bobina alimentata subisce una
+forza contro-elettromotrice dipendente dalla velocit\`a angolare
+$\dot{\theta}_m$ del motore e da $\alpha$. La forza
+contro-elettromotrice complessiva \`e
+\[
+  e = K_e \dot{\theta}_m
+\]
+con $K_e$ equivalene elettrica della costante di coppia $K_t$ e
+$\dot{\theta}_m$ velocit\`a di rotazione dell'albero motore.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/motoreDC04.png}
+\caption{Circuito di alimentazione del motore DC\label{fig:motoreDC04}}
+\end{figure}
+Consideriamo il circuito di alimentazione del motore di figura
+\ref{fig:motoreDC04}: esso \`e costituito da un generatore di tensione
+$v_a$, una resistenza $R_a$ ed un'induttanza $L_a$. L'equazione di
+tale circuito \`e:
+\[
+  L_a \dfrac{di_a}{d_t} + R_a i_a + K_e \dot{\theta} = v_a
+\]
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.3\textwidth]{./images/motoreDC05.png}
+\caption{Motore DC - Parte meccanica\label{fig:motoreDC05}}
+\end{figure}
+Per quanto riguarda la parte meccanica del motore (figura
+\ref{fig:motoreDC05}), se sull'asse del rotore si pone un carico di
+inerzia $J_l$, la Legge di Newton (\ref{leggedinewton}) ci porta alle equazioni:
+\[
+  \begin{array}{l}
+    J_m \ddot{\theta}_m + b( \dot{\theta}_m - \dot{\theta}_l) + k
+    (\theta_m - \theta_l) = K_t i_a\\
+    J_l \ddot{\theta}_l + b( \dot{\theta}_l - \dot{\theta}_m) + k
+    (\theta_l - \theta_m) = 0
+  \end{array}
+\]
+Per qualche approfonfimento sul moto rotatorio fate riferimento al
+paragrafo \ref{par:discorotanteattrito}.
+
+
+
+\section{Dinamica dei fluidi}
+Le relazioni fisiche che governano i flussi di fluidi sono la
+continuit\`a, l'equilibrio tra le forze e la resistenza. La relazione
+di continuit\`a \`e semplicemente una dichiarazione di conservazione
+della materia:
+\begin{equation}\label{eq:conservazione-massa}
+  \dot{m} = \omega_{in} - \omega_{out}
+\end{equation}
+dove
+\begin{itemize}
+\item $m$ = massa del fluido
+\item $\omega_{in}$ = portata dell'ingresso
+\item $\omega_{out}$ = portata dell'uscita
+\end{itemize}
+
+\subsection{Serbatoio}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/serbatoio.png}
+\caption{Serbatoio\label{fig:serbatoio}}
+\end{figure}
+Nel caso di un semplice contenitore, applicando la
+\ref{eq:conservazione-massa} otteniamo l'equazione del {\em moto
+  fluidi per i serbatoi}\index{Serbatoio}\index{Serbatoio}:
+\begin{equation}\label{eq:fluidi-serbatoio}
+  \dot{h} = \frac{\omega_{in} - \omega_{out}}{A \rho}
+\end{equation}
+dove
+\begin{itemize}
+\item $A$ \`e l'area del serbatoio;
+\item $\rho$ \`e la densit\`a del fluido;
+\item $h = \dfrac{m}{A \rho}$ \`e l'altezza dell'acqua;
+\item $A \rho$ definisce la quantit\`a di fluido, in litri, che
+  attraversa la sezione;
+\item $m$ \`e la massa di acqua nel serbatoio.
+\end{itemize}
+
+\subsection{Pistone idraulico}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/pistone.png}
+\caption{Pistone\label{fig:pistone}}
+\end{figure}
+Considerata una forza $F_D$ che aziona un pistone idraulico ed una
+pressione $p$ nella camera del pistone, possiamo applicare la
+\ref{leggedinewton} e la sua equivalente per i fluidi:
+\begin{equation}\label{eq:newton-fluidi}\index{Legge di Newton per i fluidi}
+  f = p A
+\end{equation}
+dove
+\begin{itemize}
+\item $f$ \`e la forza;
+\item $p$ \`e la pressione;
+\item $A$ \`e l'area della superficie contro cui il fluido preme
+\end{itemize}
+Ne consegue l'equazione del moto del pistone:
+\begin{equation}\label{eq:pistone}
+  M\ddot{x} = A \cdot p - F_D
+\end{equation}
+dove
+\begin{itemize}
+\item $A$ \`e l'area del pistone;
+\item $p$ \`e la pressione della camera;
+\item $M$ \`e la massa del pistone;
+\item $x$ \`e la posizione del pistone.
+\end{itemize}
+
+\subsection{Flusso attraverso un orifizio}\index{Orifizio}
+Se nel corso del suo flusso, il liquido incontra una restrizione
+(pu\`o essere rappresentata da un orifizio o da una valvola, figura \ref{fig:orifizio}), la
+pressione varia e quindi anche il flusso:
+\begin{equation}\label{eq:orifizio}
+  \omega = \frac{1}{R} (p_1 - p_2)^{\frac{1}{\alpha}}
+\end{equation}
+dove
+\begin{itemize}
+\item $p_1$ \`e la pressione prima della costrizione;
+\item $p_2$ \`e la pressione dopo la costrizione;
+\item $R$ \`e la resistenza idrica;
+\item $\omega$ \`e la portata di fluido che passa per la costrizione.
+\end{itemize}
+Tipicamente si pone $\alpha = 1$ se il condotto \`e lungo e il flusso
+\`e laminare e lento. Diversamente $\alpha = 2$ se il condotto \`e
+corto e il flusso \`e turbolento. Noi supporremo sempre $\alpha = 2$.
+
+\subsection{Attuatore idraulico}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.9\textwidth]{./images/attuatoreidraulico.png}
+\caption{Attuatore idraulico\label{fig:attuatoreidraulico}}
+\end{figure}
+``In senso lato, un attuatore \`e talvolta definito come un qualsiasi
+dispositivo che converte dell'energia da una forma ad un'altra, in
+modo che questa agisca nell'ambiente fisico al posto dell'uomo.'' -
+Wikipedia 
+
+L'ingresso di controllo \`e $x$, il segnale di attuazione \`e
+$y$. Supponendo i flussi attraverso gli orifizi proporzionali ad $x$:
+\[
+  \omega_1 = \dfrac{1}{R_1} (p_s - p_1)^{1/2}x
+\]
+\[
+  \omega_2 = \dfrac{1}{R_2} (p_2 - p_e)^{1/2}x
+\]
+Applicando la relazione di continuit\`a otteniamo:
+\begin{equation}
+  \rho A \dot{y} = \omega_1 = \omega_2
+\end{equation}
+dove $A$ \`e l'area del pistone e $\rho$ \`e la densit\`a del
+liquido. In aggiunta definiamo il bilancio delle forze sul pistone
+come:
+\begin{equation}
+  A (p_1 - p_2) - F = m \ddot{y}
+\end{equation}
+dove $F$ \`e la forza applicata all'asta del pistone dal punto di
+aggancio del sistema controllato. L'equazione del moto del sistema
+controllato \`e:
+\begin{equation}
+  I \ddot{\theta} = F l cos \theta - F_a d
+\end{equation}
+dove $F_a$ \`e la forza dovuta al carico aerodinamico.
+
+\subsection{Esempio di serbatoio con costrizione}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/orifizio.png}
+\caption{Orifizio\label{fig:orifizio}}
+\end{figure}
+Abbiamo gi\`a visto che per l'altezza $h$ vale la legge:
+\begin{equation}
+  \dot{h} = \dfrac{\omega_{in} - \omega_{out}}{A \rho}
+\end{equation}
+In questo caso c'\`e per\`o una restrizione, come nel punto di uscita
+in figura \ref{fig:serbatoio}, che ci porta a riscrivere
+la relazione:
+\begin{equation}
+  \omega_{out} = \dfrac{1}{R} \left(p_i - p_a \right)^{\frac{1}{2}}
+\end{equation}
+con
+\begin{equation}
+  p_i = \rho g h + p_a
+\end{equation}
+con $p_i$ pressione dell'acqua e $p_a$ pressione
+dell'ambiente. Sostituendo, si ottiene:
+\begin{equation}
+  \dot{h} = \dfrac{1}{A \rho} \left(\omega_{in} - \dfrac{1}{R}\sqrt{\rho g h}\right)
+\end{equation}
+\subsubsection{Punto di equilibrio}
+Dato un $\overline{\omega}_{in}$ costante, se esiste un punto di
+equilibrio deve essere $\overline{h}$ costante:
+\[
+  0 = \dfrac{1}{A \rho} \left( \overline{\omega}_{in} -
+  \dfrac{1}{R}\sqrt{\rho g \overline{h}} \right) \Rightarrow
+  \overline{\omega}_{in} = \dfrac{\sqrt{\rho g \overline{h}}}{R}
+  \Rightarrow \overline{h} = \dfrac{R^2 \cdot \omega_{in}^2}{\rho g}
+\]
+\subsubsection{Linearizzazione intorno ad $\overline{h}$}
+\[
+  \begin{array}{l}
+    \omega_{in} = \overline{\omega}_{in} + \delta \omega_{in}\\
+    h = \overline{h} + \delta h\\
+    \delta \dot{h} = \dfrac{1}{\rho A} (\overline{\omega}_{in} + \delta
+    \omega_{in}) - \dfrac{1}{\rho AR}\sqrt{\rho g (\overline{h} +
+      \delta h)}
+  \end{array}
+\]
+Sviluppando in serie di $\sqrt{\overline{h} - \delta h}$ con $\delta h
+\rightarrow 0$ si ha:
+\[
+  \sqrt{\overline{h}} + \left . \frac{1}{2} \cdot \dfrac{1}{\sqrt{\overline{h}
+      + \delta h}}\right|_{\delta h \rightarrow 0} \cdot \delta h =
+  \sqrt{\overline{h}} + \frac{1}{2} \dfrac{\delta h}{\sqrt{\overline{h}}}
+\]
+Sostituendo si ottiene l'equazione lineare in $\delta h$:
+\[
+  \delta \dot{h} = \dfrac{1}{\rho A} \delta \omega_{in} =
+  \dfrac{\sqrt{g} \delta h}{\sqrt{\rho \overline{h}} \cdot 2 AR}
+\]
+
+\section{Sistemi Meccanici}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/carrello.png}
+\caption{Carrellino\label{fig:carrello}}
+\end{figure}
+\subsection{Carrello}\label{carrello}
+Il carrello di figura \ref{fig:carrello} \`e modellabile come una massa $m$ che si muove spinta da
+un ingresso $u$ fino ad un punto $y$. L'equazione del moto del
+sistema, stando alla Legge di Newton (\ref{leggedinewton}), 
+\`e quindi:
+$$F = m \cdot a \Rightarrow u = m \cdot \ddot{y}$$
+Integrando due volte si otttiene:
+$$y(t) = y(0) + \dot{y}(0) + \int_0^t \left ( \int_o^{\theta} u(\tau)d\tau
+\right ) d \theta$$
+La soluzione dell'equazione differenziale dipende dallo stato iniziale
+del carrello. Se ``sostituiamo'' i differenziali con le $s$ otteniamo
+la funzione di trasferimento:
+$$y = \frac{1}{ms^2} \cdot u$$
+Volendo ottenere la rappresentazione in forma di stato poniamo $x_1 =
+y$ e $x_2 = \dot{y}$ e riscriviamo il tutto come:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \frac{1}{m} \cdot u\\
+    y = x_1
+    \end{array}\right .
+\end{eqnarray*}
+Per i sistemi \`e, inoltre, possibile riscrivere il tutto in forma
+matriciale. Il carrello \`e un sistema lineare e quindi:
+\begin{eqnarray*}
+  \begin{array}{l}
+    \dot{x} = 
+    \begin{bmatrix}
+      0 & 1\\
+      0 & 0
+    \end{bmatrix}
+    x + 
+    \begin{bmatrix}
+      0\\
+      \frac{1}{m}
+    \end{bmatrix}u
+    \\
+    y = \begin{bmatrix}1 & 0 \end{bmatrix}x
+    \end{array}
+\end{eqnarray*}
+Nota: possiamo considerare il sistema come una serie di due
+``blocchetti''. Un primo che ne specifica i comportamenti dinamici,
+fornendo come risultato lo stato del sistema, ed un secondo blocchetto
+che specifica il comportamento statico, che riceve in ingresso lo
+stato e fornisce l'uscita totale del sistema.
+
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/massa-molla-smorzatore.png}
+\caption{Massa-molla-smorzatore\label{fig:massa-molla-smorzatore}}
+\end{figure}
+
+\subsubsection{Legge di Newton}\label{leggedinewton}
+Per ottenere un modello matematico per qualsiasi sistema meccanico \`e
+fondamentale la Legge di Newton, che per il moto traslatorio \`e:
+$$F = ma = m \cdot \dot{v} = m \cdot \ddot{p}$$
+dove $v$ e $p$ sono rispettivamente ``velocit\`a'' e ``posizione'',
+$F$ \`e la somma vettoriale delle forze applicate al sistema (misurata
+in Newton: una forza di 1 newton imporr\`a una accelerazione di 1
+$\dfrac{m}{s^2}$ ad una massa di un kg), $m$ \`e la massa
+(kg) e $a$ \`e l'accelerazione inerziale $\left(\frac{m}{s^2}\right)$.
+Il metodo per risolvere questo tipo di problema utilizzando la Legge
+di Newton \`e definito dal seguente procedimento:
+
+\begin{itemize}
+  \item assegnare delle variabili necessarie e sufficienti per
+    descrivere una posizione arbitraria dell'oggetto rispetto ad un
+    sistema inerziale
+  \item disegnare lo schema di ogni componente indicando le forze
+    agenti
+  \item applicare la Legge di Newton
+  \item combinare le equazioni per eliminare le forze interne: il
+    numero delle equazioni indipendenti deve essere uguale al numero
+    delle incognite
+  \item valutare accuratamente la scelta delle coordinate
+\end{itemize}
+
+\subsection{Massa-molla-attrito}
+In figura \ref{fig:massa-molla-smorzatore} abbiamo le seguenti variabili:
+$k$ \`e il coeffiente elastico della molla, $b$ \`e il coeffiente di
+attrito dello smorzatore, $u$ \`e la forza applicata, $y$ \`e lo
+spostamento. Dalla formula di Newton (\ref{leggedinewton}) si arriva rapidamente
+all'equazione del moto del sistema:
+\begin{equation}\label{massa-molla-attrito}
+u -ky -b\dot{y} = m \ddot{y}
+\end{equation}
+Notiamo come l'attrito sia proporzionale alla posizione $y$, mentre lo
+smorzamento sia proporzionale alla velocit\`a $\dot{y}$. Sfruttando le
+``sostituzioni di Laplace'' ($\dot{y} \rightarrow sy$, $\ddot{y}
+\rightarrow s^2y$), possiamo riscrivere la funzione di trasferimento come:
+$$m s^2 y + b s y + k y = u \Rightarrow y = \left ( \frac{1}{m s^2 +
+  bs + k} \right )u$$
+La rappresentazione di stato permette di scrivere l'equazione della
+funzione di trasferimento come sistema di equazioni del primo
+ordine. Posti $x_1 = y$ e $x_2 = y$ si ha:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \dot{x}_1 = x_2\\
+    \dot{x}_2 = -\left(\dfrac{k}{m}\right)x_1 - \left(\dfrac{b}{m}\right)x_2 + \dfrac{u}{m}\\
+    y = x_1
+    \end{array}\right .
+\end{eqnarray*}
+La rappresentazione di stato in forma matriciale:
+\begin{eqnarray*}
+  \left\{ \begin{array}{lr}
+    \dot{x} = \begin{bmatrix}0 & 1\\-\frac{k}{m} &
+      -\frac{b}{m}\end{bmatrix}x
+    + \begin{bmatrix}0\\ \frac{1}{m}\end{bmatrix}u & \textrm{Come
+      l'ingresso modifica lo stato}\\
+    y = \begin{bmatrix}1 & 0\end{bmatrix}x & \textrm{Come lo stato
+        influisce sull'uscita}
+    \end{array}\right .
+\end{eqnarray*}
+\subsubsection{Stato e uscita di equilibrio}
+Supponiamo un ingresso $u = \overline{u}$ costante. \`E sufficiente
+ora porre le derivate dello stato uguali a zero:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \overline{x_2} = 0\\
+    \overline{u} - k \overline{x_1} = 0
+    \end{array}\right .
+  \Rightarrow
+  \left\{ \begin{array}{l}
+    \overline{x_2} = 0\\
+    \overline{x_1} = \dfrac{\overline{u}}{k}
+  \end{array}\right .
+  \Rightarrow
+  \overline{y} = \dfrac{1}{k} \overline{u} \;\; \textrm{che \`e l'uscita di equilibrio}
+\end{eqnarray*}
+Il valore $\frac{1}{k} = \frac{\overline{y}}{\overline{u}}$ \`e detto
+{\em guadagno statico}\index{Guadagno statico} e per ottenerlo \`e
+sufficiente porre $s = 0$ nella funzione di trasferimento. Non sempre
+un sistema presenta un guadagno statico. Un sistema senza punti di
+equilibrio \`e un sistema senza guadagno statico:
+$$\textrm{Punto di equilibrio} \Leftrightarrow \textrm{Guadagno statico}$$
+
+\subsection{Sospensioni}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.4\textwidth]{./images/sospensioni.png}
+\caption{Sospensioni\label{fig:sospensioni}}
+\end{figure}
+Assumiamo il moto della massa dell'automobile su una ruota come
+monodimensionale, cio\`e solo verticale. $k_s$ \`e il coeffiente di
+elasticit\`a delle sospensioni, $b$ \`e il coeffiente di smorzamento
+delle sospensioni, $k_w$ \`e il coeffiente di elasticit\`a del
+pneumatico, $m_1$ \`e la massa della ruota, $m_2$ \`e la massa
+dell'auto, $u$ \`e la superficie stradale. Il modello tralascia
+volutamente la forza di gravit\`a. Lo smorzamento introdotto dalla
+sospensione \`e considerato proporzionale alla velocit\`a di
+variazione dello spostamento relativo tra le due masse, cio\`e a
+$b(\dot{y} - \dot{x})$. Per comodit\`a consideriamo un modello ad
+elementi separati, separando le due masse ed analizzandole singolarmente.
+
+
+Dal punto di vista della della ruota ($m_1$), si hanno tre contributi:
+il contributo della molla $k_w$, che rappresenta l'elasticit\`a del
+pneumatico, \`e diretto verso il suolo; il contributo della molla
+$k_s$ e dello smorzatore $b$ che rappresentano la sospensione e sono
+diretti verso l'automobile.
+
+Dal punto di vista dell'automobile ($m_2$) abbiamo solo i contributi
+della molla $k_s$ e dello smorzatore $b$, entrambi rivolti verso la ruota.
+Il modello complessivo \`e:
+\begin{equation}\label{sospensionem1}
+  k_s(y-x) + b(\dot{y} - \dot{x}) - k_w(x-r) = m_1\ddot{x}
+\end{equation}
+
+\begin{equation}\label{sospensionem2}
+  -k_s(y-x) -b(\dot{y} - \dot{x}) = m_2 \ddot{y}
+\end{equation}
+
+Cerchiamo la funzione di trasferimento del sistema considerando come
+ingresso $r$ e come uscita la sola $y$:
+$$G(s) = \frac{Y(s)}{R(s)}$$
+Dalla \ref{sospensionem1} otteniamo:
+\begin{eqnarray*}
+  \begin{array}{l}
+    k_s(y-x) + bs(y-x) - k_w(x-r) = m_1s^2x\\
+    k_sy - k_sx + bsy - bsx - k_wx + k_wr - m_1s^2x = 0\\
+    k_wr = (k_s + bs + k_w + m_1s^2)x - (k_s +bs)y
+  \end{array}
+\end{eqnarray*}
+Dalla \ref{sospensionem2} otteniamo:
+\begin{eqnarray*}
+  \begin{array}{l}
+    -k_s(y-x) -  bs(\dot{y} - \dot{x}) = m_2s^2y\\
+    (m_2 s^2 +k_s +bs)y - (k_s + bs)x = 0
+  \end{array}
+\end{eqnarray*}
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    k_wr = (k_s + bs + k_w + m_1s^2)x - (k_s +bs)y\\
+    (m_2 s^2 +k_s +bs)y - (k_s + bs)x = 0
+    \end{array}\right .
+\end{eqnarray*}
+La funzione di trasferimento che si ottiene \`e:
+$$\dfrac{Y(s)}{R(s)} = \dfrac{\dfrac{k_wb}{m_1m_2} \left( s +
+  \dfrac{k_s}{b}\right)}{s^4 + \left( \dfrac{b}{m_1} +
+  \dfrac{b}{m_2}\right)s^3 + \left( \dfrac{k_s}{m_1} +
+  \dfrac{k_s}{m_2} + \dfrac{k_w}{m_1}\right)s^2 + \left( \dfrac{k_w
+  b}{m_1 m_2}\right)s + \dfrac{k_w k_s}{m_1 m_2}}$$
+
+Valutiamo ora la rappresentazione in termini di variabili di stato,
+ponendo $x_1 = x$, $x_2 = \dot{x}$, $x_3 = y$, $x_4 = \dot{y}$:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \frac{k_s}{m_1}(x_3 - x_1) + \frac{b}{m_1}(x_4 - x_2)
+    - \frac{k_w}{m_1}(x_1 - r)\\
+    \dot{x_3} = x_4\\
+    \dot{x_4} = \frac{k_s}{m_2}(x_3 - x_1) + \frac{b}{m_2}(x_4 -
+    x_2)\\
+    x = x_1\\
+    Y = x_3
+    \end{array}\right .
+\end{eqnarray*}
+Mentre in termini matriciali, posto:
+\[
+  x = 
+  \begin{bmatrix}
+    x_1\\
+    x_2\\
+    x_3\\
+    x_4
+  \end{bmatrix}
+\]
+possiamo scrivere:
+\[
+  \dot{x} = 
+  \begin{bmatrix}
+    0 & 1 & 0 & 0\\
+    -\frac{k_s - k_w}{m_1} & -\frac{b}{m_1} & \frac{k_s}{m_1} &
+    \frac{b}{m_1}\\
+    0 & 0 & 0 & 1\\
+    -\frac{k_s}{m_2} & \frac{b}{m_2} & -\frac{k_s}{m_2} &
+    -\frac{b}{m_2}
+  \end{bmatrix}x +
+  \begin{bmatrix}
+    0\\
+    \frac{k_w}{m_1}\\
+    0\\
+    0
+  \end{bmatrix}r
+\]
+
+\[
+  \begin{bmatrix}
+    y\\x
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    0 & 0 & 1 & 0\\
+    1 & 0 & 0 & 0
+  \end{bmatrix}x
+\]
+All'equilibrio le derivate sono nulle e si trova che lo stato di
+equilibrio del sistema \`e:
+
+\[
+  \left\{
+  \begin{array}{l}
+    \overline{x_2} = \overline{x_4} = 0\\
+    \overline{x_1} = \overline{x_3} = r
+  \end{array} \right .
+\]
+A corredo del precedente esempio, consigliamo l'esercizio 2.1 di
+pagina 78 del Franklin Powell e relativa soluzione presente nel file
+\url{http://ur1.ca/9fzq} . Un dato importante che emerge dall'analisi
+di questo tipo di sistemi \`e la necessit\`a di valutare singolarmente
+le diverse masse e scegliere accuratamente i sistemi di
+riferimento. Osservando con attenzione la soluzione dell'esercizio del
+Franklin Powell si nota un differente approccio rispetto a quello
+mostrato in questo paragrafo. Ad un'analisi piu' approfondita si
+noter\`a che le soluzioni sono equivalenti. \`E la scelta dei sistemi
+di riferimento che \`e differente.
+\subsubsection{Errori di segno}
+La principale fonte di errori sono i ``segni''. Una volta ottenute le
+equazioni di un sistema stabile non ci resta che controllare i
+segni delle varie variabili. Tutti i segni devono essere
+concordi. Considerando il predente esempio, tutte le variabili
+$\ddot{x}$, $\dot{x}$ ed $x$ hanno segno concorde. Stesso discorso per
+le $\ddot{y}$, $\dot{y}$ e $y$.
+
+\subsection{Moto rotatorio}
+Per il moto rotatorio la Legge di Newton si modifica cos\`i:
+
+\begin{equation}\label{momentodelleforze}
+  M = I \alpha
+\end{equation}
+dove $M$ \`e il {\em momento delle forze}\index{Momento delle forze} applicate al
+sistema (misurato in $N \cdot m$ e spesso indicato alternativamente
+con $\tau$), $I$ \`e il {\em momento di inerzia}\index{Momento di
+  inerzia} del corpo rispetto all'asse di rotazione ($I = mr^2$) ed
+$\alpha$ \`e l'{\em accelerazione
+  angolare}\index{Accelerazione angolare} (misurata in $\frac{rad}{s^2}$).
+% IMMAGINE DI PAGINA 14
+Supponiamo di avere una massa $m$ che si muova nello spazio con
+velocit\`a $\vec{v}$. Definiamo la {\em quantit\`a di
+  moto}\index{Quantit\`a di moto} come:
+\begin{equation}
+  \vec{p} = m \vec{v}
+\end{equation}
+e definiamo la forza come variazione della quantit\`a di moto
+$\Rightarrow \vec{F} = \dfrac{d\vec{p}}{dt}$.
+Si definisce {\em Momento della quantit\`a di moto}\index{Momento
+  della quantit\`a di moto} del punto materiale $m$ rispetto ad un
+riferimento fissato $O$ il vettore $\vec{e}$:
+\begin{equation}
+  \vec{e} \equiv \vec{r^{'}} \times \vec{p}
+\end{equation}
+Supponiamo che su $m$ sia applicata una forza $\vec{F}$; allora
+definiamo il {\em Momento delle forza applicate}\index{Momento delle
+  forza} al punto materiale $m$ come:
+\begin{equation}
+  \vec{\tau} = \vec{r^{'}} \times \vec{F}
+\end{equation}
+Calcoliamo la derivata temporale di $\vec{e}$:
+$$\frac{d \vec{e}}{dt} = \frac{d \vec{r^{'}}}{dt} \times \vec{p} +
+\vec{r^{'}} \times \frac{d \vec{p}}{dt} = \frac{d \vec{r^{'}}}{dt}
+\times \vec{p} = \vec{\tau}$$
+Ma \`e anche vero che:
+$$\vec{r^{'}} = \vec{r} - \vec{r_0} \Rightarrow \frac{d
+  \vec{r^{'}}}{dt} = \frac{d (\vec{r} - \vec{r_0})}{dt} =
+\frac{d\vec{r}}{dt} - \frac{d \vec{r^{'}}}{dt} = \vec{v} -
+\xout{\vec{v_0}} = \vec{v}$$
+$$\Rightarrow \frac{d \vec{e}}{dt} = \xout{\vec{v} \times \vec{p}} +
+\vec{\tau} \Rightarrow \frac{d \vec{e}}{dt} = \vec{\tau}$$
+
+% IMMAGINI DI PAGINA 15
+
+Se invece di un punto materiale, consideriamo un insieme di punti
+materiali ognuno con una sua massa e velocit\`a e su cui agiscono
+delle forze. Detto $i$ il generico punto materiale, supponiamo che
+$m_i$ si muova con velocit\`a $v_i$ e che sia sottoposto ad una forza
+$\vec{F_i}$. Il momento della quantit\`a di moto del punto $i$ sar\`a
+(per ogni $i$):
+$$\frac{d \vec{e_i}}{dt} = \vec{\tau_i}$$
+Sommiamo tutte le equazioni degli $N$ punti materiali:
+$$\sum_{i=1}^{N} \frac{d \vec{e_i}}{dt} = \sum_{i=1}^{N}
+\vec{\tau_i}$$
+La derivazione \`e indipendente dalla operazione di somma, per cui
+``posso invertire e ottengo di nuovo'':
+$$\frac{d \vec{L}}{dt} = \vec{\tau}$$
+Nota: se il numero di punti \`e infinito, si effettua l'integrale
+piuttosto che la somma.
+
+Condideriamo ora un corpo, all'interno di esso consideriamo un
+volumetto infinitesimo $dv$ la cui posizione \`e approssimata a quella
+di $P$, punto interno a $dv$. Nel volumetto $dv$ c'\`e una massa pari
+a: $dm = \mu(p) dv$ dove $\mu(p)$ \`e la densit\`a del corpo. Il
+momento della quantit\`a di moto in questo caso \`e:
+\begin{equation}\label{L}
+\vec{L} = \int_{v} \vec{r_p} \times \mu(p) dv \vec{v}(p)
+\end{equation}
+Supponiamo che il corpo stia ruotando. Se conosciamo l'asse su cui ruota
+possiamo calcolare le componenti del vettore posizione rispetto a
+quell'asse. Per semplicit\`a supponiamo che sia l'asse $y$. Ci sono
+due componenti, una ortogonale e l'altra parallela all'asse:
+$$\vec{v}(p) = \vec{\omega} \times \vec{r_p} = \vec{\omega} \cdot
+(\vec{a_p} + \vec{R_p}) = \xout{\vec{\omega} \times \vec{a_p}} +
+\vec{\omega} \times \vec{R_p}$$
+Nota: dobbiamo considerare solo il contributo ortogonale
+all'asse. Sostituiamo $\vec{v}(p)$ nella \ref{L}:
+$$\vec{L} = \int_v \vec{r_p} \times \mu(p) (\vec{\omega} \times
+\vec{R_p}) dv = \underbrace{\int_v \mu(p) R_p^2 dv}_\text{I} \cdot
+\vec{\omega}$$
+Ma $I = \int_v \mu(p) R_p^2 dv$ \`e il momento di inerzia e quindi
+$\vec{L} = I \vec{omega}$. Derivando, infine, membro a membro
+otteniamo:
+\begin{equation}
+  \frac{d \vec{L}}{dt} = I \frac{d \vec{\omega}}{dt} = \vec{\tau}
+  \Rightarrow \vec{\tau} = I \vec{\alpha}
+\end{equation}
+ottenendo finalmente il principio $F = m \cdot a$ per i moti rotatori
+della \ref{momentodelleforze}.
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=1.0\textwidth]{./images/mototraslatorio-motorotatorio.png}
+  \label{fig:mototraslatorio-motorotatorio}
+  \caption{Moto traslatorio - Moto rotatorio\label{fig:mototraslatorio-motorotatorio}}
+\end{figure}
+
+\subsection{Controllo di un satellite}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/satellite.png}
+  \label{fig:satellite}
+  \caption{Schema di controllo di un satellite\label{fig:satellite}}
+\end{figure}
+
+Le variabili che considereremo sono la propulsione $F_c$, il momento
+delle forze di disturbo $M_D$, la distanza $d$ tra la retta su $F_C$ e
+la retta parallela e passante per il centro di massa e infine $y =
+\theta$, l'uscita.
+La Legge di Newton per il moto
+rotatorio\label{leggedinewtonmotorotatorio} \`e:
+$$M = I \alpha$$
+con $M$ pari alla somma di tutti i momenti esterni, $I$ pari al
+momento di inerzia del corpo e $\alpha$ pari al momento angolare.
+Applicando la legge sul moto rotatorio e considerando
+che sul satellite agisce una forza provocata dalla propulsione che \`e
+una coppia di momento $F_c \cdot d$ e un momento $M_D$ dovuto a forze
+di disturbo, per lo pi\`u la pressione solare sulle superfici
+asimmetriche dei pannelli solari:
+$$F_C \cdot d + M_D = I \ddot{\theta}$$
+Le ipotesi semplificative sono quindi due: il motore che agisce come
+una coppia e il moto in un piano ortogonale all'asse di
+rotazione. L'uscita di questo sistema si ottiene per doppia
+integrazione della somma della coppie di ingresso. Per questa ragione
+questo sistema viene spesso detto {\em doppio
+  integratore}\index{Doppio integratore}. La funzione di trasferimento
+partendo dall'equazione del moto \`e:
+
+\[
+  F_c \cdot M_D = I s^2 \theta \Rightarrow \frac{\theta(s)}{U(s)} =
+  \frac{1}{Is^2} \binom{\textrm{2 ingressi}}{\textrm{1 uscita}}
+\]
+La rappresentazione di stato, posto $x_1 \equiv \theta$ e $x_2 \equiv
+\dot{\theta}$ \`e:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \frac{M_D}{I} + \frac{(F_C \cdot d)}{I}\\
+    y = \theta = x_1
+  \end{array}\right .
+  \Rightarrow
+  \begin{array}{l}
+    \dot{x} = 
+    \begin{bmatrix}
+      0 & 1\\
+      0 & 0
+    \end{bmatrix}x +
+    \begin{bmatrix}
+      0\\
+      \frac{1}{I}
+    \end{bmatrix}u\\
+    y =
+    \begin{bmatrix}
+      1 & 0
+    \end{bmatrix}x
+  \end{array}
+\]
+Per questo sistema non esiste alcun punto di equilibrio. \'E
+deducibile anche dal fatto che manca una qualsiasi forza che si
+opponga ad $F_C$.
+
+\subsection{Disco rotante intorno ad un asse con attrico}\label{par:discorotanteattrito}
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.2\textwidth]{./images/discorotanteattrito.png}
+  \label{fig:discorotanteattrito}
+  \caption{Schema di disco rotante con attrito\label{fig:discorotanteattrito}}
+\end{figure}
+Le variabili del sistema sono: la coppia motrice in ingresso $u$, il
+momendo inerziale $I$, lo spostamento angolare $\theta$ e il coeffiente
+di attrito $B$. L'equazione del moto \`e:
+$$u - B \dot{\theta} = I \ddot{\theta} \;\;\;\textrm{con}\;\;\; I =
+\frac{1}{2} m_D R^2$$
+La rappresentazione di stato \`e:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = x_2 = \dot{\theta}\\
+    \dot{x_2} = -\frac{B}{I}x_2 + \frac{u}{I}\\
+    y = x_1 = \theta
+  \end{array}\right .
+\]
+La funzione di trasferimento \`e:
+\[
+  \begin{array}{l}
+    \ddot{\theta} = -(\frac{B}{I})\dot{\theta} + \frac{u}{y}\\
+    s^2 y = -\frac{B}{I} \cdot sy + \frac{u}{I}\\
+    s^2 y + \frac{B}{I} sy = \frac{u}{I}\\
+    \frac{y}{u}(s^2 + \frac{B}{I}s) = \frac{u}{I} \cdot \frac{1}{u}
+  \end{array}
+\]
+$$G(s) = \frac{1}{I(s^2 + \frac{B}{I}s)} = \frac{1}{s^2 I +sB}$$
+
+\subsection{Disco rotante intorno ad un asse con attrico ed
+  elasticit\`a}
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.2\textwidth]{./images/discorotanteattritoelasticita.png}
+  \label{fig:discorotanteattritoelasticita}
+  \caption{Schema di disco rotante con attrito ed elasticit\`a\label{fig:discorotanteattritoelasticita}}
+\end{figure}
+Consideriamo lo stestto esempio. In questo caso, per\`o, \`e presente
+anche una certa elasticit\`a dell'asse di rotazione, con $k$ costante
+elastica. L'equazione del moto \`e:
+$$u - B\dot{\theta} - k \theta = I \ddot{\theta}$$
+La funzione di trasferimento \`e:
+$$s^2 I \theta = u - s B \theta - k \theta \Rightarrow
+\frac{\theta}{u} = \frac{1}{s^2 I + s B  + k}$$
+Si nota che l'equilibrio \`e del tutto simile a quella del caso
+massa-molla-attrito. Essendo la stessa funzione di trasferimento del
+caso massa-molla-attrito (eq. \ref{massa-molla-attrito}) non \`e
+necessario procedere con le considerazioni sullo stato, l'equilibrio e
+la rappresentazione matriciale.
+
+\subsection{Satellite-Terra}
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/terrasatellite.png}
+  \label{fig:terrasatellite}
+  \caption{Schema di un satellite che ruota intorno alla Terra\label{fig:terrasatellite}}
+\end{figure}
+Le variabili del sistema sono: la Terra $T$, il satellite $S$,
+il versore della direzione tangenziale $i_{\theta}$, il versore
+della direzione radiale $i_r$. Modelliamo le interazioni tra due corpi
+quando uno ruota intorno all'altro (Satellite-Terra). Per semplicit\`a
+supporremo che il satellite si muova sempre lungo un'orbita circolare,
+sempre sullo stesso piano perpendicolare all'asse di rotazione e le
+dimensioni di Terra e satellite siano trascurabili. Questo tipo di
+problema si risolve bene in coordinate cilindriche dove $i_r$
+(direzione radiale) e $i_{\theta}$ (direzione tangenziale) ruotano
+anch'essi. Da ricordare, la {\em Legge di gravitazione
+  universale}\index{Legge di gravitazione universale}:
+$$-k \frac{M_T M_S}{r^2}$$
+e le {\em Relazioni di Poisson}\index{Poisson}:
+\[
+  \left\{
+  \begin{array}{l}
+    \dfrac{di_r}{dt} = \dot{\theta}i_{\theta}\\
+    \dfrac{di_{\theta}}{dt} = - \dot{\theta} i_r
+  \end{array}\right .
+\]
+Detta $P$ la posizione del satellite: $\vec{P} = r i_r$, ricordando
+che $\dot{P} = r \dot{\theta} i_{\theta} + \dot{r}i_r$, derivando due
+volte si ottiene l'accelerazione del satellite:
+$$\ddot{P} = (\ddot{r} - r \dot{\theta}^2)i_r + (r \ddot{\theta} + 2r \dot{\theta})i_{\theta}$$
+Le forze agenti sul satellite sono:
+$$F = \left( -k \dfrac{M_T M_S}{r^2} + u_1 \right)i_r + u_2
+i_{\theta}$$
+Le equazioni del moto lungo i versori $i_r$ e $i_{\theta}$:
+\[
+  M_S (\ddot{r} - r \dot{\theta}^2) = -k \dfrac{M_T M_S}{r^2} + u_1
+\]
+\[
+  M_S (r \ddot{\theta} + 2r \dot{\theta}) = u_2
+\]
+Il modello in forma di stato prevede $x_1 = r$, $x_2 = \dot{r}$, $x_3
+= \theta$ e $x_4 = \dot{\theta}$:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x}_1 = x_2\\
+    \dot{x}_2 = - \dfrac{k M_T}{x_1^2} + x_1 x_4^2 +
+    \dfrac{u_1}{M_S}\\
+    \dot{x}_3 = x_4\\
+    \dot{x}_4 = -2 x_4 + \dfrac{u_2}{x_1}\\
+    y_1 = x_1\\
+    y_2 = x_3
+  \end{array}
+  \right .
+\]
+ANDREBBE INTEGRATO, MA NON RIESCO A TROVARE MATERIALE
+
+\subsection{Pendolo}\label{pendolo}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/pendolo.png}
+  \label{fig:pendolo}
+  \caption{Schema di un pendolo\label{fig:pendolo}}
+\end{figure}
+Supponiamo di avere un pendolo di lunghezza $l$. L'asta del pendolo
+\`e rigida. Alla baste dell'asta c'\`e una massa $m$. \`E presente un
+attrito $B$. Le forze agenti
+sono la forza applicata e la forza peso. Considereremo le componenti
+tangenziali al moto e la componente dovuta all'attrito. Abbiamo che
+l'ascissa curvilinea $s$ \`e pari a $s = l \theta$ e l'accelerazione
+tangenziale \`e pari a $\ddot{s} = l \ddot{\theta}$. L'equazione del
+moto \`e:
+\begin{equation}
+  u cos\theta - mg sin\theta - B \dot{\theta} = m l \ddot{\theta}
+\end{equation}
+cio\`e alla forza $u$ in ingresso si oppongono la gravit\`a (lungo
+l'asse verticale) e l'attrito $B$.
+Scriviamo la rappresentazione di stato ponendo $x_1 = \theta$ e $x_2 =
+\dot{\theta}$:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \dfrac{1}{ml}\;u\;cos{x_1} - \dfrac{B}{ml}\;x_2 -
+    \dfrac{g}{l}\;sin{x_1}
+  \end{array}\right .
+\]
+Ponendo le derivate pari a zero, $x_2 = 0$ e, quindi, i punti di
+equilibrio del sistema sono:
+$$mg\sin{\overline{\theta}} = \overline{u}cos{\overline{\theta}}
+\Rightarrow \overline{\theta} \;arctg
+\left(\frac{\overline{u}}{mg}\right)$$
+Se l'ingresso $\overline{u}$ di equilibrio \`e nullo si ottengono due
+punti di equilibrio:
+$\overline{\theta_1} = 0$ e $\overline{\theta_2} = \pi$.
+
+\subsection{Carro-Ponte}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/carroponte.png}
+  \label{fig:carroponte}
+  \caption{Schema di un carro-ponte\label{fig:carroponte}}
+\end{figure}
+Il Carro-Ponte \`e un sistema complesso che, per\`o, pu\`o essere diviso in due
+sottosistemi che gi\`a abbiamo studiato: il carrello (\ref{carrello})
+ed il pendolo (\ref{pendolo}).
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/carroponte-carrello.png}
+  \label{fig:carroponte-carrello}
+  \caption{Schema di un carro-ponte: dettaglio del carrello\label{fig:carroponte-carrello}}
+\end{figure}
+Per il sottosistema ``carrello'', le equazioni sono quelle gi\`a
+ampiamente discusse:
+\begin{equation}\label{eq:carroponte-carrello}
+  m_t \ddot{x} = u - N - b \dot{x}
+\end{equation}
+con lo spostamento $x$, l'attrito $b$ ed una sconosciuta forza di
+reazione $N$ applicata dal pendolo.
+Per il sottosistema del pendolo, le considerazioni sono leggermente diverse da
+quelle fatte in precedenza poich\`e il fulcro del pendolo non \`e
+fisso rispetto al sistema di riferimento inerziale: vanno considerate,
+quindi, anche la rotazione del pendolo e lo spostamento del suo centro
+di massa.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/carroponte-pendolo-a.png}
+  \label{fig:carroponte-pendolo-a}
+  \caption{Schema di un carro-ponte: dettaglio del pendolo\label{fig:carroponte-pendolo-a}}
+\end{figure}
+La figura \ref{fig:carroponte-pendolo-a} mostra alcune delle
+caratteristiche di questo sottosistema:
+\begin{itemize}
+\item $l \dot{\theta}^2$ \`e la componente accelerazione lungo il
+  pendolo ed \`e detta {\em accelerazione
+    centripeta}\index{Accelerazione centripeta} ed \`e presente in
+  ogni oggetto la cui velocit\`a cambi direzione;
+\item $\ddot{x}$ \`e una componente dell'accelerazione ed \`e una
+  conseguenza del fulcro del pendolo che accelera a causa
+  dell'accelerazione del carrello. Avr\`a sempre la stessa direzione e
+  modulo di quella del carrello;
+\item $l \ddot{\theta}$ \`e il risultato dell'accelerazione angolare
+  del pendolo ed \`e sempre perpendicolare al pendolo stesso.
+\end{itemize}
+Questi risultati possono essere confermati considerando il centro di
+massa del pendolo come un vettore, in riferimento ad un sistema di
+riferimento inerziale, come mostrato in figura \ref{fig:carroponte-pendolo-b}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/carroponte-pendolo-b.png}
+  \label{fig:carroponte-pendolo-b}
+  \caption{Schema di un carro-ponte: dettaglio del pendolo\label{fig:carroponte-pendolo-b}}
+\end{figure}
+La figura \ref{fig:carroponte-pendolo-b} mostra gli assi
+$\hat{i}$ e $\hat{j}$, inerzialmente fissi e il vettore $\vec{r}$ che
+descrive la posizione del centro di massa del pendolo. Il vettore
+$\vec{r}$ pu\`o essere espresso come:
+\[
+  \vec{r} = x \hat{i} + l (\hat{i} sin \theta - \hat{j} cos \theta)
+\]
+Derivando otteniamo:
+\[
+\begin{array}{l}
+  \dot{\vec{r}} = \dot{x} \hat{i} + l \dot{\theta} (\hat{i} cos \theta
+  + \hat{j} sin \theta)\\
+  \ddot{\vec{r}} = \ddot{x} \hat{i} + l \ddot{\theta} (\hat{i} cos
+  \theta + \hat{j} sin \theta) - l \dot{\theta}^2 ( \hat{i} sin \theta
+  - \hat{j} cos \theta)
+\end{array}
+\]
+Abbiamo ottenuto tutte le equazioni del sistema. In teoria potremmo
+applicare le equazioni per il moto traslatorio e rotatorio fino ad
+ottenere tre equazioni in tre incognite: $N$, $P$ e $\theta$. Questo
+sistema di equazioni pu\`o per\`o essere manipolato fino ad arrivare
+ad una sola equazione in $\theta$:
+\begin{equation}\label{eq:carroponte-N}
+  N = m_p \ddot{x} + m_p l \ddot{\theta} cos \theta - m_p l
+  \dot{\theta}^2 sin \theta
+\end{equation}
+Tuttavia possiamo limitare notevolmente i calcoli se applichiamo le
+equazioni perpendicolarmete al pendolo:
+\begin{equation}\label{eq:carroponte-P}
+P sin \theta + N cos \theta - m_p g sin \theta = m_p l \ddot{\theta} +
+m_p \ddot{x} cos \theta
+\end{equation}
+Applicando le equazioni intorno al centro di massa del pendolo
+otteniamo:
+\begin{equation}\label{eq:carroponte-I}
+  - P l sin \theta - N l cos \theta = I \ddot{\theta}
+\end{equation}
+Combinando la \ref{eq:carroponte-N} e la \ref{eq:carroponte-carrello} otteniamo:
+\begin{equation}
+  (m_t + m_p) \ddot{x} + b \dot{x} + m_p l \ddot{\theta} cos \theta -
+  m_p l \dot{\theta}^2 sin \theta = u
+\end{equation}
+Combinando la \ref{eq:carroponte-P} e la \ref{eq:carroponte-I}
+otteniamo:
+\begin{equation}
+  (I + m_p l^2) \ddot{x} + m_p g l sin \theta = - m_p l \ddot{x} cos \theta
+\end{equation}
+Entrambe le equazioni sono non-lineari e vanno linearizzate per
+piccoli spostamenti ($\theta = 0$). Supponiamo che $cos \theta
+\cong 1$, $sin \theta \cong 0$ e $\dot{\theta}^2 \cong
+0$. In questo modo le equazioni diventano:
+\begin{equation}\label{eq:carroponte-nonlineare}
+  \left\{
+  \begin{array}{l}
+    ( I + m_p l^2) \ddot{\theta} + m_p g l \theta = - m_p l \ddot{x}\\
+    (m_t + m_p) \ddot{x} + b \dot{x} + m_p l \ddot{\theta} = u
+  \end{array}
+  \right .
+\end{equation}
+Trascurando l'attrito otteniamo la funzione di trasfermimento:
+\begin{equation}
+  \dfrac{\Theta(s)}{U(s)} = \dfrac{- m_p l}{((I + m_p l^2)(m_t + m_p)
+    - m_p^2 l^2)s^2 + m_p g l (m_t + m_p)}
+\end{equation}
+
+\subsubsection{Pendolo inverso}\index{Pendolo inverso}
+Nel caso del pendolo inverso, cio\`e considerando un carrello che si
+muove su un piano e il fulcro del pendolo posto sul carrello le
+considerazioni da fare sono diverse. Quando, in precedenza, abbiamo
+assunto che $\theta \cong \pi$ assumiamo ora $\theta \cong \pi +
+\theta'$, con $\theta'$ pari al movimento verso l'alto. In questo
+caso, $cos \theta \cong -1$ e $sin \theta \cong - \theta'$ trasformano
+la \ref{eq:carroponte-nonlineare} in:
+\begin{equation}\label{eq:carroponte-pendoloinverso}
+  \left\{
+  \begin{array}{l}
+    ( I + m_p l^2) \ddot{\theta'} - m_p g l \theta' = m_p l \ddot{x}\\
+    (m_t + m_p) \ddot{x} + b \dot{x} - m_p l \ddot{\theta'} = u
+  \end{array}
+  \right .
+\end{equation}
+Come detto in precedenza, un sistema stabile ha sempre segni concordi
+per le stesse variabili. Nelle equazioni precedenti notiamo che
+$\theta'$ e $\ddot{\theta'}$ hanno segno opposto; ci\`o indica
+``instabilit\`a'', che \`e la caratteristica principale del pendolo
+inverso. La funzione di trasferimento, nuovamente ignorando l'attrito,
+\`e: 
+\begin{equation}
+   \dfrac{\Theta'(s)}{U(s)} = \dfrac{m_p l}{((I + m_p l^2) - m_p^2
+     l^2) s^2 - m_p g l (m_t + m_p)}
+\end{equation}
+
+
+\section{Scambio termico}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{./images/scambiotermico01.png}
+  \caption{Scambio termico\label{fig:scambiotermico01}}
+\end{figure}
+Abbiamo due ambienti separati da una parete, la quale lascia passare
+il calore. La quantit\`a di calore $q$ che viene scambiata attraverso
+la parete \`e:
+\begin{equation}
+  q = \frac{1}{R} (T_1 - T_2)
+\end{equation}
+$R$ \`e la resistenza termica della parete, $T_1$ \`e la temperatura
+dell'ambiente 1 e $T_2$ quella dell'ambiente 2. Se $T_1 > T_2$, il flusso
+di calore si muove dall'ambiente $1$ all'ambiente $2$. In generale
+questa relazione vale nel caso in cui il passaggio di calore non
+modifichi in modo significativo la temperatura. Per la variazione di
+temperatura $\Delta T$ si pu\`o fare riferimento ad un'altra relazione:
+
+\begin{equation}
+\dot{T} = \frac{1}{C}q
+\end{equation}
+con $C$ capaticit\`a termica. La capaticit\`a termica \`e quel flusso
+di calore necessario da applicare in ingresso ad un sistema per
+determinare una variazione unitaria della temperatura.
+
+\subsection{Temperatura in una stanza}
+Consideriamo una stanza con tutti i lati isolati tranne due, i quali
+scambiano calore con l'esterno. Detta $T_i$ la temperatura interna,
+$T_o$ quella esterna e $C$ la capaticit\`a termica dell'aria
+all'interno della stanza, si ha:
+\begin{equation}
+  \dot{T} = \frac{1}{C} \left[ \frac{1}{R_1}(T_o - T_i) +
+    \frac{1}{R_2}(T_o - T_i) \right] 
+\end{equation}
+dove $R_1$ ed $R_2$ sono pari alle resistenze delle pareti al passaggio del
+calore, $q_{in}$ \`e la quantit\`a di calore che la stanza
+``acquista'', $q_{out}$ \`e la quantit\`a di calore che la stanza ``cede''
+ad un ambiente pi\`u freddo. L'esercizio 2.25 del Franklin-Powell offre un interessante
+esempio di applicazione di questi concetti. Il cardine di tutta
+la risoluzione \`e l'analisi del comportamento del calore in relazione
+ad ogni singola parete. Il calore muove sempre dall'ambiente pi\`u caldo all'ambiente
+pi\`u freddo. Va, quindi, valutata la temperatura interna della stanza
+e valutata l'eventualit\`a che la stanza sia collegata ad una stanza
+pi\`u fredda o pi\`u calda, cio\`e che ``ceda'' o ``acquisti'' calore.
+
+\subsection{Fluidi che si mescolano}
+Il calore pu\`o anche fluire quando una massa pi\`u calda si mescola
+con una pi\`u fredda. In questo caso:
+\begin{equation}
+  q = W C_s (T_1 - T_2)
+\end{equation}
+con $C_s$ calore specifico a volume costante e $W$ portata ponderale a
+temperatura $T_1$ che flusce nel serbatoio a $T_2$.
+
+\section{Esempi dalle prove d'esame}
+\subsection{Sistema di riscaldamento elettrico}
+Si supponga che un sistema di riscaldamento elettrico sia
+schematizzabile come in figura \ref{fig:esempio01}: la tensione $v$
+alimenta il circuito di riscaldamento e la potenza dissipata sul
+resistore $R_2$ \`e integralmente trasformata in flusso di calore
+immesso nell'ambiente $A$, il quale, a sua volta, pu\`o scambiare
+calore con l'ambiente esterno attraverso la parete $S$. Assunto che:
+\begin{itemize}
+  \item[a)] $T$ indichi la temperatura interna dell'ambiente $A$, $T_E$
+  quella dell'ambiente esterno, $C_T$ sia la capacit\`a termica del
+  flusso in $A$ ed $r$ la resistenza termica della parete $S$;
+  \item[b)] il calore scambiato tra l'ambiente $A$ e l'ambiente
+    esterno attraverso $S$ non modifichi sensibilmente $T_E$ (in altre
+    termini, si consideri $T_E$ costante);
+  \item[c)] il resistore $R_2$ abbia resistenza elettrica dipendente
+    dalla temperatura secondo la legge: $R_2 = R_0 + \alpha \cdot T$;
+  \item[d)] la relazione tra flusso di calore $q$ e potenza $p$ sia $q
+    = b \cdot p$ con $b$ costante nota;
+\end{itemize}
+
+Si chiede di:
+\begin{itemize}
+\item fornire una rappresentazione i-s-u per il sistema assegnato;
+\item determinare il valore della tensione di alimentazione $v$
+  (supposto $> 0$) da assegnare affinch\`e la temperatura in $A$
+  rimanga in equilibrio al valore $T = 10^{\circ}C$;
+\item linearizzare il modello sopra determinato intorno al punto di
+  equilibrio sopra calcolato;
+\end{itemize}
+$[R_0 = 1 k\Omega; R_1 = 9 k\Omega; \alpha = 2 kW/^{\circ}C; C = 1 mF; C_T = 1
+  cal/^{\circ}C; r = 2 ^{\circ}C \cdot sec/cal; T_E= 4 ^{\circ}C; b = 1
+  cal/J]$
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/esempio01.png}
+  \label{fig:esempio01}
+  \caption{Sistema di riscaldamento elettrico\label{fig:esempio01}}
+\end{figure}
+
+\subsubsection{Equazioni del circuito}
+\[
+v = v_1 + v_2 = R_1(i_C + i_2) + v_2 = R_1 \left(C \frac{dv_2}{dt} +
+\frac{v_2}{R_2}\right) + v_2
+\]
+\[
+  v = R_1C\dot{v_2} + \left( \frac{R_1}{R_2} + 1\right)v_2 \Rightarrow
+  \dot{v_2} = - \left( \frac{1}{R_1C} + \frac{1}{R_2C}\right)v_2 + \frac{1}{R_1C}v
+\]
+Essendo $R_2 = R_0 + \alpha T$ si ha:
+\[
+  \dot{v_2} = - \left( \frac{1}{R_1C} + \frac{1}{C(R_0 + \alpha T)}\right)v_2 + \frac{1}{R_1C}v
+\]
+
+\subsubsection{Equazioni di scambio termico}
+\[
+  \begin{array}{ll}
+    \dot{T} = \frac{1}{C_T} (q_{in} - q_{out}) &  \\
+    q_{in} = b i_2 v_2 = b \frac{v_2^2}{R_2} = \frac{b v^2}{R_0 +
+      \alpha T} & \textrm{Flusso di calore in ingresso}\\
+    q_{out} = \frac{1}{r}(T - T_E) & \textrm{Flusso di calore in
+      uscita}\\
+     & \\
+    \dot{T} = \frac{b}{C_T} \cdot \frac{v_2^2}{R_0 + \alpha T} -
+    \frac{1}{C_T r}T + \frac{1}{C_T r}T_E & 
+  \end{array}
+\]
+\\
+Posto: $x = v_1$ ; $v_2 = T$ ; $u = v$ ; $y = T$ si ha:
+\[
+  \begin{array}{l}
+    \dot{x_1} = - \left( \frac{1}{R_1C} + \frac{1}{C R_0 + \alpha C
+      x_2}\right)x_1 + \frac{1}{R_1 C}u\\
+    \dot{x_2} = \frac{b}{C_T} \frac{x_1^2}{R_0 + \alpha x_2} -
+    \frac{1}{C_T r}x_2 + \frac{1}{C_T r}T_E\\
+    y = x_2
+  \end{array}
+\]
+Sostituendo ai parametri i valori numerici assegnati si ha:
+\[
+  (S)
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = - \left( \frac{1}{9} + \frac{1}{1 + 2x_2}\right)x_1 + \frac{1}{9}u\\
+    \dot{x_2} = \frac{x_1^2}{1 + 2x_2} - \frac{1}{2}x_2 + 2\\
+    y = x_2
+  \end{array}
+  \right .
+\]
+\\
+Affinch\`e la temperatura $T = x_2$ sia in equilibrio a $10 ^{\circ}C$
+deve essere soddisfatto l'equilibrio:
+
+\[
+  \begin{array}{ll}
+    (1) & 0 = - \left( \frac{1}{9} + \frac{1}{1 + 2x_2}\right)x_1 +
+    \frac{1}{9}u\\
+    (2) & 0 = \frac{x_1^2}{1 + 2x_2} - \frac{1}{2}x_2 + 2\\
+  \end{array}
+\]
+Sostituendo $x_2 = 10 ^{\circ}C$ si ha dalla (2):
+\[
+  \frac{\overline{x_2}^2}{21} - 5 + 2 = 0 \Rightarrow \overline{x_2}^2
+  = 63 \Rightarrow \overline{x_1} = 
+  \left\{
+  \begin{array}{l}
+    -3 \sqrt{7}\\
+    +3 \sqrt{7}
+  \end{array} \right .
+\]
+Dalla (1) invece si ha: $$\overline{u} = \left(1 +
+\frac{9}{21}\right)\overline{x_1}$$
+Poich\`e deve essere $\overline{u} > 0$, si ha: $$ \overline{u} =
+\frac{30}{21} \cdot (+3\sqrt{7}) = \frac{30}{\sqrt{7}}$$
+Si procede quindi alla Linearizzazione del sistema (S) intorno al
+punto di equilibrio sopra determinato $(\overline{x_1},
+\overline{x_2}, \overline{x_3}) = \left(+3\sqrt{7}, +10, \frac{30}{\sqrt{7}}\right)$
+
+\[
+  \left\{
+  \begin{array}{l}
+    \delta \dot{x_1} = - \left( \frac{1}{9} + \frac{1}{1 +
+      2\overline{x}_2}\right)\delta x_1 + \frac{1}{(1 +
+      2\overline{x}_2)^2}\delta x_2 + \frac{1}{9} \delta u\\
+    \delta \dot{x_2} = \frac{2 \overline{x}_1}{1 + 2 \overline{x}_2}
+    \delta x_1 + \left( - \frac{2 \overline{x}_1^2}{(1 + 2
+      \overline{x}_2)^2} - \frac{1}{2} \right) \delta x_2\\
+    \delta y = \delta x_2
+  \end{array}
+  \right .
+\]
+
+\subsection{Serbatoio su carrello con molla e smorzatore}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/esempio02.png}
+\caption{Serbatoio su carrello con molla e smorzatore\label{fig:esempio02}}
+\end{figure}
+Si fornisca una rappresentazione i-s-u per il sistema riportato in
+figura \ref{fig:esempio02}. Esso \`e costituito da un serbatoio con area
+di base $A$ posto su un carrello di massa trascurabile. Il
+collegamento tra la parete ed il serbatoio avviene mediante una molla
+lineare (di costante elastica $k_1$) ed un ammortizzatore lineare (di
+costante $b_1$). Il serbatoio \`e sottoposto alla forza di trazione
+$F$. Si supponga che:
+\begin{itemize}
+\item nel serbatoio sia immesso un fluido avente densit\`a $\rho$ con
+  portata massica $\omega_{in}$. Lo stesso fluido fuoriesca in
+  condizioni di moto turbolento dall'orifizio con resistenza idrica
+  $R$;
+\item la forza $F$ sia l'uscita del sistema rappresentato in
+  figura \ref{fig:esempio02-2} mediante schema a blocchi;
+\item l'effetto del moto traslatorio sia trascurabile sia sulla
+  fuoriuscita del fluido che sulla sua distribuzione all'interno del
+  serbatoio; 
+\item nello schema di figura \ref{fig:esempio02-2}, $G_1$ e $G_2$ siano
+  due costanti di guadagno;
+\item l'uscita del sistema complessivo sia lo spostamento dell'insieme
+  carrello+serbatoio.
+\end{itemize}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/esempio02-2.png}
+\caption{Serbatoio su carrello con molla e smorzatore\label{fig:esempio02-2}}
+\end{figure}
+
+\subsubsection{Soluzione}
+\begin{itemize}
+\item Equazioni del serbatoio
+  \[
+    \begin{array}{l}
+      \dot{h} = \frac{1}{\rho A} \left( \omega_{in} -
+      \frac{1}{R}\sqrt{\rho g h} \right)\\
+      m = \rho A h
+    \end{array}
+    \]
+  con $m$ pari alla massa del liquido
+  nel serbatoio; la massa \`e uguale, per le ipotesi fatte, alla massa
+  del sistema carrello+serbatoio.
+\item Equazioni del moto del carrello
+  \[
+    \begin{array}{l}
+      m \ddot{y} = F - k_1 y - b_1 \dot{y}\\
+      m = \rho A h
+    \end{array}
+    \]
+\item Equazioni del sistema generante la forza di trazione $F$
+  \[
+    \dot{F} = \sqrt[3]{G_1 h - y} -
+    G_2 \dot{y}
+  \]
+\end{itemize}
+Poniamo come variabili di stato $x_1 = h$; $x_2 = y$; $x_3 = \dot{y}$;
+$x_4 = F$. Scegliamo come ingresso $u = \omega_{in}$. Scegliamo come
+uscita $w = y$. Otteniamo la seguente rappresentazione I-S-U:
+{\Large\[
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = \frac{1}{\rho A} \left( -\frac{1}{R} \sqrt{\rho g x_1}
+    + u\right)\\
+    \dot{x_2} = x_3\\
+    \dot{x_3} = - \frac{k_1}{\rho A} \cdot \frac{x_2}{x_1} -
+    \frac{b_1}{\rho A} \cdot \frac{x_3}{x_1} + \frac{x_4}{\rho A
+      x_1}\\
+    \dot{x_4} = \sqrt[3]{G_1 x_1 - x_2} - G_2 x_3\\
+    w = x_2
+  \end{array}
+  \right .
+\]
+}
+
+\subsubsection{Esempio}
+Dato il sistema avente rappresentazione di stato:
+{\Large
+  \[
+    \left\{
+      \begin{array}{l}
+        \dot{x_1} = -3x_2 + x_1x_3\\
+        \dot{x_2} = lnx_1 + 5u\\
+        \dot{x_3} = -4x_3 + \frac{x_1}{x_2} - u
+      \end{array}
+    \right .
+    \]
+}
+Si determinano i punti di equilibrio del sistema per $ u =
+\overline{u}$:
+{\large
+  \[
+    \left\{
+      \begin{array}{l}
+        -3\overline{x}_2 + \overline{x}_1\overline{x}_3 = 0\\
+        ln\overline{x}_1 + 5\overline{u} = 0\\
+        -4\overline{x}_3 + \frac{\overline{x}_1}{\overline{x}_2} - \overline{u}
+      \end{array}
+    \right .
+    \Leftrightarrow
+    \left\{
+    \begin{array}{l}
+      \overline{x}_1 = e^{-5\overline{u}}\\
+      \overline{x}_2 = \frac{1}{3}\overline{x}_3 e^{-5\overline{u}}\\
+      -4\overline{x}_3 + \frac{3}{\overline{x}_3} - \overline{u} = 0
+    \end{array}
+    \right .
+    \begin{array}{l}
+      \\
+      \Leftrightarrow\\
+      \textrm{assumendo}\\
+       \overline{x}_3 = 0
+    \end{array}
+    \left\{
+    \begin{array}{l}
+      \overline{x}_1 = e^{-5\overline{u}}\\
+      \overline{x}_2 = \frac{1}{3}\overline{x}_3 e^{-5\overline{u}}\\
+      4\overline{x}_3^2 + \overline{x}_3 \overline{u} - 3 = 0
+    \end{array}
+    \right .
+    \]
+}
+Si calcolano le radici di $\overline{x}_3$ e sostituendo $\overline{u}
+= 1$ si hanno i due punti di equilibrio:
+\[
+  P_1 = \begin{pmatrix}
+    e^{-5}\\
+    -\frac{1}{3} e^{-5}\\
+    -1
+  \end{pmatrix}
+  \;\;\;\;
+  P_2 = \begin{pmatrix}
+    e^{-5}\\
+    \frac{1}{4} e^{-5}\\
+    \frac{3}{4}
+  \end{pmatrix}
+\]
+Si linearizza intorno al punto di equilibrio $P_2$ e per ingresso
+$\overline{u} = 1$:
+{\Large
+\[
+  \left\{
+  \begin{array}{l}
+    \delta \dot{x_1} = \overline{x}_3 \cdot \delta x_1 - 3 \delta x_2
+    + \overline{x}_1 \delta x_3\\
+    \delta \dot{x_2} = \frac{1}{\overline{x}_1}\delta x_1 + 5 \delta
+    u\\
+    \delta \dot{x_3} = \frac{1}{\overline{x}_2} \delta x_1 -
+    \frac{\overline{x}_1}{\overline{x}_2^2} \delta x_2 - 4 \delta x_3
+    - \delta u
+  \end{array}
+  \right .
+\]
+}
+dove si \`e posto:
+\[
+  \left\{
+  \begin{array}{l}
+    \delta x_1 = x_1 - \overline{x}_1\\
+    \delta x_2 = x_2 - \overline{x}_2\\
+    \delta x_3 = x_3 - \overline{x}_3\\
+    \delta u = u - \overline{u}
+  \end{array}
+  \right .
+\]
+
+\subsection{Circuito elettrico con componente non-lineare}
+Si fornisca una rappresentazione i-s-u per il sistema riportato in
+Fig. \ref{fig:esempio03}, nell'ipotesi che la tensione ai capi
+$1 \rightarrow 2$ sia scelta dall'utente e quella ai capi $3
+\rightarrow 4$ debba essere
+valutata. Si supponga che il componente non-lineare $NL$ abbia la
+rappresentazione ingresso-uscita rappresentata in Fig. \ref{fig:esempio03-2}.
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/esempio03.png}
+\caption{Circuito elettrico con componente non-lineare\label{fig:esempio03}}
+\end{figure}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/esempio03-2.png}
+\caption{Circuito elettrico con componente non-lineare\label{fig:esempio03-2}}
+\end{figure}
+
+\subsubsection{Soluzione}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.7\textwidth]{./images/esempio03-3.png}
+\caption{Circuito elettrico con componente non-lineare - Soluzione\label{fig:esempio03-3}}
+\end{figure}
+\[
+  \begin{array}{l}
+    v_c = v_2\\
+    v_L = L \dfrac{di_l}{dt}\\
+    i_2 = \dfrac{v_C}{R_2}\\
+    i_1 = \dfrac{v_1}{R_1}\\
+    i_1 = i_c + i_2 + i_L
+  \end{array}
+\]
+Ecco le equazioni di Kirchhoff alla prima maglia:
+\[
+  u = v_1 + v_C = R_1i_1 + v_c = R_1 (i_c + i_2 + i_L) + v_C = R_1C
+  \dfrac{dv_C}{dt} + \dfrac{R_1}{R_2}v_C + R_1i_L + v_C
+\]
+Le equazioni di Kirchhoff alla seconda maglia:
+\[
+v_c = v_L + y = L \dfrac{di_L}{dt} + y
+\]
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.7\textwidth]{./images/esempio03-4.png}
+\caption{Circuito elettrico con componente non-lineare - Soluzione\label{fig:esempio03-4}}
+\end{figure}
+Lo schema di figura \ref{fig:esempio03-4} ci fornisce la seguente
+equazione:
+\[
+  \dfrac{dy}{dt} = e^{i_L} + \alpha \sqrt[3]{y - K \sqrt{i_L^3}} - 3y^2
+\]
+Ponendo $x_1 = v_c$ , $x_2 = i_L$ , $x_3 = y$ si perviene ad una
+rappresentazione I-S-U.
+
+\subsection{Circuito elettrico con componente non-lineare}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.8\textwidth]{./images/esempio04.png}
+\caption{Circuito elettrico con componente non-lineare\label{fig:esempio04}}
+\end{figure}
+Dato il circuito in figura \ref{fig:esempio04} con $L = 10^{-4}H$, $C
+= 10^{-3}F$, $R = 104\Omega$ . L'impedenza $Z$ \`e non lineare. La
+corrente $i_z$ \`e in funzione della tensione $v_z = y$ secondo la
+seguente legge: $$i_z = G (v_z^3 - 5v_z )$$ con $G = 10^{-4}$. \\
+Determinare:
+\begin{itemize}
+\item una rappresentazione i-s-u del sistema.
+\item gli stati di equilibrio per ingresso nullo $u = 0$
+\item il tipo di stabilit\`a degli stati di equilibrio.
+\end{itemize}
+
+\subsubsection{Soluzione}
+\[
+  \begin{array}{l}
+    x_1 = i_L\\
+    x_2 = v_C = v_Z\\
+    Y = x_2
+  \end{array}
+\]
+\[
+  \begin{array}{l}
+    x_1 - C\dot{x}_2 - G(x_2^3 - 5 x_2) = 0\\
+    u = R x_1 + L \dot{x}_1 + x_2
+  \end{array}
+  \Rightarrow
+  \begin{array}{l}
+    \dot{x}_1 = - \dfrac{R}{L}x_1 - \dfrac{1}{L}x_2 + \dfrac{1}{L}u\\
+    \dot{x}_2 = \dfrac{1}{C}x_1 - \dfrac{G}{C}(x^3_2 - 5x_2)\\
+    y = x_2
+  \end{array}
+\]
+Tre stati di equilibrio:
+\[
+  \begin{array}{l}
+    0 = - \dfrac{R}{L}x_1 - \dfrac{1}{L}x_2\\
+    0 = \dfrac{1}{C}x_1 - \dfrac{G}{C}(x^3_2 - 5x_2)\\
+    y = x_2
+  \end{array}
+  \Rightarrow
+  \begin{array}{l}
+    0 = Rx_1 - x_2\\
+    0 = x_1 - G(x^3_2 - 5x_2)\\
+    y = x_2
+  \end{array}
+  \Rightarrow
+  \begin{array}{l}
+    x_1 = - \dfrac{1}{R}x_2
+    0 = - \dfrac{1}{R}x_2 - \dfrac{G}{C}(x^3_2 - 5x_2)\\
+    y = x_2
+  \end{array}
+\]
+\[
+  \begin{array}{l}
+    x_1 = - 10^{-4} x_2
+    0 = x_2 - (x^3_2 - 5x_2) = x^3_2 - 4x_2\\
+    y = x_2
+  \end{array}
+  \Rightarrow
+  \begin{array}{l}
+    \overline{x_1} = 
+        \begin{bmatrix}
+          -2 \cdot 10^{-4}\\ 2
+        \end{bmatrix}\\
+    \overline{x_2} =
+        \begin{bmatrix}
+          2 \cdot 10^{-4}\\ -2
+        \end{bmatrix}\\
+    \overline{x_3} =
+    \begin{bmatrix}
+      0\\
+      0
+    \end{bmatrix}
+  \end{array}
+  \begin{array}{l}
+  \overline{y}_1 = 2\\
+  \overline{y}_2 = -2\\
+  \overline{y}_3 = 0
+  \end{array}
+\]
+\[
+  \delta\dot{x} =
+  \left .
+  \begin{bmatrix}
+    - \dfrac{R}{L} & - \dfrac{1}{L}\\ \dfrac{1}{C} & -
+    \dfrac{G}{C}\left(3 x_2^2 - 5\right)
+  \end{bmatrix}
+  \right |_{x = \overline{x}} \delta x + \begin{bmatrix} \dfrac{1}{L}
+    \\ 0 \end{bmatrix} \delta u
+\]
+
+\[
+  \begin{bmatrix}
+    \lambda + \dfrac{R}{L} & \dfrac{1}{L}\\
+    - \dfrac{1}{C} & \lambda + \dfrac{G}{C}\left(3 x_2^2 - 5\right)
+  \end{bmatrix}
+\]
+Si calcola il determinante della matrice e i relativi autovalori per i
+diversi valori di $x_2$. Per $x_2 = 0$ si hanno un polo positivo ed
+uno negativo: ``il punto di equilibrio \`e instabile''. Sostituendo,
+invece, $x_2 \pm 2$ si hanno due poli negativi che ci portano ad un
+``sistema asintoticamente stabile''.
+
+\subsection{Forza elettromotrice - Coppia - Pendolo}
+Linearizzare il sistema intorno al punto di equilibrio trovato per $u
+= V = 10$ con i seguenti valori dei parametri: $R=10\Omega$, $L=0.2H$,
+$k=9.8\dfrac{N \cdot m}{A}$, $b~=~0.1\dfrac{N \cdot m \cdot s}{rad}$,
+$m=1kg$, $l=1m$, $g = 9.8\dfrac{m}{s^2}$ .
+Si commenti in poche righe il significato fisico del punto di
+equilibrio trovato. (Si ricordi che la costante di coppia, $k$ , lega
+la forza contro-elettromotrice $e$ alla velocit\`a angolare del motore
+e la coppia motrice $C_m$ alla corrente di alimentazione).
+
+\subsubsection{Soluzione qualitativa}
+\[
+  \begin{array}{l}
+    L \dfrac{di}{dl} = v - Ri - k \dot{\theta}\\
+    ki - b \dot{\theta} - mgl~sin{\theta} = m l^2 \theta
+  \end{array}
+\]
+\[
+  \left\{
+  \begin{array}{l}
+    x_1 = i\\
+    x_2 = \theta\\
+    x_3 = \dot{\theta}
+  \end{array}
+  \right .
+\]
+La rappresentazione in forma di stato \`e: 
+\[
+  \left\{
+  \begin{array}{l}
+    L \dot{x}_1 = v - Rx_1 - kx_3\\
+    m l^2 x_3 = kx_1 - bx_3 - mgl~sinx_2\\
+    \dot{x}_2 = x_3\\
+    y = x_2\\
+    (u = v)
+  \end{array}
+  \right .
+\]
+Punto di equilibrio:
+\[
+  \left\{
+  \begin{array}{l}
+    \overline{x}_1 = \dfrac{\overline{u}}{R}\\
+    sin(\overline{x}_2) = \dfrac{k \overline{u}}{mglR}\\
+    \overline{x}_3 = 0
+  \end{array}
+  \right .
+  \Rightarrow
+  \overline{x}_e = 
+        \begin{pmatrix}
+        1\\
+        \dfrac{\pi}{2}\\
+        0
+        \end{pmatrix}
+\]
+\[
+  A_{linearizzato} = 
+  \begin{pmatrix}
+    -\dfrac{R}{L} & 0 & \dfrac{k}{L}\\
+    0 & 0 & 1\\
+  \dfrac{k}{ml^2} & -\dfrac{g}{l}~cos\overline{x}_2 & -\dfrac{b}{ml^2}
+  \end{pmatrix}
+\]
+\[
+  B_{linearizzato} =
+  \begin{pmatrix}
+    \dfrac{1}{L}\\
+    0\\
+    0
+  \end{pmatrix}
+  C_{linearizzato} =
+  \begin{pmatrix}
+    0 & 1 & 0
+  \end{pmatrix}
+\]
+
+\subsection{Scambio termico}
+Si consideri un ambiente suddiviso in 4 aree (stanze), come riportato
+in Fig. \ref{fig:esempio06}, ciascuna a temperatura $T_i$ e con
+capacit\`a termica $C_i$, $i=1,2,3,4$. Sia, invece, $T_0$ la
+temperatura ed infinita la capacit\`a termica all'esterno. Lo scambio
+termico tra i vari ambienti e l'esterno avvenga lungo le pareti
+tratteggiate secondo le resistenze termiche $R_i$, $i=0,1,2,3,4$. Si
+supponga che all'interno del primo ambiente sia posizionata una stufa
+$S$ che eroga un flusso di calore $q$. Assumendo di schematizzare la
+stufa come il circuito in Fig. \ref{fig:esempio06-2}, sia $q$
+proporzionale alla potenza dissipata sulla resistenza $R_e$.
+Nell'ipotesi che $T_4$ sia l'uscita e $V$ l'ingresso, si richiede una
+rappresentazione i-s-u per il sistema complessivo in
+Fig. \ref{fig:esempio06} e \ref{fig:esempio06-2}.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.6\textwidth]{./images/esempio06.png}
+\caption{Scambio termico\label{fig:esempio06}}
+\end{figure}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.6\textwidth]{./images/esempio06-2.png}
+\caption{Scambio termico\label{fig:esempio06-2}}
+\end{figure}
+\subsubsection{Soluzione}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.6\textwidth]{./images/esempio06-3.png}
+\caption{Scambio termico - Soluzione\label{fig:esempio06-3}}
+\end{figure}
+Parte elettrica:
+\[
+  \begin{array}{l}
+    v = v_{R_S} + v_C = R_s i_{R_s} + v_c\\
+    i_{R_s} = i_c + i_e = C \dfrac{dv_c}{dt} + \dfrac{v_e}{R_e}\\
+    v_c = v_e\\
+    v = R_s \left( C \dfrac{dv_c}{dt} + \dfrac{v_c}{R_e}\right) + v_c
+  \end{array}
+\]
+Parte termica:
+\[
+  q = b \cdot \dfrac{v_e^2}{R_e^2}
+\]
+con $b>0$: costante di proporzionalit\`a.
+
+\[
+  \begin{array}{l}
+    \dot{T}_1 = \dfrac{1}{C_1} \left[ q + \dfrac{1}{R_4}(T_4 - T_1) +
+      \dfrac{1}{R_1}(T_2 - T_1)  \right]\\
+    \dot{T}_2 = \dfrac{1}{C_2} \left[ \dfrac{1}{R_1}(T_1 - T_2) +
+      \dfrac{1}{R_2}(T_3 - T_2) + \dfrac{1}{R_0}(T_0 - T_2) \right]\\
+    \dot{T}_3 = \dfrac{1}{C_3} \left[ \dfrac{1}{R_3}(T_4 - T_3) +
+      \dfrac{1}{R_2}(T_3 - T_2)  \right]\\
+    \dot{T}_4 = \dfrac{1}{C_4} \left[ \dfrac{1}{R_3}(T_4 - T_3) +
+      \dfrac{1}{R_4}(T_4 - T_1)  \right]\\
+  \end{array}\\
+\]
+Posto:
+$x_1 = T_1$, $x_2 = T_2$, $x_3 = T_3$, $x_4 = T_4$, $x_5 = v_c$, $u =
+v$, $y = T_4$ si ottiene la rappresentazione I-S-U del sistema
+considerato:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x}_1 = \dfrac{1}{C_1} \left[ b \cdot \dfrac{x_5^2}{R_e^2} +
+      \dfrac{1}{R_4}(x_4 - x_1) + \dfrac{1}{R_1}(x_2 - x_1) \right]\\
+    \dot{x}_2 = \dfrac{1}{C_2} \left[ \dfrac{1}{R_1}(x_1 - x_2) +
+      \dfrac{1}{R_2}(x_3 -x_2) + \dfrac{1}{R_0} (T_0 - x_2)  \right]\\
+    \dot{x}_3 = \dfrac{1}{C_3} \left[ \dfrac{1}{R_3}(x_4 - x_3) -
+      \dfrac{1}{R_2}(x_3 - x_2) \right]\\
+    \dot{x}_4 = \dfrac{1}{C_4} \left[ \dfrac{1}{R_3}(x_4 - x_3) +
+      \dfrac{1}{R_4}(x_4 - x_1) \right]\\
+    \dot{x}_5 = \dfrac{u}{R_s C} - \dfrac{R_s + R_e}{R_s R_e C}x_5\\
+    y = x_4
+  \end{array}
+  \right .
+\]
+La capacit\`a termica all'esterno si pu\`o supporre infinita,
+quindi $T_0$ pu\`o considerarsi costante.
+
+\subsection{Amplificatore}
+Determinare il modello in forma di stato del sistema complessivo
+formato dalla serie del Sistema $1$ e del Sistema $2$ rappresentati in
+figura ($V_{out}=V_{1_{in}}$).
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.8\textwidth]{./images/esempio07.png}
+\caption{Amplificatore\label{fig:esempio07}}
+\end{figure}
+\[
+  \begin{array}{ll}
+    \textrm{Sistema 1} & \dot{V}_{out} = - \dfrac{1}{RC} V_{in}\\
+    \textrm{Sistema 2} & \left\{
+            \begin{array}{l}
+              R_1C_1\dot{V}_c = V_{1_{in}} - R_1 i_{L_{1}} - V_c\\
+              L \dfrac{d i_{L_{i}}}{dt} = V_c
+            \end{array} \right .
+  \end{array}
+\]
+Poste $x_1 = V_{1_{in}}$, $x_2 = V_c$, $x_3 = i_{L_{1}}$, $V_{in} =
+u$, $V_c = y$
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x}_1 = - \dfrac{u}{RC}\\
+    \dot{x}_2 = \dfrac{x_1}{R_1 C_1} - \dfrac{1}{C_1}x_3 -
+    \dfrac{x_2}{R_1 C_1}\\
+    \dot{x}_3 = \dfrac{x_2}{L_1}\\
+    y = x_2
+  \end{array}
+  \right .
+\]
+
+\subsection{Amplificatore}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.9\textwidth]{./images/esempio08.png}
+\caption{Amplificatore\label{fig:esempio08}}
+\end{figure}
+Si fornisca una rappresentazione i-s-u del sistema riportato in figura
+\ref{fig:esempio08}. Si supponga che la temperatura esterna $T_e$ non
+sia influenzabile dal sistema ($T_e$ \`e costante) e la resistenza $R$
+non vari con la temperatura; si linearizzi in un intorno del punto di
+equilibrio che soddisfa la condizione $x_2>0$, con ingresso costante $VR=10$;
+Parametri elettrici: $R_1=250$ ; $R_2=1k\Omega$; $R_3=250k\Omega$;
+$C=1 \mu F$; $R=1$ ; Parametri termici: $R_T=350 k/W$; $C_T=1 J/k$.
+
+\subsubsection{Soluzione}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.9\textwidth]{./images/esempio08-2.png}
+\caption{Amplificatore\label{fig:esempio08-2}}
+\end{figure}
+Equazioni del circuito elettrico:
+\[
+  \begin{array}{l}
+    \textrm{in A: } i_{R_{i}} = i_{R_{2}} + i_{R_{3}}\\
+    V_{in} = i_{R_{1}} + i_{R_{2}}R_2 = (i_{R_{2}} + i_{R_{3}})R_1 +
+    i_{R_{2}}R_2\\
+    R_2 i_{R_{2}} = V_{R_{3}} + V_C \Rightarrow i_{R_{2}} =
+    \dfrac{V_{R_{3}} + V_C}{R_2}\\
+    i_{R_{3}} = i_C = C \dot{V}_C; V_{R_{3}} = i_{R_{3}}R_3 = i_C R_3
+    = R_3 C \dot{V}_C
+  \end{array}
+\]
+Possiamo scrivere:
+\[
+  \begin{array}{l}
+    V_{in} = \dfrac{R_3 C \dot{V}_C + V_C}{R_2} (R_1 + R_2) + C R_1
+    \dot{V}_C\\
+    \dot{V}_C \left( \dfrac{R_3 C}{R_2} (R_1 + R_2) + R_1 C  \right) =
+    V_{in} - V_C \dfrac{R_1 + R_2}{R_2}\\
+    \dot{V}_C \left( \dfrac{R_3 (R_1 + R_2) + R_1R_2}{R_2} \right)C =
+    - \dfrac{R_1 + R_2}{R_1}V_C + V_{in}\\
+    \dot{V}_C = - \dfrac{R_2}{R_1 R_2 + R_3(R_1 + R_2)} \cdot
+    \dfrac{R_1 + R_2}{C}V_C + \dfrac{R_2}{CR_1 R_2 + CR_3(R_1 + R_2)}V_{in}
+  \end{array}
+\]
+La potenza dissipata sulla resistenza R \`e:
+\[
+  P = \dfrac{V_0^2}{R} = \dfrac{V_C^2}{R}
+\]
+Equazioni di scambio termico:
+\[
+  \dot{T}_i = \dfrac{1}{C_T} (q_{in} - q_{out}) \textrm{ dove }
+  \left\{
+  \begin{array}{l} 
+    q_{in} = P = \dfrac{V_c^2}{R}\\
+    q_{out} =  \dfrac{1}{R_T} (T_i - T_E)
+  \end{array}
+  \right .
+\]
+\[
+  \dot{T}_i = \dfrac{1}{C_T} \dfrac{V_c^2}{R} - \dfrac{1}{R_T C_T}(T_i
+  - T_E)
+\]
+Posto $x_1 = V_C$, $x_2 = T_i$, $u_i = V_{in}$, $u_2 = T_E$, $y =
+T_i - T_e$ si ha:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x}_1 = - \dfrac{R_2}{R_1R_2 + R_3(R_1 + R_2)} \cdot
+    \dfrac{R_1 + R_2}{R_2}x_1 + \dfrac{R_2}{R_1 R_2 + R_3(R_1 +
+      R_2)}u_1\\
+    \dot{x}_2 = - \dfrac{1}{R_TC_T}x_2 + \dfrac{x_1^2}{R C_T} +
+    \dfrac{1}{R_T C_T}u_2\\
+    y = x_2 - u_2
+  \end{array}
+  \right .
+\]
+Sostituendo i valori numerici e ponendo le derivate a ``zero''
+abbiamo:
+\[
+  \left\{
+  \begin{array}{l}
+    \overline{x}_1 = \dfrac{1}{5} \overline{u}_1 = 2\\
+    \overline{x}_2 = 1400 - T_E
+  \end{array}
+  \right .
+\]
+La linearizzazione prevede il calcolo della matrice Jacobiana e si
+conclude con:
+\[
+  \left\{
+  \begin{array}{l}
+    \delta \dot{x}_1 = - \dfrac{5}{312750} \delta x_1 +
+    \dfrac{1}{312750} u_1\\
+    \delta x_2 = 2 \overline{x}_1 \delta x_1 - \dfrac{1}{350} \delta x_2 +
+    \dfrac{1}{350} u_2\\
+    Y = x_2 - u_2
+  \end{array}
+  \right .
+\]
+\[
+  \left\{
+  \begin{array}{l}
+    \delta \dot{x}_1 = - \dfrac{5}{312750} \delta x_1 +
+    \dfrac{1}{312750} u_1\\
+    \delta x_2 = 4 \delta x_1 - \dfrac{1}{350} \delta x_2 +
+    \dfrac{1}{350} u_2\\
+    Y = x_2 - u_2
+  \end{array}
+  \right .
+\]
+
 
 \chapter{Analisi in frequenza e diagrammi di Bode}
 
