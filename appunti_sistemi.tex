@@ -3526,69 +3526,97 @@ conclude con:
 
 
 \chapter{Analisi in frequenza e diagrammi di Bode}
-
-L'analisi in frequenza, si basa sullo studio dell comportamento di un sistema, quando questo viene sollecitato da un ingresso sinusoidale.
+L'analisi in frequenza, si basa sullo studio dell comportamento di un
+sistema, quando questo viene sollecitato da un ingresso sinusoidale.
 
 \section{Risposta in frequenza}
-Il movimento di un sistema lineare e stazionario sollecitato da un ingresso di tipo sinusoidale \`e detto \emph{risposta alla sinusoide o in frequenza}.\\
-Si considera il sistema SISO caratterizzato dalle equazioni \ref{eq:matltisys} e dall' fdt associata 
+Il movimento di un sistema lineare e stazionario sollecitato da un
+ingresso di tipo sinusoidale \`e detto \emph{risposta alla sinusoide o
+ risposta in frequenza}\index{Risposta alla sinusoide}. Si considera il
+sistema SISO caratterizzato dalle equazioni seguenti:
+\begin{equation*}
+  \dot{x}(t)=Ax(t)+Bu(t)
+\end{equation*}
+\begin{equation*}
+  y(t)=Cx(t)+Du(t)
+\end{equation*}
+e dalla funzione di trasferimento associata:
 \begin{displaymath}
-G(s)=C(sI-A)^{-1}B+D
+  G(s)=C(sI-A)^{-1}B+D
 \end{displaymath}
 Si vuole determinare la risposta del sistema ad un ingresso 
 \begin{equation}\label{eq:sininput}
-u(t)=U \sin (\omega t)\qquad, \qquad t\geq 0
+  u(t)=U \sin (\omega t)\qquad, \qquad t\geq 0
 \end{equation}
-Ricordando che (v. appendice ~\ref{apx:laplace})
+Ricordando che la trasformata di Laplace di $u(t)$ \`e (v. appendice
+~\ref{apx:laplace}): 
 \begin{equation}\label{eq:rispsfreq}
-U(s)=\frac{U\omega}{s^2+\omega^2}
+  U(s)=\frac{U\omega}{s^2+\omega^2}
 \end{equation}
-l'uscita $y(t)$ calcolata antitrasformando
+l'uscita $y(t)$, calcolata antitrasformando
 \begin{displaymath}
-Y(s)=G(s)\frac{U\omega}{s^2+\omega^2}
+  Y(s)=G(s)\frac{U\omega}{s^2+\omega^2}
 \end{displaymath}
-\`e pari a~\footnote{Si scompone la \ref{eq:rispsfreq} in fratti semplici (ad esempio mediante lo sviluppo di Heaviside).}
+\`e pari a~\footnote{Si scompone la \ref{eq:rispsfreq} in fratti
+  semplici (ad esempio mediante lo sviluppo di Heaviside).}
 \begin{equation}\label{eq:risptfreq}
-y(t)=\mathfrak{L}^{-1}\left [ \sum_{i=1}^n \underbrace{\frac{P_i}{s+p_i}}_{Y_1(s)}+\underbrace{\frac{Q}{s-j\omega}+\frac{\bar Q}{s+j\omega}}_{Y_2(s)} \right ]=y_1(t)+y_2(t)
+  y(t)=\mathfrak{L}^{-1}\left [ \sum_{i=1}^n
+    \underbrace{\frac{P_i}{s+p_i}}_{Y_1(s)} +
+    \underbrace{\frac{Q}{s-j\omega} + \frac{\bar
+        Q}{s+j\omega}}_{Y_2(s)} \right ]=y_1(t) + y_2(t)
 \end{equation}
 dove
 \begin{displaymath}
-Q=G(j\omega)\frac{U}{2j}\qquad,\qquad
+  Q=G(j\omega)\frac{U}{2j}\qquad,\qquad
 \bar Q=-\bar G(j\omega)\frac{U}{2j}
 \end{displaymath}
-Da notare che per $t \to \infty, ~y_1(t)$ tende asintoticamente a zero e quindi $y(t)$ tende asintoticamente a $y_2(t)$
+Da notare che per $t \to \infty, ~y_1(t)$ tende asintoticamente a zero
+e quindi $y(t)$ tende asintoticamente a $y_2(t)$
 \begin{displaymath}
-y_2(t)=\mathfrak{L}^{-1}\{Y_2(s)\}=Qe^{j\omega t}+\bar Qe^{-j\omega t}=
+  y_2(t)=\mathfrak{L}^{-1}\{Y_2(s)\}=Qe^{j\omega t}+\bar Qe^{-j\omega t}=
 \end{displaymath}
 \begin{displaymath}
-=G(j\omega)\frac{U}{2j}e^{j\omega t}-\bar G(j\omega)\frac{U}{2j}e^{-j\omega t}=
+  =G(j\omega)\frac{U}{2j}e^{j\omega t}-\bar G(j\omega)\frac{U}{2j}e^{-j\omega t}=
 \end{displaymath}
 \begin{displaymath}
-=\frac{U}{2j}\left[\left(G(j\omega)-\bar G(j\omega)\right)\cos (\omega t)+ j\left(G(j\omega)+\bar G(j\omega)\right)\sin (\omega t)\right]=
+  =\frac{U}{2j}\left[\left(G(j\omega)-\bar G(j\omega)\right)\cos (\omega
+    t) + j\left(G(j\omega)+\bar G(j\omega)\right)\sin (\omega t)\right]=
 \end{displaymath}
 \begin{displaymath}
-=\frac{U}{2j}[2j~\Im m\{ G(j\omega)\}\cos (\omega t)+2j~\Re e \{G(j\omega)\}\sin(\omega t)]=
+  =\frac{U}{2j}[2j~\Im m\{ G(j\omega)\}\cos (\omega t) + 2j~\Re e
+    \{G(j\omega)\}\sin(\omega t)]= 
 \end{displaymath}
 \begin{displaymath}
-=U\left [  |G(j\omega)|\sin(\arg G(j\omega))\cos(\omega t)+|G(j\omega)|\cos(\arg(G(j\omega))\sin(\omega t)\right ]=
+  =U\left [  |G(j\omega)|\sin(\arg G(j\omega))\cos(\omega t) +
+    |G(j\omega)|\cos(\arg(G(j\omega))\sin(\omega t)\right ]=  
 \end{displaymath}
 \begin{equation}\label{eq:rispfreqfdt}
-=|G(j\omega)| U \sin (\omega t+\arg G(j\omega))
+  =|G(j\omega)| U \sin (\omega t+\arg G(j\omega))
 \end{equation}
-In definitiva, l'uscita $y(t)$ converge verso una sinusoide avente la stessa pulsazione di quella in ingresso e ampiezza pari a $|G(j\omega)|U$ e fase $\arg G(j\omega)$.\footnote{/!$\backslash$ Quando manca l'ipotesi di asintotica stabilit\`a, non \`e detto che se si applica un ingresso sinusoidale il sistema risponde con una sinusoide, per cui \`e necessario agire scegliendo valori opportuni dello stato iniziale in modo tale da ottenere la risposta sinusoidale attesa.}
-Si enuncia pertanto il \emph{teorema fondamentale della risposta in frequenza}~\footnote{L'fdt in frequenza, assume la forma $G(j\omega)=C(j\omega I - A)^{-1}B+D$}:
+In definitiva, l'uscita $y(t)$ converge verso una sinusoide avente la
+stessa pulsazione di quella in ingresso e ampiezza pari a
+$|G(j\omega)|U$ e fase $\arg G(j\omega)$.\footnote{/!$\backslash$
+  Quando manca l'ipotesi di asintotica stabilit\`a, non \`e detto che
+  se si applica un ingresso sinusoidale il sistema risponda con una
+  sinusoide, per cui \`e necessario agire scegliendo valori opportuni
+  dello stato iniziale, in modo tale da ottenere la risposta sinusoidale attesa.}
+Si enuncia pertanto il \emph{teorema fondamentale della risposta in
+  frequenza}~\footnote{La funzione di trasferimento in frequenza, assume la forma
+  $G(j\omega)=C(j\omega I - A)^{-1}B+D$}:
 \newtheorem{rispinfreq}{Theorem}[chapter]
 \begin{rispinfreq}
-Se si applica ad un sistema LTI asintoticamente stabile con fdt $G(s)$ l'ingresso sinusoidale
+  Se si applica ad un sistema LTI asintoticamente stabile con funzione
+  di trasferimento $G(s)$ l'ingresso sinusoidale
 \begin{displaymath}
-u(t)=U \sin (\omega_0 t)
+  u(t)=U \sin (\omega_0 t)
 \end{displaymath}
-l'uscita a regime (e quindi a transitorio esaurito) assume la forma 
+l'uscita a regime, quindi a transitorio esaurito, assume la forma 
 \begin{equation}\label{eq:genrispfreq}
-\bar y(t)=|G(j\omega_0)| U \sin(\omega_0 t +\arg G(j\omega_0))
+  \bar y(t)=|G(j\omega_0)| U \sin(\omega_0 t +\arg G(j\omega_0))
 \end{equation}
 indipendentemente dallo stato iniziale.
 \end{rispinfreq}
+
 \section{Diagrammi di Bode}
 Per rappresentare la risposta in frequenza $G(j\omega)$ di sistemi SISO, si usano i \emph{diagrammi di Bode (o cartesiani)}. Essi sono costituiti da una coppia di curve che rappresentano il modulo e la fase di $G(j\omega)$ in funzione di $\omega$. Le due curve sono dette \emph {diagramma di Bode del modulo} e \emph{diagramma di Bode della fase}. Convenzionalmente si usa una scala logaritmica in base dieci per l'ascissa (viene rappresentato $\log_{10}\omega_n$ con $\omega_n \neq 0$) in modo tale che la distanza tra due pulsazioni  $\omega_1$ e $\omega_2>\omega_1$ sia proporzionale alla differenza dei loro logaritmi ovvero al rapporto $\omega_2/\omega_1$  $\forall$ coppia di pulsazioni. In particolare si definisce \emph{decade}, l'intervallo tra due pulsazioni che sono tra loro in rapporto pari a dieci.
 Nel tracciare i diagrammi, \`e conveniente trasformare la fdt nella cd. \emph{Bode-form}~\footnote{Viene trasformata la forma fattorizzata rappresentata dall'eq. \ref{eq:secformfdt}, ponendo $s=j\omega$}:
