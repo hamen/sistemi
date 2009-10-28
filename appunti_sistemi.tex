@@ -810,144 +810,227 @@ che ci porta alla seguente funzione di trasferimento:
   G(s) = e^{- \tau s}
 \]
 
- \section{Parametri della fdt e sue rappresentazioni}
- Molto spesso è conveniente rappresentare la G(s) di un sistema SISO in uno di questi due modi:
- \begin{equation}\label{eq:firstformfdt}
- G(s)=\frac{\rho \prod_i(s+z_i) \prod_i(s^2+2 \zeta_i \alpha_{ni}s+\alpha^{2}_{ni})}{s^g \prod_i(s+p_i) \prod_i(s^2+2 \xi_i \omega_{ni}s+\omega^2_{ni})}
-  \end{equation}
- \begin{equation}\label{eq:secformfdt}
- G(s)=\frac{\mu \prod_i(1+\tau_i s) \prod_i(1+\frac{2 \zeta_i s}{\alpha_{ni}}+\frac{s^2}{\alpha^{2}_{ni}})}{s^g \prod_i(1+T_i s) \prod_i(1+\frac{2 \xi_i s} {\omega_{ni}}+\frac{s^2}{\omega^2_{ni}})}
- \end{equation}
- Nelle equazioni \ref{eq:firstformfdt} e ~\ref{eq:secformfdt} si identificano:
+\section{Parametri della funzione dei trasferimento e sue rappresentazioni}
+Molto spesso è conveniente rappresentare la G(s) di un sistema SISO in
+uno di questi due modi:
+\begin{equation}\label{eq:firstformfdt}
+  G(s)=\frac{\rho \prod_i(s+z_i) \prod_i(s^2+2 \zeta_i \alpha_{ni}s +
+    \alpha^{2}_{ni})}{s^g \prod_i(s+p_i) \prod_i(s^2+2 \xi_i
+    \omega_{ni}s + \omega^2_{ni})}
+\end{equation}
+\begin{equation}\label{eq:secformfdt}
+  G(s)=\frac{\mu \prod_i(1+\tau_i s) \prod_i(1+\frac{2 \zeta_i s}{\alpha_{ni}}+\frac{s^2}{\alpha^{2}_{ni}})}{s^g \prod_i(1+T_i s) \prod_i(1+\frac{2 \xi_i s} {\omega_{ni}}+\frac{s^2}{\omega^2_{ni}})}
+\end{equation}
+Nelle equazioni \ref{eq:firstformfdt} e ~\ref{eq:secformfdt} si identificano:
 \begin{itemize}
-\item $\rho$=\emph{costante di trasferimento}
-\item $g$=\emph{tipo} del sistema. In particolare \framebox{$g=(poli-zeri)nell'origine$}
-\item $z_i$ e $p_i$ sono rispettivamente gli zeri ed i poli $\neq$ 0 cambiati di segno
-\item $\alpha_{ni}>0$ e $\omega_{ni}>0$ sono le \emph{pulsazioni naturali} rispettivamente degli zeri e dei poli complex conj.
-\item $\zeta_i$ e $\xi_i$ (in modulo <1), sono gli \emph{smorzamenti} rispettivamente degli zeri e dei poli complex conj.
+\item $\rho$ = \emph{costante di trasferimento}
+\item $g$ = \emph{tipo} del sistema. In particolare
+  \framebox{$g=(poli-zeri) \; nell'origine$}
+\item $z_i$ e $p_i$ sono rispettivamente gli zeri ed i poli $\neq$ 0
+  cambiati di segno
+\item $\alpha_{ni}>0$ e $\omega_{ni}>0$ sono le \emph{pulsazioni
+  naturali} rispettivamente degli zeri e dei poli complessi e coniugati.
+\item $\zeta_i$ (``zita'') e $\xi_i$ (``x\`i'')(in modulo $< 1$), sono gli \emph{smorzamenti}
+  rispettivamente degli zeri e dei poli complessi e coniugati.
 \item $\mu$ è il \emph{guadagno}
-\item $\tau_i$ e $T_i$ sono le \emph{costanti di tempo} ($\neq$ 0) che per definizione coincidono con il reciproco cambiato di segno dei poli e degli zeri $\neq 0$
+\item $\tau_i$ e $T_i$ sono le \emph{costanti di tempo} ($\neq 0$) che
+  per definizione coincidono con il reciproco cambiato di segno dei
+  poli e degli zeri $\neq 0$
 \end{itemize}
 Combinando le due equazioni \ref{eq:firstformfdt} e ~\ref{eq:secformfdt} si può facilmente verificare che:
 \begin{eqnarray}\label{eq:fdtparms}
-\mu=\frac{\rho \prod_iz_i\prod_i\alpha_{ni}^2}{\prod_ip_i\prod_i\omega^2_{ni}}\\
-\rho=\frac{\mu\prod_i\tau_i\prod_i\omega_{ni}^2}{\prod_iT_i\prod_i\alpha^2_{ni}}\\
-\tau_i=\frac{1}{z_i}\\
-T_i=\frac{1}{p_i}
+  \mu=\frac{\rho \prod_iz_i\prod_i\alpha_{ni}^2}{\prod_ip_i\prod_i\omega^2_{ni}}\\
+  \rho=\frac{\mu\prod_i\tau_i\prod_i\omega_{ni}^2}{\prod_iT_i\prod_i\alpha^2_{ni}}\\
+  \tau_i=\frac{1}{z_i}\\
+  T_i=\frac{1}{p_i}
 \end{eqnarray}
+
 \section{Il guadagno}
-Si consideri un sistema con la fdt descritta dalla \ref{eq:secformfdt}. Inoltre si supponga che esso sia asintoticamente stabile, quindi $g\le0, T_i>0, \xi_i>0$ e si consideri il caso particolare in cui $g=0$ e vi sia un ingresso $u(t)=\bar u$ la cui t.d.L. è $U(s)=\frac{\bar u}{s}$.\\
-Calcolando la risposta di regime applicando il Th. del valore finale (Teorema \ref{th:endvalth}) si ha:
+Si consideri un sistema con la funzione di trasferimento descritta
+dalla \ref{eq:secformfdt}. Inoltre si supponga che esso sia
+asintoticamente stabile, quindi $g \le 0$, $T_i > 0$, $\xi_i > 0$. Si
+consideri il caso particolare in cui $g = 0$ e vi sia un ingresso
+$u(t) = \bar{u}$ la cui trasformata di Laplace è
+$U(s) = \dfrac{\bar u}{s}$.
+Calcolando la risposta di regime applicando il teorema del valore
+finale (Teorema \ref{th:endvalth}) si ha:
 \begin{displaymath}
-\bar y=\lim_{t \to \infty}y(t)=\lim_{s \to 0}sG(s)\frac{\bar u}{s}=\lim_{s \to 0}s(C(sI-A)^{-1}B+D)\frac{\bar u}{s}=
+  \bar y=\lim_{t \to \infty}y(t)=\lim_{s \to 0}sG(s)\dfrac{\bar u}{s}
+  = \lim_{s \to 0}s(C(sI-A)^{-1}B+D)\dfrac{\bar u}{s}=
 \end{displaymath}
 \begin{equation}\label{eq:firstgain}
-=G(0)\bar u=(-CA^{-1}B+D)\bar u
+  =G(0)\bar u=(-CA^{-1}B+D)\bar u
 \end{equation}
 e per la \ref{eq:secformfdt} si ha:
 \begin{equation}\label{eq:secgain}
-\bar y=\lim_{s \to 0}sG(s)\frac{\bar u}{s}=\mu \bar u
+  \bar y=\lim_{s \to 0}sG(s)\frac{\bar u}{s}=\mu \bar u
 \end{equation}
 Confrontando le due equazioni \ref{eq:firstgain}, ~\ref{eq:secgain} risulta:
 \begin{equation}\label{eq:defgain}
-\mu =G(0)=-CA^{-1}B+D
+  \mu =G(0)=-CA^{-1}B+D
 \end{equation}
-è il guadagno che in questo caso coincide con il guad. statico (per $g=0$).
-Semplicemente il guadagno statico si calcola valutando $G(s)\Bigg|_{s=0}$.
-Il guadagno, quindi, è \emph{il rapporto tra uscita e ingresso}.
-Nel caso in cui $g\ne0$, $\mu$ viene chiamato \emph{guadagno generalizzato} e si calcola come:
+è il guadagno che in questo caso coincide con il guadagno statico (per
+$g = 0$). Semplicemente il guadagno statico si calcola valutando
+$G(s)\Bigg|_{s=0}$. Il guadagno, quindi, è \emph{il rapporto tra
+  uscita e ingresso}. Nel caso in cui $g \ne 0$, $\mu$ viene chiamato
+\emph{guadagno generalizzato}\index{Guadagno generalizzato} e si calcola come:
 \begin{equation}\label{eq:gengain}
-\mu=\lim_{s \to 0}s^gG(s)
+  \mu=\lim_{s \to 0}s^gG(s)
 \end{equation}
-/!$\backslash$ in questo caso $\mu$ non è più il guad. statico!\\
-Una considerazione importante da fare è che i poli "rallentano" mentre gli zeri "accelerano" per quanto riguarda l'evoluzione della risp. di un sistema. In particolare, tornando alle cost. di tempo, si può dire che quelle al denominatore $D(s)$ sono legate alla velocità con cui si esauriscono i transitori del sistema, ovvero, maggiore è il valore di una costante di tempo, più lentamente si esaurirà il contributo sull'uscita dato dal polo corrispondente.
+
+/!$\backslash$ in questo caso $\mu$ non è più il guadagno statico!\\
+Una considerazione importante da fare è che i poli ``rallentano'' mentre
+gli zeri ``accelerano'' per quanto riguarda l'evoluzione della risposta di
+un sistema. In particolare, tornando alle costanti di tempo, si può dire
+che quelle al denominatore $D(s)$ sono legate alla velocità con cui si
+esauriscono i transitori del sistema: maggiore è il valore di
+una costante di tempo, più lentamente si esaurirà il contributo
+sull'uscita dato dal polo corrispondente.
+
 \section{Pulsazione naturale e smorzamento}\label{par:pulsazsmorz}
-Prendendo le eq. \ref{eq:firstformfdt} e \ref{eq:secformfdt}, si consideri una coppia di poli complex. conj. (o analogamente, di zeri complex. conj.) $a\pm jb$ definiti come radici dell'eq. $s^2+2\xi\omega_ns+\omega^2_n=0$. Si definiscono:
+Note le equazioni \ref{eq:firstformfdt} e \ref{eq:secformfdt}, si
+consideri una coppia di poli complessi e coniugati (o analogamente, di
+zeri complessi e coniugati) $a \pm jb$ definiti come radici
+dell'equazione $s^2+2\xi\omega_ns+\omega^2_n=0$. Si definiscono:
 \begin{eqnarray}
 a=-\xi\omega_n\\
 b=\omega_n\sqrt{1-\xi^2}
 \end{eqnarray}
-quindi il mod dei poli è la pulsazione naturale $\omega_n$, mentre lo smorzamento $\xi$ è il $\cos \theta$, dove $\theta$ è l'angolo compreso tra la congiungente i poli con l'$O$ e il semiasse $\Re$negativo.
+quindi il modulo dei poli è la pulsazione naturale $\omega_n$, mentre
+lo smorzamento $\xi$ è il $\cos \theta$, dove $\theta$ è l'angolo
+compreso tra la congiungente i poli con l'$O$ e il semiasse $\Re$ negativo.
  \begin{figure}[!h]
 \begin{center}
-\includegraphics[scale=0.5]{./figures/complconj.png}\caption{Parametri dei poli compl. conj.}\label{fig:complparms}
+\includegraphics[scale=0.5]{./figures/complconj.png}
+\caption{Parametri dei poli compl. conj.}\label{fig:complparms}
 \end{center}
 \end{figure}
-\newpage
-Pertanto, tenendo fisso $\omega_n$, al variare di $\xi$ da $-1$ a $+1$, i poli si spostanto su una circonferenza di raggio $\omega_n$ centrata nell'$O$.
-In particolare:
+Pertanto, tenendo fisso $\omega_n$, al variare di $\xi$ da $-1$ a $+1$
+($cos \theta$ con $\theta = \pi$ o $\theta = 0$), i poli si spostanto
+su una circonferenza di raggio $\omega_n$ centrata nell'$O$. In
+particolare:
 \begin{table}[!hbp]
 \begin{center}
 \begin{tabular}{c|c}
 \hline
-$\xi=0$& poli $\Im$ puri in $s=\pm j\omega_n$\\
-$\xi>0$& poli a $\Re<0$\\
-$\xi<0$& poli a $\Re>0$\\
-$\xi=1$& poli reali coincidenti in $s=-\omega_n$\\
-$\xi=-1$ & poli reali coincidenti in $s=\omega_n$\\
+$\xi=0$ & poli immaginari puri in $s = \pm j\omega_n$\\
+$\xi>0$ & poli a parte reale negativa\\
+$\xi<0$ & poli a parte reale positiva\\
+$\xi=1$ & poli reali coincidenti in $s = -\omega_n$\\
+$\xi=-1$ & poli reali coincidenti in $s = \omega_n$\\
 \hline
-\end{tabular}\caption{Posizione dei poli al variare dello smorzamento $\xi$}\label{tab:tabsmorz}
+\end{tabular}
+\caption{Posizione dei poli al variare dello smorzamento $\xi$}
+\label{tab:tabsmorz}
 \end{center}
 \end{table}
 
 \section{Risposta al gradino}
-Per modellare un'improvvisa commutazione del valore dell'ingresso ed analizzare il comportamento del sistema a tale variazione, si studia il movimento dell'uscita in risposta al gradino. Il gradino che prenderemo in considerazione si suppone di ampiezza unitaria, in quanto per la proprietà della linearità, la risp. al gradino di ampiezza $\bar u$ è semplicemente data da quella del gradino unitario moltiplicata per $\bar u$.
+Per modellare un'improvvisa commutazione del valore dell'ingresso ed
+analizzare il comportamento del sistema a tale variazione, si studia
+il movimento dell'uscita in risposta al gradino. Il gradino che
+prenderemo in considerazione si suppone di ampiezza unitaria, in
+quanto per la proprietà della linearità, la risposta al gradino di
+ampiezza $\bar{u}$ è semplicemente data da quella del gradino unitario
+moltiplicata per $\bar{u}$.
+
 \subsection{Considerazioni sul valore iniziale e finale}
-Per un sistema avente fdt pari a:
+Per un sistema avente funzione di trasferimento pari a:
 \begin{equation}
-G(s)=\frac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n+\alpha_{n-1}s^{n-1}+\ldots+\alpha_0}
+  G(s)=\frac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n
+    + \alpha_{n-1}s^{n-1}+\ldots+\alpha_0}
 \end{equation}
-con $m\le n$, il valore iniziale della risp. al gradino, può essere calcolato con il Th. \ref{th:startvalth}:
+con $m \le n$, il valore iniziale della risposta al gradino, può
+essere calcolato con il teorema del valore iniziale (teorema
+\ref{th:startvalth}):
 \begin{displaymath}
-y(0)=\lim_{s \to \infty} s\underbrace{\frac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n+\alpha_{n-1}s^{n-1}+\ldots+\alpha_0}\frac{1}{s}}_{\textsl{Risp. al gradino}}= \left\{ \begin{array}{ll}0 & m<n \\ \frac{\beta_n}{\alpha_n} & m=n\end{array}\right.
+  y(0)=\lim_{s \to \infty}
+  s\underbrace{\frac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n+\alpha_{n-1}
+      s^{n-1}+\ldots+\alpha_0}\frac{1}{s}}_{\textsl{Risposta al
+      gradino}} = \left\{ \begin{array}{ll}0 & m < n
+    \\ \frac{\beta_n}{\alpha_n} & m = n\end{array}\right.
 \end{displaymath}
-Possiamo iterare il Th. \ref{th:startvalth} anche per le derivate successive del valore iniziale, ricordando le regole di derivazione della t.d.L. (\ref{apx:laplace}).\\
+Possiamo iterare il teorema \ref{th:startvalth} anche per le derivate
+successive del valore iniziale, ricordando le regole di derivazione
+della trasformata di Laplace (\ref{apx:laplace}).\\
 Ad esempio, se $m<n$ e $y(0)=0$ si ha:
 \begin{displaymath}
-\dot{y}(0)=\lim_{s \to \infty}s(sY(s)-y(0))=
+  \dot{y}(0)=\lim_{s \to \infty}s(sY(s)-y(0))=
 \end{displaymath}
 \begin{displaymath}
-=\lim_{s \to \infty}s^2\frac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n+\alpha_{n-1}s^{n-1}+\ldots+\alpha_0}\frac{1}{s}=\left\{ \begin{array}{ll}0 & m<n-1 \\ \frac{\beta_n}{\alpha_n} & m=n-1\end{array}\right.
+  =\lim_{s \to \infty}s^2\frac{\beta_ms^m+\beta_{m-1}s^{m-1} +
+    \ldots+\beta_0}{\alpha_ns^n +
+    \alpha_{n-1}s^{n-1}+\ldots+\alpha_0}\frac{1}{s} =
+  \left\{ \begin{array}{ll}0 & m<n-1 \\
+    \frac{\beta_n}{\alpha_n} & m=n-1\end{array}\right.
 \end{displaymath}
-In generale, per $m<n$, sono nulle le prime (n-m-1) derivate di $y$ in $t=0$
-\newpage
-\subsection{Parametri della risp. al gradino}
-I parametri caratterizzanti la risp. al gradino sono:
-\begin{itemize}
-\item[$\bullet$] \emph{valore di regime}~$y_\infty$: valore dell'uscita a transitorio esaurito; se $g=0$ esso è pari a $\mu$; se $g<0$ esso è 0.
-\item[$\bullet$] \emph{valore massimo}~$y_{max}$: max. valore assunto dall'uscita.
-\item[$\bullet$] \emph{sovraelongazione max. percentuale} $S\%$: ampiezza, in \%, della sovraelongazione max. rispetto a $y_\infty$, cioè
-\begin{displaymath}
-S\%=100\frac{y_{max}-y_\infty}{y_\infty}
-\end{displaymath}
-\item[$\bullet$] \emph{tempo di max. sovraelongazione}~$T_M$: primo istante in cui $y=y_{max}$.
-\item[$\bullet$] \emph{tempo di salita} $T_s$: tempo richiesto affinchè l'uscita passi dal 10\% al 90\% del suo valore di regime.
-\item[$\bullet$] \emph{tempo di ritardo o tempo all'emivalore} $T_r$: tempo necessario affinchè l'uscita raggiunga un valore pari a 0.5 volte $y_\infty$
-\item[$\bullet$] \emph{tempo di assestamento}~$T_{a\varepsilon}$: tempo necessario affinchè il mod della differenza tra ingresso e $y_\infty$ rimanga definitivamente al di sotto di $\varepsilon\%$ ovvero l'uscita sia compresa nell'intervallo $[(1-0.01\varepsilon)y_\infty,(1+0.01\varepsilon)y_\infty]$. Ad esempio con 'tempo al 99\% ', indicato con $T_{a1}$, si farà riferimento al tempo necessario affinchè l'uscita entri definitivamente nella fascia di ampiezza $\pm$0.01$y_\infty$. In generale si dirà che $T_{a\varepsilon}$ è il \emph{'tempo di assestamento al (100-$\varepsilon$)\% '}.
-\item[$\bullet$] \emph{periodo di oscillazione} $T_p$: distanza temporale tra i primi due massimi dell'uscita.
-\end{itemize}
- \begin{figure}[!h]
+In generale, per $m < n$, sono nulle le prime ($n-m-1$) derivate di
+$y$ in $t = 0$.
+
+\subsection{Parametri della risposta al gradino}
+I parametri caratterizzanti la risposta al gradino sono:
+\begin{description}
+\item[valore di regime~$y_\infty$] \hfill \\
+  valore dell'uscita a transitorio esaurito:
+  \begin{itemize}
+  \item se $g = 0$ esso è pari a $\mu$; 
+  \item se $g < 0$ esso è 0;
+  \end{itemize}
+\item[valore massimo~$y_{max}$]\hfill \\
+  massimo valore assunto dall'uscita;
+\item[sovraelongazione massima percentuale] $S\%$ \hfill \\
+  ampiezza, in \%, della sovraelongazione massima rispetto a
+  $y_\infty$, cioè
+  \begin{displaymath}
+    S\% =100\dfrac{y_{max}-y_\infty}{y_\infty}
+  \end{displaymath}
+\item[tempo di massima sovraelongazione~$T_M$] \hfill \\
+  primo istante in cui $y = y_{max}$;
+\item[tempo di salita $T_s$] \hfill \\
+  tempo richiesto affinchè l'uscita passi dal 10\% al 90\% del suo
+  valore di regime;
+\item[tempo di ritardo o tempo all'emivalore $T_r$] \hfill \\ tempo
+  necessario affinchè l'uscita raggiunga un valore pari a 0.5 volte
+  $y_\infty$; 
+\item[tempo di assestamento~$T_{a\varepsilon}$] \hfill \\
+  tempo necessario affinchè il modulo della differenza tra ingresso e
+  $y_\infty$ rimanga definitivamente al di sotto di $\varepsilon\%$
+  ovvero l'uscita sia compresa nell'intervallo
+  $[(1-0.01\varepsilon)y_\infty,(1+0.01\varepsilon)y_\infty]$. Ad
+  esempio con ``tempo al 99\%'', indicato con $T_{a1}$, si farà
+  riferimento al tempo necessario affinchè l'uscita entri
+  definitivamente nella fascia di ampiezza $\pm 0.01 y_\infty$. In
+  generale si dirà che $T_{a\varepsilon}$ è il \emph{``tempo di
+    assestamento al ($100-\varepsilon$)\%''}.
+\item[periodo di oscillazione $T_p$] \hfill \\
+  distanza temporale tra i primi due massimi dell'uscita.
+\end{description}
+
+\begin{figure}[!h]
 \begin{center}
-\includegraphics[scale=0.5]{./figures/parms.png}\caption{Parametri della risposta al gradino}\label{fig:caratparms}
+\includegraphics[scale=0.5]{./figures/parms.png}
+\caption{Parametri della risposta al gradino}\label{fig:caratparms}
 \end{center}
 \end{figure} 
+
 \section {Sistemi del $I°$ ordine}
-Un sistema del primo ordine è caratterizzato dalla segg. fdt:
+Un sistema del primo ordine è caratterizzato dalla seguente funzione
+di trasferimento:
 \begin{equation}\label{eq:firstordfdt}
-G(s)=\frac{\mu}{1+sT}
+  G(s) = \dfrac{\mu}{1+sT}
 \end{equation}
-Calcolando la risp. al gradino
+Calcolando la risposta al gradino:
 \begin{displaymath}
-Y(s)=G(s)\frac{1}{s}
+  Y(s) = G(s)\dfrac{1}{s}
 \end{displaymath}
-e determinando mediante antitrasformazione (Appendice \ref{apx:laplace}) $y(t)$ si ottiene:
+e determinando mediante antitrasformazione (Appendice
+\ref{apx:laplace}) $y(t)$ si ottiene:
 \begin{equation}\label{eq:rispgradfirst}
-y(t)=\mu(1-e^{-t/T}) \qquad, \qquad t\ge0
+  y(t) = \mu(1-e^{-t/T}) \qquad, \qquad t\ge0
 \end{equation}
-Ponendo $t=0$ si ha che:
+Ponendo $t = 0$ si ha che:
 
 \begin{itemize}
-
 \item l'andamento $y(0)=0$
 \item la pendenza {\Large$\frac{dy(t)}{dt}\Bigg |_{t=0}=\frac{\mu}{T}$}\\
 per $T>0$:
@@ -956,7 +1039,7 @@ per $T>0$:
 \item $S\%=0$
 \item Il tempo di assestamento
 \begin{displaymath}
-T_{a\varepsilon}=T\ln{\frac{1}{0.01\varepsilon}}=-T\ln0.01\varepsilon 
+  T_{a\varepsilon} = T\ln{\frac{1}{0.01\varepsilon}} = -T\ln0.01\varepsilon 
 \end{displaymath}
 \end{itemize}
 Gli altri parametri caratteristici sono:
@@ -973,113 +1056,144 @@ $\mu$ & $\simeq 2.2T$ & $\simeq 0.7T$ & $\simeq 3T$ & $\simeq 4.6T$\\
 \caption{Parametri del sistema \ref{eq:firstordfdt}}
 \label{tab:tabfirstordparms}
 \end{table}\\
-da notare che gli ultimi 4 parametri in tabella \ref{tab:tabfirstordparms} dipendono dalla costante di tempo T e sono direttamente proporzionali ad essa. In particolare il transitorio, in generale, lo si può dichiarare esaurito dopo un tempo \\
+Da notare che gli ultimi 4 parametri in tabella
+\ref{tab:tabfirstordparms} dipendono dalla costante di tempo T e sono
+direttamente proporzionali ad essa. In particolare il transitorio, in
+generale, lo si può dichiarare esaurito dopo un tempo \\
 \begin{center}
 \framebox{$t\simeq 4 \div 5 T$}\label{transit}
 \end{center}
 
- \begin{figure}[!h]
+\begin{figure}[!h]
 \begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal1.png}\caption{Risposta al gradino del sistema \ref{eq:firstordfdt}}\label{fig:risp1}
+\includegraphics[scale=0.5]{./figures/rispscal1.png}
+\caption{Risposta al gradino del sistema \ref{eq:firstordfdt}}\label{fig:risp1}
+\end{center}
+\end{figure} 
+Nota: ad una diminuzione di $T$, cio\`e ad uno spostamento verso
+sinistra del polo, corrisponde una diminuzione del tempo di salita,
+del tempo di ritardo e del tempo di assestamento.
+
+\section{Sistemi del $II°$ ordine}
+\subsection{Sistemi con solo poli reali}
+\subsubsection{Caso 1: poli distinti}
+\begin{equation}\label{eq:secordfdt_c1}
+  G(s) = \dfrac{\mu}{(1+sT_1)(1+sT_2)} \qquad, \qquad T_1>T_2
+\end{equation}
+La risposta al gradino della \ref{eq:secordfdt_c1} è:
+\begin{equation}\label{eq:rispgradsec_c1}
+  y(t) = \mu\left(1-\frac{T_1}{T_1-T_2}e^{-t/T_1} +
+  \frac{T_2}{T_1-T_2}e^{-t/T_2}\right) \qquad, \qquad t \ge 0
+\end{equation}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.5]{./figures/rispscal2.png}
+\caption{Risposta al gradino del sistema \ref{eq:secordfdt_c1}}\label{fig:risp2}
+\end{center}
+\end{figure} 
+\subsubsection{Caso 2: poli coincidenti ($T_1=T_2=T$)}
+\begin{equation}\label{eq:secordfdt_c2}
+  G(s) = \dfrac{\mu}{(1+sT)^2}
+\end{equation}
+La risposta al gradino della \ref{eq:secordfdt_c2} è:
+\begin{equation}\label{eq:rispgradsec_c2}
+  y(t) = \mu\left(1-e^{-t/T}-\frac{t}{T}e^{-t/T}\right)\qquad, \qquad t\ge 0
+\end{equation}
+I parametri caratteristici sono:
+\begin{itemize}
+\item $y_\infty = \mu$
+\item $T_s \simeq 3.36T$
+\item $T_r \simeq 1.68T$
+\item $T_{a5} \simeq 4.74T$
+\item $T_{a1} \simeq 6.64T$
+\end{itemize}
+\subsection{Sistemi con poli reali e uno zero}
+\begin{equation}\label{eq:secordfdt_cc1}
+  G(s)= \dfrac{\mu(1+\tau s)}{(1+sT_1)(1+sT_2)}\qquad, \qquad T_1\neq\tau, T_2\neq \tau
+\end{equation}
+La risposta al gradino della \ref{eq:secordfdt_cc1} è:
+\begin{equation}\label{eq:rispgradsec_cc1}
+  y(t) = \mu\left(1-\frac{T_1-\tau}{T_1-T_2}e^{-t/T_1} + 
+  \frac{T_2-\tau}{T_1-T_2}e^{-t/T_2}\right) \qquad, \qquad t\ge0
+\end{equation}
+In funzione della posizione dello zero rispetto ai poli, si
+distinguono i seguenti casi:~\footnote{Si suppone che $T_1>T_2>0$.}
+\subsubsection{I caso: $\tau<0$}
+La risposta, come mostrato in figura \ref{fig:risp3}, presenta una
+\emph{sottoelongazione} iniziale, o {\em
+  risposta inversa}\index{Risposta inversa}, che è tanto più
+pronunciata quanto più lo zero $- \dfrac{1}{\tau}$ si avvicina
+all'origine del piano complesso. 
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.5]{./figures/rispscal3.png}
+\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
+  $\tau<0$} \label{fig:risp3}
+\end{center}
+\end{figure}
+
+\subsubsection{II caso: $\tau>T_1>T_2$}
+In questo caso (figura \ref{fig:risp4}), la risposta presenta una
+\emph{sovraelongazione} tanto più evidente quanto più lo zero negativo
+è vicino all'origine del piano complesso, rispetto alla posizione dei
+poli. Per i sistemi di ordine elevato la presenza di una
+sovraelongazione (da non confondere con andamenti oscillanti) nella
+risposta al gradino, indica la presenza di uno zero reale negativo e
+minore in modulo ai poli.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.5]{./figures/rispscal4.png}
+\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con $\tau>0$}\label{fig:risp4}
 \end{center}
 \end{figure} 
 
-\section{Sistemi del $II°$ ordine}
-Si distinguono i segg. casi:\\
-\textbf{Sistemi con solo poli reali}\\
-\emph{Caso 1: poli distinti}
-\begin{equation}\label{eq:secordfdt_c1}
-G(s)=\frac{\mu}{(1+sT_1)(1+sT_2)} \qquad, \qquad T_1>T_2
-\end{equation}
-La risp. al gradino della \ref{eq:secordfdt_c1} è:.
-\begin{equation}\label{eq:rispgradsec_c1}
-y(t)=\mu\left(1-\frac{T_1}{T_1-T_2}e^{-t/T_1}+\frac{T_2}{T_1-T_2}e^{-t/T_2}\right) \qquad, \qquad t\ge0
-\end{equation}
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal2.png}\caption{Risposta al gradino del sistema \ref{eq:secordfdt_c1}}\label{fig:risp2}
-\end{center}
-\end{figure} 
-\newpage
-\emph{Caso 2: poli coincidenti ($T_1=T_2=T$)}\\
-\begin{equation}\label{eq:secordfdt_c2}
-G(s)=\frac{\mu}{(1+sT)^2}
-\end{equation}
-La risp al gradino della \ref{eq:secordfdt_c2} è:
-\begin{equation}\label{eq:rispgradsec_c2}
-y(t)=\mu\left(1-e^{-t/T}-\frac{t}{T}e^{-t/T}\right)\qquad, \qquad t\ge 0
-\end{equation}
-I parametri caratteristici sono:
-\begin{table}[!hbp]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-$y_\infty$ & $T_s$ & $T_r$ & $T_{a5}$ & $T_{a1}$\\
-\hline
-$\mu$ & $\simeq 3.36T$ & $\simeq 1.68T$ & $\simeq 4.74T$ & $\simeq 6.64T$\\
-\hline
-\end{tabular}
-\end{center}
-\caption{Parametri del sistema \ref{eq:secordfdt_c2}}
-\label{tab:tabsecordparms}
-\end{table}\\
-\textbf{Sistemi con poli reali e uno zero}
-\begin{equation}\label{eq:secordfdt_cc1}
-G(s)=\frac{\mu(1+\tau s)}{(1+sT_1)(1+sT_2)}\qquad, \qquad T_1\neq\tau, T_2\neq \tau
-\end{equation}
-La risp. al gradino della \ref{eq:secordfdt_cc1} è:.
-\begin{equation}\label{eq:rispgradsec_cc1}
-y(t)=\mu\left(1-\frac{T_1-\tau}{T_1-T_2}e^{-t/T_1}+\frac{T_2-\tau}{T_1-T_2}e^{-t/T_2}\right) \qquad, \qquad t\ge0
-\end{equation}
-In funzione della posizione dello zero rispetto ai poli, si distinguono i segg. casi:~\footnote{Si suppone che $T_1>T_2>0$.}\\
-\emph{I caso}: $\tau<0$ \\
-La risposta, come mostrato in figura \ref{fig:risp3}, presenta una \emph{sottoelongazione} iniziale che è tanto più pronunciata quanto più lo zero $-1\backslash \tau$ si avvicina all'origine del piano complesso.\\
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal3.png}\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con $\tau<0$}\label{fig:risp3}
-\end{center}
-\end{figure} 
-\newpage
-\emph{II caso}: $\tau>T_1>T_2$\\
-In questo caso (figura \ref{fig:risp4}), la risposta presenta una \emph{sovraelongazione} tanto più evidente quanto più lo zero negativo è vicino all'origine del piano complesso, rispetto alla posizione dei poli. Per i sistemi di ordine elevato la presenza di una sovraelongazione (da non confondere con andamenti oscillanti) nella risposta al gradino, indica la presenza di uno zero $\Re e$ negativo e minore in modulo ai poli.
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal4.png}\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con $\tau>0$}\label{fig:risp4}
-\end{center}
-\end{figure} 
-\newpage
-\emph{III caso}: $\tau \simeq T_1\gg T_2$\\
-Con tali valori di $\tau$ e $T_1$,$T_2$, si può facilmente verificare che la \ref{eq:rispgradsec_cc1} diventa approssimativamente
+\subsubsection{III caso: $\tau \simeq T_1\gg T_2$}
+Con tali valori di $\tau$ e $T_1$,$T_2$, si può facilmente verificare
+che la \ref{eq:rispgradsec_cc1} diventa approssimativamente
 \begin{displaymath}
 y(t)\simeq \mu (1-e^{-t/T_2})\qquad , \qquad t\geq0
 \end{displaymath}
-Dalla figura \ref{fig:risp5} si evince che la coppia polo-zero generano comunque un transitorio di piccola entità il quale fa andare lentamente $y$ verso $y_\infty$. 
+Dalla figura \ref{fig:risp5} si evince che la coppia polo-zero
+genera comunque un transitorio di piccola entità, il quale fa andare
+lentamente $y$ verso $y_\infty$. 
  \begin{figure}[!h]
 \begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal5.png}\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con $\tau=0.92$}\label{fig:risp5}
+\includegraphics[scale=0.5]{./figures/rispscal5.png}
+\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
+  $\tau=0.92$}\label{fig:risp5}
 \end{center}
 \end{figure} 
-\newpage
-\emph{IV caso}: $T_1>\tau>T_2$\\
-La presenza di uno zero, tende a velocizzare la risp. di un sistema. In figura \ref{fig:risp6} è riportato il caso in cui $T_1=2$ e $T_2=1$ con valori di $\tau=0$ e $1.5$ . Con ragionamenti analoghi al caso III, avendo posto $\tau\simeq T_2$ si ha che la \ref{eq:rispgradsec_cc1} diventa
+\subsection{IV caso: $T_1>\tau>T_2$}
+La presenza di uno zero, tende a velocizzare la risposta di un
+sistema. In figura \ref{fig:risp6} è riportato il caso in cui $T_1 =
+2$ e $T_2 = 1$ con valori di $\tau = 0$ e $1.5$ . Con ragionamenti
+analoghi al caso III, avendo posto $\tau \simeq T_2$ si ha che la
+\ref{eq:rispgradsec_cc1} diventa
 \begin{displaymath}
 y(t)\simeq \mu (1-e^{-t/T_1})\qquad , \qquad t\geq0
 \end{displaymath}
  \begin{figure}[!h]
 \begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal6.png}\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con due diversi valori di $\tau$}\label{fig:risp6}
+\includegraphics[scale=0.5]{./figures/rispscal6.png}
+\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
+  due diversi valori di $\tau$}\label{fig:risp6}
 \end{center}
 \end{figure}
-\newpage
-\emph{V caso}: $T_1>T_2>\tau>0$\\
-Per uno zero che si allontana dall'origine del piano complesso (ovvero per $\tau$ che diminuisce), la risposta, come mostrato in figura \ref{fig:risp7}, la \ref{eq:rispgradsec_cc1} tende a diventare come la \ref{eq:rispgradsec_c1}.
- \begin{figure}[!h]
+
+\subsection{V caso: $T_1 > T_2>\tau>0$}
+Per uno zero che si allontana dall'origine del piano complesso (ovvero
+per $\tau$ che diminuisce), la risposta della \ref{eq:rispgradsec_cc1} tende a diventare come la
+\ref{eq:rispgradsec_c1}, come mostrato in figura \ref{fig:risp7}.
+\begin{figure}[!h]
 \begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal7.png}\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} del \emph{caso V}}\label{fig:risp7}
+\includegraphics[scale=0.5]{./figures/rispscal7.png}
+\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} del
+  \emph{caso V}}\label{fig:risp7} 
 \end{center}
 \end{figure} 
-\newpage
-\textbf{Sistemi con poli complex. conj.}\\
+
+\subsection{Sistemi con poli complessi e coniugati}
 L'fdt di un sistema avente poli complessi coniugati è:
 \begin{equation}\label{eq:fdtcomplex}
 G(s)=\frac{\mu \omega^2_n}{s^2+2 \xi \omega_n s+\omega^2_n}
@@ -1087,143 +1201,201 @@ G(s)=\frac{\mu \omega^2_n}{s^2+2 \xi \omega_n s+\omega^2_n}
 con $\omega_n>0$ e $\xi$, $|\xi|<1$.
 La risposta al gradino del sistema \ref{eq:fdtcomplex} è:
 \begin{equation}\label{eq:rispfdtcomplex}
-y(t)=\mu \left ( 1-\frac{1}{\sqrt{1-\xi^2}}e^{-\xi \omega_n t}\sin \left ( \omega_n t\sqrt{1-\xi^2}+\arccos(\xi) \right) \right)
+y(t)=\mu \left ( 1-\frac{1}{\sqrt{1-\xi^2}}e^{-\xi \omega_n t}\sin
+\left ( \omega_n t\sqrt{1-\xi^2} + \arccos(\xi) \right) \right)
 \end{equation}
-con $t\geq0$.\\
-Abbiamo quindi un termine esponenziale che moltiplica un termine sinusoidale, come mostrato in figura \ref{fig:risp8}.
+con $t\geq0$. Abbiamo quindi un termine esponenziale che moltiplica un
+termine sinusoidale, come mostrato in figura \ref{fig:risp8}.
 
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal8.png}\caption{Risposta al gradino del sistema \ref{eq:fdtcomplex}}\label{fig:risp8}
-\end{center}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/rispscal8.png}
+    \caption{Risposta al gradino del sistema \ref{eq:fdtcomplex}}\label{fig:risp8}
+  \end{center}
 \end{figure} 
 
-In particolare, per uno smorzamento $\xi>0$ (figura \ref{fig:risp9}) l'exp è decrescente e la risp. tende asintoticamente a $\mu$; \\per $\xi<0$ il sistema è INSTABILE e l'uscita è divergente; \\per $\xi=0$ il sistema è STABILE, ma non asintoticamente e la \ref{eq:rispfdtcomplex} diventa
+In particolare, per uno smorzamento $\xi>0$ (figura \ref{fig:risp9})
+l'esponenziale è decrescente e la risposta tende asintoticamente a
+$\mu$; 
+\begin{itemize}
+\item per $\xi < 0$ il sistema è INSTABILE e l'uscita è divergente;
+\item per $\xi = 0$ il sistema è STABILE, ma non asintoticamente e la
+  \ref{eq:rispfdtcomplex} diventa
+\end{itemize}
 \begin{displaymath}
-y(t)=\mu(1-\cos(\omega_n t))\qquad , \qquad t\geq0
+  y(t) = \mu(1-\cos(\omega_n t))\qquad , \qquad t\geq0
 \end{displaymath}
 
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal9.png}\caption{Risposta al gradino del sistema \ref{eq:fdtcomplex} per diversi valori di $\xi>0$}\label{fig:risp9}
-\end{center}
-\end{figure} 
-
-I parametri caratteristici del sistema con poli complex. conj.sono riassunti nella tabella \ref{tab:tabfdtcomplexparms}:
-\begin{table}[!hbp]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-$y_\infty$ & $S\%$ & $T_M$ & $T_P$ & stima di $T_{a\varepsilon}$\\
-\hline
-$\mu$ & $100e^{-\xi \pi / \sqrt1-\xi^2}$ & $\frac{\pi}{\omega_n \sqrt{1-\xi^2}}$ & $\frac{2\pi}{\omega_n \sqrt{1-\xi^2}}$ & $-\frac{1}{\xi \omega_n}\ln0.01\varepsilon$\\
-\hline
-\end{tabular}
-\end{center}
-\caption{Parametri del sistema \ref{eq:fdtcomplex}}
-\label{tab:tabfdtcomplexparms}
-\end{table}
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscalX.png}\caption{Risposta al gradino del sistema \ref{eq:fdtcomplex} e parametri caratteristici}\label{fig:rispX}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/rispscal9.png}
+    \caption{Risposta al gradino del sistema \ref{eq:fdtcomplex} per
+      diversi valori di $\xi>0$}\label{fig:risp9}
+  \end{center}
 \end{figure} 
 
-\chapter{Interconnessione di sistemi e schemi a blocchi}\label{ch:chapter5} 
+I parametri caratteristici del sistema con poli complessi e coniugati
+sono riassunti nella tabella \ref{tab:tabfdtcomplexparms}:
+\begin{table}[!hbp]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      $y_\infty$ & $S\%$ & $T_M$ & $T_P$ & stima di $T_{a\varepsilon}$\\
+      \hline
+      $\mu$ & $100e^{-\xi \pi / \sqrt1-\xi^2}$ & $\frac{\pi}{\omega_n \sqrt{1-\xi^2}}$ & $\frac{2\pi}{\omega_n \sqrt{1-\xi^2}}$ & $-\frac{1}{\xi \omega_n}\ln0.01\varepsilon$\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Parametri del sistema \ref{eq:fdtcomplex}}
+  \label{tab:tabfdtcomplexparms}
+\end{table}
 
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/rispscalX.png}
+    \caption{Risposta al gradino del sistema \ref{eq:fdtcomplex} e
+      parametri caratteristici}\label{fig:rispX}
+  \end{center}
+\end{figure} 
+
+\chapter{Interconnessione di sistemi e schemi a blocchi}
 I sistemi possono essere collegati in serie, parallelo o in retroazione.
 
 \section{Sistemi in serie}
-
 Abbiamo due sistemi descritti dalle equazioni:
 \begin{eqnarray}
-Y_a(s)=G_a(s)U_a(s)\\
-Y_b(s)=G_b(s)U_b(s)
+  Y_a(s) = G_a(s)U_a(s)\\
+  Y_b(s) = G_b(s)U_b(s)
 \end{eqnarray}
-Essi si dicono connessi in serie (o cascata) quando l'uscita di $y_a=u_b$. Quindi, con $u(t)=u_a(t)$ e $y(t)=y_b(t)$, si ricava che
+Essi si dicono connessi in serie (o cascata) quando l'uscita di $y_a =
+u_b$. Quindi, con $u(t)=u_a(t)$ e $y(t)=y_b(t)$, si ricava che
 \begin{equation}
-Y(s)=G_b(s)Y_a(s)=G_b(s)G_a(s)U(s)
+  Y(s) = G_b(s)Y_a(s)=G_b(s)G_a(s)U(s)
 \end{equation}
-e la fdt diventa
+e la funzione di trasferimento diventa
 \begin{equation}
-G(s)=\frac{Y(s)}{U(s)}=G_a(s)G_b(s)
+  G(s) = \dfrac{Y(s)}{U(s)} = G_a(s)G_b(s)
 \end{equation}
-ovvero, \emph{l'fdt totale di un sistema composto dalla serie di due sottosistemi è pari al prodotto delle singole fdt}
+ovvero, \emph{la funzione di trasferimento totale di un sistema
+  composto dalla serie di due sottosistemi è pari al prodotto delle
+  singole funzioni di trasferimento}
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/serie.png}\caption{Sistemi connessi in serie}\label{fig:syserie}
-\end{center}
-\end{figure} 
-\newpage
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/serie.png}
+    \caption{Sistemi connessi in serie}\label{fig:syserie}
+  \end{center}
+\end{figure}
 \section{Sistemi in parallelo}
-Due sistemi si dicono connessi in parallelo se hanno lo stesso ingresso mentre le loro uscite si sommano per generare l'uscita del sistema complessivo.
-Formalizzando si ha:
+Due sistemi si dicono connessi in parallelo se hanno lo stesso
+ingresso mentre le loro uscite si sommano per generare l'uscita del
+sistema complessivo. Formalizzando si ha:
 \begin{equation}
-Y(s)=Y_a(s)+Y_b(s)=G_a(s)U_a(s)+G_b(s)U_b(s)=(G_a(s)+G_b(s))U(s)
+  Y(s)= Y_a(s)+Y_b(s) = G_a(s)U_a(s) + G_b(s)U_b(s) = (G_a(s)+G_b(s))U(s)
 \end{equation}
-quindi la fdt è:
+quindi la funzione di trasferimento è:
 \begin{equation}
-G(s)=\frac{Y(s)}{U(s)}=G_a(s)+G_b(s)
+  G(s) = \dfrac{Y(s)}{U(s)} = G_a(s)+G_b(s)
 \end{equation}
-ovvero \emph{l'fdt complessiva di un sistema composto dal parallelo di due sottosistemi, è pari alla somma delle singole fdt}
+ovvero \emph{la funzione di tra complessiva di un sistema composto dal
+  parallelo di due sottosistemi, è pari alla somma delle singole
+  funzioni di trasferimento}
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/parallelo.png}\caption{Sistemi connessi in parallelo}\label{fig:sysparal}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/parallelo.png}
+    \caption{Sistemi connessi in parallelo}\label{fig:sysparal}
+  \end{center}
 \end{figure} 
+
 \section{Sistemi in retroazione}
-Nelle figure \ref{fig:sysposfed} e \ref{fig:sysnegfed} sono mostrati dei sistemi aventi due sottosistemi collegati in retroazione o feedback o in anello chiuso.
+Nelle figure \ref{fig:sysposfed} e \ref{fig:sysnegfed} sono mostrati
+dei sistemi aventi due sottosistemi collegati in retroazione o
+feedback o in anello chiuso.
 si ricava che:
 \begin{equation}
-Y(s)=G_a(s)(U(s)-Y_b(s))=G_a(s)(U(s)-G_b(s)Y(s))
+  Y(s)=G_a(s)(U(s)-Y_b(s))=G_a(s)(U(s)-G_b(s)Y(s))
 \end{equation}
-pertanto l'fdt complessiva è: (\emph{retroazione negativa})
+pertanto la funzione di trasferimento complessiva è:
+(\emph{retroazione negativa}) 
 \begin{equation}
-G(s)=\frac{Y(s)}{U(s)}=\frac{G_a(s)}{1+G_a(s)G_b(s)}
+  G(s)=\frac{Y(s)}{U(s)}=\frac{G_a(s)}{1+G_a(s)G_b(s)}
 \end{equation}
 mentre quella in \emph{retroazione positiva} è
 \begin{equation}
-G(s)=\frac{Y(s)}{U(s)}=\frac{G_a(s)}{1-G_a(s)G_b(s)}
+  G(s)=\frac{Y(s)}{U(s)}=\frac{G_a(s)}{1-G_a(s)G_b(s)}
 \end{equation}
-ovvero \emph{l'fdt di un sistema avente due sottosistemi retroazionati negativamente(o positivamente) è pari al rapporto tra l'fdt del sottosistema che appare lungo la linea di andata tra u e y e la somma (o differenza) tra 1 e il prodotto delle singole fdt, detto in questo caso funzione di trasferimento d'anello L(s)}
+ovvero \emph{la funzione di trasferimento di un sistema avente due
+  sottosistemi retroazionati negativamente(o positivamente) è pari al
+  rapporto tra la funzione di trasferimento del sottosistema che
+  appare lungo la linea di andata tra $u$ e $y$ e la somma (o
+  differenza) tra $1$ e il prodotto delle singole funzione di
+  trasferimento, detto in questo caso funzione di trasferimento
+  d'anello $L(s)$} 
 \begin{equation}
-L(s)=G_a(s)G_b(s)
+  L(s)=G_a(s)G_b(s)
 \end{equation}
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/feedbackpos.png}\caption{Sistemi con feedback positivo}\label{fig:sysposfed}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/feedbackpos.png}
+    \caption{Sistemi con feedback positivo}\label{fig:sysposfed}
+  \end{center}
 \end{figure} 
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/feedbackneg.png}\caption{Sistemi con feedback negativo}\label{fig:sysnegfed}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/feedbackneg.png}
+    \caption{Sistemi con feedback negativo}\label{fig:sysnegfed}
+  \end{center}
 \end{figure} 
+
 \subsection{Semplificazione di schemi a blocchi}
-Quando lo schema a blocchi  di un sistema, presenta in esso un numero abbastanza elevato di "sotto-blocchi" (ovvero fdt), è necessario effettuare delle operazioni di riduzione dello stesso in modo tale da semplificare la lettura ed i calcoli. 
-Si possono applicare, a tale scopo, semplici manipolazioni utilizzando le regole viste prima, ovvero quelle di serie, parallelo e retroazione. Si possono, poi, applicare altre regole che vengo qui riassunte:~\footnote{L'operazione di riduzione e lo spostamento di blocchi è reso possibile grazie alla proprietà di \emph{linearità }}\\
+Quando lo schema a blocchi  di un sistema, presenta in esso un numero
+abbastanza elevato di ``sotto-blocchi'' (ovvero funzione di
+trasferimento), è necessario effettuare delle operazioni di riduzione
+dello stesso in modo tale da semplificare la lettura ed i calcoli. 
+Si possono applicare, a tale scopo, semplici manipolazioni utilizzando
+le regole viste prima, ovvero quelle di serie, parallelo e
+retroazione. Si possono, poi, applicare altre regole che vengo qui
+riassunte:~\footnote{L'operazione di riduzione e lo spostamento di
+  blocchi è reso possibile grazie alla proprietà di \emph{linearità }}
 \begin{itemize}
-\item Per spostare una variabile a valle di un blocco, è necessario moltiplicarla per la fdt del blocco.
-\item Per spostare una variabile a monte di un blocco, è necessario dividerla per la fdt del blocco.
-\item Per spostare un blocco a monte di un nodo sommatore, bisogna moltiplicare l'fdt del blocco per tutte le altre variabili entranti nel nodo.
-\item Per spostare un blocco a valle di un nodo sommatore, bisogna dividere l'fdt del blocco per tutte le altre variabili entranti nel nodo.
+\item Per spostare una variabile a valle di un blocco, è necessario
+  moltiplicarla per la funzione di trasferimento del blocco.
+\item Per spostare una variabile a monte di un blocco, è necessario
+  dividerla per la funzione di trasferimento del blocco.
+\item Per spostare un blocco a monte di un nodo sommatore, bisogna
+  moltiplicare la funzione di trasferimento del blocco per tutte le
+  altre variabili entranti nel nodo.
+\item Per spostare un blocco a valle di un nodo sommatore, bisogna
+  dividere la funzione di trasferimento del blocco per tutte le altre
+  variabili entranti nel nodo.
 \end{itemize}
-\newpage
-Per quel che riguarda la stabilità dei sistemi in serie, parallelo e in retroazione possiamo affermare che:
+
+Per quel che riguarda la stabilità dei sistemi in serie, parallelo e
+in retroazione possiamo affermare che:
 \begin{itemize}
-\item La connessione in serie di sottosistemi asintoticamente stabili genera sempre un sistema asintoticamente stabile.
-\item La presenza di un sottosistema non asintoticamente stabile in un collegamento in serie, rende il sistema complessivo anch'esso non asintoticamente stabile.
-\item La connessione in parallelo di sottosistemi asintoticamente stabili genera sempre un sistema asintoticamente stabile.
-\item La presenza di un sottosistema non asintoticamente stabile in un collegamento in parallelo rende non asintoticamente stabile il sistema complessivo
-\item La connessione in retroazione di sistemi asintoticamente stabili può generare un sistema non asintoticamente stabile
-\item Un sistema retroazionato può essere asintoticamente stabile anche se alcuni dei sottosistemi non sono asintoticamente stabili.
+\item La connessione in serie di sottosistemi asintoticamente stabili
+  genera sempre un sistema asintoticamente stabile.
+\item La presenza di un sottosistema non asintoticamente stabile in un
+  collegamento in serie, rende il sistema complessivo anch'esso non
+  asintoticamente stabile.
+\item La connessione in parallelo di sottosistemi asintoticamente
+  stabili genera sempre un sistema asintoticamente stabile.
+\item La presenza di un sottosistema non asintoticamente stabile in un
+  collegamento in parallelo rende non asintoticamente stabile il
+  sistema complessivo 
+\item La connessione in retroazione di sistemi asintoticamente stabili
+  può generare un sistema non asintoticamente stabile
+\item Un sistema retroazionato può essere asintoticamente stabile
+  anche se alcuni dei sottosistemi non sono asintoticamente stabili.
 \end{itemize}
-\newpage
-Le figure presenti in figura \ref{fig:blockex} aiutano a capire meglio le possibili riduzioni che si possono effettuare sugli schemi a blocchi:
+
+Le figure presenti in figura \ref{fig:blockex} aiutano a capire meglio
+le possibili riduzioni che si possono effettuare sugli schemi a blocchi:
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/block_example.png}\caption{Esempio di riduzione di schemi a blocchi}\label{fig:blockex}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/block_example.png}
+    \caption{Esempio di riduzione di schemi a blocchi}
+    \label{fig:blockex}
+  \end{center}
 \end{figure} 
 
 
@@ -1232,7 +1404,6 @@ Il primo passo per la costruzione di un sistema di controllo \`e lo
 sviluppo di una descrizione matematica del processo da
 controllare. L'insieme delle equazioni differenziali che descrivono il
 comportamento dinamico del processo \`e detto {\bf modello}.
-
 
 \section{Sistemi elettrici}
 
