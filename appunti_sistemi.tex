@@ -24,6 +24,7 @@
 \renewcommand{\arraystretch}{2}
 
 \usepackage{makeidx}
+\makeindex
 
 \author{Collettivo studentesco Ingegneria Informatica Unisannio}
 \title{Appunti di Sistemi}
@@ -59,68 +60,119 @@
 \end{picture}
 
 \section*{Prefazione}
-\emph{Il presente documento \`e stato scritto con lo scopo di aiutare lo studente che deve affrontare l'esame orale di SISTEMI a ripetere gli argomenti trattati durante il corso, riassumendo i concetti fondamentali del programma.\\
-Tale documento NON deve assolutamente essere usato in sostituzione dei libri di testo e pertanto si presume che il lettore abbia gi\`a le conoscenze (pratiche e teoriche) sulla teoria dei sistemi.}\\
+\emph{Il presente documento \`e stato scritto con lo scopo di aiutare
+  lo studente che deve affrontare l'esame orale di SISTEMI a ripetere
+  gli argomenti trattati durante il corso, riassumendo i concetti
+  fondamentali del programma.\\
+  Tale documento NON deve assolutamente essere usato in sostituzione
+  dei libri di testo e pertanto si presume che il lettore abbia gi\`a
+  le conoscenze (pratiche e teoriche) sulla teoria dei sistemi.}\\
 Buono studio.
 \tableofcontents
 \listoffigures
-Tutte le figure presenti nei capitoli 3, 4, 5, 6 del documento, appartengono ai rispettivi autori come specificato nei riferimenti bibliografici \cite{FCAimg}
+Tutte le figure presenti nei capitoli 3, 4, 5, 6 del documento,
+appartengono ai rispettivi autori come specificato nei riferimenti
+bibliografici \cite{FCAimg}
 \listoftables
 
 
 \chapter{Introduzione}
 
 \section{Il controllo: definizioni}
-I \emph{problemi di controllo} hanno lo scopo di determinare le azioni da compiere su di un processo assegnato, in modo tale che si ottenga per esso il \emph{funzionamento desiderato}. Il processo o \emph{sistema sotto controllo} \`e quell'oggetto su cui il problema \`e posto. Il funzionamento desiderato \`e, invece, riferito al fatto che l'andamento nel tempo delle variabili in gioco, coincida con quello di altre variabili assegnate. 
+I \emph{problemi di controllo} hanno lo scopo di determinare le azioni
+da compiere su di un processo assegnato, in modo tale che si ottenga
+per esso il \emph{funzionamento desiderato}. Il processo o
+\emph{sistema sotto controllo} \`e quell'oggetto su cui il problema
+\`e posto. Il funzionamento desiderato \`e, invece, riferito al fatto
+che l'andamento nel tempo delle variabili in gioco, coincida con
+quello di altre variabili assegnate. 
 
 Si identificano quindi: 
 \begin{enumerate}
 \item \emph{variabili controllate}: le grandezze di interesse
-\item \emph{segnale di riferimento} \footnote{Se \`e costante \`e detto anche \emph{set-point}}: l'andamento desiderato delle variabili controllate
+\item \emph{segnale di riferimento} \footnote{Se \`e costante \`e
+  detto anche \emph{set-point}}: l'andamento desiderato delle
+  variabili controllate
 \end{enumerate}
-Idealmente l'obiettivo di un generico problema di controllo \`e quello di ottenere
+Idealmente l'obiettivo di un generico problema di controllo \`e quello
+di ottenere 
 \begin{equation} 
-\label{eq:obiettivodiprog}\emph{variabile controllata} = \emph{segnale di riferimento}
+  \label{eq:obiettivodiprog}
+  \emph{variabile controllata} = \emph{segnale di riferimento} 
 \end{equation}
-Per ottenere tale risultato, si deve poter agire sul processo attraverso le cd. \emph{variabili di controllo} che sono assegnabili e manipolabili da chi effettua il controllo.
-Esistono, per\`o, anche altre variabili da cui dipendono le variabili controllate e sono i cd. \emph{disturbi}, i quali non sono manipolabili e influenzano il comportamento del processo. Siccome i disturbi non sono noti a priori, \`e necessario definire, per loro tramite, delle incertezze.
+Per ottenere tale risultato, si deve poter agire sul processo
+attraverso le cosiddette \emph{variabili di controllo} che sono
+assegnabili e manipolabili da chi effettua il controllo.
+Esistono, per\`o, anche altre variabili da cui dipendono le variabili
+controllate e sono i cosiddetti \emph{disturbi}, i quali non sono
+manipolabili e influenzano il comportamento del processo. Siccome i
+disturbi non sono noti a priori, \`e necessario definire, per loro
+tramite, delle incertezze. 
 
-Bisogna ricordare che tutte le variabili che fanno parte di un processo di controllo sono funzioni del tempo il quale pu\`o essere di tipo \emph{continuo}, ovvero descritte da una variabile reale convenzionalmente indicata con \textbf{t}.
+Bisogna ricordare che tutte le variabili che fanno parte di un
+processo di controllo sono funzioni del tempo il quale pu\`o essere di
+tipo \emph{continuo}, ovvero descritte da una variabile reale
+convenzionalmente indicata con \textbf{t}. 
 
-L'andamento della variabile di controllo \`e determinato da un organo detto \emph{controllore} o \emph{regolatore}. In particolare l'insieme 
+L'andamento della variabile di controllo \`e determinato da un organo
+detto \emph{controllore} o \emph{regolatore}. In particolare l'insieme 
 \framebox{processo + controllore} forma il \emph{sistema di controllo}.
+
 \section{Specifiche di progetto}
-Dalla relazione \ref{eq:obiettivodiprog} si evince che essendo essa \textit{ideale}, \`e di fatto irraggiungibile. Nella realt\`a la relazione \ref{eq:obiettivodiprog} diventa:
-\begin{equation}\label{eq:obiettivoreale} \emph{variabile controllata}  \simeq \emph{segnale di riferimento}
+Dalla relazione \ref{eq:obiettivodiprog} si evince che essendo essa
+\textit{ideale}, \`e di fatto irraggiungibile. Nella realt\`a la
+relazione \ref{eq:obiettivodiprog} diventa: 
+\begin{equation}\label{eq:obiettivoreale}
+  \emph{variabile controllata}  \simeq \emph{segnale di riferimento}
 \end{equation} 
 e, introducendo l'\emph{errore} del sistema:
 \begin{equation}\label{eq:deferrore}
-\emph{errore}  = \emph{segnale di riferimento} - \emph{variabile controllata}
+  \emph{errore}  = \emph{segnale di riferimento} - \emph{variabile controllata}
 \end{equation}
-L'obiettivo, quindi, \`e quello di minimizzare quanto pi\`u possibile l'errore in tutte le condizioni di funzionamento di interesse tenendo conto dei vincoli sul valore min o max della var. di controllo per evitare eccessive sollecitazioni sul processo.
+L'obiettivo, quindi, \`e quello di minimizzare quanto pi\`u possibile
+l'errore in tutte le condizioni di funzionamento di interesse tenendo
+conto dei vincoli sul valore minimo e massime della variabile di
+controllo per evitare eccessive sollecitazioni sul processo. 
+
 \section{Controllo Feedforward e Feedback}
 Un'importante classificazione del controllo \`e quella effettuata in base alle informazioni possedute dal regolatore (da non confondere con quelle del progettista del controllore). Tale classificazione definisce:
 \begin{description}
-\item[Controllo Feedforward]{\emph{(o controllo in anello aperto o ad azione diretta)}}: quando il controllore possiede informazioni solo sul segnale di riferimento ed eventualmente sul disturbo.
+\item[Controllo Feedforward]{\emph{(o controllo in anello aperto o ad
+    azione diretta)}}: quando il controllore possiede informazioni
+  solo sul segnale di riferimento ed eventualmente sul disturbo
+  (figura \ref{fig:fig1})
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/feedforward.png}
-\caption{Feedforward Control}
-\label{fig:fig1}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/feedforward.png}
+    \caption{Feedforward Control}
+    \label{fig:fig1}
+  \end{center}
 \end{figure}
-FIG. \ref{fig:fig1}
-\item[Controllo Feedback]{\emph{(o controllo in anello chiuso o in retroazione o feedback)}}FIG.\ref{fig:fig2}: quando il controllore ha a disposizione anche la variabile controllata.
+\item[Controllo Feedback]{\emph{(o controllo in anello chiuso o in
+    retroazione o feedback)}} (figura \ref{fig:fig2}): quando il
+  controllore ha a disposizione anche la variabile controllata. 
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/feedback.png}\caption{Feedback Control}\label{fig:fig2}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/feedback.png}\caption{Feedback Control}\label{fig:fig2}
+  \end{center}
 \end{figure}  
 \end{description}
-In particolare, nel controllo retroazionato, si vede che l'azione di controllo impressa al processo in $t = \bar t$, dipende anche dalla variabile controllata per $ t \leq \bar t$.
+In particolare, nel controllo retroazionato, si vede che l'azione di
+controllo impressa al processo in $t = \bar t$, dipende anche dalla
+variabile controllata per $ t \leq \bar t$.
+
 \section{Modelli matematici}
-Al fine di affrontare nel modo giusto un problema di controllo, \`e molto conveniente studiarlo prima in termini puramente matematici. Ci\`o vuol dire che tutte le specifiche di progetto(sull'errore e sul controllo) devono essere espresse in termini formali ed inoltre \`e necessario disporre anche di una descrizione matematica degli elementi che compaiono nel sistema di controllo. \\
-Il modello matematico \`e, dunque, un insieme di relazioni matematiche quali equazioni algebriche, differenziali, etc., che descrivono il sistema di controllo formalizzando le variabili che interconnettono i singoli componenti.
+Al fine di affrontare nel modo giusto un problema di controllo, \`e
+molto conveniente studiarlo prima in termini puramente
+matematici. Ci\`o vuol dire che tutte le specifiche di
+progetto (sull'errore e sul controllo) devono essere espresse in
+termini formali ed inoltre \`e necessario disporre anche di una
+descrizione matematica degli elementi che compaiono nel sistema di
+controllo. Il modello matematico \`e, dunque, un insieme di relazioni matematiche
+quali equazioni algebriche, differenziali, etc., che descrivono il
+sistema di controllo formalizzando le variabili che interconnettono i
+singoli componenti. 
+
 \chapter{Sistemi dinamici a tempo continuo}
 \section{Concetti fondamentali}
 \subsection{Variabili di ingresso, stato e uscita}
