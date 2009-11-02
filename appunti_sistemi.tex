@@ -176,88 +176,149 @@ singoli componenti.
 \chapter{Sistemi dinamici a tempo continuo}
 \section{Concetti fondamentali}
 \subsection{Variabili di ingresso, stato e uscita}
-Un sistema dinamico \ref{fig:fig3} a tempo continuo, \`e un modello matematico di un oggetto fisico interagente con il mondo che lo circonda attraverso due vettori di variabili dipendenti dal tempo $t$:
+Un sistema dinamico \ref{fig:fig3} a tempo continuo, \`e un modello
+matematico di un oggetto fisico interagente con il mondo che lo
+circonda attraverso due vettori di variabili dipendenti dal tempo $t$: 
 \begin{itemize}
-\item{\emph{variabili di ingresso}}:sono le azioni che vengono compiute sull'oggetto in esame da agenti esterni che ne influenzano il comportamento.
-\item{\emph{variabili di uscita}}: \`e quanto del comportamento dell'oggetto stesso \`e di interesse.
+\item{\emph{variabili di ingresso}}: sono le azioni che vengono
+  compiute sull'oggetto in esame da agenti esterni che ne influenzano
+  il comportamento. 
+\item{\emph{variabili di uscita}}: \`e quanto del comportamento
+  dell'oggetto stesso \`e di interesse. 
 \end{itemize}
-In particolare esiste un rapporto di \emph{causa-effetto} tra le var. di ingresso e quelle di uscita.
-Un sistema dinamico \`e schematizzabile come segue:
+In particolare esiste un rapporto di \emph{causa-effetto} tra le
+variabili di ingresso e quelle di uscita. Un sistema dinamico \`e
+schematizzabile come segue:
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/dynasys.png}\caption{Sistema Dinamico}\label{fig:fig3}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/dynasys.png}\caption{Sistema Dinamico}\label{fig:fig3}
+  \end{center}
 \end{figure}  
+
 \subsection{Rappresentazione I-S-U}
-Formalizzando la definizione di sistema dinamico a tempo continuo abbiamo le segg. equazioni:
+Formalizzando la definizione di sistema dinamico a tempo continuo
+abbiamo le seguenti equazioni:
 \begin{equation}\label{eq:eqstato}
-\dot{x}(t)=f(x(t),u(t),t)
+  \dot{x}(t)=f(x(t),u(t),t)
 \end{equation}
 \begin{equation}\label{eq:eqout}
-y=g(x(t),u(t),t)
+  y=g(x(t),u(t),t)
 \end{equation}
-che insieme formano la cd. \emph {rappresentazione I-S-U (Ingresso-Stato-Uscita)} o pi\`u semplicemente \emph{rappresentazione di stato} del sistema.
-
-L'equazione \ref{eq:eqstato} si dice \emph{equazionde di stato}, mentre la \ref{eq:eqout} \`e la cd. \emph{trasformazione d'uscita}.
-
-Il numero \textbf{n} delle variabili di stato di un sistema definisce l'\emph{ordine} del sistema.
-In fig. \ref{fig:fig4} \`e schematizzato un sistema dinamico a tempo continuo con la sua eq. di stato e trasformazione d'uscita.
+che insieme formano la cosiddetta \emph {rappresentazione I-S-U
+  (Ingresso-Stato-Uscita)} o pi\`u semplicemente
+\emph{rappresentazione di stato} del sistema.
+L'equazione \ref{eq:eqstato} si dice \emph{equazionde di stato},
+mentre la \ref{eq:eqout} \`e la cosiddetta \emph{trasformazione
+  d'uscita}. Il numero \textbf{n} delle variabili di stato di un
+sistema definisce l'\emph{ordine} del sistema. In figura
+\ref{fig:fig4} \`e schematizzato un sistema dinamico a tempo continuo
+con la sua equazione di stato e trasformazione d'uscita.
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/dynaeq.png}\caption{Sistema dinamico con eq. di stato e trasformazione d'uscita}\label{fig:fig4}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/dynaeq.png}
+    \caption{Sistema dinamico con eq. di stato e trasformazione
+      d'uscita}
+    \label{fig:fig4}
+  \end{center}
 \end{figure} 
 
-L'equazione di stato mette in relazione con l'ingresso le variabili che descrivono la situazione interna del sistema, mentre la trasformazione di uscita, sulla base di tale situazione  e dell'ingresso applicato in uno specifico istante \textbf{t}, consente di determinare l'uscita nello stesso istante \textbf{t}.
-Per gli esempi consultare il testo di riferimento \cite{FCA}
+L'equazione di stato mette in relazione con l'ingresso le variabili
+che descrivono la situazione interna del sistema, mentre la
+trasformazione di uscita, sulla base di tale situazione e
+dell'ingresso applicato in uno specifico istante \textbf{t}, consente
+di determinare l'uscita nello stesso istante \textbf{t}. Per gli
+esempi consultare il testo di riferimento \cite{FCA} 
 
-Nello scegliere le variabili di stato di un sistema, bisogna tener conto che esse ci aiutano a capire quanto \`e necessario conoscere della situazione interna o della \emph{storia passata} del sistema per poter calcolare l'uscita. \\ Nei sistemi fisici, la situazione interna \`e generalmente definita da accumuli di energia, quantit\`a di moto, massa e, quindi, pu\`o essere opportuno scegliere come variabili di stato quelle da cui queste grandezze dipendono. 
-Ad esempio:
+Nello scegliere le variabili di stato di un sistema, bisogna tener
+conto che esse ci aiutano a capire quanto \`e necessario conoscere
+della situazione interna o della \emph{storia passata} del sistema per
+poter calcolare l'uscita. 
+
+Nei sistemi fisici, la situazione interna \`e generalmente definita da
+accumuli di energia, quantit\`a di moto, massa e, quindi, pu\`o essere
+opportuno scegliere come variabili di stato quelle da cui queste
+grandezze dipendono. Ad esempio:
 \begin{itemize}
-\item{nei sistemi elettrici \`e conveniente utilizzare come var. di stato le tensioni dei condensatori o le correnti degli induttori, perch\`e da queste dipendono gli accumuli di energia elettrica e magnetica}
-\item{nei sistemi meccanici \`e utile usare, invece, posizione e velocit\`a come var. di stato, perch\`e legate ad accumuli di en. potenziale, quantit\`a di moto ed en. cinetica}
-\item{nei sistemi termodinamici si possono usare come var. di stato le temperature, perch\`e da esse dipendono le energie termiche immagazzinate}
+\item{nei sistemi elettrici \`e conveniente utilizzare come variabili
+  di stato le tensioni dei condensatori o le correnti degli induttori,
+  perch\`e da queste dipendono gli accumuli di energia elettrica e magnetica}
+\item{nei sistemi meccanici \`e utile usare, invece, posizione e
+  velocit\`a come variabili di stato, perch\`e legate ad accumuli di
+  en. potenziale, quantit\`a di moto ed en. cinetica}
+\item{nei sistemi termodinamici si possono usare come variabili di
+  stato le temperature, perch\`e da esse dipendono le energie termiche
+  immagazzinate}
 \end{itemize}
+
 \subsection{Classificazione dei sistemi}
 I sistemi possono essere: 
 \begin{itemize}
-\item[**]{\textbf {Sistemi monovariabili e multivariabili (SISO e MIMO)}}: i sistemi SISO (\emph{Single Input Single Output}) sono dotati di una sola var. di ingresso ed una sola var. d'uscita; i sistemi MIMO (\emph{Multiple Input Multiple Output}) sono gli altri.
-\item[**]{\textbf{Sistemi propri, strettamente propri e non dinamici}}: in generale un sistema si dice \emph{proprio}; se, invece, la trasformazione d'uscita pu\`o essere espressa nella forma \begin{equation}\label{eq:eqstrpr}
-y(t)=g(x(t),t)
-\end{equation} ovvero essa dipende solo dallo stato e non dall'ingresso, allora il sistema si dice \emph{strettamente proprio} o \emph{puramente dinamico}; \\ se, infine, l'uscita \`e nella forma
-\begin{equation}\label{eq:eqstaticsys}
-y(t)=g(u(t),t)
-\end{equation} ovvero essa dipende solo dall'ingresso e non c'\`e nessuno stato, allora il sistema \`e un particolare sistema proprio detto \emph{sistema non dinamico o statico}
+\item[**]{\textbf {Sistemi monovariabili e multivariabili (SISO e
+    MIMO)}}: i sistemi SISO (\emph{Single Input Single Output}) sono
+  dotati di una sola variabile di ingresso ed una sola variabile
+  d'uscita; i sistemi MIMO (\emph{Multiple Input Multiple Output})
+  sono gli altri.
+\item[**]{\textbf{Sistemi propri, strettamente propri e non
+    dinamici}}: in generale un sistema si dice \emph{proprio}; se,
+  invece, la trasformazione d'uscita pu\`o essere espressa nella forma
+  \begin{equation}\label{eq:eqstrpr}
+    y(t)=g(x(t),t)
+  \end{equation}
+  ovvero essa dipende solo dallo stato e non dall'ingresso, allora il
+  sistema si dice \emph{strettamente proprio} o \emph{puramente
+    dinamico}; \\
+  se, infine, l'uscita \`e nella forma
+  \begin{equation}\label{eq:eqstaticsys}
+    y(t)=g(u(t),t)
+  \end{equation} ovvero essa dipende solo dall'ingresso e non c'\`e
+  nessuno stato, allora il sistema \`e un particolare sistema proprio
+  detto \emph{sistema non dinamico o statico} 
 \item[**]{\textbf{Sistemi invarianti e varianti nel tempo}}
-Nel caso in cui le funzioni $f$ e $g$ non dipendano esplicitamente dal tempo, allora il ststema si dice \emph{invariante nel tempo} o \emph{stazionario}. In particolare si ha:
+Nel caso in cui le funzioni $f$ e $g$ non dipendano esplicitamente dal
+tempo, allora il ststema si dice \emph{invariante nel tempo} o
+\emph{stazionario}. In particolare si ha: 
 \begin{equation}\label{eq:ltisys}
-\dot{x}(t) = f(x(t),u(t))
+  \dot{x}(t) = f(x(t),u(t))
 \end{equation}
 \begin{equation}\label{eq:ltisys2}
-y(t)=g(x(t),u(t))
+  y(t)=g(x(t),u(t))
 \end{equation}
-Invece, se anche una sola delle funzioni $f$ e $g$ dipende esplicitamente da $t$, il sistema si dice \emph{variante nel tempo} ed in questo caso le equazioni del sistema sono la \ref{eq:eqstato} e la \ref{eq:eqout}.
+Invece, se anche una sola delle funzioni $f$ e $g$ dipende
+esplicitamente da $t$, il sistema si dice \emph{variante nel tempo} ed
+in questo caso le equazioni del sistema sono la \ref{eq:eqstato} e la
+\ref{eq:eqout}. 
 \item[**]{\textbf{Sistemi lineari e non lineari}}
-Se le equazioni del sistema sono combinazioni lineari delle varie componenti dei vettori $x(t)$ e $u(t)$, allora il sistema si dice \emph{lineare}, altrimenti \`e \emph{non lineare}. La rappresentazione ISU, espressa in forma matriciale, del generico sistema lineare T.I. (Tempo Invariante) \`e la seguente:
+Se le equazioni del sistema sono combinazioni lineari delle varie
+componenti dei vettori $x(t)$ e $u(t)$, allora il sistema si dice
+\emph{lineare}, altrimenti \`e \emph{non lineare}. La rappresentazione
+ISU, espressa in forma matriciale, del generico sistema lineare
+T.I. (Tempo Invariante) \`e la seguente: 
 \begin{equation}\label{eq:matltisys}
-\dot{x}(t)=Ax(t)+Bu(t)
+  \dot{x}(t)=Ax(t)+Bu(t)
 \end{equation}
 \begin{equation}
-y(t)=Cx(t)+Du(t)
+  y(t)=Cx(t)+Du(t)
 \end{equation}
 dove:
 \begin{itemize}
-\item {A \`e detta \emph{matrice della dinamica}. La sua dimensione \`e $[n \times n]$, dove n \`e il numero di variabili di stato}~\footnote{N.B. Se il sistema \`e T.V.(Tempo Variante) allora le matrici sono funzioni del tempo}
-\item{B \`e la \emph{matrice degli ingressi}. La sua dimensione \`e $[n\times m]$, dove m \`e il numero degli ingressi}
-\item{C \`e la \emph{matrice delle uscite}. Dimensionalmente \`e $[p\times n]$, dove p \`e il numero di uscite}
-\item{D \`e la \emph{matrice di trasmissione}, la quale vale 0 se $\nexists$ legame tra ingresso e uscita e la sua dimensione \`e $[p\times m]$}
+\item {A \`e detta \emph{matrice della dinamica}. La sua dimensione
+  \`e $[n \times n]$, dove n \`e il numero di variabili di
+  stato}~\footnote{N.B. Se il sistema \`e T.V.(Tempo Variante) allora
+  le matrici sono funzioni del tempo} 
+\item{B \`e la \emph{matrice degli ingressi}. La sua dimensione \`e
+  $[n\times m]$, dove m \`e il numero degli ingressi} 
+\item{C \`e la \emph{matrice delle uscite}. Dimensionalmente \`e
+  $[p\times n]$, dove p \`e il numero di uscite} 
+\item{D \`e la \emph{matrice di trasmissione}, la quale vale 0 se
+  $\nexists$ legame tra ingresso e uscita e la sua dimensione \`e
+  $[p\times m]$} 
 \end{itemize}
 \end{itemize}
-\newpage
-\section{Risposta impulsiva}
 
-L'impulso \`e un artificio matematico usato per rappresentare segnali brevi ma intensi. \\
-In particolare si definisce l'\emph{impulso di Dirac} come: \\
+\section{Risposta impulsiva}
+L'impulso \`e un artificio matematico usato per rappresentare segnali
+brevi ma intensi. In particolare si definisce l'\emph{impulso di
+  Dirac} come:
 \begin{displaymath}
 \textrm{imp(t)}=\delta(t) = \left\{ \begin{array}{ll}
  1 & \textrm{if $t=0$}\\
@@ -268,22 +329,29 @@ Le sue propriet\`a sono:
 \begin{enumerate}
 \item {$P_\varepsilon(t)\ge 0$}
 \item {$P_\varepsilon(t)=0$} all'esterno di [0,$\varepsilon$]
-\item{$\int_{0}^{\varepsilon}P_\varepsilon(\tau) d\tau=1$} ha area unitaria $\forall \varepsilon$
-\item{$\delta(t)\triangleq  \lim_{\varepsilon \rightarrow \infty} P_\varepsilon(t) $}
+\item{$\int_{0}^{\varepsilon}P_\varepsilon(\tau) d\tau=1$} ha area
+  unitaria $\forall \varepsilon$ 
+\item{$\delta(t)\triangleq  \lim_{\varepsilon \rightarrow \infty}
+  P_\varepsilon(t) $} 
 \item{$\int_{-\infty}^{+\infty}\delta(t)dt=1$}
 \item {$\int_{-\infty}^{+\infty}\delta(t)f(t)dt=f(0)$ Campionamento}
 \end{enumerate}
 
-\textsl{Se al sistema applichiamo un impulso, esso risponder\`a con i suoi \textbf{MODI NATURALI}}.
+\textsl{Se al sistema applichiamo un impulso, esso risponder\`a con i
+  suoi \textbf{MODI NATURALI}}. 
 \subsection{Risposta impulsiva del sistema}
 In generale:
 \begin{equation}
-Y_F(s)=G(s)U(s)\label{eq:eqlaprispf}
+  Y_F(s)=G(s)U(s)\label{eq:eqlaprispf}
 \end{equation}
-se $u(t)=\delta(t) \Rightarrow Y_F(s)=G(s)\cdot 1\Rightarrow Y_F(s)=G(s) \stackrel {{\mathfrak{L^{-1}}}}{\longrightarrow}\protect\footnote{$\mathfrak{L}^{-1}$ \`e l' \emph{Antitrasformata di Laplace}. (vedere Appendice \ref{apx:laplace})}g(t)=y_f(t)$ \\
+se $u(t)=\delta(t) \Rightarrow Y_F(s)=G(s)\cdot 1\Rightarrow
+Y_F(s)=G(s) \stackrel
+{{\mathfrak{L^{-1}}}}{\longrightarrow}\protect\footnote{$\mathfrak{L}^{-1}$
+  \`e l' \emph{Antitrasformata di Laplace}. (vedere Appendice
+  \ref{apx:laplace})}g(t)=y_f(t)$ 
 \textbf{La risposta impulsiva \`e:}
 \begin{equation}\label{eq:eqpulseresp}
-\protect\mathfrak{L}^{-1}[G(s)\mathfrak{L}(\delta(t)]
+  \protect\mathfrak{L}^{-1}[G(s)\mathfrak{L}(\delta(t)]
 \end{equation}
 
 \section{Equilibrio e punti di equilibrio}
@@ -304,23 +372,24 @@ trova nello stato $x(\bar{t})=\bar{x}$, allora $\forall t >\bar{t}$,
 il sistema si trover\`a nello stesso stato $x(t)=\bar{x}$.
 
 In termini matematici gli stati di equilibrio devono soddisfare
-l'equazione $\dot{x}(t)=0$, cio\`e sono le soluzioni $\bar{x}$ costanti
-nel tempo dell'equazione: 
+l'equazione $\dot{x}(t)=0$, cio\`e sono le soluzioni $\bar{x}$
+costanti nel tempo dell'equazione: 
 \begin{equation}\label{eq:eqsteady}
-f(\bar{x},\bar{u})=0
+  f(\bar{x},\bar{u})=0
 \end{equation}
 a ciascuna delle soluzioni (se ne esistono), corrisponde un'uscita di
 equilibrio $\bar{y}$ calcolabile mediante la relazione 
 \begin{equation}\label{eq:outsteady}
-\bar{y}=g(\bar{x},\bar{u})
+  \bar{y}=g(\bar{x},\bar{u})
 \end{equation}
-In particolare, gli stati di equilibrio $\bar{x}$ sono le soluzioni dell'equazione:
+In particolare, gli stati di equilibrio $\bar{x}$ sono le soluzioni
+dell'equazione: 
 \begin{equation}
-A\bar{x}+B\bar{u} = 0
+  A\bar{x}+B\bar{u} = 0
 \end{equation}
 e ad ogni stato di equilibrio corrisponde un uscita di equilibrio:
 \begin{equation}
-\bar{y}=C\bar{x}+D\bar{u}
+  \bar{y}=C\bar{x}+D\bar{u}
 \end{equation}
 
 \subsection{La matrice $A$}
@@ -366,37 +435,39 @@ classificati secondo la stabilit\`a: \footnote{Il polo dominante \`e il
   polo che si trova pi\`u a destra degli altri} \\ 
 
 \begin{table}[hbp!]
-\begin{center}
-\begin{tabular}[hbp!]{|c|p{5cm}|}
-\hline
-\multicolumn{2}{|c|}{STABILITA'} \\
-\hline
-\hline
-TIPO & Definizione \\
-\hline
-\hline
-\hline
-ASINTOTICAMENTE STABILE & Quando tutti i MODI NATURALI sono
-convergenti ovvero tutti i poli sono a Sx (il \emph{polo dominante} \`e a Sx)\\
-\hline
-INSTABILE & $\exists$ un modo divergente ovvero il polo dominante \`e a Dx\\
-\hline
-(MARGINALMENTE) STABILE & $\nexists$ modi naturali divergenti, ma ne
-$\exists$ uno o + limitato che non tende a $0$ ovvero il polo dominante \`e sull'asse Im \\
-\hline
-(DEBOLMENTE) INSTABILE & $\nexists$ modi divergenti esponenziali, ma
-ne $\exists$ uno divergente 'debolmente' (ad esempio, potenze della
-$t$ che crescono pi\`u lentamente dell'esponenziale) ovvero il polo \`e
-sull'asse $\Im m$ con molteplicit\`a>1\\
-\hline
-\end{tabular}
-\caption{Stabilit\`a dei sistemi}
-\label{tab:tab1}
-\end{center}
+  \begin{center}
+    \begin{tabular}[hbp!]{|c|p{5cm}|}
+      \hline
+      \multicolumn{2}{|c|}{STABILITA'} \\
+      \hline
+      \hline
+      TIPO & Definizione \\
+      \hline
+      \hline
+      \hline
+      ASINTOTICAMENTE STABILE & Tutti i MODI NATURALI sono
+      convergenti, ovvero tutti i poli sono a sinistra (il \emph{polo
+        dominante} \`e a sinistra)\\ 
+      \hline
+      INSTABILE & Esiste un modo divergente, ovvero il polo dominante
+      \`e a destra\\
+      \hline
+      MARGINALMENTE STABILE & Non esistono modi naturali divergenti, ma ne
+      esiste uno, o pi\`u di uno, limitato che non tende a $0$, ovvero il polo
+      dominante \`e sull'asse immaginario \\ 
+      \hline
+      DEBOLMENTE INSTABILE & Non esistono modi divergenti esponenziali, ma
+      ne esiste uno divergente ``debolmente'' (ad esempio, potenze della
+      $t$ che crescono pi\`u lentamente dell'esponenziale), ovvero il polo \`e
+      sull'asse immaginario con molteplicit\`a maggiore di $1$\\
+      \hline
+    \end{tabular}
+    \caption{Stabilit\`a dei sistemi}
+    \label{tab:tab1}
+  \end{center}
 \end{table}
 
 \chapter{Sistemi LTI a tempo continuo}
-
 \section{Evoluzioni di un sistema}
 Nei movimenti dello stato e dell'uscita di un sistema, si pu\`o
 individuare un contributo dipendente solo dallo stato iniziale e uno
