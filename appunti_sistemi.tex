@@ -825,16 +825,27 @@ valutare il polinomio caratteristico, sulla base del Teorema \ref{th:routh}.
 lineari e stazionari. Essa mette in relazione tra loro le trasformate
 di Laplace delle variabili di ingresso e di uscita.
 
-\section{Definizione della Funzione di trasferimento(f.d.t)}
+\section{Definizione della funzione di trasferimento}
 Si considera il sistema \ref{eq:matltisys}. Applicando le
-trasformate di Laplace (v. appendice \ref{apx:laplace}) ad ambo i membri si ha:
+trasformate di Laplace (vedi appendice \ref{apx:laplace}) ad ambo i
+membri si ha: 
 \begin{displaymath}
-  sX(s)-x(0)=AX(s)+BU(s)
+  sX(s) - x(0) = AX(s) + BU(s)
 \end{displaymath}
 \begin{displaymath}
-  Y(s)=CX(s)+DU(s)
+  Y(s) = CX(s) + DU(s)
 \end{displaymath}
-Attraverso semplici passaggi algebrici si ottengono le seguenti equazioni:
+Proseguendo:
+\[
+  sX(s) - AX(s) = BU(s) + x(0)
+\]
+Per mettere in evidenza $X(s)$, dobbiamo moltiplicare $s$ per la
+matrice identit\`a: \`e impossibile sottrarre la matrice $A$ allo
+scalare $s$.
+\[
+  X(s)(SI - A) = BU(s) + x(0)
+\]
+Iterando, si ottengono le seguenti equazioni: 
 \begin{eqnarray}\label{eq:tdlstateout}
   X(s)=\underbrace{(sI-A)^{-1}BU(s)}_{\mathfrak{L}\{Risposta \; forzata\}} +
   \underbrace{(sI-A)^{-1}x(0)}_{\mathfrak{L}\{Risposta \; libera\}}\\
@@ -849,18 +860,21 @@ e dell'uscita. In particolare, considerando le condizioni iniziali nulle si ha:
 \end{equation}
 Si definisce pertanto:
 \begin{equation}\label{eq:fdt}
-  G(s)\triangleq(C(sI-A)^{-1}B+D) \qquad \textrm{\emph{funzione/matrice di trasferimento}}
+  G(s) \triangleq (C(sI-A)^{-1}B+D) \qquad
+  \textrm{\emph{funzione/matrice di trasferimento}} 
 \end{equation}
-Effettuando l'antitrasformazione di $\mathfrak{L}$. (appendice
+Effettuando l'antitrasformazione di Laplace (appendice
 \ref{apx:laplace}) della \ref{eq:transfout} si pu\`o conoscere il
 movimento forzato $y_f$ che, nel caso di stato iniziale nullo,
 coincide con il movimento d'uscita $y$.
 
 Nel caso di sistemi SISO, se
 $u(t)=\delta(t) \stackrel{\mathfrak{L}}{\Rightarrow} U(s)=1$ allora
-$Y(s)=G(s)$ ovvero la f.d.t. (funzione di trasferimento) la si pu\`o
-interpretare come la trasformata di Laplace della risposta impulsiva
-(\ref{eq:eqpulseresp}). 
+\[
+Y(s)=G(s)
+\]
+ovvero si pu\`o interpretare la funzione di trasferimento come la
+trasformata di Laplace della risposta impulsiva (\ref{eq:eqpulseresp}). 
 
 \subsection{Struttura della funzione di trasferimento}
 In generale la \ref{eq:fdt} \`e una funzione razionale in $s$ data dal
@@ -870,29 +884,35 @@ rapporto di due polinomi ovvero:
     \ldots+\beta_1s+\beta_0}{\alpha_\nu s^\nu+\alpha_{\nu-1}s^{\nu-1}+
     \ldots+\alpha_1s+\alpha_0}
 \end{equation} 
-Senza perdita di generalit\`a, si pu\`o considerare $D(s)$ come monico per
-cui $\alpha_\nu=1$.
+Senza perdita di generalit\`a, si pu\`o considerare $D(s)$ come
+polinomio monico, cio\`e $\alpha_\nu=1$.
 
-Se il sistema \`e strettamente proprio, allora il grado del denominatore
-$D(s)$ sar\`a maggiore  del grado del numeratore $N(s)$.
-Se il sistema \`e proprio, allora il grado del denominatore $D(s)$
-sar\`a pari al grado del numeratore $N(s)$.
-Per i sistemi impropri il grado del numeratore $N(s)$ sar\`a maggiore
-del grado del denominatore $D(s)$.
+\begin{itemize}
+\item Se il sistema \`e strettamente proprio\index{Sistema
+  strettamente proprio}, allora il grado del
+  denominatore $D(s)$ sar\`a maggiore  del grado del numeratore $N(s)$.
+\item Se il sistema \`e proprio\index{Sistema proprio}, allora il
+  grado del denominatore $D(s)$ sar\`a pari al grado del numeratore
+  $N(s)$. 
+\item Per i sistemi impropri\index{Sistema improprio} il grado del
+  numeratore $N(s)$ sar\`a maggiore del grado del denominatore $D(s)$.
+\end{itemize}
 La differenza tra il grado di $D(s)$ e quello di $N(s)$ \`e detta
-\emph{\textbf{grado relativo}} ed indica la \emph{prontezza del sistema}.
+\emph{\textbf{grado relativo}}\index{Grado relativo} ed indica la
+\emph{prontezza del sistema}.
 
 \subsubsection{Poli e zeri}
 Le \emph{singolarit\`a} di un sistema \`e l'insieme dei \textbf{poli} e
-degli \textbf{zeri}. zPer definizione:
+degli \textbf{zeri}. Per definizione:
 \begin{description}
-\item[Poli]: sono i valori che annullano il denominatore $D(s)$. Essi
-  sono anche le radici dell'equazione $\det(sI-A)=0$, cio\`e sono gli
+\item[Poli] sono i valori che annullano il denominatore $D(s)$. Essi
+  sono anche le radici dell'equazione $det(sI - A) = 0$, cio\`e sono gli
   autovalori del sistema;
-\item[Zeri]: sono i valori che annullano il numeratore $N(s)$.
+\item[Zeri] sono i valori che annullano il numeratore $N(s)$.
 \end{description}
 
-\subsection{Relazione tra funzione di trasferimento ed equazioni differenziali}
+\subsection{Relazione tra funzione di trasferimento ed equazioni
+  differenziali} 
 Considerando un sistema rappresentato dall'equazione differenziale:
 \begin{displaymath}
   \frac{d^n y(t)}{dt^n}+\alpha_{n-1}\frac{d^{n-1} y(t)}{dt^{n-1}} +
@@ -927,10 +947,10 @@ tra numeratore e denominatore. Questa eventualit\`a pu\`o portarci nello
 scenario in cui il numero di poli $v$ \`e minore del numero degli $n$
 autovalori del polinomio. Com'\`e noto la $G(s)$, nota anche come
 rappresentazione esterna, descrive il legame tra l'ingresso e l'uscita
-del sistema. Qusto ci porta a considerare che gli autovalori che non
+del sistema. Questo ci porta a considerare che gli autovalori che non
 coincidono con i poli di $G(s)$ sono associati a parti ``nascoste''
 del sistema. In questo caso, gli autovalori potrebbero perfino avere
-parte real positiva.
+parte reale positiva.
 
 In definitva, per assicurarci che il polinomio caratteristico descriva
 adeguatamente il sistema e ci garantisca l'asintotica stabilit\`a,
@@ -954,17 +974,23 @@ che ci porta alla seguente funzione di trasferimento:
 \[
   G(s) = e^{- \tau s}
 \]
+Se essa \`e moltiplicata per una generica funzione di trasferimento
+$G'(s)$, le valutazioni si spostano su quest'ultima e solo alla fine
+si applica la traslazione ai risultati ottenuti.
 
 \section{Parametri della funzione dei trasferimento e sue rappresentazioni}
 Molto spesso \`e conveniente rappresentare la G(s) di un sistema SISO in
 uno di questi due modi:
 \begin{equation}\label{eq:firstformfdt}
-  G(s)=\frac{\rho \prod_i(s+z_i) \prod_i(s^2+2 \zeta_i \alpha_{ni}s +
+  G(s)=\dfrac{\rho \prod_i(s+z_i) \prod_i(s^2+2 \zeta_i \alpha_{ni}s +
     \alpha^{2}_{ni})}{s^g \prod_i(s+p_i) \prod_i(s^2+2 \xi_i
     \omega_{ni}s + \omega^2_{ni})}
 \end{equation}
 \begin{equation}\label{eq:secformfdt}
-  G(s)=\frac{\mu \prod_i(1+\tau_i s) \prod_i(1+\frac{2 \zeta_i s}{\alpha_{ni}}+\frac{s^2}{\alpha^{2}_{ni}})}{s^g \prod_i(1+T_i s) \prod_i(1+\frac{2 \xi_i s} {\omega_{ni}}+\frac{s^2}{\omega^2_{ni}})}
+  G(s)= \dfrac{\mu \prod_i(1 + \tau_i s) \prod_i\left(1+\dfrac{2 \zeta_i
+      s}{\alpha_{ni}} + \dfrac{s^2}{\alpha^{2}_{ni}}\right)}{s^g
+    \prod_i (1+T_i s) \prod_i\left(1+\dfrac{2 \xi_i s} {\omega_{ni}} +
+    \dfrac{s^2}{\omega^2_{ni}}\right)}
 \end{equation}
 Nelle equazioni \ref{eq:firstformfdt} e ~\ref{eq:secformfdt} si identificano:
 \begin{itemize}
@@ -982,12 +1008,13 @@ Nelle equazioni \ref{eq:firstformfdt} e ~\ref{eq:secformfdt} si identificano:
   per definizione coincidono con il reciproco cambiato di segno dei
   poli e degli zeri $\neq 0$
 \end{itemize}
-Combinando le due equazioni \ref{eq:firstformfdt} e ~\ref{eq:secformfdt} si pu\`o facilmente verificare che:
+Combinando le due equazioni \ref{eq:firstformfdt} e
+~\ref{eq:secformfdt} si pu\`o facilmente verificare che:
 \begin{eqnarray}\label{eq:fdtparms}
-  \mu=\frac{\rho \prod_iz_i\prod_i\alpha_{ni}^2}{\prod_ip_i\prod_i\omega^2_{ni}}\\
-  \rho=\frac{\mu\prod_i\tau_i\prod_i\omega_{ni}^2}{\prod_iT_i\prod_i\alpha^2_{ni}}\\
-  \tau_i=\frac{1}{z_i}\\
-  T_i=\frac{1}{p_i}
+  \mu=\dfrac{\rho \prod_iz_i\prod_i\alpha_{ni}^2}{\prod_ip_i\prod_i\omega^2_{ni}}\\
+  \rho=\dfrac{\mu\prod_i\tau_i\prod_i\omega_{ni}^2}{\prod_iT_i\prod_i\alpha^2_{ni}}\\
+  \tau_i=\dfrac{1}{z_i}\\
+  T_i=\dfrac{1}{p_i}
 \end{eqnarray}
 
 \section{Il guadagno}
@@ -997,8 +1024,20 @@ asintoticamente stabile, quindi $g \le 0$, $T_i > 0$, $\xi_i > 0$. Si
 consideri il caso particolare in cui $g = 0$ e vi sia un ingresso
 $u(t) = \bar{u}$ la cui trasformata di Laplace \`e
 $U(s) = \dfrac{\bar u}{s}$.
+
+Il teorma del valore finale\index{Teorema del valore finale} permette
+di calcolare il valore costante a regime di una funzione temporale
+data la sua trasformata di Laplace. Esso pu\`o essere correttamente
+applicato solo se tutti i poli sono a sinistra dell'asse immaginario
+ed un solo polo \`e nell'origine. In questo caso, il valore sar\`a una
+costante diversa da zero. Se non ci sono poli nell'origine il valore
+finale sar\`a zero. Se ci sono poli positivi, il valore finale \`e
+indefinito: il sistema diverge.
+\begin{equation}\label{eq:teoremaDelValoreFinale}
+  \lim_{t \rightarrow \infty} f(t) = \lim_{s \rightarrow 0} s F(s)
+\end{equation}
 Calcolando la risposta di regime applicando il teorema del valore
-finale (Teorema \ref{th:endvalth}) si ha:
+finale si ha:
 \begin{displaymath}
   \bar y=\lim_{t \to \infty}y(t)=\lim_{s \to 0}sG(s)\dfrac{\bar u}{s}
   = \lim_{s \to 0}s(C(sI-A)^{-1}B+D)\dfrac{\bar u}{s}=
@@ -1010,20 +1049,24 @@ e per la \ref{eq:secformfdt} si ha:
 \begin{equation}\label{eq:secgain}
   \bar y=\lim_{s \to 0}sG(s)\frac{\bar u}{s}=\mu \bar u
 \end{equation}
-Confrontando le due equazioni \ref{eq:firstgain}, ~\ref{eq:secgain} risulta:
+Confrontando le due equazioni \ref{eq:firstgain}, ~\ref{eq:secgain}
+risulta che:
 \begin{equation}\label{eq:defgain}
-  \mu =G(0)=-CA^{-1}B+D
+  \mu = G(0) = -CA^{-1}B + D
 \end{equation}
-\`e il guadagno che in questo caso coincide con il guadagno statico (per
-$g = 0$). Semplicemente il guadagno statico si calcola valutando
-$G(s)\Bigg|_{s=0}$. Il guadagno, quindi, \`e \emph{il rapporto tra
-  uscita e ingresso}. Nel caso in cui $g \ne 0$, $\mu$ viene chiamato
-\emph{guadagno generalizzato}\index{Guadagno generalizzato} e si calcola come:
+$\mu$ \`e il guadagno che in questo caso coincide con il guadagno
+statico (per $g = 0$). Semplicemente il guadagno statico si calcola valutando
+$G(s)\Big|_{s=0}$. Il guadagno, quindi, \`e \emph{il rapporto tra
+  uscita e ingresso}. Considerando la differenza tra i poli
+nell'origine e gli zeri nell'origine $g$, nel caso in cui $g \ne 0$,
+$\mu$ viene chiamato \emph{guadagno generalizzato}\index{Guadagno
+  generalizzato} e si calcola come: 
 \begin{equation}\label{eq:gengain}
-  \mu=\lim_{s \to 0}s^gG(s)
+  \mu=\lim_{s \to 0} s^g G(s)
 \end{equation}
 
-/!$\backslash$ in questo caso $\mu$ non \`e pi\`u il guadagno statico!\\
+/!$\backslash$ in questo caso $\mu$ non \`e pi\`u il guadagno statico!
+
 Una considerazione importante da fare \`e che i poli ``rallentano'' mentre
 gli zeri ``accelerano'' per quanto riguarda l'evoluzione della risposta di
 un sistema. In particolare, tornando alle costanti di tempo, si pu\`o dire
