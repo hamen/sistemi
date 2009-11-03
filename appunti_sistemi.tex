@@ -501,14 +501,14 @@ sistemi con autovalori distinti e doppi.
 
 \section{Criteri di stabilit\`a}
 In un sistema stazionario lineare, la determinazione delle propriet\`a
-di stabilit\`a dipendono solo dal movimento libero. Inoltre, anche il
+di stabilit\`a dipende solo dal movimento libero. Inoltre, anche il
 calcolo del movimento libero pu\`o essere evitato in quanto \`e possibile
-(seppur in maniera sufficiente) verificare condizioni di asintotica
-stabilit\`a e instabilit\`a, valutando esclusivamente i soli autovalori
-del sistema (ove possibile). Nell'appendice \ref{apx:jacob} viene
-mostrato come valutare la stabilit\`a dei punti di equilibrio di un
-sistema, attraverso il calcolo della matrice \textsl{Jacobiana}.
-Tre importanti teoremi sulla stabilit\`a dei sistemi sono: \\
+verificare condizioni di asintotica stabilit\`a e instabilit\`a,
+valutando esclusivamente gli autovalori del sistema. Nell'appendice
+\ref{apx:jacob} viene mostrato come valutare la stabilit\`a dei punti
+di equilibrio di un sistema, attraverso il calcolo della matrice
+\textsl{Jacobiana}. 
+Seguonoe tre importanti teoremi sulla stabilit\`a dei sistemi:
 \newtheorem{Th1}{Teorema}[section]
 \newtheorem{Th2}[Th1]{Teorema}
 \newtheorem{Th3}[Th1]{Teorema}
@@ -532,7 +532,7 @@ Tre importanti teoremi sulla stabilit\`a dei sistemi sono: \\
 \end{Th2}
 
 \begin{Th3}\label{th:th3}
-  Il sistema lineare stazionario \`e asintoticamente stabile se e solo
+  Un sistema lineare stazionario \`e asintoticamente stabile se e solo
   se tutti i suoi autovalori hanno parte reale negativa ($\Re<0$).
 \end{Th3}
 
@@ -576,11 +576,12 @@ caratteristico~\ref{eq:polycarat} scritto in forma pi\`u generale:
   \varphi(s)=\varphi_0 s^n+\varphi_1s^{n-1}+\varphi_2s^{n-2}+\ldots+\varphi_{n-1}s+\varphi_n ~con ~\varphi_0 \ne 0
 \end{equation}
 
-Si osservi poich\`e
+Si osservi inoltre che
 \begin{equation}\label{eq:phigen}
   \varphi(s)=\varphi_0 \prod_{i=1}^{n}(s-s_i)
 \end{equation}
-per cui se il sistema \`e asintoticamente stabile, risulta $\sum_{i=1}^ns_i<0$.
+per cui, se il sistema \`e asintoticamente stabile,
+risulta $$\sum_{i=1}^ns_i<0$$.
 
 \newtheorem{Th5}{Teorema}[section]
 \begin{Th5}\label{th:th5}
@@ -597,10 +598,12 @@ A dimostrazione del teorema ~\ref{th:th5} si pu\`o imporre nella
 
 \subsubsection{Applicazione del Teorema di Routh}
 Attraverso la definizione della cosiddetta \textsl{tabella di Routh}
-\`e possibile formulare una condizione necessaria e sufficiente di asintotica stabilit\`a.
-Tale tabella si costruisce a partire dal polinomio caratteristico
-~\ref{eq:polycarat} ed ha $n+1$ righe e una struttura triangolare, in
-quanto ogni $2$ righe (eccetto la prima se $n$ \`e pari), il numero di elementi diminuisce di 1.
+\`e possibile formulare una condizione necessaria e sufficiente di
+asintotica stabilit\`a. 
+Tale tabella si costruisce a partire dal polinomio
+caratteristico~\ref{eq:polycarat} ed ha $n + 1$ righe e una struttura
+triangolare, in quanto ogni $2$ righe (eccetto la prima se $n$ \`e
+pari), il numero di elementi diminuisce di 1. 
 In particolare la tabella si costruisce come segue:\\
 \begin{center}
   \begin{tabular}{|r|l|}
@@ -692,11 +695,12 @@ Dopo aver effettuato tali calcoli si pu\`o affermare che:
 \newtheorem{Th6}{Teorema}[section]
 \begin{Th6}\label{th:routh}
 Il sistema ~\ref{eq:matltisys} \`e asintoticamente stabile
-se la tabella di Routh \`e ben definita, cio\`e se i termini
-che compaiono al denominatore sono pari a zero e tutti gli elementi
+se la tabella di Routh \`e ben definita e tutti gli elementi
 della prima colonna sono di segno concorde. 
 \end{Th6}
-Per approfondimenti vedere l'appendice ~\ref{apx:stabil}
+Una tabella di Routh \`e ``ben definita'' se tra gli elementi della
+prima colonna non \`e presente alcuno zero. Per approfondimenti vedere
+l'appendice ~\ref{apx:stabil}.
 
 \section{Linearizzazione}
 Prendiamo in considerazione un generico sistema MIMO, non lineare,
@@ -705,7 +709,7 @@ T.I. e proprio, descritto dalle equazioni precedentemente esposte
 Si fa poi riferimento al suo stato di equilibrio, ovvero quello stato
 per cui vale l'identit\`a:
 \begin{equation}
-  f(\bar{x},\bar{u})=0~\footnote{la dipendenza dal tempo \`e implicita,
+  f(\bar{x},\bar{u})=0~\footnote{La dipendenza dal tempo \`e implicita,
     per cui la variabile \emph{t} pu\`o essere omessa}
 \end{equation} a cui corrisponde l'uscita di equilibrio:
 \begin{equation}
@@ -722,8 +726,9 @@ Pertanto si pone:
   x_{t_0}=v\bar{x}+\delta x_{t_0}
 \end{eqnarray}
 dove $\delta u(t)$, $\delta x(t)$, $\delta y(t)$ e $\delta x_{t_0}$
-rappresentano le variazioni (scostamenti) di $ u, x, y $ e dello stato $x_{t_0}$.\\
-Con queste considerazioni, le equazioni \ref{eq:ltisys} e \ref{eq:ltisys2} diventano: 
+rappresentano le variazioni (scostamenti) di $ u, x, y $ e dello stato
+$x_{t_0}$. Con queste considerazioni, le equazioni \ref{eq:ltisys} e
+\ref{eq:ltisys2} diventano:  
 \begin{equation}\label{eq:linstate}
   \dot{\bar{x}}+\delta \dot{x}(t)=f(\bar{x}+\delta x(t),\bar{u} +\delta u(t))
 \end{equation}
@@ -733,14 +738,28 @@ Con queste considerazioni, le equazioni \ref{eq:ltisys} e \ref{eq:ltisys2} diven
 \begin{equation}\label{eq:lincondin}
   \bar{x}+\delta x(t_0)=\bar{x}+\delta x_{t_0}
 \end{equation}
+Ricordiamo che la ``serie di Taylor''\index{Serie di Taylor} di una
+funzione $f$, definita in un intervallo aperto e derivabile infinite
+volte, \`e espressa come una serie di potenze:
+\begin{equation}\label{eq:serieDiTaylor}
+  T(x) = \sum_{n=0}^{\infty} \dfrac{f^{(n)}(a)}{n!} (x - a)^n
+\end{equation}
+dove $f^{(n)}a$ \`e la derivata ennesima di $f$ valutata in $a$, ossia
+la derivata parziale ennesima di $f$.
 Sviluppando in serie di Taylor e troncando lo sviluppo al primo termine otteniamo:
 \begin{equation}\label{eq:statetaylor}
-  \delta \dot{x}(t)=f(\bar{x},\bar{u})+\frac{\partial f(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\delta x(t)+\frac{\partial f(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\delta u(t)
+  \delta \dot{x}(t)=f(\bar{x},\bar{u})+\frac{\partial f(x,u)}{\partial
+    x} \Bigg |_{x=\bar{x},u=\bar{u}}\delta x(t)+\frac{\partial
+    f(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\delta u(t)
 \end{equation}
 \begin{equation}\label{eq:outtaylor}
-  \bar{y}+\delta y(t)=g(\bar{x},\bar{u})+\frac{\partial g(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\delta x(t)+\frac{\partial g(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}\delta u(t)
+  \bar{y}+\delta y(t)=g(\bar{x},\bar{u})+\frac{\partial
+    g(x,u)}{\partial x} \Bigg |_{x=\bar{x},u=\bar{u}}\delta
+  x(t)+\frac{\partial g(x,u)}{\partial u} \Bigg
+  |_{x=\bar{x},u=\bar{u}}\delta u(t) 
 \end{equation}
-Combinando le \ref{eq:statetaylor} e \ref{eq:outtaylor} con le \ref{eq:linstate}, \ref{eq:linout} e \ref{eq:lincondin} si ha :
+Combinando le \ref{eq:statetaylor} e \ref{eq:outtaylor} con le
+\ref{eq:linstate}, \ref{eq:linout} e \ref{eq:lincondin} si ha : 
 \begin{eqnarray}\label{eq:linsys}
   \left\{ \begin{array}{l}
     \delta \dot{x}(t)=A \delta x(t)+B \delta u(t)\\
@@ -755,9 +774,11 @@ dove:
   C=\frac{\partial g(x,u)}{\partial x }\Bigg |_{x=\bar{x},u=\bar{u}}\\
   D=\frac{\partial g(x,u)}{\partial u} \Bigg |_{x=\bar{x},u=\bar{u}}
 \end{eqnarray}
-In particolare, prendendo ad esempio un sistema del secondo ordine, ovvero con due stati $x_1$ e $x_2$, avente le  matrici dimensionate come segue:\\ 
-A[2x2], B[1x2], C[2x1] e D=0\\ 
-e caratterizzato dalla segg. rappresentazione ISU:
+In particolare, prendendo ad esempio un sistema del secondo ordine,
+ovvero con due stati $x_1$ e $x_2$, avente le  matrici dimensionate
+come segue: 
+A[2x2], B[1x2], C[2x1] e D=0 e caratterizzato dalla seguente
+rappresentazione ISU: 
 \begin{equation}
   \left\{ \begin{array}{l}
     \dot{x_1}=f_1(x_1,x_2,u)\\
@@ -766,7 +787,8 @@ e caratterizzato dalla segg. rappresentazione ISU:
   \end{array}\right.
 \end{equation}
  
-le matrici del modello linearizzato (\ref{eq:linsys}) si calcolano in questo modo:
+Le matrici del modello linearizzato (\ref{eq:linsys}) si calcolano in
+questo modo: 
 \begin{displaymath}\label{eq:matrix}
 \mathbf{A} =
 \left( \begin{array}{cc}
@@ -794,7 +816,7 @@ le matrici del modello linearizzato (\ref{eq:linsys}) si calcolano in questo mod
   sistema non lineare risulta asintoticamente stabile se tutti gli
   autovalori del sistema linearizzato hanno parte reale negativa.
 \end{teorema}
-Va da se che si pu\`o evitare il cacolo degli autovalori e limitarsi a
+Va da se che si pu\`o evitare il calcolo degli autovalori e limitarsi a
 valutare il polinomio caratteristico, sulla base del Teorema \ref{th:routh}.
 
 %% FUNZIONE DI TRASFERIMENTO
