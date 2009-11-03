@@ -5,3 +5,6 @@
 *.out
 *.toc
 *.lot
+*.idx
+*.ilg
+*.ind
