@@ -5,6 +5,7 @@ FILE = appunti_sistemi
 all:	pdf 
 
 pdf:
+	makeindex $(FILE).idx
 	$(CC) $(FILE).tex
 
 show:
