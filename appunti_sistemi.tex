@@ -20,6 +20,8 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{mathrsfs}
+
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
 
@@ -1075,6 +1077,10 @@ esauriscono i transitori del sistema: maggiore \`e il valore di
 una costante di tempo, pi\`u lentamente si esaurir\`a il contributo
 sull'uscita dato dal polo corrispondente.
 
+In conclusione, possiamo affermare che $y_{\infty}$ \`e nullo nel caso
+di $g < 0$ (presenza di azioni derivative), altrimenti \`e pari al
+guadagno $\mu$.
+
 \section{Pulsazione naturale e smorzamento}\label{par:pulsazsmorz}
 Note le equazioni \ref{eq:firstformfdt} e \ref{eq:secformfdt}, si
 consideri una coppia di poli complessi e coniugati (o analogamente, di
@@ -1126,32 +1132,36 @@ moltiplicata per $\bar{u}$.
 \subsection{Considerazioni sul valore iniziale e finale}
 Per un sistema avente funzione di trasferimento pari a:
 \begin{equation}
-  G(s)=\frac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n
+  G(s)=\dfrac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n
     + \alpha_{n-1}s^{n-1}+\ldots+\alpha_0}
 \end{equation}
 con $m \le n$, il valore iniziale della risposta al gradino, pu\`o
-essere calcolato con il teorema del valore iniziale (teorema
-\ref{th:startvalth}):
+essere calcolato con il teorema del valore iniziale:
+\begin{equation}\label{eq:teoremaDelValoreIniziale}
+  \lim_{s \to \infty} sF(s) = f(0)
+\end{equation}
+che permette di determinare il valore asintotico iniziale della
+funzione partendo dalla sua trasformata. Otteniamo quindi:
 \begin{displaymath}
   y(0)=\lim_{s \to \infty}
   s\underbrace{\frac{\beta_ms^m+\beta_{m-1}s^{m-1}+\ldots+\beta_0}{\alpha_ns^n+\alpha_{n-1}
-      s^{n-1}+\ldots+\alpha_0}\frac{1}{s}}_{\textsl{Risposta al
+      s^{n-1}+\ldots+\alpha_0}\dfrac{1}{s}}_{\textsl{Risposta al
       gradino}} = \left\{ \begin{array}{ll}0 & m < n
-    \\ \frac{\beta_n}{\alpha_n} & m = n\end{array}\right.
+    \\ \dfrac{\beta_n}{\alpha_n} & m = n\end{array}\right.
 \end{displaymath}
-Possiamo iterare il teorema \ref{th:startvalth} anche per le derivate
+Possiamo iterare il teorema del valore iniziale anche per le derivate
 successive del valore iniziale, ricordando le regole di derivazione
 della trasformata di Laplace (\ref{apx:laplace}).\\
-Ad esempio, se $m<n$ e $y(0)=0$ si ha:
+Ad esempio, se $m < n$ e $y(0) = 0$ si ha:
 \begin{displaymath}
   \dot{y}(0)=\lim_{s \to \infty}s(sY(s)-y(0))=
 \end{displaymath}
 \begin{displaymath}
-  =\lim_{s \to \infty}s^2\frac{\beta_ms^m+\beta_{m-1}s^{m-1} +
+  =\lim_{s \to \infty}s^2\dfrac{\beta_ms^m+\beta_{m-1}s^{m-1} +
     \ldots+\beta_0}{\alpha_ns^n +
     \alpha_{n-1}s^{n-1}+\ldots+\alpha_0}\frac{1}{s} =
   \left\{ \begin{array}{ll}0 & m<n-1 \\
-    \frac{\beta_n}{\alpha_n} & m=n-1\end{array}\right.
+    \dfrac{\beta_n}{\alpha_n} & m=n-1\end{array}\right.
 \end{displaymath}
 In generale, per $m < n$, sono nulle le prime ($n-m-1$) derivate di
 $y$ in $t = 0$.
@@ -1210,47 +1220,92 @@ di trasferimento:
 \end{equation}
 Calcolando la risposta al gradino:
 \begin{displaymath}
-  Y(s) = G(s)\dfrac{1}{s}
+  Y(s) = G(s)\dfrac{1}{s} = \dfrac{\mu}{(1+sT)s}
 \end{displaymath}
-e determinando mediante antitrasformazione (Appendice
-\ref{apx:laplace}) $y(t)$ si ottiene:
+Determiniamo l'antitrasformata (Appendice \ref{apx:laplace}) $y(t)$
+sfruttando la teoria dei fratti semplici:
+\[
+  \dfrac{\mu}{(1 + sT)s} = \dfrac{A}{s} + \dfrac{B}{(1 + sT)}
+\]
+Moltiplichiamo ambo i membri per $s$:
+\[
+  \dfrac{\mu s}{(1 + sT)s} = A + \dfrac{Bs}{(1 + sT)}
+\]
+Facciamo tendere $s$ alla radice del denominatore di $A$, quindi a
+zero.
+\[
+  A = \mu
+\]
+Per calcolare $B$, moltiplichiamo entrambi i membri per $(1 + sT)$:
+\[
+  \dfrac{\mu}{(1 + sT)s} \cdot (1 + sT) = \dfrac{A(1 + sT)}{s} + B
+\]
+Facciamo tendere $s$ alla radice del denominatore di $B$, cio\`e
+$-\dfrac{1}{T}$:
+\[
+  B = - \mu T
+\]
+A questo punto abbiamo:
+\[
+  \dfrac{\mu}{s} - \dfrac{\mu T}{(1 + sT)}
+\]
+Calcoliamo le antitrasformate:
+\[
+  \mathscr{L}^{-1} \dfrac{\mu}{s} = \mu
+\]
+perch\`e $\mu$ \`e una costante e l'antitrasformata del gradino $\dfrac{1}{s}$
+\`e $1$.
+Ci resta:
+\[
+  - \dfrac{\mu T}{T} \cdot \dfrac{1}{\frac{1}{T} + s}
+\]
+Operiamo una messa in evidenza ed una semplificazione.
+\[
+  \mathscr{L}^{-1} \mu \cdot \dfrac{1}{s + \frac{1}{T}} = \mu \cdot
+  e^{- \frac{t}{T}}
+\]
+Abbiamo in definitiva:
+\[
+  \mathscr{L}^{-1} Y(s) = \mu - \mu \cdot e^{- \frac{t}{T}}
+\]
 \begin{equation}\label{eq:rispgradfirst}
-  y(t) = \mu(1-e^{-t/T}) \qquad, \qquad t\ge0
+  y(t) = \mu(1-e^{-\frac{t}{T}}) \qquad, \qquad t\ge0
 \end{equation}
 Ponendo $t = 0$ si ha che:
 
 \begin{itemize}
-\item l'andamento $y(0)=0$
-\item la pendenza {\Large$\frac{dy(t)}{dt}\Bigg |_{t=0}=\frac{\mu}{T}$}\\
+\item l'andamento $y(0) = 0$
+\item la pendenza {\Large$\dfrac{dy(t)}{dt}\big |_{t=0} = \dfrac{\mu}{T}$}\\
 per $T>0$:
-\item il valore di regime $y_\infty=\mu$
-\item $y_{max}=y_\infty$
-\item $S\%=0$
+\item il valore di regime $y_{\infty} = \mu$
+\item $y_{max} = y_{\infty}$
+\item $S\% = 0$
 \item Il tempo di assestamento
 \begin{displaymath}
-  T_{a\varepsilon} = T\ln{\frac{1}{0.01\varepsilon}} = -T\ln0.01\varepsilon 
+  T_{a\varepsilon} = T \ln{\dfrac{1}{0.01\varepsilon}} = -T \ln0.01 \varepsilon 
 \end{displaymath}
 \end{itemize}
-Gli altri parametri caratteristici sono:
-\begin{table}[!hbp]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-$y_\infty$ & $T_s$ & $T_r$ & $T_{a5}$ & $T_{a1}$\\
-\hline
-$\mu$ & $\simeq 2.2T$ & $\simeq 0.7T$ & $\simeq 3T$ & $\simeq 4.6T$\\
-\hline
-\end{tabular}
-\end{center}
-\caption{Parametri del sistema \ref{eq:firstordfdt}}
-\label{tab:tabfirstordparms}
-\end{table}\\
+Gli altri parametri caratteristici sono riportati nella tabella
+\ref{tab:tabfirstordparms}.
+\begin{table}[!h]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      $y_\infty$ & $T_s$ & $T_r$ & $T_{a5}$ & $T_{a1}$\\
+      \hline
+      $\mu$ & $\simeq 2.2T$ & $\simeq 0.7T$ & $\simeq 3T$ & $\simeq 4.6T$\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Parametri del sistema \ref{eq:firstordfdt}}
+  \label{tab:tabfirstordparms}
+\end{table}
 Da notare che gli ultimi 4 parametri in tabella
-\ref{tab:tabfirstordparms} dipendono dalla costante di tempo T e sono
-direttamente proporzionali ad essa. In particolare il transitorio, in
-generale, lo si pu\`o dichiarare esaurito dopo un tempo \\
+\ref{tab:tabfirstordparms} dipendono dalla costante di tempo $T$ e sono
+direttamente proporzionali ad essa. In particolare il transitorio si
+pu\`o dichiarare esaurito dopo un tempo \\
 \begin{center}
-\framebox{$t\simeq 4 \div 5 T$}\label{transit}
+  \framebox{$t\simeq 4 \div 5 T$}\label{transit}
 \end{center}
 
 \begin{figure}[!h]
@@ -1263,52 +1318,79 @@ Nota: ad una diminuzione di $T$, cio\`e ad uno spostamento verso
 sinistra del polo, corrisponde una diminuzione del tempo di salita,
 del tempo di ritardo e del tempo di assestamento.
 
-\section{Sistemi del $II°$ ordine}
+\section{Sistemi del $II^{\circ}$ ordine}
 \subsection{Sistemi con solo poli reali}
 \subsubsection{Caso 1: poli distinti}
 \begin{equation}\label{eq:secordfdt_c1}
   G(s) = \dfrac{\mu}{(1+sT_1)(1+sT_2)} \qquad, \qquad T_1>T_2
 \end{equation}
-La risposta al gradino della \ref{eq:secordfdt_c1} \`e:
+Appicando la teoria dei fratti semplici, abbiamo che la risposta al
+gradino \`e:
+\[
+  \dfrac{A}{s} + \dfrac{B}{(1 + sT_1)} + \dfrac{C}{(1 + sT_2)} =
+  \dfrac{\mu}{(1 + sT_1)(1 + sT_2)s}
+\]
+Moltiplichiamo ambo i membri per $s$ e facciamo tendere $s$ a zero:
+\[
+  \dfrac{\mu \xout{s}}{(1 + \xout{sT_1})(1 + \xout{sT_2})\xout{s}} = A
+  + 0 + 0
+\]
+\[
+  A = \mu
+\]
+Stesso discorso per $B$ e $C$. Avremo in questo modo:
+\[
+  Y(s) = \dfrac{\mu}{s} - \mu \dfrac{\frac{T_1^2}{(T_1 - T_2)}}{(1 + sT_1)} -
+  \mu \dfrac{\frac{T_2^2}{(T_1 - T_2)}}{(1 + sT_2)}
+\]
+Mettendo in evidenza $\mu$ ed antitrasformando, otteniamo:
 \begin{equation}\label{eq:rispgradsec_c1}
-  y(t) = \mu\left(1-\frac{T_1}{T_1-T_2}e^{-t/T_1} +
-  \frac{T_2}{T_1-T_2}e^{-t/T_2}\right) \qquad, \qquad t \ge 0
+  y(t) = \mu \left( 1 - \frac{T_1}{T_1-T_2} e^{-\frac{t}{T_1}} +
+  \frac{T_2}{T_1-T_2} e^{-\frac{t}{T_2}} \right) \qquad, \qquad t \ge 0
 \end{equation}
 
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal2.png}
-\caption{Risposta al gradino del sistema \ref{eq:secordfdt_c1}}\label{fig:risp2}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/rispscal2.png}
+    \caption{Risposta al gradino del sistema \ref{eq:secordfdt_c1}}
+    \label{fig:risp2}
+  \end{center}
 \end{figure} 
-\subsubsection{Caso 2: poli coincidenti ($T_1=T_2=T$)}
+
+\subsubsection{Caso 2: poli coincidenti $(T_1 = T_2 = T)$}
 \begin{equation}\label{eq:secordfdt_c2}
-  G(s) = \dfrac{\mu}{(1+sT)^2}
+  G(s) = \dfrac{\mu}{(1 + sT)^2}
 \end{equation}
 La risposta al gradino della \ref{eq:secordfdt_c2} \`e:
 \begin{equation}\label{eq:rispgradsec_c2}
-  y(t) = \mu\left(1-e^{-t/T}-\frac{t}{T}e^{-t/T}\right)\qquad, \qquad t\ge 0
+  y(t) = \mu \left( 1 - e^{-\frac{t}{T}} -
+  \dfrac{t}{T}e^{-\frac{t}{T}} \right)\qquad, \qquad t\ge 0
 \end{equation}
 I parametri caratteristici sono:
 \begin{itemize}
-\item $y_\infty = \mu$
+\item $y_{\infty} = \mu$
 \item $T_s \simeq 3.36T$
 \item $T_r \simeq 1.68T$
 \item $T_{a5} \simeq 4.74T$
 \item $T_{a1} \simeq 6.64T$
 \end{itemize}
+
 \subsection{Sistemi con poli reali e uno zero}
 \begin{equation}\label{eq:secordfdt_cc1}
-  G(s)= \dfrac{\mu(1+\tau s)}{(1+sT_1)(1+sT_2)}\qquad, \qquad T_1\neq\tau, T_2\neq \tau
+  G(s)= \dfrac{\mu(1 + \tau s)}{(1 + sT_1)(1 + sT_2)}\qquad, \qquad
+  T_1\neq\tau, T_2\neq \tau 
 \end{equation}
-La risposta al gradino della \ref{eq:secordfdt_cc1} \`e:
+Applicando, come di consueto la teoria dei fratti semplici, la
+risposta al gradino della \ref{eq:secordfdt_cc1} \`e: 
 \begin{equation}\label{eq:rispgradsec_cc1}
-  y(t) = \mu\left(1-\frac{T_1-\tau}{T_1-T_2}e^{-t/T_1} + 
-  \frac{T_2-\tau}{T_1-T_2}e^{-t/T_2}\right) \qquad, \qquad t\ge0
+  y(t) = \mu \left( 1 - \dfrac{T_1-\tau}{T_1 - T_2}e^{-\frac{t}{T_1}} + 
+  \dfrac{T_2 - \tau}{T_1 - T_2}e^{-\frac{t}{T_2}}\right) \qquad,
+  \qquad t\ge0 
 \end{equation}
-In funzione della posizione dello zero rispetto ai poli, si
-distinguono i seguenti casi:~\footnote{Si suppone che $T_1>T_2>0$.}
-\subsubsection{I caso: $\tau<0$}
+In funzione della posizione dello zero rispetto ai poli, supposto $T_1
+> T_2 > 0$, si distinguono i seguenti casi:
+
+\subsubsection{I caso: $\tau < 0$}
 La risposta, come mostrato in figura \ref{fig:risp3}, presenta una
 \emph{sottoelongazione} iniziale, o {\em
   risposta inversa}\index{Risposta inversa}, che \`e tanto pi\`u
@@ -1318,9 +1400,16 @@ all'origine del piano complesso.
 \begin{center}
 \includegraphics[scale=0.5]{./figures/rispscal3.png}
 \caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
-  $\tau<0$} \label{fig:risp3}
+  $\tau < 0$} \label{fig:risp3}
 \end{center}
 \end{figure}
+Ricordiamo che la sottoelongazione\index{Sottoelongazione} $\sigma$
+\`e definita come:
+\begin{equation}
+  \sigma  = \frac{{\bar y - y_{\min }}}{{\bar y}}
+\end{equation}
+dove $y_{\min }$ \`e il minimo valore assunto dall'uscita del sistema
+e $\bar{y}$ \`e l'uscita all'equilibrio.
 
 \subsubsection{II caso: $\tau>T_1>T_2$}
 In questo caso (figura \ref{fig:risp4}), la risposta presenta una
@@ -1336,44 +1425,61 @@ minore in modulo ai poli.
 \caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con $\tau>0$}\label{fig:risp4}
 \end{center}
 \end{figure} 
+Ricordiamo che la sovraelongazione\index{Sovraelongazione} $\sigma$
+\`e definita come:
+\begin{equation}
+  \sigma  = \frac{{\bar y - y_{\max }}}{{\bar y}}
+\end{equation}
+dove $y_{\max }$ \`e il massimo valore assunto dall'uscita del sistema
+e $\bar{y}$ \`e l'uscita all'equilibrio.
 
 \subsubsection{III caso: $\tau \simeq T_1\gg T_2$}
-Con tali valori di $\tau$ e $T_1$,$T_2$, si pu\`o facilmente verificare
-che la \ref{eq:rispgradsec_cc1} diventa approssimativamente
-\begin{displaymath}
-y(t)\simeq \mu (1-e^{-t/T_2})\qquad , \qquad t\geq0
-\end{displaymath}
-Dalla figura \ref{fig:risp5} si evince che la coppia polo-zero
+Con tali valori di $\tau$ e $T_1$, $T_2$, si pu\`o facilmente verificare
+che la \ref{eq:rispgradsec_cc1} diventa approssimativamente:
+\begin{equation}\label{eq:2ndOrdineCaso3}
+  y(t)\simeq \mu (1 - e^{-\frac{t}{T_2}})\qquad , \qquad t\geq0
+\end{equation}
+aprossimabile, quindi, ad un sistema del primo ordine. Dalla figura
+\ref{fig:risp5} si evince che la coppia polo-zero 
 genera comunque un transitorio di piccola entit\`a, il quale fa andare
 lentamente $y$ verso $y_\infty$. 
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal5.png}
-\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
-  $\tau=0.92$}\label{fig:risp5}
-\end{center}
+\begin{figure}[!h]\label{fig:risp5}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/rispscal5.png}
+    \caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
+      $\tau=0.92$}
+  \end{center}
 \end{figure} 
-\subsection{IV caso: $T_1>\tau>T_2$}
+La \ref{fig:risp5} mostra come l'assenza di un polo nella \ref{eq:2ndOrdineCaso3},
+cancellato grazie allo zero, velocizzi il sistema: i poli rallentano,
+quindi meno poli portano ad un sistema pi\`u rapido nel raggiungere il
+regime. 
+
+\subsubsection{IV caso: $T_1 > \tau > T_2$}
 La presenza di uno zero, tende a velocizzare la risposta di un
 sistema. In figura \ref{fig:risp6} \`e riportato il caso in cui $T_1 =
 2$ e $T_2 = 1$ con valori di $\tau = 0$ e $1.5$ . Con ragionamenti
 analoghi al caso III, avendo posto $\tau \simeq T_2$ si ha che la
 \ref{eq:rispgradsec_cc1} diventa
 \begin{displaymath}
-y(t)\simeq \mu (1-e^{-t/T_1})\qquad , \qquad t\geq0
+  y(t)\simeq \mu (1-e^{-\frac{t}{T_1}})\qquad , \qquad t\geq0
 \end{displaymath}
- \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal6.png}
-\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
-  due diversi valori di $\tau$}\label{fig:risp6}
-\end{center}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/rispscal6.png}
+    \caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con
+      due diversi valori di $\tau$}\label{fig:risp6}
+  \end{center}
 \end{figure}
 
-\subsection{V caso: $T_1 > T_2>\tau>0$}
+\subsubsection{V caso: $T_1 > T_2 > \tau > 0$}
 Per uno zero che si allontana dall'origine del piano complesso (ovvero
-per $\tau$ che diminuisce), la risposta della \ref{eq:rispgradsec_cc1} tende a diventare come la
-\ref{eq:rispgradsec_c1}, come mostrato in figura \ref{fig:risp7}.
+per $\tau$ che diminuisce), la risposta della \ref{eq:rispgradsec_cc1}
+tende a diventare come la \ref{eq:rispgradsec_c1}, come mostrato in
+figura \ref{fig:risp7}: per uno zero sempre pi\`u lontano dall'origine
+del piano complesso, la risposta al gradino di un sistema con poli
+reali ed uno zero approssima la risposta di un sistema con solo poli
+reali. 
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[scale=0.5]{./figures/rispscal7.png}
@@ -1383,13 +1489,14 @@ per $\tau$ che diminuisce), la risposta della \ref{eq:rispgradsec_cc1} tende a d
 \end{figure} 
 
 \subsection{Sistemi con poli complessi e coniugati}
-L'funzione di trasferimento di un sistema avente poli complessi
+La funzione di trasferimento di un sistema avente poli complessi
 coniugati \`e:
 \begin{equation}\label{eq:fdtcomplex}
-  G(s)=\frac{\mu \omega^2_n}{s^2+2 \xi \omega_n s+\omega^2_n}
+  G(s) = \dfrac{\mu \omega^2_n}{s^2 + 2 \xi \omega_n s + \omega^2_n}
 \end{equation}
-con $\omega_n > 0$ e $\xi$, $|\xi| < 1$.
-La risposta al gradino del sistema \ref{eq:fdtcomplex} \`e:
+con la pulsazione naturale $\omega_n > 0$ e lo smorzamento dei poli
+$\xi$, $|\xi| < 1$. Applicando lo sviluppo in serie di Heaviside, la
+risposta al gradino del sistema \ref{eq:fdtcomplex} risulta: 
 \begin{equation}\label{eq:rispfdtcomplex}
   y(t) = \mu \left ( 1-\frac{1}{\sqrt{1-\xi^2}}e^{-\xi \omega_n t}\sin
   \left ( \omega_n t\sqrt{1-\xi^2} + \arccos(\xi) \right) \right)
@@ -1406,15 +1513,16 @@ termine sinusoidale, come mostrato in figura \ref{fig:risp8}.
 In particolare
 \begin{itemize}
 \item per uno smorzamento $\xi > 0$ (figura \ref{fig:risp9}), il
-  sistema \`e asintoticamente stabile. L'esponenziale \`e decrescente e
+  sistema \`e ASINTOTICAMENTE STABILE. L'esponenziale \`e decrescente e
   la risposta tende asintoticamente a $\mu$; 
-\item per $\xi < 0$ il sistema \`e INSTABILE e l'uscita \`e divergente;
-\item per $\xi = 0$ il sistema \`e STABILE, ma non asintoticamente e la
-  \ref{eq:rispfdtcomplex} diventa
+\item per $\xi < 0$ l'esponenziale \`e positivo, il sistema \`e
+  INSTABILE e l'uscita \`e divergente; 
+\item per $\xi = 0$ l'esponenziale vale $1$, il sistema \`e STABILE,
+  ma non asintoticamente e la \ref{eq:rispfdtcomplex} diventa
+  \[
+    y(t) = \mu(1-\cos(\omega_n t))\qquad , \qquad t\geq0
+  \]
 \end{itemize}
-\begin{displaymath}
-  y(t) = \mu(1-\cos(\omega_n t))\qquad , \qquad t\geq0
-\end{displaymath}
 
 \begin{figure}[!h]
   \begin{center}
@@ -1432,7 +1540,9 @@ sono riassunti nella tabella \ref{tab:tabfdtcomplexparms}:
       \hline
       $y_\infty$ & $S\%$ & $T_M$ & $T_P$ & stima di $T_{a\varepsilon}$\\
       \hline
-      $\mu$ & $100e^{-\xi \pi / \sqrt1-\xi^2}$ & $\frac{\pi}{\omega_n \sqrt{1-\xi^2}}$ & $\frac{2\pi}{\omega_n \sqrt{1-\xi^2}}$ & $-\frac{1}{\xi \omega_n}\ln0.01\varepsilon$\\
+      $\mu$ & $100e^{-\xi \pi / \sqrt1-\xi^2}$ & $\dfrac{\pi}{\omega_n
+        \sqrt{1-\xi^2}}$ & $\dfrac{2\pi}{\omega_n \sqrt{1-\xi^2}}$ &
+      $-\dfrac{1}{\xi \omega_n}\ln0.01\varepsilon$\\
       \hline
     \end{tabular}
   \end{center}
