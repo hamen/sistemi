@@ -1558,6 +1558,7 @@ sono riassunti nella tabella \ref{tab:tabfdtcomplexparms}:
   \end{center}
 \end{figure} 
 
+% SCHEMI A BLOCCHI - CAPITOLO 5 DEL BOLZERN
 \chapter{Interconnessione di sistemi e schemi a blocchi}
 I sistemi possono essere collegati in serie, parallelo o in retroazione.
 
@@ -1567,10 +1568,11 @@ Abbiamo due sistemi descritti dalle equazioni:
   Y_a(s) = G_a(s)U_a(s)\\
   Y_b(s) = G_b(s)U_b(s)
 \end{eqnarray}
-Essi si dicono connessi in serie (o cascata) quando l'uscita di $y_a =
-u_b$. Quindi, con $u(t)=u_a(t)$ e $y(t)=y_b(t)$, si ricava che
+Essi si dicono connessi in serie (o cascata) quando l'uscita del primo
+diventa l'ingresso del secondo: $y_a = u_b$. Quindi, con $u(t) = u_a(t)$
+e $y(t) = y_b(t)$, si ricava che 
 \begin{equation}
-  Y(s) = G_b(s)Y_a(s)=G_b(s)G_a(s)U(s)
+  Y(s) = G_b(s)Y_a(s) = G_b(s)G_a(s)U(s)
 \end{equation}
 e la funzione di trasferimento diventa
 \begin{equation}
@@ -1588,17 +1590,17 @@ ovvero, \emph{la funzione di trasferimento totale di un sistema
 
 \section{Sistemi in parallelo}
 Due sistemi si dicono connessi in parallelo se hanno lo stesso
-ingresso mentre le loro uscite si sommano per generare l'uscita del
+ingresso e le loro uscite si sommano, per generare l'uscita del
 sistema complessivo. Formalizzando si ha:
 \begin{equation}
-  Y(s)= Y_a(s)+Y_b(s) = G_a(s)U_a(s) + G_b(s)U_b(s) = (G_a(s)+G_b(s))U(s)
+  Y(s) = Y_a(s) + Y_b(s) = G_a(s)U_a(s) + G_b(s)U_b(s) = (G_a(s) + G_b(s))U(s)
 \end{equation}
 quindi la funzione di trasferimento \`e:
 \begin{equation}
-  G(s) = \dfrac{Y(s)}{U(s)} = G_a(s)+G_b(s)
+  G(s) = \dfrac{Y(s)}{U(s)} = G_a(s) + G_b(s)
 \end{equation}
 ovvero \emph{la funzione di trasferimento complessiva di un sistema
-  composto dal parallelo di due sottosistemi, \`e pari alla somma
+  composto dal parallelo di due sottosistemi \`e pari alla somma
   delle singole funzioni di trasferimento}.
 \begin{figure}[!hbp]
   \begin{center}
@@ -1621,23 +1623,23 @@ ovvero \emph{la funzione di trasferimento complessiva di un sistema
   \end{center}
 \end{figure} 
 Nelle figure \ref{fig:sysposfed} e \ref{fig:sysnegfed} sono mostrati
-dei sistemi aventi due sottosistemi collegati in retroazione\index{Retroazion} o
+dei sistemi aventi due sottosistemi collegati in retroazione\index{Retroazione} o
 feedback\index{Feedback} o in anello chiuso\index{Anello chiuso}.
 Si ricava che:
 \begin{equation}
-  Y(s)=G_a(s)(U(s)-Y_b(s))=G_a(s)(U(s)-G_b(s)Y(s))
+  Y(s) = G_a(s)(U(s) - Y_b(s)) = G_a(s)(U(s) - G_b(s)Y(s))
 \end{equation}
-pertanto la funzione di trasferimento complessiva \`e:
-(\emph{retroazione negativa}) 
+pertanto la funzione di trasferimento complessiva per la
+\emph{retroazione negativa} \`e:
 \begin{equation}
-  G(s)=\frac{Y(s)}{U(s)}=\frac{G_a(s)}{1+G_a(s)G_b(s)}
+  G(s) = \dfrac{Y(s)}{U(s)} = \dfrac{G_a(s)}{1 + G_a(s)G_b(s)}
 \end{equation}
 mentre quella in \emph{retroazione positiva} \`e
 \begin{equation}
-  G(s)=\frac{Y(s)}{U(s)}=\frac{G_a(s)}{1-G_a(s)G_b(s)}
+  G(s)=\dfrac{Y(s)}{U(s)} = \dfrac{G_a(s)}{1 - G_a(s)G_b(s)}
 \end{equation}
 ovvero \emph{la funzione di trasferimento di un sistema avente due
-  sottosistemi\\retroazionati negativamente (o positivamente) \`e pari al
+  sottosistemi retroazionati negativamente (o positivamente) \`e pari al
   rapporto tra la funzione di trasferimento del sottosistema che
   appare lungo la linea di andata tra $u$ e $y$ e la somma (o
   differenza) tra $1$ e il prodotto delle singole funzione di
@@ -1648,24 +1650,24 @@ ovvero \emph{la funzione di trasferimento di un sistema avente due
 \end{equation}
 
 \subsection{Semplificazione di schemi a blocchi}
-Quando lo schema a blocchi  di un sistema, presenta in esso un numero
+Quando lo schema a blocchi  di un sistema, presenta un numero
 abbastanza elevato di ``sotto-blocchi'' (ovvero funzioni di
 trasferimento), \`e necessario effettuare delle operazioni di riduzione
-dello stesso in modo tale da semplificare la lettura ed i calcoli. 
-Si possono applicare, a tale scopo, semplici manipolazioni utilizzando
-le regole di serie, parallelo e retroazione. Si possono, poi,
-applicare le seguenti ulteriori regole:~\footnote{L'operazione
-  di riduzione e lo spostamento di   blocchi \`e reso possibile grazie
-  alla propriet\`a di \emph{linearit\`a }.}
+dello stesso in modo da semplificare l'analisi ed i calcoli. L'operazione
+di riduzione e lo spostamento dei blocchi sono rese possibili grazie
+alla propriet\`a di \emph{linearit\`a }. Si possono applicare, a tale
+scopo, semplici manipolazioni utilizzando le regole di serie,
+parallelo e retroazione. Si possono, poi, applicare le seguenti
+ulteriori regole: 
 \begin{itemize}
-\item Per spostare una variabile a valle di un blocco, \`e necessario
+\item Per spostare una variabile ``a valle'' di un blocco, \`e necessario
   moltiplicarla per la funzione di trasferimento del blocco;
-\item Per spostare una variabile a monte di un blocco, \`e necessario
+\item Per spostare una variabile ``a monte'' di un blocco, \`e necessario
   dividerla per la funzione di trasferimento del blocco;
-\item Per spostare un blocco a monte di un nodo sommatore, bisogna
+\item Per spostare un blocco ``a monte'' di un nodo sommatore, bisogna
   moltiplicare la funzione di trasferimento del blocco per tutte le
   altre variabili entranti nel nodo;
-\item Per spostare un blocco a valle di un nodo sommatore, bisogna
+\item Per spostare un blocco ``a valle'' di un nodo sommatore, bisogna
   dividere la funzione di trasferimento del blocco per tutte le altre
   variabili entranti nel nodo.
 \end{itemize}
@@ -1673,22 +1675,22 @@ Per quel che riguarda la stabilit\`a dei sistemi in serie, parallelo e
 in retroazione possiamo affermare che:
 \begin{itemize}
 \item La connessione in serie di sottosistemi asintoticamente stabili
-  genera sempre un sistema asintoticamente stabile;
+  genera {\em sempre} un sistema asintoticamente stabile;
 \item La presenza di un sottosistema non asintoticamente stabile in un
-  collegamento in serie, rende il sistema complessivo anch'esso non
+  collegamento in serie rende il sistema complessivo anch'esso non
   asintoticamente stabile;
 \item La connessione in parallelo di sottosistemi asintoticamente
-  stabili genera sempre un sistema asintoticamente stabile;
+  stabili genera {\em sempre} un sistema asintoticamente stabile;
 \item La presenza di un sottosistema non asintoticamente stabile in un
   collegamento in parallelo rende non asintoticamente stabile il
   sistema complessivo;
 \item La connessione in retroazione di sistemi asintoticamente stabili
-  pu\`o generare un sistema non asintoticamente stabile;
+  pu\`o generare un sistema {\em non} asintoticamente stabile;
 \item Un sistema retroazionato pu\`o essere asintoticamente stabile
   anche se alcuni dei sottosistemi non sono asintoticamente stabili;
 \end{itemize}
-Le figure presenti in figura \ref{fig:blockex} aiutano a capire meglio
-le possibili riduzioni che si possono effettuare sugli schemi a blocchi:
+Le figure presenti in figura \ref{fig:blockex} aiutano a capire le
+possibili riduzioni che si possono effettuare sugli schemi a blocchi:
 \begin{figure}[!hbp]
   \begin{center}
     \includegraphics[scale=0.5]{./figures/block_example.png}
