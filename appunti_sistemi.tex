@@ -3835,30 +3835,37 @@ sistema, quando questo viene sollecitato da un ingresso sinusoidale.
 \section{Risposta in frequenza}
 Il movimento di un sistema lineare e stazionario sollecitato da un
 ingresso di tipo sinusoidale \`e detto \emph{risposta alla sinusoide o
- risposta in frequenza}\index{Risposta alla sinusoide}. Si considera il
+ risposta in frequenza}\index{Risposta alla sinusoide}\index{Risposta
+  in frequenza}. Si considera il
 sistema SISO caratterizzato dalle equazioni seguenti:
 \begin{equation*}
-  \dot{x}(t)=Ax(t)+Bu(t)
+  \dot{x}(t) = Ax(t) + Bu(t)
 \end{equation*}
 \begin{equation*}
-  y(t)=Cx(t)+Du(t)
+  y(t) = Cx(t) + Du(t)
 \end{equation*}
 e dalla funzione di trasferimento associata:
 \begin{displaymath}
-  G(s)=C(sI-A)^{-1}B+D
+  G(s) = C(sI-A)^{-1}B + D
 \end{displaymath}
-Si vuole determinare la risposta del sistema ad un ingresso 
+Si vuole determinare la risposta del sistema asintoticamente stabile
+ad un ingresso  
 \begin{equation}\label{eq:sininput}
-  u(t)=U \sin (\omega t)\qquad, \qquad t\geq 0
+  u(t) = U \sin (\omega t)\qquad, \qquad t\geq 0
 \end{equation}
-Ricordando che la trasformata di Laplace di $u(t)$ \`e (v. appendice
+La trasformata di Laplace di $u(t)$ \`e (v. appendice
 ~\ref{apx:laplace}): 
 \begin{equation}\label{eq:rispsfreq}
-  U(s)=\frac{U\omega}{s^2+\omega^2}
+  U(s) = \dfrac{U\omega}{s^2 + \omega^2}
 \end{equation}
-l'uscita $y(t)$, calcolata antitrasformando
+\begin{equation}\label{eq:squadropiuomegaquadro}
+  s^2 + \omega^2 = (s + j \omega)(s - j \omega) = s^2 +
+  \xout{sj\omega} - \xout{sj\omega} - j^2 \omega^2
+\end{equation}
+dove $-j^2 = 1$.
+L'uscita $y(t)$, calcolata antitrasformando
 \begin{displaymath}
-  Y(s)=G(s)\frac{U\omega}{s^2+\omega^2}
+  Y(s) = G(s)\dfrac{U\omega}{s^2 + \omega^2}
 \end{displaymath}
 \`e pari a~\footnote{Si scompone la \ref{eq:rispsfreq} in fratti
   semplici (ad esempio mediante lo sviluppo di Heaviside).}
@@ -3866,33 +3873,98 @@ l'uscita $y(t)$, calcolata antitrasformando
   y(t)=\mathfrak{L}^{-1}\left [ \sum_{i=1}^n
     \underbrace{\frac{P_i}{s+p_i}}_{Y_1(s)} +
     \underbrace{\frac{Q}{s-j\omega} + \frac{\bar
-        Q}{s+j\omega}}_{Y_2(s)} \right ]=y_1(t) + y_2(t)
+        Q}{s+j\omega}}_{Y_2(s)} \right ] = y_1(t) + y_2(t)
 \end{equation}
-dove
+dove $P_i$ e $Q$ sono costanti e $\bar{Q}$ \`e il complesso coniugato
+di $Q$. Valutiamo $Q$ e $Y(s)$ e applichiamo lo sviluppo di
+Heaviside:
+\[
+  G(s) U \dfrac{\omega}{s^2 + \omega^2} = \dfrac{P_i}{s + p_i} +
+  \dfrac{Q}{s - j\omega} + \dfrac{\bar{Q}}{s + j \omega}
+\]
+Ricordiamo la \ref{eq:squadropiuomegaquadro} e moltiplichiamo entrambi
+i membri per $(s - j\omega)$: 
+\[
+  G(s) U \dfrac{\omega}{(s + j \omega)(s - j \omega)} (s - j \omega)=
+  \dfrac{P_i (s - j \omega)}{(s + p_i)} + 
+  \dfrac{Q\xout{(s - j \omega)}}{\xout{(s - j\omega)}} +
+  \dfrac{\bar{Q}(s - j \omega)}{(s + j \omega)} 
+\]
+Facendo tendere $s \rightarrow j \omega$ otteniamo:
+\[
+  G(j\omega) U \dfrac{\omega}{(j\omega + j \omega)\xout{(s - j \omega)}} \xout{(s
+    - j \omega)} =
+  \dfrac{\xout{P_i (s - j \omega)}}{\xout{(s + p_i)}} + 
+  Q + \dfrac{\xout{\bar{Q}(s - j \omega)}}{\xout{(s + j \omega)}}
+\]
+
 \begin{displaymath}
-  Q=G(j\omega)\frac{U}{2j}\qquad,\qquad
-\bar Q=-\bar G(j\omega)\frac{U}{2j}
+  Q = G(j\omega)\dfrac{U}{2j}\qquad,\qquad
+\bar{Q} = -\bar{G}(j\omega)\dfrac{U}{2j}
 \end{displaymath}
 Da notare che per $t \to \infty, ~y_1(t)$ tende asintoticamente a zero
 e quindi $y(t)$ tende asintoticamente a $y_2(t)$
 \begin{displaymath}
-  y_2(t)=\mathfrak{L}^{-1}\{Y_2(s)\}=Qe^{j\omega t}+\bar Qe^{-j\omega t}=
+  y_2(t)=\mathfrak{L}^{-1}\{Y_2(s)\} = \mathfrak{L}^{-1} \left[ \dfrac{Q}{s
+      - j\omega} + \dfrac{\bar{Q}}{s + j\omega} \right] = Q e^{j\omega
+    t}+\bar Q e^{-j\omega t}=
 \end{displaymath}
 \begin{displaymath}
-  =G(j\omega)\frac{U}{2j}e^{j\omega t}-\bar G(j\omega)\frac{U}{2j}e^{-j\omega t}=
+  = G(j\omega)\dfrac{U}{2j} e^{j\omega t} - \bar
+  G(j\omega)\dfrac{U}{2j} e^{-j\omega t} =
 \end{displaymath}
+Ricordando la formula di Eulero\label{formulaDiEulero}\index{Formula
+  di Eulero}:
+\[
+  e^{j \omega t} = cos(\omega t) + j sin{\omega t}
+\]
+\[
+  e^{-j \omega t} = cos(\omega t) - j sin{\omega t}
+\]
+possiamo riscrivere come:
+\[
+  \dfrac{U}{2j} \left\{G(j \omega) cos(\omega t) + j G(j \omega)
+  sin(\omega t) - [\bar{G}(j \omega) cos(\omega t) - j\bar{G}(j
+    \omega)sin(\omega t)] \right\}
+\]
 \begin{displaymath}
-  =\frac{U}{2j}\left[\left(G(j\omega)-\bar G(j\omega)\right)\cos (\omega
+  =\dfrac{U}{2j}\left[\left(G(j\omega)-\bar G(j\omega)\right)\cos (\omega
     t) + j\left(G(j\omega)+\bar G(j\omega)\right)\sin (\omega t)\right]=
 \end{displaymath}
+A questo punto, possiamo effettuare alcune considerazioni:
+\[
+  G(j \omega) - \bar{G}(j \omega) = \Re e\{G(j \omega)\} + j \Im m\{G(j \omega)\} -
+  \Re e\{G(j \omega)\} + j \Im m\{G(j \omega)\}
+\]
+\[
+  G(j \omega) + \bar{G}(j \omega) = \Re e\{G(j \omega)\} + j \Im m\{G(j \omega)\} +
+  \Re e\{G(j \omega)\} - j \Im m\{G(j \omega)\}
+\]
+Sostituendo e semplificando, otteniamo:
 \begin{displaymath}
-  =\frac{U}{2j}[2j~\Im m\{ G(j\omega)\}\cos (\omega t) + 2j~\Re e
-    \{G(j\omega)\}\sin(\omega t)]= 
+  =\dfrac{U}{2j}[2j~\Im m\{ G(j\omega)\}\cos (\omega t) + 2j~\Re e
+    \{G(j\omega)\}\sin(\omega t)]
 \end{displaymath}
 \begin{displaymath}
   =U\left [  |G(j\omega)|\sin(\arg G(j\omega))\cos(\omega t) +
-    |G(j\omega)|\cos(\arg(G(j\omega))\sin(\omega t)\right ]=  
+    |G(j\omega)|\cos(\arg(G(j\omega))\sin(\omega t)\right ] 
 \end{displaymath}
+Se consideriamo:
+\[
+  \arg G(j\omega) = a
+\]
+e
+\[
+  \omega t = b
+\]
+possiamo sfruttare:
+\[
+  sin(a)cos(b) = \dfrac{sin(a + b) + sin(a - b)}{b}
+\]
+\[
+  cos(a)sin(b) = \dfrac{sin(a + b) - sin(a + b)}{2}
+\]
+Sostituendo e semplificando, otteniamo:
 \begin{equation}\label{eq:rispfreqfdt}
   =|G(j\omega)| U \sin (\omega t+\arg G(j\omega))
 \end{equation}
@@ -3904,18 +3976,20 @@ $|G(j\omega)|U$ e fase $\arg G(j\omega)$.\footnote{/!$\backslash$
   sinusoide, per cui \`e necessario agire scegliendo valori opportuni
   dello stato iniziale, in modo tale da ottenere la risposta sinusoidale attesa.}
 Si enuncia pertanto il \emph{teorema fondamentale della risposta in
-  frequenza}~\footnote{La funzione di trasferimento in frequenza, assume la forma
-  $G(j\omega)=C(j\omega I - A)^{-1}B+D$}:
+  frequenza}\index{Teorema fondamentale della risposta in
+  frequenza}. La funzione di trasferimento in frequenza,
+  assume la forma $G(j\omega)=C(j\omega I - A)^{-1}B+D$.
 \newtheorem{rispinfreq}{Theorem}[chapter]
 \begin{rispinfreq}
   Se si applica ad un sistema LTI asintoticamente stabile con funzione
   di trasferimento $G(s)$ l'ingresso sinusoidale
 \begin{displaymath}
-  u(t)=U \sin (\omega_0 t)
+  u(t) = U \sin (\omega_0 t)
 \end{displaymath}
-l'uscita a regime, quindi a transitorio esaurito, assume la forma 
-\begin{equation}\label{eq:genrispfreq}
-  \bar y(t)=|G(j\omega_0)| U \sin(\omega_0 t +\arg G(j\omega_0))
+l'uscita a regime, quindi a transitorio esaurito, assume la
+forma
+\begin{equation}\label{eq:genrispfreq} 
+  \tilde{y}(t) = |G(j\omega_0)| U \sin(\omega_0 t +\arg G(j\omega_0))
 \end{equation}
 indipendentemente dallo stato iniziale.
 \end{rispinfreq}
