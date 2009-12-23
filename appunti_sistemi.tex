@@ -63,13 +63,10 @@
 
 \section*{Prefazione}
 \emph{Il presente documento \`e stato scritto con lo scopo di aiutare
-  lo studente che deve affrontare l'esame orale di SISTEMI a ripetere
+  lo studente che deve affrontare l'esame di TEORIA DEI SISTEMI a ripetere
   gli argomenti trattati durante il corso, riassumendo i concetti
-  fondamentali del programma.\\
-  Tale documento NON deve assolutamente essere usato in sostituzione
-  dei libri di testo e pertanto si presume che il lettore abbia gi\`a
-  le conoscenze (pratiche e teoriche) sulla teoria dei sistemi.}\\
-Buono studio.
+  fondamentali del programma. Tale documento NON deve assolutamente
+  essere usato in sostituzione dei libri di testo.}
 \tableofcontents
 \listoffigures
 Tutte le figure presenti nei capitoli 3, 4, 5, 6 del documento,
@@ -181,22 +178,23 @@ singoli componenti.
 \chapter{Sistemi dinamici a tempo continuo}
 \section{Concetti fondamentali}
 \subsection{Variabili di ingresso, stato e uscita}
-Un sistema dinamico \ref{fig:fig3} a tempo continuo, \`e un modello
-matematico di un oggetto fisico interagente con il mondo che lo
+Un sistema dinamico a tempo continuo \`e un modello
+matematico di un oggetto fisico che interagisce con il mondo che lo
 circonda attraverso due vettori di variabili dipendenti dal tempo $t$: 
 \begin{itemize}
 \item{\emph{variabili di ingresso}}: sono le azioni che vengono
   compiute sull'oggetto in esame da agenti esterni che ne influenzano
-  il comportamento. 
+  il comportamento;
 \item{\emph{variabili di uscita}}: \`e quanto del comportamento
   dell'oggetto stesso \`e di interesse. 
 \end{itemize}
 In particolare esiste un rapporto di \emph{causa-effetto} tra le
-variabili di ingresso e quelle di uscita. Un sistema dinamico \`e
-schematizzabile come segue:
+variabili di ingresso e quelle di uscita. Un sistema dinamico a tempo
+continuo \`e schematizzato in figura \ref{fig:fig3}.
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics[scale=0.5]{./figures/dynasys.png}\caption{Sistema Dinamico}\label{fig:fig3}
+    \includegraphics[scale=0.5]{./figures/dynasys.png}
+    \caption{Sistema Dinamico}\label{fig:fig3}
   \end{center}
 \end{figure}  
 
@@ -209,11 +207,11 @@ abbiamo le seguenti equazioni:
 \begin{equation}\label{eq:eqout}
   y=g(x(t),u(t),t)
 \end{equation}
-che insieme formano la cosiddetta \emph {rappresentazione I-S-U
+che formano la cosiddetta \emph {rappresentazione I-S-U
   (Ingresso-Stato-Uscita)} o pi\`u semplicemente
 \emph{rappresentazione di stato} del sistema.
-L'equazione \ref{eq:eqstato} si dice \emph{equazionde di stato},
-mentre la \ref{eq:eqout} \`e la cosiddetta \emph{trasformazione
+L'equazione \ref{eq:eqstato} \`e la \emph{equazione di stato},
+mentre la \ref{eq:eqout} \`e la \emph{trasformazione
   d'uscita}. Il numero \textbf{n} delle variabili di stato di un
 sistema definisce l'\emph{ordine} del sistema. In figura
 \ref{fig:fig4} \`e schematizzato un sistema dinamico a tempo continuo
@@ -231,11 +229,11 @@ L'equazione di stato mette in relazione con l'ingresso le variabili
 che descrivono la situazione interna del sistema, mentre la
 trasformazione di uscita, sulla base di tale situazione e
 dell'ingresso applicato in uno specifico istante \textbf{t}, consente
-di determinare l'uscita nello stesso istante \textbf{t}. Per gli
-esempi consultare il testo di riferimento \cite{FCA} 
+di determinare l'uscita nello stesso istante \textbf{t}. 
+% Per gli esempi consultare il testo di riferimento \cite{FCA} 
 
 Nello scegliere le variabili di stato di un sistema, bisogna tener
-conto che esse ci aiutano a capire quanto \`e necessario conoscere
+conto che esse ci aiutano a capire quanto sia necessario conoscere
 della situazione interna o della \emph{storia passata} del sistema per
 poter calcolare l'uscita. 
 
@@ -244,15 +242,15 @@ accumuli di energia, quantit\`a di moto, massa e, quindi, pu\`o essere
 opportuno scegliere come variabili di stato quelle da cui queste
 grandezze dipendono. Ad esempio:
 \begin{itemize}
-\item{nei sistemi elettrici \`e conveniente utilizzare come variabili
+\item nei sistemi elettrici \`e conveniente utilizzare come variabili
   di stato le tensioni dei condensatori o le correnti degli induttori,
-  perch\`e da queste dipendono gli accumuli di energia elettrica e magnetica}
-\item{nei sistemi meccanici \`e utile usare, invece, posizione e
+  perch\`e da queste dipendono gli accumuli di energia elettrica e magnetica;
+\item nei sistemi meccanici \`e utile usare, invece, posizione e
   velocit\`a come variabili di stato, perch\`e legate ad accumuli di
-  en. potenziale, quantit\`a di moto ed en. cinetica}
-\item{nei sistemi termodinamici si possono usare come variabili di
+  en. potenziale, quantit\`a di moto ed energia cinetica;
+\item nei sistemi termodinamici si possono usare come variabili di
   stato le temperature, perch\`e da esse dipendono le energie termiche
-  immagazzinate}
+  immagazzinate.
 \end{itemize}
 
 \subsection{Classificazione dei sistemi}
@@ -267,20 +265,21 @@ I sistemi possono essere:
     dinamici}}: in generale un sistema si dice \emph{proprio}; se,
   invece, la trasformazione d'uscita pu\`o essere espressa nella forma
   \begin{equation}\label{eq:eqstrpr}
-    y(t)=g(x(t),t)
+    y(t) = g(x(t),t)
   \end{equation}
-  ovvero essa dipende solo dallo stato e non dall'ingresso, allora il
-  sistema si dice \emph{strettamente proprio} o \emph{puramente
-    dinamico}; \\
-  se, infine, l'uscita \`e nella forma
+  ovvero se l'uscita dipende solo dallo stato e non dall'ingresso, allora il
+  sistema si dice \emph{strettamente proprio}\index{Sistema
+    strettamente proprio} o \emph{puramente dinamico}\index{Sistema
+    puramente dinamico}; se, infine, l'uscita \`e nella forma
   \begin{equation}\label{eq:eqstaticsys}
-    y(t)=g(u(t),t)
-  \end{equation} ovvero essa dipende solo dall'ingresso e non c'\`e
-  nessuno stato, allora il sistema \`e un particolare sistema proprio
-  detto \emph{sistema non dinamico o statico} 
+    y(t) = g(u(t),t)
+  \end{equation} ovvero se l'uscita dipende solo dall'ingresso e non c'\`e
+  alcuno stato, allora il sistema \`e un particolare sistema proprio
+  detto \emph{sistema non dinamico o statico}\index{Sistema non
+    dinamico}\index{Sistema statico}.
 \item[**]{\textbf{Sistemi invarianti e varianti nel tempo}}
 Nel caso in cui le funzioni $f$ e $g$ non dipendano esplicitamente dal
-tempo, allora il ststema si dice \emph{invariante nel tempo} o
+tempo, allora il sistema si dice \emph{invariante nel tempo} o
 \emph{stazionario}. In particolare si ha: 
 \begin{equation}\label{eq:ltisys}
   \dot{x}(t) = f(x(t),u(t))
@@ -292,11 +291,11 @@ Invece, se anche una sola delle funzioni $f$ e $g$ dipende
 esplicitamente da $t$, il sistema si dice \emph{variante nel tempo} ed
 in questo caso le equazioni del sistema sono la \ref{eq:eqstato} e la
 \ref{eq:eqout}. 
-\item[**]{\textbf{Sistemi lineari e non lineari}}
-Se le equazioni del sistema sono combinazioni lineari delle varie
+\item[**]{\textbf{Sistemi lineari e non lineari}}: se le equazioni del
+  sistema sono combinazioni lineari delle varie
 componenti dei vettori $x(t)$ e $u(t)$, allora il sistema si dice
 \emph{lineare}, altrimenti \`e \emph{non lineare}. La rappresentazione
-ISU, espressa in forma matriciale, del generico sistema lineare
+I-S-U, espressa in forma matriciale, del generico sistema lineare
 T.I. (Tempo Invariante) \`e la seguente: 
 \begin{equation}\label{eq:matltisys}
   \dot{x}(t)=Ax(t)+Bu(t)
@@ -309,20 +308,20 @@ dove:
 \item {A \`e detta \emph{matrice della dinamica}. La sua dimensione
   \`e $[n \times n]$, dove n \`e il numero di variabili di
   stato}~\footnote{N.B. Se il sistema \`e T.V.(Tempo Variante) allora
-  le matrici sono funzioni del tempo} 
+  le matrici sono funzioni del tempo};
 \item{B \`e la \emph{matrice degli ingressi}. La sua dimensione \`e
-  $[n\times m]$, dove m \`e il numero degli ingressi} 
+  $[n\times m]$, dove m \`e il numero degli ingressi};
 \item{C \`e la \emph{matrice delle uscite}. Dimensionalmente \`e
-  $[p\times n]$, dove p \`e il numero di uscite} 
-\item{D \`e la \emph{matrice di trasmissione}, la quale vale 0 se
-  $\nexists$ legame tra ingresso e uscita e la sua dimensione \`e
-  $[p\times m]$} 
+  $[p\times n]$, dove p \`e il numero di uscite};
+\item{D \`e la \emph{matrice di trasmissione}. Vale zero se
+  non esiste un legame ingresso-uscita. La sua dimensione \`e
+  $[p\times m]$}.
 \end{itemize}
 \end{itemize}
 
 \section{Risposta impulsiva}
 L'impulso \`e un artificio matematico usato per rappresentare segnali
-brevi ma intensi. In particolare si definisce l'\emph{impulso di
+brevi, ma intensi. In particolare si definisce l'\emph{impulso di
   Dirac} come:
 \begin{displaymath}
 \textrm{imp(t)}=\delta(t) = \left\{ \begin{array}{ll}
@@ -349,11 +348,13 @@ In generale:
 \begin{equation}
   Y_F(s)=G(s)U(s)\label{eq:eqlaprispf}
 \end{equation}
-se $u(t)=\delta(t) \Rightarrow Y_F(s)=G(s)\cdot 1\Rightarrow
+se 
+$$u(t)=\delta(t) \Rightarrow Y_F(s)=G(s)\cdot 1\Rightarrow
 Y_F(s)=G(s) \stackrel
-{{\mathfrak{L^{-1}}}}{\longrightarrow}\protect\footnote{$\mathfrak{L}^{-1}$
-  \`e l' \emph{Antitrasformata di Laplace}. (vedere Appendice
-  \ref{apx:laplace})}g(t)=y_f(t)$ 
+{{\mathfrak{L^{-1}}}}{\longrightarrow}\protect
+g(t)=y_f(t)$$ 
+con $\mathfrak{L}^{-1}$ pari all'\emph{Antitrasformata di Laplace}
+(vedere Appendice \ref{apx:laplace})\\
 \textbf{La risposta impulsiva \`e:}
 \begin{equation}\label{eq:eqpulseresp}
   \protect\mathfrak{L}^{-1}[G(s)\mathfrak{L}(\delta(t)]
@@ -376,7 +377,7 @@ indefinitamente"~\footnote{Se il sistema da solo va in posizione di
 trova nello stato $x(\bar{t})=\bar{x}$, allora $\forall t >\bar{t}$,
 il sistema si trover\`a nello stesso stato $x(t)=\bar{x}$.
 
-In termini matematici gli stati di equilibrio devono soddisfare
+In termini matematici, gli stati di equilibrio devono soddisfare
 l'equazione $\dot{x}(t)=0$, cio\`e sono le soluzioni $\bar{x}$
 costanti nel tempo dell'equazione: 
 \begin{equation}\label{eq:eqsteady}
@@ -398,15 +399,17 @@ e ad ogni stato di equilibrio corrisponde un uscita di equilibrio:
 \end{equation}
 
 \subsection{La matrice $A$}
-Se $A$ \`e invertibile, cio\`e se $det(A) \neq 0$ lo stato di
-equilibrio \`e:
+La matrice $A$ \`e detta matrice della dinamica o matrice
+Jacobiana. Ha dimensioni $n \times n$, con $n$ grado del sistema e numero
+di variabili di stato. Se $A$ \`e invertibile, cio\`e se $det(A) \neq
+0$, lo stato di equilibrio \`e:
 \[
   \begin{array}{l}
     \bar{x} = -A^{-1} B \bar{u}\\
     \bar{y} = ( -C A^{-1} B + D) \bar{u}
   \end{array}
 \]
-La matrice $D - CA^{-1} B$ \`e il {\bf Guadagno
+La matrice $[D - CA^{-1} B]$ \`e il {\bf guadagno
   statico}\index{Guadagno statico}, una costante che rappresenta il
 rapporto tra uscita ed ingresso quando il transitorio \`e esaurito.
 Se $det(A) = 0$ 
@@ -418,11 +421,12 @@ possibili stati di equilibrio o nessuno stato di equilibrio. In questo
 caso la nozione di guadagno statico perde senso.
 
 \section{Stabilit\`a}
-Il criterio di stabilit\`a, fu introdotto dal matematico Liapunov il
-quale considerava che 'piccole' perturbazioni dello stato iniziale,
-rispetto ad un valore di riferimento, provocano solo 'piccole'
+Il criterio di stabilit\`a fu introdotto dal matematico
+Liapunov. Liapunov considerava che ``piccole'' perturbazioni dello stato
+iniziale, rispetto ad un valore di riferimento, provocano solo ``piccole''
 perturbazioni del movimento dello stato, che si annulleranno
 eventualmente su tempi lunghi. 
+
 \subsection{Stabilit\`a dell'equilibrio}
 Si considera un sistema dinamico T.I. con ingresso costante
 $u(t)=\bar{u}$, con $t \ge 0$, e un corrispondente stato di equilibrio
@@ -430,14 +434,15 @@ $\bar{x}$ detto \emph{nominale}. Inoltre si considera anche un
 movimento dello stato $x(t)$, detto \emph{perturbato}, generato a
 partire da $\bar{u}$ e da uno stato iniziale $x_0$.
 
-Possiamo affermare che: \emph{"Uno stato di equilibrio si dice stabile se, ad una
-  perturbazione arbitrariamente piccola, il movimento perturbato
-  rimane 'vicino' all'equilibrio nominale. \`E instabile se si ha un
-  allontanamento dello stato del sistema dall'equilibrio stesso"}.
+Possiamo affermare che: \emph{"Uno stato di equilibrio si dice stabile
+  se, ad una perturbazione arbitrariamente piccola, il movimento
+  perturbato rimane ``vicino'' all'equilibrio nominale. \`E instabile
+  se si ha un allontanamento dello stato del sistema dall'equilibrio
+  stesso"}.
 
-Di seguito \`e mostrata la tabella che riassume i tipi di sistemi
-classificati secondo la stabilit\`a: \footnote{Il polo dominante \`e il
-  polo che si trova pi\`u a destra degli altri} \\ 
+Definito ``polo dominante''\index{Polo dominante} come il polo che si
+trova pi\`u a destra degli altri, di seguito mostriamo la tabella che
+riassume i tipi di sistemi classificati secondo la stabilit\`a: 
 
 \begin{table}[hbp!]
   \begin{center}
@@ -454,17 +459,17 @@ classificati secondo la stabilit\`a: \footnote{Il polo dominante \`e il
       convergenti, ovvero tutti i poli sono a sinistra (il \emph{polo
         dominante} \`e a sinistra)\\ 
       \hline
-      INSTABILE & Esiste un modo divergente, ovvero il polo dominante
-      \`e a destra\\
-      \hline
       MARGINALMENTE STABILE & Non esistono modi naturali divergenti, ma ne
       esiste uno, o pi\`u di uno, limitato che non tende a $0$, ovvero il polo
       dominante \`e sull'asse immaginario \\ 
       \hline
+      INSTABILE & Esiste un modo divergente, ovvero il polo dominante
+      \`e a destra\\
+      \hline
       DEBOLMENTE INSTABILE & Non esistono modi divergenti esponenziali, ma
       ne esiste uno divergente ``debolmente'' (ad esempio, potenze della
       $t$ che crescono pi\`u lentamente dell'esponenziale), ovvero il polo \`e
-      sull'asse immaginario con molteplicit\`a maggiore di $1$\\
+      sull'asse immaginario con molteplicit\`a maggiore di $1$.\\
       \hline
     \end{tabular}
     \caption{Stabilit\`a dei sistemi}
@@ -479,11 +484,11 @@ individuare un contributo dipendente solo dallo stato iniziale e uno
 dipendente solo dall'ingresso. 
 
 \begin{description}
-\item[Evoluzione libera]\index{Evoluzione libera}: (o movimenti
+\item[Evoluzione libera]\index{Evoluzione libera} (o movimenti
 liberi) \`e il contributo al movimento dello stato e dell'uscita
 funzione solo dello stato iniziale, ovvero quello che, a parit\`a di
 stato iniziale, si avrebbe se l'ingresso fosse nullo. 
-\item[Evoluzione forzata]\index{Evoluzione forzata}: \`e il contributo
+\item[Evoluzione forzata]\index{Evoluzione forzata} \`e il contributo
 funzione solo dell'ingresso, ovvero quello che si avrebbe se, a parit\`a
 di ingresso, lo stato iniziale fosse nullo. 
 \end{description}
@@ -491,18 +496,86 @@ Il sistema LTI (Lineare Tempo Invariante) a tempo continuo \`e descritto
 dalle equazioni \ref{eq:matltisys}. In questa sezione vengono
 presentati due schemi riassuntivi che descrivono i modi di tali
 sistemi con autovalori distinti e doppi.
+
+La rappresentazione grafica viene effettuata sul piano
+complesso\index{Piano complesso} o piano di Gauss\index{Piano di
+  Gauss}. Il piano di Gauss pu\`o essere pensato come un piano
+cartesiano modificato affinch\`e l'asse $x$ rappresenti la parte reale
+({\em asse reale}) e l'asse $y$ rappresenti la parte immaginaria ({\em
+asse immaginario}) di un numero complesso. Nel nostro caso il piano di
+Gauss ci consentir\`a di avere una localizzazione chiara dei vari tipi
+di poli dei nostri sistemi.
+
+\subsubsection{Poli distinti}
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics[scale=0.5]{./figures/modisingol.png}
+    \includegraphics[scale=0.7]{./figures/modisingol.png}
     \caption{Modi dei sistemi con autovalori distinti}\label{fig:modising}
   \end{center}
 \end{figure} 
+La figura \ref{fig:modising} mostra l'andamento dei modi naturali, o
+risposta impulsiva, dei sistemi del secondo ordine, secondo il tipo di
+poli del sistema.
+
+\begin{description}
+\item[A] Il polo dominante \`e a sinistra dell'asse immaginario,
+  cio\`e \`e a parte reale negativa e parte immaginaria
+  nulla. Il sistema \`e asintoticamente stabile. L'andamento della
+  funzione \`e di tipo esponenziale negativo; 
+\item[B] Il polo dominante \`e complesso a parte reale negativa. Il sistema \`e
+  asintoticamente stabile. L'andamento \`e una sinusoide di ampiezza
+  sempre minore;
+\item[C] Il polo dominante si trova nell'origine degli assi. Il
+  sistema \`e marginalmente stabile. La funzione \`e una semiretta
+  costante;
+\item[D] Il polo dominante \`e complesso a parte reale nulla. Il
+  sistema \`e marginalmente stabile. La funzione \`e una sinusoide
+  costante, a media nulla;
+\item[E] Il polo dominante \`e complesso a parte reale positiva. Il
+  sistema \`e instabile; diverge come una sinusoide di ampiezza sempre
+  maggiore; 
+\item[F] Il polo dominante ha parte reale positiva. Il sistema \`e
+  instabile. La funzione \`e un esponenziale positivo.
+\end{description}
+
+\subsubsection{Poli doppi}
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics[scale=0.5]{./figures/modidoppi.png}
+    \includegraphics[scale=0.7]{./figures/modidoppi.png}
     \caption{Modi dei sistemi con autovalori doppi}\label{fig:modidop}
   \end{center}
-\end{figure} 
+\end{figure}
+La figura \ref{fig:modidop} mostra l'andamento dei modi naturali, o
+risposta impulsiva, dei sistemi del secondo ordine, secondo il tipo di
+poli del sistema.
+
+\begin{description}
+\item[A] I poli sono a parte reale negativa. La funzione presenta una
+  sovraelongazione prima di convergere;
+\item[B] I poli sono complessi a parte reale negativa. Il sistema \`e
+  asintoticamente stabile. L'andamento \`e una sinusoide di ampiezza
+  sempre minore;
+\item[C] I poli giacciono nell'origine degli assi. Il sistema \`e
+  instabile. La funzione diverge con una pendenza inferiore ad un
+  esponenziale, ma diverge;
+\item[D - E] I poli sono complessi a parte reale nulla o positiva. In
+  entrabi i casi, il sistema \`e instabile e la funzione \`e una
+  sinusoide di ampiezza sempre maggiore;
+\item[F] I poli sono reali a parte reale positiva. Il sistema \`e
+  instabile. La funzione diverge esponenzialmente.
+\end{description}
+
+Nel caso dei modi con autovalori doppi, notiamo che le funzioni
+partono dall'origine degli assi. Questo comportamento \`e facilmente
+dimostrabile analizzando la risposta al gradino di sistemi del secondo
+ordine con poli coincidenti. Risolvendo la risposta al gradino per $t
+= 0$
+\[
+y(t) = \mu \left(1 - e^{- \frac{t}{T}} - \dfrac{t}{T}e^{- \frac{t}{T}}\right)
+\]
+notiamo che il punto di partenza \`e effettivamente lo
+zero. Calcolandone la derivata prima, otteniamo la pendenza. Con la
+derivata seconda, ottiene la concavit\`a e la convessit\`a.
 
 \section{Criteri di stabilit\`a}
 In un sistema stazionario lineare, la determinazione delle propriet\`a
@@ -2356,7 +2429,7 @@ $$m s^2 y + b s y + k y = u \Rightarrow y = \left ( \frac{1}{m s^2 +
   bs + k} \right )u$$
 La rappresentazione di stato permette di scrivere l'equazione della
 funzione di trasferimento come sistema di equazioni del primo
-ordine. Posti $x_1 = y$ e $x_2 = y$ si ha:
+ordine. Posti $x_1 = y$ e $x_2 = \dot{y}$ si ha:
 \begin{eqnarray*}
   \left\{ \begin{array}{l}
     \dot{x}_1 = x_2\\
@@ -3121,24 +3194,24 @@ Essendo $R_2 = R_0 + \alpha T$ si ha:
 \subsubsection{Equazioni di scambio termico}
 \[
   \begin{array}{ll}
-    \dot{T} = \frac{1}{C_T} (q_{in} - q_{out}) &  \\
-    q_{in} = b i_2 v_2 = b \frac{v_2^2}{R_2} = \frac{b v^2}{R_0 +
+    \dot{T} = \dfrac{1}{C_T} (q_{in} - q_{out}) &  \\
+    q_{in} = b i_2 v_2 = b \dfrac{v_2^2}{R_2} = \dfrac{b v^2}{R_0 +
       \alpha T} & \textrm{Flusso di calore in ingresso}\\
-    q_{out} = \frac{1}{r}(T - T_E) & \textrm{Flusso di calore in
+    q_{out} = \dfrac{1}{r}(T - T_E) & \textrm{Flusso di calore in
       uscita}\\
      & \\
-    \dot{T} = \frac{b}{C_T} \cdot \frac{v_2^2}{R_0 + \alpha T} -
-    \frac{1}{C_T r}T + \frac{1}{C_T r}T_E & 
+    \dot{T} = \dfrac{b}{C_T} \cdot \dfrac{v_2^2}{R_0 + \alpha T} -
+    \dfrac{1}{C_T r}T + \dfrac{1}{C_T r}T_E & 
   \end{array}
 \]
 \\
 Posto: $x = v_1$ ; $x_2 = T$ ; $u = v$ ; $y = T$ si ha:
 \[
   \begin{array}{l}
-    \dot{x_1} = - \left( \frac{1}{R_1C} + \frac{1}{C R_0 + \alpha C
-      x_2}\right)x_1 + \frac{1}{R_1 C}u\\
-    \dot{x_2} = \frac{b}{C_T} \frac{x_1^2}{R_0 + \alpha x_2} -
-    \frac{1}{C_T r}x_2 + \frac{1}{C_T r}T_E\\
+    \dot{x_1} = - \left( \dfrac{1}{R_1C} + \dfrac{1}{C R_0 + \alpha C
+      x_2}\right)x_1 + \dfrac{1}{R_1 C}u\\
+    \dot{x_2} = \dfrac{b}{C_T} \dfrac{x_1^2}{R_0 + \alpha x_2} -
+    \dfrac{1}{C_T r}x_2 + \dfrac{1}{C_T r}T_E\\
     y = x_2
   \end{array}
 \]
@@ -3147,8 +3220,8 @@ Sostituendo ai parametri i valori numerici assegnati si ha:
   (S)
   \left\{
   \begin{array}{l}
-    \dot{x_1} = - \left( \frac{1}{9} + \frac{1}{1 + 2x_2}\right)x_1 + \frac{1}{9}u\\
-    \dot{x_2} = \frac{x_1^2}{1 + 2x_2} - \frac{1}{2}x_2 + 2\\
+    \dot{x_1} = - \left( \dfrac{1}{9} + \dfrac{1}{1 + 2x_2}\right)x_1 + \dfrac{1}{9}u\\
+    \dot{x_2} = \dfrac{x_1^2}{1 + 2x_2} - \dfrac{1}{2}x_2 + 2\\
     y = x_2
   \end{array}
   \right .
@@ -3166,7 +3239,7 @@ deve essere soddisfatto l'equilibrio:
 \]
 Sostituendo $x_2 = 10 ^{\circ}C$ si ha dalla (2):
 \[
-  \frac{\overline{x_2}^2}{21} - 5 + 2 = 0 \Rightarrow \overline{x_2}^2
+  \dfrac{\overline{x_1}^2}{21} - 5 + 2 = 0 \Rightarrow \overline{x_1}^2
   = 63 \Rightarrow \overline{x_1} = 
   \left\{
   \begin{array}{l}
@@ -3997,373 +4070,718 @@ forma
 indipendentemente dallo stato iniziale.
 \end{rispinfreq}
 
-\section{Diagrammi di Bode}
-Per rappresentare la risposta in frequenza $G(j\omega)$ di sistemi SISO, si usano i \emph{diagrammi di Bode (o cartesiani)}. Essi sono costituiti da una coppia di curve che rappresentano il modulo e la fase di $G(j\omega)$ in funzione di $\omega$. Le due curve sono dette \emph {diagramma di Bode del modulo} e \emph{diagramma di Bode della fase}. Convenzionalmente si usa una scala logaritmica in base dieci per l'ascissa (viene rappresentato $\log_{10}\omega_n$ con $\omega_n \neq 0$) in modo tale che la distanza tra due pulsazioni  $\omega_1$ e $\omega_2>\omega_1$ sia proporzionale alla differenza dei loro logaritmi ovvero al rapporto $\omega_2/\omega_1$  $\forall$ coppia di pulsazioni. In particolare si definisce \emph{decade}, l'intervallo tra due pulsazioni che sono tra loro in rapporto pari a dieci.
-Nel tracciare i diagrammi, \`e conveniente trasformare la fdt nella cd. \emph{Bode-form}~\footnote{Viene trasformata la forma fattorizzata rappresentata dall'eq. \ref{eq:secformfdt}, ponendo $s=j\omega$}:
+
+
+% DIAGRAMMA I BODE
+\chapter{Diagrammi di Bode}
+Per rappresentare la risposta in frequenza $G(j\omega)$ di sistemi
+SISO, si usano i \emph{diagrammi di Bode (o diagrammi cartesiani)}. Essi sono
+costituiti da una coppia di curve che rappresentano il modulo e la
+fase di $G(j\omega)$ in funzione della pulsazione  $\omega$. Le due curve sono dette
+\emph {diagramma di Bode del modulo} e \emph{diagramma di Bode della
+  fase}. Convenzionalmente si usa una scala logaritmica in base dieci
+per l'ascissa (viene rappresentato $\log_{10}\omega_n$ con $\omega_n
+\neq 0$) in modo tale che la distanza tra due pulsazioni  $\omega_1$ e
+$\omega_2 > \omega_1$ sia proporzionale alla differenza dei loro
+logaritmi, ovvero al rapporto $\dfrac{\omega_2}{\omega_1}$ per ogni
+coppia di pulsazioni. In particolare, si definisce \emph{decade}\index{Decade}
+l'intervallo tra due pulsazioni che sono tra loro in rapporto pari a
+dieci. Nel tracciare i diagrammi, \`e conveniente trasformare la
+funzione di trasferimento nella cosiddetta
+\emph{Bode-form}~\footnote{Viene trasformata la forma fattorizzata
+  rappresentata dall'eq. \ref{eq:secformfdt}, ponendo $s=j\omega$}:
+
 \begin{equation}\label{eq:bodeform}
-G(j\omega)=\frac{\mu \prod_i(1+j\omega \tau_i ) \prod_i(1+\frac{2 j\omega \zeta_i }{\alpha_{ni}}-\frac{\omega^2}{\alpha^{2}_{ni}})}{(j\omega)^g \prod_i(1+j\omega T_i ) \prod_i(1+\frac{2 j\omega \xi_i } {\omega_{ni}}-\frac{\omega^2}{\omega^2_{ni}})}
+  G(j\omega) = \dfrac{\mu \prod_i \left( 1 + j\omega \tau_i \right)
+    \prod_i \left( 1 +\dfrac{2 j\omega \zeta_i}{\alpha_{ni}} -
+    \dfrac{\omega^2}{\alpha^{2}_{ni}}\right)} {(j\omega)^g \prod_i( 1 +
+    j\omega T_i ) \prod_i\left( 1 + \dfrac{2 j\omega \xi_i }{\omega_{ni}} -
+    \dfrac{\omega^2}{\omega^{2}_{ni}}\right)}
 \end{equation}
-\subsection{Diagrammi dei moduli}
-Nel diagramma del modulo, l'asse delle ordinate riporta in scala lineare il $|G(j\omega)|_{dB}$ espresso in decibel (dB)~\footnote{Il valore in decibel di $x$ \`e pari a $20\log x$.} quindi:
+
+\section{Diagrammi dei moduli}
+Nel diagramma del modulo, l'asse delle ordinate riporta in scala
+lineare il $|G(j\omega)|_{dB}$ espresso in decibel (dB)~\footnote{Il
+  valore in decibel di $x$ \`e pari a $20\log x$.} quindi:
 \begin{equation}\label{eq:modfdtindb}
-|G(j\omega)|_{dB}=20\log|G(j\omega)|~\footnote{Valori positivi, negativi o nulli di $|G(j\omega|_{dB}$, corrispondono a  valori maggiori, minori o pari a 1 di $|G(j\omega|$.}
+  |G(j\omega)|_{dB} = 20\log|G(j\omega)|~\footnote{Valori positivi,
+    negativi o nulli di $|G(j\omega)|_{dB}$, corrispondono a  valori
+    maggiori, minori o pari a 1 di $|G(j\omega|$.} 
 \end{equation}
-Effettuando quindi il modulo della risp. in frequenza in dB si ha:
-\begin{displaymath}
-|G(j\omega)|_{dB}=20\log|\mu|-20g\log|j\omega|+\sum_i 20\log|1+j\omega \tau_i|+
-\end{displaymath}
-\begin{displaymath}
-+\sum_i 20\log \left|1+2j\zeta_i \omega/\alpha_{ni}-\omega^2/\alpha^2_{ni}\right|-\sum_i 20\log |1+j\omega T_i|+
-\end{displaymath}
+Effettuando quindi il modulo della risposta in frequenza in $dB$ si ha:
 \begin{equation}\label{eq:modrispfreq}
--\sum_i 20\log \left|1+2j\xi_i \omega/\omega_{ni}-\omega^2/\omega^2_{ni}\right|
+  \begin{array}{l}
+  |G(j\omega)|_{dB} = 20\log|\mu| - 20g\log|j\omega| + \sum_i
+  20\log|1+j\omega \tau_i|+ \\
+  +\sum_i 20\log \left|1 + 2j\zeta_i
+  \dfrac{\omega}{\alpha_{ni}} - \dfrac{\omega^2}{\alpha^2_{ni}}\right|
+  + \\
+  - \sum_i 20\log |1+j\omega T_i| - \sum_i 20\log \left|1 + 2j\xi_i
+  \dfrac{\omega}{\omega_{ni}} - \dfrac{\omega^2}{\omega^2_{ni}}\right| 
+  \end{array}
 \end{equation}
-Per tracciare il diagramma di Bode del modulo in dB della risp. in frequenza \`e sufficiente tracciare i diagrammi dei singoli termini che compaiono nella \ref{eq:modrispfreq}~\footnote{Ricordando che $\forall$ num. complex $s\neq0$ vale $|1/s_{dB}|=-|s|_{dB}$, il diagramma di Bode relativo agli zeri della fdt si ricava a partire da quello relativo ai poli, cambiato di segno}.\\
+Per tracciare il diagramma di Bode del modulo in $dB$ della risposta
+in frequenza \`e sufficiente tracciare i diagrammi dei singoli termini
+che compaiono nella \ref{eq:modrispfreq}. Ricordando che per
+ogni numero complesso $s\neq 0$ vale $|\frac{1}{s}|_{dB} = -|s|_{dB}$, il
+diagramma di Bode relativo agli zeri della funzione di trasferimento
+si ricava a partire da quello relativo ai poli, cambiato di segno.
 I termini che ci interessano sono quindi:
 \begin{eqnarray}
-G_a(s)=\mu\\
-G_b(s)=\frac{1}{s}\\
-G_c(s)=\frac{1}{1+sT}\\
-G_d(s)=\frac{1}{1+2\xi s/ \omega_n + s^2/\omega_n^2}
+  G_a(s)=\mu\\
+  G_b(s)=\frac{1}{s}\\
+  G_c(s)=\frac{1}{1+sT}\\
+  G_d(s)=\frac{1}{1+2\xi \dfrac{s}{\omega_n} + \dfrac{s^2}{\omega_n^2}}
 \end{eqnarray}
-E' importante far notare che i diagrammi che verranno mostrati sono i cd. \emph{diagrammi asintotici} di Bode, i quali sono diagrammi approssimati in grado di dare informazioni qualitativamente accettabili~\footnote{In ogni caso \`e possibile stimare l'errore che si commette nell' approssimazione e apportare le opportune modifiche.}.
+\`E importante far notare che i diagrammi che verranno mostrati sono i
+cosiddetti \emph{diagrammi asintotici} di Bode, i quali sono diagrammi
+approssimati in grado di dare informazioni qualitativamente
+accettabili. In ogni caso \`e possibile stimare l'errore che
+si commette nell'approssimazione ed apportare le opportune modifiche.
+
 \subsubsection{Diagramma del modulo di $G_a(j\omega)$}
+\[
+  G_a(s)=\mu
+\]
 \begin{displaymath}
-|G_a(j\omega)|_{dB}=20\log|\mu
+  |G_a(j\omega)|_{dB} = 20\log|\mu|
 \end{displaymath}
-il cui diagramma corrisponde ad una retta parallela all'asse delle $\omega$ con ordinata$>0,<0$ o $=0$ a seconda che il modulo di $\mu$ sia $>1, <1$ o $=1$
-\subsubsection{Diagramma del modulo di $G_b(j\omega)_{dB}$}
+Il diagramma corrisponde ad una retta parallela all'asse delle
+$\omega$ con ordinata maggiore di zero, minore di zero o pari a zero a
+seconda che $|\mu|$ sia maggiore di uno, minore di uno o unitario.
+
+\subsubsection{Diagramma del modulo di $G_b(j \omega)$}
+\[
+  G_b(s)=\frac{1}{s}
+\]
 \begin{displaymath}
-|G_b(j\omega)|_{dB}=20\log\left | \frac{1}{j\omega}\right |=-20\log \omega
+  |G_b(j\omega)|_{dB} = 20\log\left | \frac{1}{j\omega}\right |  = 20
+  (\log |1| - \log |j\omega|)
 \end{displaymath}
-Il diagramma \`e una retta che per essere tracciata  necessita la conoscenza di due punti: convenzionalmente, osservando che $|G_b(j1)|_{dB}=0$ e $|G_b(j10)|_{dB}=-20$, si usa indicare come pendenza unitaria il valore \textbf{20dB/dec}~\footnote{Si dice che la retta ha pendenza -1 o che 'perde 20 dB/decade'.}\\
-In generale il diagramma del $|G(s)=1/s^g|$ \`e una retta con ordinata$=0$ in $\omega=1$ e pendenza $-g$, ovvero perde $20g$ dB/dec $\forall$ azione integrale ($g>0$) e guadagna $20|g|$ dB/dec $\forall$ azione derivativa ($g>0$).
-\begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/diagmod2.png}\caption{Diagramma di Bode di $|G_b(j\omega)|_{dB}$}\label{fig:bode2}
-\end{center}
+Il modulo \`e pari a:
+\begin{equation}\label{eq:modulo}
+ | | =  \sqrt{\Re e^2 + \Im m^2}
+\end{equation}
+Quindi il modulo di $j \omega$ \`e $\omega$:
+\[
+  |G_b(j\omega)|_{dB} = -20 \log \omega
+\]
+Il diagramma \`e una retta che per essere tracciata necessita della
+conoscenza di due punti: convenzionalmente, osservando che
+$$|G_b(j1)|_{dB} = 0$$ e $$|G_b(j10)|_{dB}=-20$$ si usa indicare come
+pendenza unitaria il valore \textbf{20dB/dec}. Si dice che la retta ha
+pendenza $-1$ o che ``perde 20 dB/decade''.
+In generale il diagramma del $|G(s) = \frac{1}{s^g}|$ \`e una retta con
+ordinata pari a zero in $\omega = 1$ e pendenza pari a  $-g$: ovvero perde $20g$
+dB/dec per ogni azione integrale ($g > 0$) e guadagna $20|g|$ dB/dec
+per ogni azione derivativa ($g > 0$).
+\begin{figure}[!t]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/diagmod2.png}
+    \caption{Diagramma di Bode di $|G_b(j\omega)|_{dB}$}
+    \label{fig:bode2}
+  \end{center}
+\end{figure}
+ 
+\subsubsection{Diagramma del modulo di $G_c(j\omega)$}
+\begin{figure}[!t]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/diagmod3.png}
+    \caption{Diagramma di Bode di $|G_c(j\omega)|_{dB}$}
+    \label{fig:bode3}
+  \end{center}
 \end{figure} 
-\subsubsection{Diagramma del modulo di $G_c{j\omega}$}
+\[
+  G_c(s)=\frac{1}{1+sT}
+\]
 \begin{displaymath}
-|G_c(j\omega)|_{dB}=20\log\left | \frac{1}{1+j\omega T}\right |=-20\log \sqrt {1+\omega^2T^2}
+  |G_c(j\omega)|_{dB} = 20\log\left | \dfrac{1}{1 + j\omega T}\right |
+  = 20 ( \log 1 - \log | 1 + j \omega T |)
 \end{displaymath}
-il cui grafico \`e riportato in figura \ref{fig:bode3}. In particolare il suo valore \`e~\footnote{L'errore che si commette nel diagramma asintotico risp. a quello reale \`e pari a $20\log\sqrt{2}\simeq-3$dB, nei cd. \emph{punti di rottura}.}:
+Ricordando l'equazione \ref{eq:modulo}:
+\[
+  |G_c(j\omega)|_{dB} = - 20\log \sqrt {1 + \omega^2T^2}
+\]
+Il suo grafico \`e riportato in figura \ref{fig:bode3}. In particolare
+il suo valore \`e:
 \begin{displaymath}
-|G_c(j\omega)|_{dB}\simeq \left\{ 
-\begin{array}{l}
--20\log 1 = 0\qquad,\qquad \omega \ll 1/|T| \\ 
- -20\log \omega |T| \qquad , \qquad \omega \gg 1/|T|
-\end{array}
-\right.
+  |G_c(j\omega)|_{dB}\simeq \left\{ 
+  \begin{array}{l}
+    -20\log 1 = 0\qquad,\qquad \omega \ll \frac{1}{|T|} \\ 
+    -20\log \omega |T| \qquad , \qquad \omega \gg \frac{1}{|T|}
+  \end{array}
+  \right.
 \end{displaymath}
-\begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/diagmod3.png}\caption{Diagramma di Bode di $|G_c(j\omega)|_{dB}$}\label{fig:bode3}
-\end{center}
-\end{figure} 
+Sostituendo il diagramma esatto con quello asintotico si commette un
+errore $E_c(\omega)$ pari $20\log\sqrt{2} \simeq -3dB$, nei cosiddetti
+\emph{punti di rottura}\index{Punto di rottura}.
+
 \subsubsection{Diagramma del modulo di $G_d{(j\omega)}$}
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/diagmod4.png}
+    \caption{Diagramma di Bode di $|G_d(j\omega)|_{dB}$}
+    \label{fig:bode4}
+  \end{center}
+\end{figure}
+\[
+  G_d(s)=\frac{1}{1+2\xi \dfrac{s}{\omega_n} + \dfrac{s^2}{\omega_n^2}}
+\]
 \begin{eqnarray*}
-\lefteqn{|G_d(j\omega)|_{dB}=20\log \Bigg | \frac{1}{1+2j\xi\omega/\omega_n - \omega^2/\omega_n^2}\Bigg|={} } \\
-& & {}=-20\log\sqrt{(1-\omega^2/\omega_n^2)^2+4\xi^2\omega^2/\omega_n^2}
+  \lefteqn{|G_d(j\omega)|_{dB}=20\log \left| \dfrac{1}{1 +
+      2j\xi\dfrac{\omega}{\omega_n} -
+      \dfrac{\omega^2}{\omega_n^2}}\right| = {} } \\
+  & & {}=-20\log\sqrt{\left(1 - \dfrac{\omega^2}{\omega_n^2}\right)^2
+    + 4\xi^2\dfrac{\omega^2}{\omega_n^2}}
 \end{eqnarray*}
-Il diagramma di questa funzione non dipende dal segno di $\xi$ ed in particolare il suo max si ha per $|\xi|<1/\sqrt{2}\simeq 0.707$. Tale max \`e chiamato \emph{picco di risonanza} ed \`e in corrispondenza della \emph{pulsazione di risonanza} che vale
+Il diagramma di questa funzione non dipende dal segno di $\xi$ ed in
+particolare il suo massimo si ha per $|\xi| < \dfrac{1}{\sqrt{2}}
+\simeq 0.707$. Tale massimo \`e chiamato \emph{picco di
+  risonanza}\index{Picco di risonanza} ed \`e in corrispondenza della
+\emph{pulsazione di risonanza}\index{Pulsazione di risonanza} che
+vale
 \begin{equation}\label{eq:pulsrison}
-\omega_r=\omega_n\sqrt{1-2\xi^2}
+  \omega_r=\omega_n\sqrt{1-2\xi^2}
 \end{equation}
 mentre il picco di risonanza risulta
 \begin{equation}\label{eq:piccodirison}
-|G_d(j\omega_r)|_{dB}=\frac{1}{2|\xi|\sqrt{1-2\xi^2}}
+  |G_d(j\omega_r)|_{dB} = \dfrac{1}{2|\xi|\sqrt{1-2\xi^2}}
 \end{equation}
 ovvero
 \begin{equation}
-|G_d(j\omega_n)|_{dB}=\frac{1}{2|\xi|}
+  |G_d(j\omega_n)|_{dB} = \dfrac{1}{2|\xi|}
 \end{equation}
 Il valore del $|G_d(j\omega)|_{dB}$ \`e
 \begin{displaymath}
-|G_d(j\omega)|_{dB}\simeq \left\{ 
-\begin{array}{l}
--20\log 1 = 0\qquad,\qquad \omega \ll \omega_n\\ 
- -40\log (\omega/\omega_n) \qquad , \qquad \omega \gg  \omega_n
-\end{array}
-\right.
+  |G_d(j\omega)|_{dB}\simeq \left\{ 
+  \begin{array}{l}
+    -20\log 1 = 0\qquad,\qquad \omega \ll \omega_n\\ 
+    -40\log \left( \dfrac{\omega}{\omega_n}\right) \qquad , \qquad \omega \gg  \omega_n
+  \end{array}
+  \right.
 \end{displaymath}
-\begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/diagmod4.png}\caption{Diagramma di Bode di $|G_d(j\omega)|_{dB}$}\label{fig:bode4}
-\end{center}
-\end{figure} 
-Nell'appendice \ref{apx:bode} \`e possibile trovare l'algoritmo per il tracciamento del diagramma asintotico di Bode dei moduli.
-\newpage
+
 \subsection{Diagrammi delle fasi}
-Nel diagramma della fase, si riporta sulle ordinate, in scala lineare, il valore di $\arg{G(j\omega)}$ in radianti o gradi~\footnote{Trasformazione gradi in radianti \framebox{$180[°]:\pi[rad]=angolo[°]:x [rad]$}}. Il tracciamento del diagramma delle fasi degli zeri di $G(s)$ si ricava a partire da quello dei poli cambiato di segno~\footnote{$\forall$ num. complex $s\neq0$ vale che $\arg{1/s}=-\arg{s}$}.
-Si ha quindi:
+Nel diagramma della fase, si riporta sulle ordinate, in scala lineare,
+il valore di $\arg{G(j\omega)}$ in radianti o
+gradi~\footnote{Trasformazione gradi in radianti
+  \framebox{$180[°]:\pi[rad]=angolo[°]:x [rad]$}}. Il tracciamento del
+diagramma delle fasi degli zeri di $G(s)$ si ricava a partire da
+quello dei poli cambiato di segno. Per ogni numero complesso
+$s\neq0$ vale che $\arg{1/s} = -\arg{s}$. Si ha quindi:
 \begin{eqnarray*}
-\lefteqn{\arg G(j\omega)=\underbrace{\arg \mu}_{G_a(j\omega)}\underbrace{-g\arg(j\omega)}_{G_b(j\omega)}+\sum_i \arg(1+j\omega \tau_i)+{} }\\
-& & {}+\sum_i \arg \left(1+2j\zeta_i \omega/\alpha_{ni}-\omega^2/\alpha^2_{ni}\right)\underbrace{-\sum_i \arg(1+j\omega T_i)}_{G_c(j\omega)}+
+  \lefteqn{\arg G(j\omega) = \underbrace{\arg
+      \mu}_{G_a(j\omega)}\underbrace{-g\arg(j\omega)}_{G_b(j\omega)} +
+    \sum_i \arg(1+j\omega \tau_i)+{} }\\
+  & & {}+\sum_i \arg \left(1 + 2j\zeta_i
+  \dfrac{\omega}{\alpha_{ni}} - \dfrac{\omega^2}{\alpha^2_{ni}}
+  \right) \underbrace{-\sum_i
+    \arg(1 + j\omega T_i)}_{G_c(j\omega)}+
 \end{eqnarray*}
 \begin{equation}\label{eq:phaserispfreq}
-\underbrace{-\sum_i \arg \left(1+2j\xi_i \omega/\omega_{ni}-\omega^2/\omega^2_{ni}\right)}_{G_d(j\omega)}
+  \underbrace{-\sum_i \arg \left(1 + 2j\xi_i
+    \dfrac{\omega}{\omega_{ni}} - \dfrac{\omega^2}{\omega^2_{ni}}
+    \right)}_{G_d(j\omega)} 
 \end{equation}
-Il diagramma della fase di $G(j\omega)$ si pu\`e quindi calcolare tracciando i diagrammi delle singole componenti della \ref{eq:phaserispfreq} e sommandoli.
+Il diagramma della fase di $G(j\omega)$ si pu\`o quindi calcolare
+tracciando i diagrammi delle singole componenti della
+\ref{eq:phaserispfreq} e sommandoli.
+
 \subsubsection{Diagramma della fase di $G_a(j\omega)$}
 \begin{displaymath}
-\arg G_a(j\omega)=\arg \mu = \left \{ \begin{array}{c}0°\qquad,\qquad \mu>0 \\ -180°\qquad,\qquad \mu<0\end{array} \right. 
+  \arg G_a(j\omega)= \arg \mu = \left
+  \{ \begin{array}{c}0^{\circ}\qquad,\qquad \mu >0
+      \\ -180^{\circ}\qquad,\qquad \mu < 0\end{array} \right. 
 \end{displaymath}
-E' una retta parallela all'asse delle $\omega$~\footnote{La scelta di uno sfasamento di -180° \`e puramente convenzionale}
+E' una retta parallela all'asse delle $\omega$~\footnote{La scelta di
+  uno sfasamento di $-180^{\circ}$ \`e puramente convenzionale}
 \subsubsection{Diagramma della fase di $G_b(j\omega)$}
 \begin{displaymath}
-\arg G_b(j\omega)=\arg \left ( \frac{1}{j\omega}\right )=-90°
+  \arg G_b(j\omega)=\arg \left ( \frac{1}{j\omega}\right )=-90^{\circ}
 \end{displaymath}
-Siccome la fase risulta negativa, si dice che il polo nell'origine in questo caso produce un \emph{ritardo di fase}.\\
-In generale, il diagramma di Bode della fase di $G(s)=1/s^g$ \`e una retta parallela all'asse delle $\omega$ e di ordinata $-g90°$. Nel caso di azioni derivative ($g<0$) questo contributo \`e positivo e si usa dire che gli zeri nell'origine producono un \emph{anticipo di fase}.
+Siccome la fase risulta negativa, si dice che il polo nell'origine in
+questo caso produce un \emph{ritardo di fase}.
+
+In generale, il diagramma di Bode della fase di $G(s) =
+\dfrac{1}{s^g}$ \`e una retta parallela all'asse delle $\omega$ e di
+ordinata $-g \cdot 90^{\circ}$. Nel caso di azioni derivative $(g~<~0)$
+questo contributo \`e positivo e si usa dire che gli zeri nell'origine
+producono un \emph{anticipo di fase}.
+
 \subsubsection{Diagramma della fase di $G_c(j\omega)$}
 \begin{displaymath}
-\arg G_c(j\omega)=-arg(1+j\omega T)=-\arctan (\omega T)
+  \arg G_c(j\omega)=-arg(1 + j\omega T)= -\arctan (\omega T)
 \end{displaymath}
-In figura \ref{fig:fasi3} \`e riportato il grafico di $\arg G_c(j\omega)$. La fase \`e negativa se il polo $s=-1/T$ \`e negativo (...il polo $<0$ ritarda), viceversa \`e positiva (...il polo$>0$ anticipa).
-Si noti che:
+In figura \ref{fig:fasi3} \`e riportato il grafico di $\arg
+G_c(j\omega)$. La fase \`e negativa se il polo $s= -\dfrac{1}{T}$ \`e
+negativo (il polo negativo ritarda), viceversa \`e positiva (il polo
+positivo anticipa). Si noti che:
 \begin{displaymath}
-\arg G_c(j\omega)\simeq \left\{\begin{array}{l}-\arg(1)=0°,\qquad  \omega \ll1/|T| \\ -\arg(j\omega T)=\left\{\begin{array}{l}-90° \textrm{ per } T>0 \\ +90° \textrm{ per } T<0\end{array}\right\},\qquad \omega \gg1/|T| \end{array}\right.
+  \arg G_c(j\omega) \simeq
+  \left\{
+  \begin{array}{l}
+    -\arg(1)=0^{\circ},\qquad \omega \ll1/|T| \\
+    -\arg(j\omega T) = \left\{\begin{array}{l}-90^{\circ} \textrm{ per } T>0 \\
+    +90^{\circ} \textrm{ per }  T<0
+    \end{array}\right\},\qquad \omega \gg1/|T|
+  \end{array}\right.
 \end{displaymath}
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/diagfas3.png}\caption{Diagramma di Bode di $\arg G_c(j\omega)$}\label{fig:fasi3}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/diagfas3.png}
+    \caption{Diagramma di Bode di $\arg G_c(j\omega)$}
+    \label{fig:fasi3}
+  \end{center}
 \end{figure} 
-Il diagramma associato al termine $G(s)=1+sT$, corrispondente ad uno zero reale \`e simmetrico rispetto a quello di $G_c(s)$, per cui si dice che lo zero negativo 'anticipa', mentre lo zero positivo 'ritarda'.
-\newpage
+Il diagramma associato al termine $G(s)=1 + sT$, corrispondente ad uno
+zero reale \`e simmetrico rispetto a quello di $G_c(s)$, per cui si
+dice che lo zero negativo ``anticipa'', mentre lo zero positivo
+``ritarda''.
+
 \subsubsection{Diagramma della fase di $G_d(j\omega)$}
 \begin{displaymath}
-\arg G_d(j\omega)=-\arg \left ( 1+2j\xi \omega/ \omega_n - \omega^2/ \omega_n^2 \right)
+  \arg G_d(j\omega)=-\arg \left ( 1 + 2j\xi \dfrac{\omega}{\omega_n} -
+  \dfrac{\omega^2}{\omega_n^2} \right)
 \end{displaymath}
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/diagfas4.png}\caption{Diagramma di Bode di $\arg G_d(j\omega)$}\label{fig:fasi4}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/diagfas4.png}
+    \caption{Diagramma di Bode di $\arg G_d(j\omega)$}\label{fig:fasi4}
+  \end{center}
 \end{figure} 
 
-Il grafico di questa funzione, come mostrato in FIG 6.13, dipende dal valore (modulo e segno) dello smorzamento $\xi$. Per $\xi>0$(poli a $\Re e$ negativa)$\Rightarrow \arg G_d(j\omega_n)=-90°$, ovvero i poli danno un contributo di ritardo, mentre per $\xi<0$(poli a $\Re e$ positiva)$\Rightarrow \arg G_d(j\omega_n)=+90°$, ovvero i poli danno un contributo di anticipo. Per $\xi=0$ invece, si ha:
+Il grafico di questa funzione, come mostrato in figura
+\ref{fig:fasi4}, dipende dal valore (modulo e segno) dello smorzamento
+$\xi$. Per $\xi > 0$, cio\`e poli a parte reale negativa, si ha $\arg
+G_d(j\omega_n) = -90^{\circ}$, ovvero i poli danno un contributo di
+ritardo. Per $\xi < 0$, cio\`e con poli a parte reale positiva, si ha
+$\arg G_d(j\omega_n)= + 90^{\circ}$, ovvero i poli danno un contributo
+di anticipo. Per $\xi = 0$ invece, si ha:
 \begin{displaymath}
-G_d(j\omega)=\frac{1}{1-\omega^2/ \omega_n}
+  G_d(j\omega)=\dfrac{1}{1-\frac{\omega^2}{\omega_n}}
 \end{displaymath}
-quindi $G_d(j\omega)$ \`e un numero reale positivo (con sfasamento nullo) per $\omega<\omega_n$ e negativo (con sfasamento di -180° per convenzione) per $\omega>\omega_n$.\\
-Nell'appendice \ref{apx:bode} \`e possibile trovare l'algoritmo per il tracciamento del diagramma asintotico di Bode delle fasi.
+Quindi $G_d(j\omega)$ \`e un numero reale positivo (con sfasamento
+nullo) per $\omega < \omega_n$ e negativo (con un convenzionale
+sfasamento di $-180^{\circ}$) per $\omega > \omega_n$.
 
+\section{Tracciamento dei diagrammi dei moduli}
+\subsection{Calcolo di $g_0$}\label{g0}
+$g_0$ \`e la differenza tra il numero di poli nello zero e gli zeri
+nello zero.
+\begin{equation}
+  g_0 = m_0 - n_0
+\end{equation}
 
+\subsection{Calcolo del guadagno generalizzato}\label{guadagnogeneralizzato}
+\begin{equation}
+  k = \lim_{s \to 0} G(s) \cdot s^{g_0}
+\end{equation}
+Nota: spesso il guadagno generalizzato\index{Guadagno generalizzato}
+\`e erroneamento confuso col guadagno statico $\mu$. A volte coincidono, ma
+sono comunque due parametri ben distinti.
+
+\subsection{Pendenza iniziale}
+\begin{equation}\label{pendezainiziale}
+  - g_0 \cdot 20dB
+\end{equation}
+
+\subsection{Punti di rottura}
+I punti di rottura si ricavano calcolando i poli e gli zeri della
+funzione di trasferimento. \`E bene considerare il seguente caso
+generale:
+{\Large\begin{equation}
+  \frac{s^n (sT + 1)\left(\frac{s^2}{\omega_n^2} +
+    2\frac{\zeta}{\omega_n}s + 1\right)}{s^m (sT + 1) \left(
+    \frac{1}{\omega_n^2}s^2 + \frac{2}{\omega_n}\zeta s + 1\right)}
+\end{equation}}
+Consideriamo adesso un comodo esempio:
+\[
+  \frac{s^2 (1 + 0.01S)}{(s + 1)(100 s^2 + 14s + 1)}
+\]
+Nel nostro esempio abbiamo:
+\begin{itemize}
+  \item Zeri:
+    \begin{itemize}
+    \item[*] $0$ (x2)
+    \item[*] $-100$
+    \end{itemize}
+  \item Poli:
+    \begin{itemize}
+      \item[*] $-1$
+      \item[*] $-0.07 \pm 0.071j$
+    \end{itemize}
+\end{itemize}
+Tipicamente i punti di rottura sono i valori dei poli e degli zeri,
+presi in modulo. Naturalmente vanno escluse le radici pari a $0$ ;-)
+Nel caso si abbiamo delle radici immaginarie e coincidenti si procede
+individuando $\omega_n$ e $\zeta$. Considerando il nostro esempio
+abbiamo che $\frac{1}{\omega_n^2} s^2$ della formula generale \`e pari
+a $100 s^2$. Una rapida manipolazione matematica ed otteniamo
+che $$\frac{1}{\omega_n^2} = 100 \Rightarrow \omega_n = 0.1$$
+Stesso discorso per $\zeta$, che nel nostro caso
+vale $$\frac{2}{\omega_n}\zeta = 14 \Rightarrow \zeta = 0.7$$
+In definitiva, abbiamo che in nostri punti di rottura sono:
+\[
+\left\{
+\begin{array}{l}
+  0.1\\
+  1\\
+  100
+\end{array}
+\right .
+\]
+Nota: Dobbiamo considerare anche i tipi di poli e di zeri. $-100$ \`e
+uno zero negativo. $-1$ \`e un polo negativo. Non ci sono n\`e poli
+positivi n\`e zeri positivi. I {\em poli complessi e coniugati} vanno
+valutati con attenzione:
+\begin{itemize}
+\item $\zeta < 0 \Rightarrow$ il polo \`e positivo
+\item $\zeta \geq 0 \Rightarrow$ il polo \`e negativo
+\end{itemize}
+Nel caso degli {\em zeri complessi e coniugati} abbiamo che:
+\begin{itemize}
+  \item $\zeta < 0 \Rightarrow$ lo zero \`e positivo
+  \item $\zeta \geq 0 \Rightarrow$ lo zero \`e negativo
+\end{itemize}
+In conclusione aggiungiamo che per il diagramma dei moduli vale la
+seguente dichiarazione: {\em I poli fanno scendere. Gli zeri fanno salire}.
+
+\subsection{Punto di partenza}\index{Punto di partenza}
+Il punto di partenza ha tipicamente ascissa pari al valore del punto
+di rottura pi\`u piccolo ``-2 decadi''. Nel nostro caso
+$$\omega_0 = 10^{-3}$$
+Per ottendere l'ordinata del punto di partenza calcoliamo:
+\[
+  20 log (|k|) - \left[ g_0 \cdot 20 log (\omega_0)\right]
+\]
+
+\subsection{Pendenza finale}\index{Pendenza finale}
+Calcoliamo prima $g_{_{TOT}}$:
+\begin{equation}\label{gtotale}
+  g_{_{TOT}} = poli - zeri
+\end{equation}
+Nel nostro caso $g_{_{TOT}} = 3 - 3 = 0$. La pendenza finale \`e
+dunque:
+\begin{equation}\label{pendenzafinale}
+  - g_{_{TOT}} \cdot 20\;dB/dec
+\end{equation}
+
+\section{Tracciamento dei diagrammi delle fasi}
+\subsection{Fase iniziale}
+Abbiamo bisogno di $g_0 = -2$. La fase iniziale \`e:
+\[
+  \phi_0 = -g_0 \cdot 90^{\circ}
+\]
+Nel nostro caso \`e $\phi_0 = -g_0 \cdot 90^{\circ} = 180^{\circ}$
+
+\subsection{Fase finale}
+Considerando che:
+\[
+  g_{_{TOT}} = (P_0 + P_{neg} + Z_{pos}) - (Z_0 + Z_{neg} + P_{pos})
+\]
+la fase finale \`e:
+\begin{equation}\label{fasefinale}
+  -g_{_{TOT}} \cdot 90^{\circ}
+\end{equation}
+
+Nota: Per il diagramma delle fasi vale la seguente dichiarazione:
+{\em I poli fanno scendere e gli zeri fanno salire solo se sono
+  negativi. Nel caso di zeri e poli positivi, i poli fanno salire e
+                     gli zeri fanno scendere} ;-)
+
+% APPENDICI
 \appendix
 \chapter {Calcolo della Jacobiana per la valutazione della stabilit\`a}\label{apx:jacob}
-Per valutare il tipo (stabile o instabile) di un punto di equilibrio, si pu\`o procedere calcolando gli autovalori del determinante di una matrice detta \textsl{Jacobiana}. In particolare essa si calcola come segue:
+Per valutare il tipo (stabile o instabile) di un punto di equilibrio,
+si pu\`o procedere calcolando gli autovalori del determinante di una
+matrice detta \textsl{Jacobiana}. In particolare essa si calcola come
+segue:
 \begin{equation}\label{eq:jacobian}
-J\triangleq (\lambda I - A)~\footnote{$I$ \`e la matrice identit\`a}
+  J\triangleq (\lambda I - A)~\footnote{$I$ \`e la matrice identit\`a}
 \end{equation}
-dove $A$ \`e la matrice della dinamica trattata nel paragrafo \ref{eq:matrix}. \\
+dove $A$ \`e la matrice della dinamica trattata nel paragrafo
+\ref{eq:matrix}.\\
 Calcolando poi il suo determinante
 \begin{displaymath}
 \det(\lambda I -A)
 \end{displaymath}
-si trova un'equazione che rappresenta il l \emph{polinomio caratteristico} associato ad A, le cui radici sono proprio gli autovalori utilizzati per valutare il tipo del punto di eq. scelto. In particolare:
+si trova un'equazione che rappresenta il l \emph{polinomio
+  caratteristico} associato ad A, le cui radici sono proprio gli
+autovalori utilizzati per valutare il tipo del punto di eq. scelto. In
+particolare: 
 \begin{itemize}
-\item[*] Se l'autovalore ha $\Re>0 \Longrightarrow$ Il p.e. \`e \textbf{INSTABILE}
-\item[*] Se l'autovalore ha $\Re<0 \Longrightarrow$ Il p.e. \`e \textbf{STABILE}
+\item[*] Se l'autovalore ha $\Re>0 \Longrightarrow$ Il p.e. \`e
+  \textbf{INSTABILE} 
+\item[*] Se l'autovalore ha $\Re<0 \Longrightarrow$ Il p.e. \`e
+  \textbf{STABILE} 
 \end{itemize}
-Un generico esempio del calcolo della \emph{Jacobiana} lo si pu\`o trovare nell'Appendice \ref{apx:stabil}
-\chapter{Considerazioni sul polinomio caratteristico e regola di cartesio}\label{apx:stabil}
+Un generico esempio del calcolo della \emph{Jacobiana} lo si pu\`o
+trovare nell'Appendice \ref{apx:stabil} 
+
+\chapter{Considerazioni sul polinomio caratteristico e regola di
+  Cartesio}\label{apx:stabil} 
 Per un sistema del $II°$ ordine
 \begin{displaymath}
-A=\left[
-\begin {array}	{ll} 
-a_{11} & a_{12}\\
-a_{21} & a_{22}
-\end{array}\right]
-\end{displaymath} ed il polinomio caratteristico associato ad A \`e:
-\begin{displaymath}
-|\lambda I-A|=\left|\begin{array}{ll}(\lambda -a_{11})&-a_{12}\\-a_{21}&(\lambda -a_{22})\end{array}\right|
+  A=\left[
+    \begin {array}	{ll} 
+      a_{11} & a_{12}\\
+      a_{21} & a_{22}
+    \end{array}\right]
 \end{displaymath}
-Calcolando il $\det(\lambda I -A)$ si ha:
+ed il polinomio caratteristico associato ad A \`e:
 \begin{displaymath}
-\lambda^2+\lambda\underbrace{(-a_{11}-a_{12})}_b\underbrace{-a_{12}a_{21}}_c =
+  |\lambda I-A| = \left|
+  \begin{array}{ll}(\lambda
+    -a_{11})&-a_{12}\\-a_{21} & (\lambda -a_{22})
+  \end{array}\right|
+\end{displaymath}
+Calcolando il $\det(\lambda I - A)$ si ha:
+\begin{displaymath}
+  \lambda^2 + \lambda\underbrace{(-a_{11}-a_{12})}_b\underbrace{-a_{12}a_{21}}_c =
 \end{displaymath}
 \begin{displaymath}
-=\lambda^2+b\lambda+c
+  =\lambda^2+b\lambda+c
 \end{displaymath}
-I coeff. sono \qquad 1 \qquad b \qquad c \qquad e possiamo fare le segg. considerazioni:
-
+I coefficienti sono \qquad 1 \qquad b \qquad c \qquad e possiamo fare
+le seguenti considerazioni: 
 \begin {itemize}
-
-\item if $b$,$c$ sono $>0$  $\Rightarrow$  le radici sono a $\Re$ negativa
-\item if $b>0$, ma $c<0$   $\Rightarrow$  ho una radice a $\Re$ positiva
-\item if $b$,$c$ sono $<0$  $\Rightarrow$  ho una radice a $\Re$ positiva
-\item if $b<0$ e $c >0$  $\Rightarrow$  ho due radici a $\Re$ positiva
+\item if $b$,$c$ sono $>0$  $\Rightarrow$  le radici sono a parte reale negativa
+\item if $b>0$, ma $c<0$   $\Rightarrow$  ho una radice a parte reale positiva
+\item if $b$,$c$ sono $<0$  $\Rightarrow$  ho una radice a parte reale positiva
+\item if $b<0$ e $c >0$  $\Rightarrow$  ho due radici a parte reale positiva
 \end{itemize}
 In generale: 
 \newtheorem{cartesio}{Theorem}[chapter]
 \begin{cartesio}
-$(\star) ~a\lambda^2+b\lambda+c \qquad \qquad a,b,c \in \Re$\\
-($\star$) ha tante radici a parte $\Re$ positiva quante sono le variazioni di segno tra i suoi coefficienti ordinati secondo le potenze crescenti di $\lambda$.
+  $(\star) ~a\lambda^2+b\lambda+c \qquad \qquad a,b,c \in \Re$\\
+  ($\star$) ha tante radici a parte $\Re$ positiva quante sono le
+  variazioni di segno tra i suoi coefficienti ordinati secondo le
+  potenze crescenti di $\lambda$.
 \end{cartesio}
-\newpage
+
 Casi:
 \begin{enumerate}
 \item $a,b,c>0 \\
-ac>0 \Rightarrow |\Delta|=|b^2-4ac|<b^2$ e $\lambda_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}<0$\\
-quindi si avranno parti $\Re$ negative
+  ac>0 \Rightarrow |\Delta|=|b^2-4ac|<b^2$ e $\lambda_{1,2}=
+  \frac{-b\pm\sqrt{b^2-4ac}}{2a} < 0$\\
+  quindi si avranno parti $\Re$ negative
 \item $a,b>0$\\
-$c<0\Rightarrow ac<0 \Rightarrow|\Delta|>b^2$\\
-$\Re\{\lambda_{1,2}\}\`e\left\{\begin{array}{l}<0 \qquad per + \\ >0 \qquad per -\end{array}\right.$
+  $c<0\Rightarrow ac<0 \Rightarrow|\Delta|>b^2$\\
+  $\Re\{\lambda_{1,2}\}\`e\left\{\begin{array}{l}<0 \qquad per + \\ >
+  0 \qquad per - \end{array}\right.$
 \item $a,c>0$\\
-$b<0 \Rightarrow a,c>0\Rightarrow \Re\{\lambda{1,2}\}\`e\left\{\begin{array}{l}>0 \qquad per + \\ >0 \qquad per -\end{array}\right.$
+  $b<0 \Rightarrow a,c>0\Rightarrow
+  \Re\{\lambda{1,2}\}\`e\left\{\begin{array}{l}> 0 \qquad per + \\ >0
+  \qquad per - \end{array}\right.$
 \end{enumerate}
-Per i polinomi di grado n si applica il criterio di Routh \ref{pg:routh}
+Per i polinomi di grado n si applica il criterio di Routh \ref{pg:routh}.
+
 \subsection{Interludio sulla stabilit\`a valutata con il criterio di Routh}
-E' importante sottolineare che per valutare la stabilit\`a del sistema, quando si hanno a disposizione tutti i valori della prima colonna della tabella di Routh, bisogna effettuare un'\textbf{\emph{intersezione}} delle soluzioni trovate per ogni coefficiente.
-In particolare prendendo in considerazione un polinomio del tipo
+\`E importante sottolineare che per valutare la stabilit\`a del
+sistema, quando si hanno a disposizione tutti i valori della prima
+colonna della tabella di Routh, bisogna effettuare
+un'\textbf{\emph{intersezione}} delle soluzioni trovate per ogni
+coefficiente. In particolare prendendo in considerazione un polinomio
+del tipo 
 \begin{displaymath}
-a\lambda^2+b\lambda+c
+  a \lambda^2 + b\lambda + c
 \end{displaymath}
-se $a$ \`e concorde col segno della disequazione allora si considera positiva la porzione dell'asse (...su cui si riportano le radici della disequazione) individuata da\\
+se $a$ \`e concorde col segno della disequazione allora si considera
+positiva la porzione dell'asse (su cui si riportano le radici della
+disequazione) individuata da
 $segmento>\lambda_1$ e $segmento<\lambda_2$.\\
-Dualmente se $a$ \`e discorde col segno della disequazione allora la positivit\`a si ha per\\
-$segmento<\lambda_1$ e $segmento>\lambda_2$\\
+Dualmente se $a$ \`e discorde col segno della disequazione allora la
+positivit\`a si ha per $segmento<\lambda_1$ e $segmento>\lambda_2$\\
 con
 \begin{displaymath}
-\lambda_1=\frac{-b+\sqrt{b^2-4ac}}{2a}\\
-\lambda_2=\frac{-b-\sqrt{b^2-4ac}}{2a}
+  \lambda_1= \frac{-b +\sqrt{b^2 - 4ac}}{2a}\\
+  \lambda_2= \frac{-b -\sqrt{b^2 - 4ac}}{2a}
 \end{displaymath}
-
-
 ~\footnote{Per le disequazioni fratte, bisogna valutare il segno}
 
 
 \chapter{Trasformata di Laplace}\label{apx:laplace}
-\emph{Si applica ai segnali una trasformazione che rende il sistema pi\`u semplice da studiare, ovvero nel dominio di Laplace, non ho pi\`u le derivate}:
+\emph{Si applica ai segnali una trasformazione che rende il sistema
+  pi\`u semplice da studiare, ovvero nel dominio di Laplace, non ho
+  pi\`u le derivate}: 
 \begin{itemize}
-\item {derivata $\stackrel{\mathfrak{L}}{\longrightarrow}$ moltiplicazione}\protect\footnote{$\mathfrak{L}$ indica la trasformata di Laplace}
-\item {dominio della $t \stackrel{\mathfrak{L}}{\longrightarrow}$ dominio della $s$}
-\item {dominio della $s \stackrel{\mathfrak{L^{-1}}}{\longrightarrow} $dominio della $t$}
+\item {derivata $\stackrel{\mathfrak{L}}{\longrightarrow}$
+  moltiplicazione}\protect\footnote{$\mathfrak{L}$ indica la
+  trasformata di Laplace} 
+\item {dominio della $t \stackrel{\mathfrak{L}}{\longrightarrow}$
+  dominio della $s$} 
+\item {dominio della $s \stackrel{\mathfrak{L^{-1}}}{\longrightarrow}
+  $dominio della $t$} 
 \end{itemize}
 Per convenzione \textbf{si suppone che i segnali trattati siano nulli prima dello 0} ovvero \\
-$f(t)=0$ per $t<0$\\
+$$f(t)=0 \;per\; t<0$$\\
 La formula della trasformata di Laplace \`e:
 \begin{equation}\label{eq:laplaceq}
-\framebox{$F(s)=\int_{0}^{+\infty}f(t) e^{-st} dt$} ~\textrm{dove $f(t)$ \`e il segnale da trasformare.}
+  \framebox{$F(s) = \int_{0}^{+\infty}f(t) e^{-st} dt$} ~\textrm{dove
+    $f(t)$ \`e il segnale da trasformare.}
 \end{equation}
-/!$\backslash$~$s$ \`e un parametro $\in \mathbb{C}$ e NON \`e un fasore! In particolare $s=\alpha + j\omega$\\
-La t.d.L. della funzione $f(t)$ si denota come: $F(s)=\mathfrak{L}\{f(t)\}$.\\ L'antitrasformata di L. si denota come: $f(t)=\mathfrak{L^{-1}}\{F(s)\}$.\\
-Analizzando la \ref{eq:laplaceq} si ha:\\
+/!$\backslash$~$s$ \`e un parametro $\in \mathbb{C}$ e NON \`e un
+fasore! In particolare $s = \alpha + j\omega$\\
+La trasformata di Laplace della funzione $f(t)$ si denota come: 
+\[
+F(s) = \mathfrak{L}\{f(t)\}
+\]
+L'antitrasformata di Laplace si denota come:
+\[
+f(t)=\mathfrak{L^{-1}}\{F(s)\}
+\]
+Analizzando la \ref{eq:laplaceq} si ha:
 \begin{displaymath}
-e^{-st}=e^{-(\alpha + j \omega)t}=e^{-\alpha t}e^{-j\omega t}=e^{-\alpha t}\underbrace{(\cos(\omega t)-j \sin(\omega t)}_{e^{-j\omega t}}=\frac{1}{e^{\alpha t}}\frac{1}{e^{j\omega t}}
+  e^{-st} = e^{-(\alpha + j \omega)t} = e^{-\alpha t}e^{-j\omega t} =
+  e^{-\alpha t}\underbrace{(\cos(\omega t)-j \sin(\omega
+    t)}_{e^{-j\omega t}} = \frac{1}{e^{\alpha t}}\frac{1}{e^{j \omega t}} 
 \end{displaymath}
+
 \subsection {Propriet\`a della trasformata}
 \begin{itemize}
 \item{ \textbf{Linearit\`a}: la trasformata di Laplace \`e lineare ovvero: 
-\begin{equation}\label{eq:laplinear}
-\mathfrak{L}[af(t)+bg(t)]=aF(s)+bG(s) \longrightarrow \textrm{$f$ e $g$ sono funzioni e a e b sono} \in \mathbb{C}
+  \begin{equation}\label{eq:laplinear}
+    \mathfrak{L}[af(t)+bg(t)]=aF(s)+bG(s) \longrightarrow \textrm{$f$
+      e $g$ sono funzioni e a e b sono} \in \mathbb{C}
 \end{equation}
 }
-\item{\textbf{Traslazione nel dominio del tempo}: Se si trasla la funzione $f(t)$ di una quantit\`a $\tau>0$, ovvero si considera 
-$\hat{f}(t)=f(t-\tau)$, si trova: 
+\item{\textbf{Traslazione nel dominio del tempo}: Se si trasla la
+  funzione $f(t)$ di una quantit\`a $\tau>0$, ovvero si considera 
+  $\hat{f}(t)=f(t-\tau)$, si trova: 
 \begin{equation}\label{eq:laptraslt}
-\mathfrak{L}\{\hat{f}(t)\}=\mathfrak{L}\{f(t-\tau\}=e^{-s\tau}F(s)
+  \mathfrak{L}\{\hat{f}(t)\} = \mathfrak{L}\{f(t-\tau\} = e^{-s\tau}F(s)
 \end{equation}
 }
-\item{\textbf{Traslazione nel dominio della var. complex}: Sia $\alpha \in \mathbb{C}$ e si consideri la funzione $\hat{f}(t)=e^{\alpha t}f(t)$ allora la sua t.d.L. sar\`a: 
-\begin{equation}\label{eq:laptrasls}
-\mathfrak{L}\{\hat{f}(t)\}=\mathfrak{L}\{e^{\alpha t}f(t)\}=F(s-\alpha)
-\end{equation}
+\item{\textbf{Traslazione nel dominio della variabile complessa}: Sia
+  $\alpha \in \mathbb{C}$ e si consideri la funzione
+  $\hat{f}(t)=e^{\alpha t}f(t)$ allora la sua trasformata di Laplace sar\`a: 
+  \begin{equation}\label{eq:laptrasls}
+    \mathfrak{L}\{\hat{f}(t)\}=\mathfrak{L}\{e^{\alpha t}f(t)\}=F(s-\alpha)
+  \end{equation}
 }
-\item{\textbf{Derivazione nel dominio del tempo}: Se $f(t)$ \`e derivabile allora risulta: 
+\item{\textbf{Derivazione nel dominio del tempo}: Se $f(t)$ \`e
+  derivabile allora risulta:
 \begin{eqnarray}\label{eq:lapdert}
-\mathfrak{L}\{\dot f (t)\}=sF(s)-f(0) \longrightarrow \textrm{derivata prima} \\
-\mathfrak{L}\{\ddot f (t)\}=s^2F(s)-sf(0)-\dot f(0) \longrightarrow \textrm{derivata seconda} \\
-\textsl{in generale} ~\mathfrak{L}\{\frac{d^nf(t)}{dt^n}\}=s^nF(s)-\sum_{i=1}^n s^{n-i} \frac{d^{i-1}f(t)}{dt^{i-1}}\Bigg |_{t=0}
+  \mathfrak{L}\{\dot f (t)\}=sF(s)-f(0) \longrightarrow \textrm{derivata prima} \\
+  \mathfrak{L}\{\ddot f (t)\}=s^2F(s)-sf(0)-\dot f(0) \longrightarrow \textrm{derivata seconda} \\
+  \textsl{in generale} ~\mathfrak{L}\{\frac{d^nf(t)}{dt^n}\}=s^nF(s) -
+  \sum_{i=1}^n s^{n-i} \frac{d^{i-1}f(t)}{dt^{i-1}}\Bigg |_{t=0}
 \end{eqnarray}
 ovvero $s$ \`e l'\emph{operatore di derivazione}.
 }
-\item{\textbf{Derivazione nel dominio della var. complex.}: Si suppone che $F(s)$ sia derivabile $\forall s$ allora: 
+\item{\textbf{Derivazione nel dominio della variabile complessa}: Si
+  suppone che $F(s)$ sia derivabile $\forall s$ allora: 
 \begin{equation}\label{eq:lapders}
-\mathfrak{L}\{tf(t)\}=-\frac{dF(s)}{ds}
+  \mathfrak{L}\{tf(t)\}=-\frac{dF(s)}{ds}
 \end{equation}
 }
 \item{\textbf{Integrazione nel dominio del tempo}: 
 \begin{equation}\label{eq:lapintt}
-\mathfrak{L} \left\{ \int_{0}^{t} f(\tau)d\tau \right\} =\frac{1}{s}F(s)
+  \mathfrak{L} \left\{ \int_{0}^{t} f(\tau)d\tau \right\} = \frac{1}{s}F(s)
 \end{equation}
 ovvero $\frac{1}{s}$ \`e l'\emph{operatore di integrazione}.
 }
-\item{\textbf{Convoluzione nel dominio del tempo}: Il \emph{prodotto di convoluzione} di due funzioni $f$ e $g$ si calcola come segue: 
+\item{\textbf{Convoluzione nel dominio del tempo}: Il \emph{prodotto
+    di convoluzione} di due funzioni $f$ e $g$ si calcola come segue: 
 \begin{displaymath}
-f(t)\ast g(t)=\int_{-\infty}^{+\infty}f(\tau)g(t-\tau)d\tau=\int_{-\infty}^{+\infty}f(t-\eta)g(\eta)d\eta=g(t)\ast f(t)
+  f(t)\ast g(t)=\int_{-\infty}^{+\infty}f(\tau)g(t-\tau)d\tau =
+  \int_{-\infty}^{+\infty}f(t-\eta)g(\eta)d\eta = g(t)\ast f(t)
 \end{displaymath}
-siccome consideriamo per convenzione segnali che prima dello zero sono nulli allora si ha:
+Siccome consideriamo per convenzione segnali che prima dello zero sono
+nulli allora si ha: 
 \begin{displaymath}
-f(t)\ast g(t)=\int_{0}^{t}f(\tau)g(t-\tau)d\tau=\int_{0}^{t}f(t-\eta)g(\eta)d\eta=g(t)\ast f(t)
+  f(t)\ast g(t) =
+  \int_{0}^{t}f(\tau)g(t-\tau)d\tau=\int_{0}^{t}f(t-\eta)g(\eta)d\eta
+  = g(t)\ast f(t)
 \end{displaymath}
 e quindi:
 \begin{equation}\label{eq:lapconvt}
-\mathfrak{L}\{f(t)\ast g(t)\}=F(s)G(s)
+  \mathfrak{L}\{f(t)\ast g(t)\} = F(s)G(s)
 \end{equation}
 ovvero, la convoluzione nel tempo equivale ad un prodotto nel dominio di Laplace.
 }
 \end{itemize}
-La tabella riassuntiva delle principali trasformate di Laplace per i vari segnali la si pu\`o trovare nel testo di riferimento. \cite{FCAlaptab}\\
-ESEMPIO: Trasformata di una costante~\footnote{\`e il gradino} $\delta_{-1}(t)$~\footnote{Per annullare una funzione prima dello 0, la moltiplico per $\delta_{-1}(t)$}\\
+La tabella riassuntiva delle principali trasformate di Laplace per i
+vari segnali la si pu\`o trovare nel testo di
+riferimento. \cite{FCAlaptab}
+
+ESEMPIO: Trasformata di una costante~\footnote{\`e il gradino}
+$\delta_{-1}(t)$~\footnote{Per annullare una funzione prima dello 0,
+  la moltiplico per $\delta_{-1}(t)$}\\
 Sia
 \begin{displaymath}
-f(t)=\delta_{-1}(t)\left\{
+  f(t) = \delta_{-1}(t)\left\{
 \begin{array}{ll}
-1 & t\ge0\\
-0&t<0
+  1 & t\ge0\\
+  0&t<0
 \end{array}\right.
 \end{displaymath}
 allora
 \begin{displaymath}
-\delta_{-1}(t)\stackrel{\mathfrak{L}}{\longrightarrow}\Delta_{-1}(s)
+  \delta_{-1}(t)\stackrel{\mathfrak{L}}{\longrightarrow}\Delta_{-1}(s)
 \end{displaymath}
 \begin{displaymath}
 f(A)\stackrel{\mathfrak{L}}{\longrightarrow}A\Delta_{-1}(s)
 \end{displaymath}
 In particolare la $\mathfrak{L}\{\delta_{-1}(t)\}$ si calcola come segue:
 \begin{equation}\label{eq:laptransfsca}
-\int_{0}^{+\infty}\delta_{-1}(t)e^{-st}dt=
+  \int_{0}^{+\infty}\delta_{-1}(t)e^{-st}dt=
 \end{equation}
 \begin{displaymath}
-=-\frac{1}{s}e^{-st}\Bigg |_{0}^{+\infty}=\frac{1}{s}\left[e^{-st}\Bigg |_{t=0} - e^{-st} \Bigg |_{t \to \infty} \right ]=
+  = -\frac{1}{s}e^{-st}\Bigg |_{0}^{+\infty} =
+  \frac{1}{s}\left[e^{-st}\Bigg |_{t=0} - e^{-st} \Bigg |_{t \to
+      \infty} \right ]=
 \end{displaymath}
 \begin{displaymath}
-=\frac{1}{s}\left[1-e^{-st}\Bigg |_{t \to \infty}\right]
+  = \frac{1}{s}\left[1-e^{-st}\Bigg |_{t \to \infty}\right]
 \end{displaymath}
-...per $e^{-st}\Bigg |_{t \to \infty}$ dobbiamo valutare il $\lim_{t \to \infty}$:
+...per $e^{-st}\Bigg |_{t \to \infty}$ dobbiamo valutare il $\lim_{t
+  \to \infty}$: 
 \begin{displaymath}
-\lim_{t \to \infty} e^{-st}=\lim_{t \to \infty} \frac{1}{e^{\alpha t}}\frac{1}{e^{j\omega t}}=\lim_{t \to \infty}\frac{1}{e^{\alpha t}}\left(\cos(\omega t)-j\sin(\omega t)\right)=\bigoplus
+  \lim_{t \to \infty} e^{-st} = \lim_{t \to \infty} \frac{1}{e^{\alpha
+      t}}\frac{1}{e^{j\omega t}} = \lim_{t \to
+    \infty}\frac{1}{e^{\alpha t}}\left( \cos(\omega t)-j\sin(\omega
+  t)\right) = \bigoplus
 \end{displaymath}
-...ho tre variabili: $t$,$\omega$,$\alpha$; il limite lo valuto per t, quindi tale limite "sembrerebbe" dipendere da $\alpha$ e $\omega$ (in realt\`a solo da $\alpha$) per cui :
+...ho tre variabili: $t$,$\omega$,$\alpha$; il limite lo valuto per t,
+quindi tale limite ``sembrerebbe'' dipendere da $\alpha$ e $\omega$
+(in realt\`a solo da $\alpha$) per cui:
 \begin{displaymath}
-\lim_{t \to \infty}e^{-st} = \left\{
-\begin{array}{ll}
-0 & \textrm{if} ~\alpha >0 \\
-\nexists & \textrm{if} ~\alpha =0\\
-\nexists & \textrm{if} ~\alpha <0
-\end{array}\right.
+  \lim_{t \to \infty}e^{-st} = \left\{
+  \begin{array}{ll}
+    0 & \textrm{if} ~\alpha >0 \\
+    \nexists & \textrm{if} ~\alpha =0\\
+    \nexists & \textrm{if} ~\alpha <0
+  \end{array}\right.
 \end{displaymath}
-quindi il limite esiste solo per $\alpha$>0 e vale:
+quindi il limite esiste solo per $\alpha >0$ e vale:
 \begin{displaymath}
-\bigoplus=\frac{1}{s}-0=\frac{1}{s}
+  \bigoplus = \frac{1}{s}-0 = \frac{1}{s}
 \end{displaymath}
-Se $\alpha=0$ ho l'\emph{ascissa di convergenza} (figura \ref{fig:fig5}) della t.d.L.
+Se $\alpha = 0$ ho l'\emph{ascissa di convergenza} (figura
+\ref{fig:fig5}) della trasformata di Laplace
 \begin{figure}[!hbp]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/semipconv.png}\caption{Semipiano di convergenza}\label{fig:fig5}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/semipconv.png}
+    \caption{Semipiano di convergenza}\label{fig:fig5}
+  \end{center}
 \end{figure} 
-Il semipiano di convergenza \`e la parte a destra dell'asse $\Im m$ (equazione $\alpha=0$ ovvero $\Re\{s\}=0$) tale che $\Re(s)>0$ ed \`e quindi definito il $\lim_{t \to \infty}e^{-st}$ ovvero risulta soddisfatta la condizione affinch\`e l'integrale \ref{eq:laptransfsca} converga.
-Si possono introdurre  due importanti teoremi che legano il guadagno statico (\ref{ch:chapter4}) di un sistema con la sua Funzione di Trasferimento (\ref{ch:chapter4}). Questi teoremi sono:
+Il semipiano di convergenza \`e la parte a destra dell'asse $\Im m$
+(equazione $\alpha=0$ ovvero $\Re\{s\}=0$) tale che $\Re(s)>0$ ed \`e
+quindi definito il $\lim_{t \to \infty}e^{-st}$ ovvero risulta
+soddisfatta la condizione affinch\`e l'integrale \ref{eq:laptransfsca}
+converga.
+
+Si possono introdurre  due importanti teoremi che legano il
+guadagno statico (\ref{ch:chapter4}) di un sistema con la sua Funzione
+di Trasferimento (\ref{ch:chapter4}). Questi teoremi sono:
 \newtheorem{Th7}{Teorema}[chapter]
 \newtheorem{Th8}[Th7]{Teorema}
 
 \begin{Th7}\label{th:startvalth}
 \textbf{Teorema del valore iniziale} 
 \begin{displaymath}
-\lim_{s \to \infty} sF(s)=f(0)
+  \lim_{s \to \infty} sF(s)=f(0)
 \end{displaymath}
 \end{Th7}
 
@@ -4375,39 +4793,52 @@ Si possono introdurre  due importanti teoremi che legano il guadagno statico (\r
 \end{Th8}
 
 \chapter{Serie di Fourier} \label{apx:sdf}
-Lo sviluppo in Serie di Fourier (S.d.F.) \`e utilizzato per la rappresentazione di funzioni periodiche come somma di un termine costante e infiniti termini sinusoidali e cosinusoidali, aventi pulsazioni multiple di quella fondamentale.\\
-Si ricorda che una funzione periodica, di periodo $T$, \`e definita come:
+Lo sviluppo in Serie di Fourier (S.d.F.) \`e utilizzato per la
+rappresentazione di funzioni periodiche come somma di un termine
+costante e infiniti termini sinusoidali e cosinusoidali, aventi
+pulsazioni multiple di quella fondamentale.
+
+Si ricorda che una funzione periodica, di periodo $T$, \`e definita
+come: 
 \begin{eqnarray*}
-\begin{array}{l}
-f(t+T)=f(t)\qquad,\qquad \forall t\\
-\textrm{oppure}\\
-f(t+mT)=f(t)\qquad,\qquad \forall t,m \textrm{ con } m \textrm{ intero}
-\end{array}
+  \begin{array}{l}
+    f(t+T)=f(t)\qquad,\qquad \forall t\\
+    \textrm{oppure}\\
+    f(t+mT)=f(t)\qquad,\qquad \forall t,m \textrm{ con } m \textrm{
+      intero} 
+  \end{array}
 \end{eqnarray*}
-dove T \`e il periodo misurato in [sec].\\
-In particolare:
+dove T \`e il periodo misurato in [s]. In particolare:
 \begin{eqnarray*}
-\textrm{PULSAZIONE: } \omega \triangleq \frac{2\pi}{T} \Longrightarrow \omega=2\pi f [rad/sec]\\
-\textrm{FREQUENZA: } f\triangleq \frac{1}{T}=\frac{\omega}{2\pi} [Hz]=[1/sec]
+\textrm{PULSAZIONE: } \omega \triangleq \frac{2\pi}{T} \Longrightarrow
+\omega = 2\pi f [rad/sec]\\
+\textrm{FREQUENZA: } f\triangleq \frac{1}{T} = \frac{\omega}{2\pi}
+       [Hz] = [1/sec]
 \end{eqnarray*}
-La S.d.F. della funzione periodica $f(t)$ \`e:
-\begin{eqnarray}\label{eq:periodicfunc}
-\lefteqn{
-f(t)=a_0+a_1\cos(\omega t)+b_1\sin(\omega t)+a_2\cos(2\omega t)+{}}\\
-\nonumber
-& & {}+b_2\sin(2\omega t)+a_3\cos(3\omega t)+b_3\sin(3\omega t)+\ldots
-\end{eqnarray}
+La Serie di Fourier della funzione periodica $f(t)$ \`e:
+\begin{equation}\label{eq:serieDiFourier}
+  f(t) = \dfrac{a_o}{2} + \sum_{n = 1}^{\infty} [ a_n cos(n \omega t)
+    + b_n sin(n \omega t)]
+\end{equation}
 Per calcolare il coefficiente $a_0$ si procede come:
 \begin{equation}
-a_0=\frac{1}{T}\int_0^T f(t) dt
+  a_0 = \frac{2}{T}\int_0^T f(t) dt
 \end{equation}
-ovvero esso \`e il valor medio del segnale su di un periodo $(<f(t)>)$.\\
-Sfruttando le segg. identit\`a trigonometriche
+Esso \`e il valor medio del segnale su di un periodo $(<f(t)>)$.
+I coefficienti $a_n$ e $b_n$ sono calcolati come:
+\[
+  a_n = \dfrac{2}{T} \int_0^T f(t) cos(n \omega t) dt
+\]
+\[
+  b_n = \dfrac{2}{T} \int_0^T f(t) sin(n \omega t) dt
+\]
+Sfruttando le seguenti identit\`a trigonometriche
 \begin{eqnarray*}
-\cos A \sin B=\frac{1}{2}\sin (A+B)-\frac{1}{2}\sin(A-B)\\
-\cos A\cos B=\frac{1}{2}\cos(A+B)+\frac{1}{2}\cos(A-B)
+  \cos A \sin B = \dfrac{1}{2}\sin (A+B)-\dfrac{1}{2}\sin(A-B)\\
+  \cos A \cos B = \dfrac{1}{2}\cos(A+B)+\dfrac{1}{2}\cos(A-B)\\
+  \sin A \sin B = - \dfrac{1}{2} \cos (A + B) - \dfrac{1}{2} \cos(A - B)\\
+  \sin A \cos B = \dfrac{1}{2} \sin (A + B) + \dfrac{1}{2} \sin (A - B)
 \end{eqnarray*}
-\newpage
 Si arriva alla conclusione che:
 \begin{enumerate}
 \item $\int_0^T\sin (n\omega t)\cos(m\omega t)=0$ sempre
@@ -4418,18 +4849,19 @@ Si arriva alla conclusione che:
 \item $a_n=\frac{2}{T}\int_0^T f(t)\cos(n\omega t) dt $
 \item $b_n=\frac{2}{T}\int_0^T f(t)\sin(n\omega t) dt $
 \end{enumerate}
+
 \section{Propriet\`a della serie di Fourier}
 \begin{itemize}
 \item Linearit\`a
-\subitem 
-\begin{displaymath}
-F[\alpha f + \beta g]=\alpha F_n+\beta G_n
-\end{displaymath}
+  \subitem 
+  \begin{displaymath}
+    F[\alpha f + \beta g]=\alpha F_n+\beta G_n
+  \end{displaymath}
 \item Funzione Pari o Dispari
-\subitem 
-\begin{eqnarray*}
-f(t)=f(-t) \Longrightarrow \textrm{FUNZIONE PARI ($f(t)$ simmetrica rispetto alle ordinate)}\\
-f(t)\neq f(-t)\Longrightarrow \textrm{FUNZIONE DISPARI ($f(t)$ simmetrica rispetto all'origine)}
+  \subitem 
+  \begin{eqnarray*}
+    f(t) = f(-t) \Longrightarrow \textrm{FUNZIONE PARI ($f(t)$ simmetrica rispetto alle ordinate)}\\
+    -f(t) = f(-t)\Longrightarrow \textrm{FUNZIONE DISPARI ($f(t)$ simmetrica rispetto all'origine)}
 \end{eqnarray*}
 \subitem 
 \begin{eqnarray*}
@@ -4452,100 +4884,101 @@ L'antitrasformata di Fourier (indicata con $F(j\omega)^-1$) si calcola come segu
 f(t)=\frac{1}{2\pi}\int_{-\infty}^{+\infty}F(j\omega)e^{j\omega t} d\omega
 \end{equation}
 
-
-\chapter{Diagrammi di Bode}\label{apx:bode}
-In questa sezione vengono riassunti gli algoritmi per il tracciamento asintotico dei diagrammi di Bode dei moduli e delle fasi.\\
-Si ricorda che \framebox{$g=(P-Z) \textrm{in} O$} ovvero (poli-zeri) nell'origine.
-\section*{Diagramma dei moduli}\label{sec:diagmodul}
-\framebox{
-\begin{minipage}{13cm}
-\begin{enumerate}
-\item Si calcolano poli e zeri del sistema
-\begin{itemize}
-\item se essi sono pari a $\pm1$, si posizionano sull'asse delle $\omega$ nell'O (origine)
-\item se essi sono pari a 0, NON VANNO RIPORTATI SUL DIAGRAMMA.
-\item se sono complex. conj. si calcolano $\omega_n$ e $\xi$ con le formule presentate nel paragrafo \ref{par:pulsazsmorz} e si riporta sulle ascisse il valore di $\omega_n$. In corrispondenza di punti di rottura complex. conj. bisogna valutare $\xi$ per poter riportare sul diagramma la curva (ovvero il picco o l'appiattimento) corrispondente.
-\end{itemize}
-\item Si calcola il guadagno generalizzato (/!$\backslash$ NON il guadagno statico, anche se in certi casi esso pu\`o coincidere) $K$ come (V. \ref{eq:gengain})
-\begin{displaymath}
-K=\lim_{s \to 0} s^g G(s)
-\end{displaymath}
-e lo si trasforma in dB
-\begin{displaymath}
-|K|_{dB}=20\log K
-\end{displaymath}
-\item Il punto di partenza da cui iniziare a tracciare il diagramma \`e pari a:
-\begin{displaymath}
-Partenza=|K|_{dB}-20g\log\omega_0
-\end{displaymath}
-dove $\omega_0$ \`e la pulsazione scelta come punto di intersezione degli assi (convenzionalmente \`e pari a una o due decadi prima, del polo$\backslash$zero pi\`u piccolo)
-\item La Pendenza Iniziale \`e
-\begin{displaymath}
-P.I.=(Z-P)\textrm{in O}\times20 ~\textrm{dB}
-\end{displaymath}
-\item La Pendenza Finale \`e
-\begin{displaymath}
-P.F.=(Z-P)_{TOT}\times20 ~\textrm{dB}
-\end{displaymath}
-\item Inizio a tracciare il diagramma secondo il punto di partenza calcolato nel punto 3. e la P.I. del punto 4. Devo disegnare le rette decade per decade.
-Nel caso in cui si incontra un \emph{punto di rottura o breakpoint} ovvero un polo o uno zero durante il tracciamento delle rette, si continua come segue:
-\begin{itemize}
-\item Se incontro uno zero: salgo con una pendenza di +20 dB/dec (Se sono $n$ zeri, salgo di $+(n\times20)$ dB/dec)
-\item Se incontro un polo: scendo con una pendenza di -20 dB/dec (Se sono $p$ poli, scendo di $-(p\times20)$ dB/dec)
-\end{itemize}
-\end{enumerate}
-\end{minipage}
-}
-\section*{Diagramma delle fasi}
-\framebox{
-\begin{minipage}{13cm}
-\begin{enumerate}
-\item Come nel diagramma dei moduli (presentato nella sezione precedente \ref{sec:diagmodul}), si calcola $K$, ovvero il guadagno generalizzato e si valuta il segno per calcolare la sua fase.\\
-$\arg K =$
-\begin{itemize}
-\item Se $K<0 \Longrightarrow $ si parte con una fase $=-180°$
-\item Se $K>0 \Longrightarrow $ si parte con una fase $=0°$
-\end{itemize}
-\item Si calcola la Fase Iniziale come segue:
-\begin{displaymath}
-F.I.=(Z-P)\textrm{in O} \times 90° + \arg K
-\end{displaymath}
-dove $\arg K$ \`e la fase del guadagno generalizzato calcolata nel punto 1.
-\item Si posizionano poli e zeri cos\`i come \`e descritto nella sezione \ref{sec:diagmodul} e $\forall$ poli e zeri considero la decade prima e la decade dopo:~\footnote{
-/!$\backslash$ Il modo descritto nel punto 3. serve per disegnare il diagramma delle fasi con 'pendenze di 45°'; nel caso in cui si volesse disegnare il diagramma delle fasi 'a gradini' bisogna considerare non 45° ma 90° di fase e procedere allo stesso modo (ma senza considerare decade prima/dopo)}
-\begin{itemize}
-\item Se lo zero \`e $>0$: si scende 45° e si mette una freccia verso il basso sulla decade prima e una verso l'alto sulla decade dopo. (Se gli zeri sono $n$, si scende di $(n\times 45°)$).
-\item Se lo zero \`e $<0$: si sale di 45° e si mette una freccia verso l'alto sulla decade prima e una verso il basso sulla decade dopo. (Se gli zeri sono $n$, si sale di $(n\times 45°)$).
-\item Se il polo \`e $>0$: si sale di 45° e si mette una freccia verso l'alto sulla decade prima e una verso il basso sulla decade dopo. (Se i poli sono $p$, allora si sale di $(p\times 45°)$).
-\item Se il polo \`e$<0$: si scende di 45° e si mette una freccia verso il basso sulla decade prima e una verso l'alto sulla decade dopo. (Se i poli sono $p$, allora si scende di $(p\times 45°)$).
-\end{itemize}
-Se esisono poli e zeri complex. conj. ci si comporta come segue:
-\begin{itemize}
-\item Per i poli: nel punto $\omega_n$ 
-\subitem -si sale di 180° se $\xi<0$
-\subitem -si scende di 180° se  $\xi \geq0$
-\item Per gli zeri: nel punto $\omega_n$
-\subitem -si sale di 180° se $\zeta\geq0$
-\subitem -si scende di 180° se $\zeta<0$
-\end{itemize}
-\item La Fase Finale \`e
-\subitem -se poli e zeri hanno tutti lo stesso segno
-\begin{displaymath}
-F.F.=(Z-P)_{TOT}\times 90°+\arg{K}
-\end{displaymath}
-\subitem {-se invece sono discordi si effettua una somma algebrica delle fasi prese come di seguito elencate:}
-\subsubitem Lo zero $>0$ ritarda di $90° \textrm{quindi la fase \`e} -90°$
-\subsubitem Lo zero $<0$ anticipa di $90° \textrm{quindi la fase \`e} +90°$
-\subsubitem Il polo $>0$ anticipa di $90° \textrm{quindi la fase \`e} +90°$
-\subsubitem Il polo $<0$ ritarda di $90° \textrm{quindi la fase \`e} -90°$
-\subsubitem e poi si somma l'$\arg K$.
-\end{enumerate}
-\end{minipage}
-}
+%% \chapter{Diagrammi di Bode}\label{apx:bode}
+%% In questa sezione vengono riassunti gli algoritmi per il tracciamento asintotico dei diagrammi di Bode dei moduli e delle fasi.\\
+%% Si ricorda che \framebox{$g=(P-Z) \textrm{in} O$} ovvero (poli-zeri) nell'origine.
+%% \section*{Diagramma dei moduli}\label{sec:diagmodul}
+%% \framebox{
+%% \begin{minipage}{13cm}
+%% \begin{enumerate}
+%% \item Si calcolano poli e zeri del sistema
+%% \begin{itemize}
+%% \item se essi sono pari a $\pm1$, si posizionano sull'asse delle $\omega$ nell'O (origine)
+%% \item se essi sono pari a 0, NON VANNO RIPORTATI SUL DIAGRAMMA.
+%% \item se sono complex. conj. si calcolano $\omega_n$ e $\xi$ con le formule presentate nel paragrafo \ref{par:pulsazsmorz} e si riporta sulle ascisse il valore di $\omega_n$. In corrispondenza di punti di rottura complex. conj. bisogna valutare $\xi$ per poter riportare sul diagramma la curva (ovvero il picco o l'appiattimento) corrispondente.
+%% \end{itemize}
+%% \item Si calcola il guadagno generalizzato (/!$\backslash$ NON il guadagno statico, anche se in certi casi esso pu\`o coincidere) $K$ come (V. \ref{eq:gengain})
+%% \begin{displaymath}
+%% K=\lim_{s \to 0} s^g G(s)
+%% \end{displaymath}
+%% e lo si trasforma in dB
+%% \begin{displaymath}
+%% |K|_{dB}=20\log K
+%% \end{displaymath}
+%% \item Il punto di partenza da cui iniziare a tracciare il diagramma \`e pari a:
+%% \begin{displaymath}
+%% Partenza=|K|_{dB}-20g\log\omega_0
+%% \end{displaymath}
+%% dove $\omega_0$ \`e la pulsazione scelta come punto di intersezione degli assi (convenzionalmente \`e pari a una o due decadi prima, del polo$\backslash$zero pi\`u piccolo)
+%% \item La Pendenza Iniziale \`e
+%% \begin{displaymath}
+%% P.I.=(Z-P)\textrm{in O}\times20 ~\textrm{dB}
+%% \end{displaymath}
+%% \item La Pendenza Finale \`e
+%% \begin{displaymath}
+%% P.F.=(Z-P)_{TOT}\times20 ~\textrm{dB}
+%% \end{displaymath}
+%% \item Inizio a tracciare il diagramma secondo il punto di partenza calcolato nel punto 3. e la P.I. del punto 4. Devo disegnare le rette decade per decade.
+%% Nel caso in cui si incontra un \emph{punto di rottura o breakpoint} ovvero un polo o uno zero durante il tracciamento delle rette, si continua come segue:
+%% \begin{itemize}
+%% \item Se incontro uno zero: salgo con una pendenza di +20 dB/dec (Se sono $n$ zeri, salgo di $+(n\times20)$ dB/dec)
+%% \item Se incontro un polo: scendo con una pendenza di -20 dB/dec (Se sono $p$ poli, scendo di $-(p\times20)$ dB/dec)
+%% \end{itemize}
+%% \end{enumerate}
+%% \end{minipage}
+%% }
+%% \section*{Diagramma delle fasi}
+%% \framebox{
+%% \begin{minipage}{13cm}
+%% \begin{enumerate}
+%% \item Come nel diagramma dei moduli (presentato nella sezione precedente \ref{sec:diagmodul}), si calcola $K$, ovvero il guadagno generalizzato e si valuta il segno per calcolare la sua fase.\\
+%% $\arg K =$
+%% \begin{itemize}
+%% \item Se $K<0 \Longrightarrow $ si parte con una fase $=-180°$
+%% \item Se $K>0 \Longrightarrow $ si parte con una fase $=0°$
+%% \end{itemize}
+%% \item Si calcola la Fase Iniziale come segue:
+%% \begin{displaymath}
+%% F.I.=(Z-P)\textrm{in O} \times 90° + \arg K
+%% \end{displaymath}
+%% dove $\arg K$ \`e la fase del guadagno generalizzato calcolata nel punto 1.
+%% \item Si posizionano poli e zeri cos\`i come \`e descritto nella sezione \ref{sec:diagmodul} e $\forall$ poli e zeri considero la decade prima e la decade dopo:~\footnote{
+%% /!$\backslash$ Il modo descritto nel punto 3. serve per disegnare il diagramma delle fasi con 'pendenze di 45°'; nel caso in cui si volesse disegnare il diagramma delle fasi 'a gradini' bisogna considerare non 45° ma 90° di fase e procedere allo stesso modo (ma senza considerare decade prima/dopo)}
+%% \begin{itemize}
+%% \item Se lo zero \`e $>0$: si scende 45° e si mette una freccia verso il basso sulla decade prima e una verso l'alto sulla decade dopo. (Se gli zeri sono $n$, si scende di $(n\times 45°)$).
+%% \item Se lo zero \`e $<0$: si sale di 45° e si mette una freccia verso l'alto sulla decade prima e una verso il basso sulla decade dopo. (Se gli zeri sono $n$, si sale di $(n\times 45°)$).
+%% \item Se il polo \`e $>0$: si sale di 45° e si mette una freccia verso l'alto sulla decade prima e una verso il basso sulla decade dopo. (Se i poli sono $p$, allora si sale di $(p\times 45°)$).
+%% \item Se il polo \`e$<0$: si scende di 45° e si mette una freccia verso il basso sulla decade prima e una verso l'alto sulla decade dopo. (Se i poli sono $p$, allora si scende di $(p\times 45°)$).
+%% \end{itemize}
+%% Se esisono poli e zeri complex. conj. ci si comporta come segue:
+%% \begin{itemize}
+%% \item Per i poli: nel punto $\omega_n$ 
+%% \subitem -si sale di 180° se $\xi<0$
+%% \subitem -si scende di 180° se  $\xi \geq0$
+%% \item Per gli zeri: nel punto $\omega_n$
+%% \subitem -si sale di 180° se $\zeta\geq0$
+%% \subitem -si scende di 180° se $\zeta<0$
+%% \end{itemize}
+%% \item La Fase Finale \`e
+%% \subitem -se poli e zeri hanno tutti lo stesso segno
+%% \begin{displaymath}
+%% F.F.=(Z-P)_{TOT}\times 90°+\arg{K}
+%% \end{displaymath}
+%% \subitem {-se invece sono discordi si effettua una somma algebrica delle fasi prese come di seguito elencate:}
+%% \subsubitem Lo zero $>0$ ritarda di $90° \textrm{quindi la fase \`e} -90°$
+%% \subsubitem Lo zero $<0$ anticipa di $90° \textrm{quindi la fase \`e} +90°$
+%% \subsubitem Il polo $>0$ anticipa di $90° \textrm{quindi la fase \`e} +90°$
+%% \subsubitem Il polo $<0$ ritarda di $90° \textrm{quindi la fase \`e} -90°$
+%% \subsubitem e poi si somma l'$\arg K$.
+%% \end{enumerate}
+%% \end{minipage}
+%% }
 
 \begin{thebibliography}{99}
 \bibitem{FCA} Bolzen, Scattolini, Schiavoni: \emph{Fondamenti di controlli automatici ed. 2} - CAP.2 Par. 2.2.3
 \bibitem{FCAlaptab} Bolzen, Scattolini, Schiavoni: \emph{Fondamenti di controlli automatici ed. 2} - Appendice B Pag. 515
 \bibitem{FCAimg} Figure prese da: Bolzen, Scattolini, Schiavoni: \emph{Fondamenti di controlli automatici ed. 2} 
 \end{thebibliography}
+
+\printindex
 \end{document}
