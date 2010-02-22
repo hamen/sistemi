@@ -71,22 +71,22 @@
 
 \chapter{Introduzione}
 
-\section{Il controllo: definizioni}
+\section{Il controllo}
 I \emph{problemi di controllo} hanno lo scopo di determinare le azioni
 da compiere su di un processo assegnato, in modo tale che si ottenga
-per esso il \emph{funzionamento desiderato}. Il processo o
-\emph{sistema sotto controllo} \`e quell'oggetto su cui il problema
+per esso il \emph{funzionamento desiderato}. Il processo, o
+\emph{sistema sotto controllo}, \`e quell'oggetto su cui il problema
 \`e posto. Il funzionamento desiderato \`e, invece, riferito al fatto
-che l'andamento nel tempo delle variabili in gioco, coincida con
+che l'andamento nel tempo delle variabili in gioco debba coincidere con
 quello di altre variabili assegnate. 
 
 Si identificano quindi: 
-\begin{enumerate}
-\item \emph{variabili controllate}: le grandezze di interesse
-\item \emph{segnale di riferimento} \footnote{Se \`e costante \`e
-  detto anche \emph{set-point}}: l'andamento desiderato delle
-  variabili controllate
-\end{enumerate}
+\begin{itemize}
+\item \emph{variabili controllate}, cio\`e le grandezze di interesse;
+\item \emph{segnale di riferimento}, cio\`e l'andamento desiderato
+  delle variabili controllate, detto anche \emph{set-point}) nel
+  caso sia un segnale costante;
+\end{itemize}
 Idealmente l'obiettivo di un generico problema di controllo \`e quello
 di ottenere 
 \begin{equation} 
@@ -98,13 +98,13 @@ attraverso le cosiddette \emph{variabili di controllo} che sono
 assegnabili e manipolabili da chi effettua il controllo.
 Esistono, per\`o, anche altre variabili da cui dipendono le variabili
 controllate e sono i cosiddetti \emph{disturbi}, i quali non sono
-manipolabili e influenzano il comportamento del processo. Siccome i
-disturbi non sono noti a priori, \`e necessario definire, per loro
-tramite, delle incertezze. 
+manipolabili e influenzano il comportamento del processo. Dato che i
+disturbi non sono noti a priori, \`e necessario definire quindi delle
+incertezze. 
 
 Bisogna ricordare che tutte le variabili che fanno parte di un
-processo di controllo sono funzioni del tempo il quale pu\`o essere di
-tipo \emph{continuo}, ovvero descritte da una variabile reale
+processo di controllo sono funzioni del tempo, solitamente
+\emph{continuo}, ovvero descritte da una variabile reale,
 convenzionalmente indicata con \textbf{t}. 
 
 L'andamento della variabile di controllo \`e determinato da un organo
@@ -113,8 +113,8 @@ detto \emph{controllore} o \emph{regolatore}. In particolare l'insieme
 
 \section{Specifiche di progetto}
 Dalla relazione \ref{eq:obiettivodiprog} si evince che, essendo essa
-\textit{ideale}, \`e di fatto irraggiungibile. Nella realt\`a la
-relazione \ref{eq:obiettivodiprog} diventa: 
+una relazione \textit{ideale}, \`e di fatto irraggiungibile. Nella
+realt\`a la relazione \ref{eq:obiettivodiprog} diventa: 
 \begin{equation}\label{eq:obiettivoreale}
   \emph{variabile controllata}  \simeq \emph{segnale di riferimento}
 \end{equation} 
