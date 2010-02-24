@@ -213,7 +213,7 @@ con la sua equazione di stato e trasformazione d'uscita.
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{./figures/dynaeq.png}
-    \caption{Sistema dinamico con eq. di stato e trasformazione
+    \caption{Sistema dinamico con equazioni di stato e trasformazione
       d'uscita}
     \label{fig:fig4}
   \end{center}
@@ -223,7 +223,7 @@ L'equazione di stato mette in relazione con l'ingresso le variabili
 che descrivono la situazione interna del sistema, mentre la
 trasformazione di uscita, sulla base di tale situazione e
 dell'ingresso applicato in uno specifico istante \textbf{t}, consente
-di determinare l'uscita nello stesso istante \textbf{t}. 
+di determinare l'uscita all'istante \textbf{t}. 
 % Per gli esempi consultare il testo di riferimento \cite{FCA} 
 
 Nello scegliere le variabili di stato di un sistema, bisogna tener
@@ -241,7 +241,7 @@ grandezze dipendono. Ad esempio:
   perch\`e da queste dipendono gli accumuli di energia elettrica e magnetica;
 \item nei sistemi meccanici \`e utile usare, invece, posizione e
   velocit\`a come variabili di stato, perch\`e legate ad accumuli di
-  en. potenziale, quantit\`a di moto ed energia cinetica;
+  energia potenziale, quantit\`a di moto ed energia cinetica;
 \item nei sistemi termodinamici si possono usare come variabili di
   stato le temperature, perch\`e da esse dipendono le energie termiche
   immagazzinate.
@@ -256,7 +256,22 @@ I sistemi possono essere:
   d'uscita; i sistemi MIMO (\emph{Multiple Input Multiple Output})
   sono gli altri.
 \item[**]{\textbf{Sistemi propri, strettamente propri e non
-    dinamici}}: in generale un sistema si dice \emph{proprio}; se,
+    dinamici}}: in generale un sistema si dice \emph{proprio} quando
+  il legame ingresso-uscita \`e di tipo differenziale. In questo caso,
+  il tempo ha un'importanza notevole, poich\`e la relazione tra $x$ e
+  $y$ non \`e immediata.
+
+  Nei sistemi propri, per conoscere il valore dell'uscita occorre
+  sapere necessariamente due informazioni: 
+  \begin{itemize}
+  \item la condizione iniziale, cio\`e il valore dell'uscita in un
+    istante prefissato;
+  \item l'insieme dei valori che l'ingresso assume all'istante di osservazione.
+  \end{itemize}
+  Per questo motivo, i sistemi propri vengono definiti {\em sistemi con
+  memoria}, poich\`e l'uscita in un determinato istante $t$ dipende
+  sia dal valore dell'ingresso in quell'instante sia da quanto \`e
+  successo in precedenza; se,
   invece, la trasformazione d'uscita pu\`o essere espressa nella forma
   \begin{equation}\label{eq:eqstrpr}
     y(t) = g(x(t),t)
@@ -283,14 +298,15 @@ tempo, allora il sistema si dice \emph{invariante nel tempo} o
 \end{equation}
 Invece, se anche una sola delle funzioni $f$ e $g$ dipende
 esplicitamente da $t$, il sistema si dice \emph{variante nel tempo} ed
-in questo caso le equazioni del sistema sono la \ref{eq:eqstato} e la
-\ref{eq:eqout}. 
+in questo caso le equazioni del sistema sono le gi\`a note
+\ref{eq:eqstato} e \ref{eq:eqout}.
+
 \item[**]{\textbf{Sistemi lineari e non lineari}}: se le equazioni del
   sistema sono combinazioni lineari delle varie
 componenti dei vettori $x(t)$ e $u(t)$, allora il sistema si dice
 \emph{lineare}, altrimenti \`e \emph{non lineare}. La rappresentazione
 I-S-U, espressa in forma matriciale, del generico sistema lineare
-T.I. (Tempo Invariante) \`e la seguente: 
+tempo invariante (LTI) \`e la seguente: 
 \begin{equation}\label{eq:matltisys}
   \dot{x}(t)=Ax(t)+Bu(t)
 \end{equation}
@@ -361,7 +377,8 @@ movimenti dello stato e dell'uscita anch'essi costanti nel
 tempo. Questi movimenti costanti sono detti rispettivamente {\em
   stati} ed \emph{uscite di equilibrio}.
 
-Per definizione: "Uno stato di equilibrio (o \emph{steady state}) \`e
+Per definizione: "Uno stato di equilibrio (o \emph{steady
+  state})\index{Stato di equilibrio}\index{Steady state} \`e 
 uno stato in cui un sistema, sollecitato da un ingresso costante, in
 un qualunque istante di tempo, permane in questo stato
 indefinitamente"~\footnote{Se il sistema da solo va in posizione di
@@ -377,8 +394,8 @@ costanti nel tempo dell'equazione:
 \begin{equation}\label{eq:eqsteady}
   f(\bar{x},\bar{u})=0
 \end{equation}
-a ciascuna delle soluzioni (se ne esistono), corrisponde un'uscita di
-equilibrio $\bar{y}$ calcolabile mediante la relazione 
+A ciascuna delle soluzioni (se ne esistono), corrisponde un'uscita di
+equilibrio $\bar{y}$, calcolabile mediante la relazione 
 \begin{equation}\label{eq:outsteady}
   \bar{y}=g(\bar{x},\bar{u})
 \end{equation}
@@ -387,14 +404,15 @@ dell'equazione:
 \begin{equation}
   A\bar{x}+B\bar{u} = 0
 \end{equation}
-e ad ogni stato di equilibrio corrisponde un uscita di equilibrio:
+e ad ogni stato di equilibrio corrisponde un'uscita di equilibrio:
 \begin{equation}
   \bar{y}=C\bar{x}+D\bar{u}
 \end{equation}
 
 \subsection{La matrice $A$}
-La matrice $A$ \`e detta matrice della dinamica o matrice
-Jacobiana. Ha dimensioni $n \times n$, con $n$ grado del sistema e numero
+La matrice $A$ \`e detta matrice della dinamica\index{Matrice della
+  dinamica}\index{Matrice Jacobiana}\index{Jacobiano}, matrice
+Jacobiana o Jacobiano. Ha dimensioni $n \times n$, con $n$ grado del sistema e numero
 di variabili di stato. Se $A$ \`e invertibile, cio\`e se $det(A) \neq
 0$, lo stato di equilibrio \`e:
 \[
@@ -405,8 +423,8 @@ di variabili di stato. Se $A$ \`e invertibile, cio\`e se $det(A) \neq
 \]
 La matrice $[D - CA^{-1} B]$ \`e il {\bf guadagno
   statico}\index{Guadagno statico}, una costante che rappresenta il
-rapporto tra uscita ed ingresso quando il transitorio \`e esaurito.
-Se $det(A) = 0$ 
+rapporto tra uscita ed ingresso a regime, quando, cio\`e, il
+transitorio \`e esaurito. Se $det(A) = 0$ 
 \[
   A \bar{x} + B \bar{u} = 0
 \]
@@ -416,7 +434,8 @@ caso la nozione di guadagno statico perde senso.
 
 \section{Stabilit\`a}
 Il criterio di stabilit\`a fu introdotto dal matematico
-Liapunov. Liapunov considerava che ``piccole'' perturbazioni dello stato
+\href{http://it.wikipedia.org/wiki/Aleksandr_Michajlovi\%C4\%8D_Ljapunov}{Liapunov}. Liapunov
+considerava che ``piccole'' perturbazioni dello stato
 iniziale, rispetto ad un valore di riferimento, provocano solo ``piccole''
 perturbazioni del movimento dello stato, che si annulleranno
 eventualmente su tempi lunghi. 
@@ -472,7 +491,7 @@ riassume i tipi di sistemi classificati secondo la stabilit\`a:
 \end{table}
 
 \chapter{Sistemi LTI a tempo continuo}
-\section{Evoluzioni di un sistema}
+\section{Evoluzione di un sistema}
 Nei movimenti dello stato e dell'uscita di un sistema, si pu\`o
 individuare un contributo dipendente solo dallo stato iniziale e uno
 dipendente solo dall'ingresso. 
@@ -500,6 +519,16 @@ asse immaginario}) di un numero complesso. Nel nostro caso il piano di
 Gauss ci consentir\`a di avere una localizzazione chiara dei vari tipi
 di poli dei nostri sistemi.
 
+\section{Sistema del primo ordine}
+L'evoluzione libera di un sistema del primo ordine ha un andamento di
+tipo esponenziale: 
+\[
+y(t) = e^{\lambda t}
+\]
+Tale esponenziale, \`e convergente se $\lambda < 0$ , costante se
+$\lambda = 0$, divergente se $\lambda > 0$.
+
+\section{Sistema del secondo ordine}
 \subsubsection{Poli distinti}
 \begin{figure}[!h]
   \begin{center}
@@ -512,25 +541,50 @@ risposta impulsiva, dei sistemi del secondo ordine, secondo il tipo di
 poli del sistema.
 
 \begin{description}
-\item[A] Il polo dominante \`e a sinistra dell'asse immaginario,
+\item[A] Il polo dominante \`e a sinistra dell'asse immaginaria,
   cio\`e \`e a parte reale negativa e parte immaginaria
   nulla. Il sistema \`e asintoticamente stabile. L'andamento della
-  funzione \`e di tipo esponenziale negativo; 
+  funzione di uscita \`e di tipo esponenziale negativo:
+  \[
+  y_l(t) = k_1 e^{at} + k_2 e^{bt}
+  \]
 \item[B] Il polo dominante \`e complesso a parte reale negativa. Il sistema \`e
   asintoticamente stabile. L'andamento \`e una sinusoide di ampiezza
-  sempre minore;
+  sempre minore. La funzione di uscita \`e
+  \[
+  y_l(t) = k_1 e^{\alpha t}sin(\omega t) + k_2 e^{\alpha t}cos(\omega t)
+  \]
+  con $\alpha < 0$: l'oscillazione \`e convergente;
 \item[C] Il polo dominante si trova nell'origine degli assi. Il
-  sistema \`e marginalmente stabile. La funzione \`e una semiretta
-  costante;
+  sistema \`e marginalmente stabile. La funzione di uscita \`e pari a
+  $y_l(t) = k_1 e^{at} + k_2 e^{bt}$. Se consideriamo $a = 0$, la
+  funzione sar\`a una semiretta costante di ordinata $k_1$;
 \item[D] Il polo dominante \`e complesso a parte reale nulla. Il
   sistema \`e marginalmente stabile. La funzione \`e una sinusoide
   costante, a media nulla;
 \item[E] Il polo dominante \`e complesso a parte reale positiva. Il
   sistema \`e instabile; diverge come una sinusoide di ampiezza sempre
-  maggiore; 
+  maggiore. La funzione di uscita \`e
+  \[
+  y_l(t) = k_1 e^{\alpha t}sin(\omega t) + k_2 e^{\alpha t}cos(\omega t)
+  \]
+  con $\alpha > 0$.
 \item[F] Il polo dominante ha parte reale positiva. Il sistema \`e
   instabile. La funzione \`e un esponenziale positivo.
 \end{description}
+
+Nota: nel caso di poli complessi, la risposta in evoluzione libera
+pu\`o anche  porsi nella forma:
+\[
+y_l(t) = A e^{\alpha t} sin(\omega t + \beta)
+\]
+dove
+\[
+A = \sqrt{k^2_1 + k^2_2}
+\]
+\[
+\beta = arctan \dfrac{k_2}{k_1}
+\]
 
 \subsubsection{Poli doppi}
 \begin{figure}[!h]
@@ -569,7 +623,7 @@ y(t) = \mu \left(1 - e^{- \frac{t}{T}} - \dfrac{t}{T}e^{- \frac{t}{T}}\right)
 \]
 notiamo che il punto di partenza \`e effettivamente lo
 zero. Calcolandone la derivata prima, otteniamo la pendenza. Con la
-derivata seconda, ottiene la concavit\`a e la convessit\`a.
+derivata seconda, si ottiene la concavit\`a e la convessit\`a.
 
 \section{Criteri di stabilit\`a}
 In un sistema stazionario lineare, la determinazione delle propriet\`a
@@ -580,7 +634,7 @@ valutando esclusivamente gli autovalori del sistema. Nell'appendice
 \ref{apx:jacob} viene mostrato come valutare la stabilit\`a dei punti
 di equilibrio di un sistema, attraverso il calcolo della matrice
 \textsl{Jacobiana}. 
-Seguonoe tre importanti teoremi sulla stabilit\`a dei sistemi:
+Seguono tre importanti teoremi sulla stabilit\`a dei sistemi:
 \newtheorem{Th1}{Teorema}[section]
 \newtheorem{Th2}[Th1]{Teorema}
 \newtheorem{Th3}[Th1]{Teorema}
@@ -595,8 +649,8 @@ Seguonoe tre importanti teoremi sulla stabilit\`a dei sistemi:
 
 \begin{Th2}\label{th:th2}
   Un sistema lineare stazionario \`e stabile se e solo se tutti i
-  movimenti liberi dello stato sono limitati, cio\`e non vadano
-  all'infinito, per tutti i $t \geq 0$ e per tutti gli stati iniziali;
+  movimenti liberi dello stato sono limitati, cio\`e non vanno
+  all'infinito, per tutte le $t \geq 0$ e per tutti gli stati iniziali;
   \`e asintoticamente stabile se e solo se tutti i movimenti liberi dello
   stato sono tendenti a zero per $t \to \infty$; \`e instabile se e solo
   se almeno un movimento libero dello stato \`e divergente (ovvero non
@@ -641,7 +695,7 @@ dove $n$ \`e il grado dell'equazione polinomiale e si considera l'\emph{equazion
   \varphi(s)=0
 \end{displaymath}
 
-Applicando il teorema ~\ref{th:th3} si pu\`o valutare l'asintotica
+Applicando il teorema ~\ref{th:th3}, si pu\`o valutare l'asintotica
 stabilit\`a valutando i coefficienti del polinomio
 caratteristico~\ref{eq:polycarat} scritto in forma pi\`u generale:
 \begin{equation}\label{eq:polycaratgen}
@@ -653,7 +707,7 @@ Si osservi inoltre che
   \varphi(s)=\varphi_0 \prod_{i=1}^{n}(s-s_i)
 \end{equation}
 per cui, se il sistema \`e asintoticamente stabile,
-risulta $$\sum_{i=1}^ns_i<0$$.
+risulta $$\sum_{i=1}^n s_i < 0$$
 
 \newtheorem{Th5}{Teorema}[section]
 \begin{Th5}\label{th:th5}
@@ -669,16 +723,17 @@ A dimostrazione del teorema ~\ref{th:th5} si pu\`o imporre nella
 \end{displaymath}
 
 \subsubsection{Applicazione del Teorema di Routh}
-Attraverso la definizione della cosiddetta \textsl{tabella di Routh}
+Attraverso la definizione della cosiddetta {\em tabella di Routh},
 \`e possibile formulare una condizione necessaria e sufficiente di
 asintotica stabilit\`a. 
 Tale tabella si costruisce a partire dal polinomio
 caratteristico~\ref{eq:polycarat} ed ha $n + 1$ righe e una struttura
-triangolare, in quanto ogni $2$ righe (eccetto la prima se $n$ \`e
-pari), il numero di elementi diminuisce di 1. 
+triangolare: ogni $2$ righe (eccetto la prima se $n$ \`e
+pari), il numero di elementi (colonne) diminuisce di 1. 
 In particolare la tabella si costruisce come segue:\\
 \begin{center}
   \begin{tabular}{|r|l|}
+    \hline
     potenze & coefficienti\\
     \hline
     n &
@@ -769,10 +824,19 @@ Dopo aver effettuato tali calcoli si pu\`o affermare che:
 Il sistema ~\ref{eq:matltisys} \`e asintoticamente stabile
 se la tabella di Routh \`e ben definita e tutti gli elementi
 della prima colonna sono di segno concorde. 
+Il numero di radici nel semipiano a parte reale positiva \`e pari ai
+cambiamenti di segno presenti nella prima colonna dell matrice di
+Routh.
 \end{Th6}
 Una tabella di Routh \`e ``ben definita'' se tra gli elementi della
 prima colonna non \`e presente alcuno zero. Per approfondimenti vedere
 l'appendice ~\ref{apx:stabil}.
+
+Se ne ricava che, supposto il coefficiente $\phi_0 > 0$ della equazione
+\ref{eq:polycarat}, condizione necessaria e sufficiente perch\`e tutte
+le radici nella \ref{eq:polycarat} siano a parte reale negativa \`e
+che tutti i coefficienti della prima colonna della tabella di Routh
+siano positivi. 
 
 \section{Linearizzazione}
 Prendiamo in considerazione un generico sistema MIMO, non lineare,
@@ -781,7 +845,7 @@ T.I. e proprio, descritto dalle equazioni precedentemente esposte
 Si fa poi riferimento al suo stato di equilibrio, ovvero quello stato
 per cui vale l'identit\`a:
 \begin{equation}
-  f(\bar{x},\bar{u})=0~\footnote{La dipendenza dal tempo \`e implicita,
+  0 = f(\bar{x},\bar{u})~\footnote{La dipendenza dal tempo \`e implicita,
     per cui la variabile \emph{t} pu\`o essere omessa}
 \end{equation} a cui corrisponde l'uscita di equilibrio:
 \begin{equation}
@@ -795,7 +859,7 @@ Pertanto si pone:
   u(t)=\bar{u}+\delta u(t)\\
   x(t)=\bar{x}+\delta x(t)\\
   y(t)=\bar{y}+\delta y(t)\\
-  x_{t_0}=v\bar{x}+\delta x_{t_0}
+  x_{t_0}=\bar{x}+\delta x_{t_0}
 \end{eqnarray}
 dove $\delta u(t)$, $\delta x(t)$, $\delta y(t)$ e $\delta x_{t_0}$
 rappresentano le variazioni (scostamenti) di $ u, x, y $ e dello stato
@@ -834,8 +898,8 @@ Combinando le \ref{eq:statetaylor} e \ref{eq:outtaylor} con le
 \ref{eq:linstate}, \ref{eq:linout} e \ref{eq:lincondin} si ha : 
 \begin{eqnarray}\label{eq:linsys}
   \left\{ \begin{array}{l}
-    \delta \dot{x}(t)=A \delta x(t)+B \delta u(t)\\
-    \delta y(t)=C \delta x(t)+d \delta u(t)\\
+    \delta \dot{x}(t)=A \delta x(t) + B \delta u(t)\\
+    \delta y(t)=C \delta x(t) + \delta u(t)\\
     \delta x((t_0)=\delta x_{t_0}
   \end{array}\right.
 \end{eqnarray}
@@ -855,7 +919,7 @@ rappresentazione ISU:
   \left\{ \begin{array}{l}
     \dot{x_1}=f_1(x_1,x_2,u)\\
     \dot{x_2}=f_2(x_1,x_2,u)\\
-    y=g(x_1.x_2.u)
+    y=g(x_1, x_2, u)
   \end{array}\right.
 \end{equation}
  
@@ -881,6 +945,16 @@ questo modo:
 \frac{\partial g(x_1,x_2,u)}{\partial x_1}  & \frac{\partial g(x_1,x_2.u)}{\partial x_2} \\
 \end{array} \right)\Bigg |_{x_1=\bar{x_1},x_2=\bar{x_2},u=\bar{u}}
 \end{displaymath}
+
+Abbiamo cos\`i ottenuto un sistema lineare e stazionario che lega le
+variabili prime delle variabili in gioco che prende il nome di {\em
+  sistema linearizzato} e che \`e di fondamentale importanza per
+descrivere in maniera approssimata il comportamento del sistema in
+esame attorno al punto di equilibrio stabile considerato, tenendo
+presenti le sufficientemente piccole variazioni degli ingressi
+($\delta{u}$) e dello stato iniziale ($\delta{x_{t0}}$) e delle
+conseguenti variazioni dello stato ($\delta{x}$) e dell'uscita
+($\delta{y}$).
 
 \subsection{Stabilit\`a dell'equilibrio}
 \begin{teorema}
