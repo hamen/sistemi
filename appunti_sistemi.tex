@@ -1010,7 +1010,7 @@ Si definisce pertanto:
   \textrm{\emph{funzione/matrice di trasferimento}} 
 \end{equation}
 Effettuando l'antitrasformazione di Laplace (appendice
-\ref{apx:laplace}) della \ref{eq:transfout} si pu\`o conoscere il
+\ref{apx:laplace}) della \ref{eq:transfout}, si pu\`o conoscere il
 movimento forzato $y_f$ che, nel caso di stato iniziale nullo,
 coincide con il movimento d'uscita $y$.
 
@@ -1090,11 +1090,11 @@ da cui
 \subsection{Cancellazioni e stabilit\`a}
 Quando valutiamo la $G(s)$, pu\`o capitare che ci siano radici comuni
 tra numeratore e denominatore. Questa eventualit\`a pu\`o portarci nello
-scenario in cui il numero di poli $v$ \`e minore del numero degli $n$
+scenario in cui il numero di poli $v$ sia minore del numero degli $n$
 autovalori del polinomio. Com'\`e noto la $G(s)$, nota anche come
 rappresentazione esterna, descrive il legame tra l'ingresso e l'uscita
 del sistema. Questo ci porta a considerare che gli autovalori che non
-coincidono con i poli di $G(s)$ sono associati a parti ``nascoste''
+coincidono con i poli di $G(s)$ siano associati a parti ``nascoste''
 del sistema. In questo caso, gli autovalori potrebbero perfino avere
 parte reale positiva.
 
@@ -1171,8 +1171,9 @@ consideri il caso particolare in cui $g = 0$ e vi sia un ingresso
 $u(t) = \bar{u}$ la cui trasformata di Laplace \`e
 $U(s) = \dfrac{\bar u}{s}$.
 
-Il teorma del valore finale\index{Teorema del valore finale} permette
-di calcolare il valore costante a regime di una funzione temporale
+Il teorema del valore finale\index{Teorema del valore finale}
+(\ref{teoremaValoreFinale}) permette 
+di calcolare il valore costante a regime di una funzione temporale,
 data la sua trasformata di Laplace. Esso pu\`o essere correttamente
 applicato solo se tutti i poli sono a sinistra dell'asse immaginario
 ed un solo polo \`e nell'origine. In questo caso, il valore sar\`a una
@@ -1182,8 +1183,9 @@ indefinito: il sistema diverge.
 \begin{equation}\label{eq:teoremaDelValoreFinale}
   \lim_{t \rightarrow \infty} f(t) = \lim_{s \rightarrow 0} s F(s)
 \end{equation}
+
 Calcolando la risposta di regime applicando il teorema del valore
-finale si ha:
+finale, si ha:
 \begin{displaymath}
   \bar y=\lim_{t \to \infty}y(t)=\lim_{s \to 0}sG(s)\dfrac{\bar u}{s}
   = \lim_{s \to 0}s(C(sI-A)^{-1}B+D)\dfrac{\bar u}{s}=
@@ -1201,7 +1203,7 @@ risulta che:
   \mu = G(0) = -CA^{-1}B + D
 \end{equation}
 $\mu$ \`e il guadagno che in questo caso coincide con il guadagno
-statico (per $g = 0$). Semplicemente il guadagno statico si calcola valutando
+statico (per $g = 0$). Il guadagno statico si calcola valutando
 $G(s)\Big|_{s=0}$. Il guadagno, quindi, \`e \emph{il rapporto tra
   uscita e ingresso}. Considerando la differenza tra i poli
 nell'origine e gli zeri nell'origine $g$, nel caso in cui $g \ne 0$,
@@ -1234,14 +1236,16 @@ dell'equazione $s^2 + 2\xi \omega_ns + \omega^2_n = 0$. Si definiscono:
 a=-\xi\omega_n\\
 b=\omega_n\sqrt{1-\xi^2}
 \end{eqnarray}
-Quindi il modulo dei poli \`e la pulsazione naturale $\omega_n$, mentre
-lo smorzamento $\xi$ \`e il $\cos \theta$, dove $\theta$ \`e l'angolo
-compreso tra la congiungente i poli con l'origine e il semiasse reale negativo.
- \begin{figure}[!b]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/complconj.png}
-\caption{Parametri dei poli compl. conj.}\label{fig:complparms}
-\end{center}
+Quindi il modulo dei poli \`e la pulsazione naturale
+$\omega_n$\index{Pulsazione naturale}, mentre
+lo smorzamento $\xi$\index{Smorzamento} \`e il $\cos \theta$, dove
+$\theta$ \`e l'angolo compreso tra la congiungente i poli con
+l'origine e il semiasse reale negativo. 
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/complconj.png}
+    \caption{Parametri dei poli complessi e coniugati}\label{fig:complparms}
+  \end{center}
 \end{figure}
 Pertanto, tenendo fisso $\omega_n$, al variare di $\xi$ da $-1$ a $+1$
 ($cos \theta$ con $\theta = \pi$ o $\theta = 0$), i poli si spostanto
@@ -1325,7 +1329,7 @@ I parametri caratterizzanti la risposta al gradino sono:
   ampiezza, in \%, della sovraelongazione massima rispetto a
   $y_\infty$, cio\`e
   \begin{displaymath}
-    S\% =100\dfrac{y_{max}-y_\infty}{y_\infty}
+    S\% = 100 \cdot \dfrac{y_{max}-y_\infty}{y_\infty}
   \end{displaymath}
 \item[tempo di massima sovraelongazione~$T_M$] \hfill \\
   primo istante in cui $y = y_{max}$;
@@ -1336,7 +1340,8 @@ I parametri caratterizzanti la risposta al gradino sono:
   necessario affinch\`e l'uscita raggiunga un valore pari a 0.5 volte
   $y_\infty$; 
 \item[tempo di assestamento~$T_{a\varepsilon}$] \hfill \\
-  tempo necessario affinch\`e il modulo della differenza tra ingresso e
+  tempo necessario affinch\`e il modulo della differenza tra l'uscita
+  e il valore di regime
   $y_\infty$ rimanga definitivamente al di sotto di $\varepsilon\%$
   ovvero l'uscita sia compresa nell'intervallo
   $[(1-0.01\varepsilon)y_\infty,(1+0.01\varepsilon)y_\infty]$. Ad
@@ -1345,15 +1350,18 @@ I parametri caratterizzanti la risposta al gradino sono:
   definitivamente nella fascia di ampiezza $\pm 0.01 y_\infty$. In
   generale si dir\`a che $T_{a\varepsilon}$ \`e il \emph{``tempo di
     assestamento al ($100-\varepsilon$)\%''}.
+  Nota: un fenomeno si considera esaurito se raggiunge l'$1\%$ del
+  valore iniziale (esponenziale decrescente a zero) o se raggiunge il
+  $99\%$ del valore a regime (esponenziale convergente crescente).
 \item[periodo di oscillazione $T_p$] \hfill \\
   distanza temporale tra i primi due massimi dell'uscita.
 \end{description}
 
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/parms.png}
-\caption{Parametri della risposta al gradino}\label{fig:caratparms}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/parms.png}
+    \caption{Parametri della risposta al gradino}\label{fig:caratparms}
+  \end{center}
 \end{figure} 
 
 \section {Sistemi del $I°$ ordine}
@@ -1424,7 +1432,7 @@ per $T>0$:
 \item il valore di regime $y_{\infty} = \mu$
 \item $y_{max} = y_{\infty}$
 \item $S\% = 0$
-\item Il tempo di assestamento
+\item Il tempo di assestamento\index{Tempo di assestamento}
 \begin{displaymath}
   T_{a\varepsilon} = T \ln{\dfrac{1}{0.01\varepsilon}} = -T \ln0.01 \varepsilon 
 \end{displaymath}
@@ -1444,6 +1452,7 @@ Gli altri parametri caratteristici sono riportati nella tabella
   \caption{Parametri del sistema \ref{eq:firstordfdt}}
   \label{tab:tabfirstordparms}
 \end{table}
+
 Da notare che gli ultimi 4 parametri in tabella
 \ref{tab:tabfirstordparms} dipendono dalla costante di tempo $T$ e sono
 direttamente proporzionali ad essa. In particolare il transitorio si
@@ -1451,6 +1460,7 @@ pu\`o dichiarare esaurito dopo un tempo \\
 \begin{center}
   \framebox{$t\simeq 4 \div 5 T$}\label{transit}
 \end{center}
+\`E il tempo di assestamento ``all'1\%'', cio\`e $\varepsilon = 1$.
 
 \begin{figure}[!h]
 \begin{center}
@@ -1501,6 +1511,16 @@ Mettendo in evidenza $\mu$ ed antitrasformando, otteniamo:
   \end{center}
 \end{figure} 
 
+Alcune considerazioni conclusive:
+\begin{itemize}
+\item La risposta $y(t)$ ci mostra la presenza di due transitori;
+\item La posizione del polo influenza la costante di tempo e, di
+  conseguenza, la prontezza del sistema: pi\`u il polo \`e vicino allo
+  zero pi\`u la costante di tempo \`e grande e pi\`u il sistema evolve
+  lentamente;
+\item La risposta non presenta sovraelongazione.
+\end{itemize}
+
 \subsubsection{Caso 2: poli coincidenti $(T_1 = T_2 = T)$}
 \begin{equation}\label{eq:secordfdt_c2}
   G(s) = \dfrac{\mu}{(1 + sT)^2}
@@ -1550,7 +1570,7 @@ all'origine del piano complesso.
 Ricordiamo che la sottoelongazione\index{Sottoelongazione} $\sigma$
 \`e definita come:
 \begin{equation}
-  \sigma  = \frac{{\bar y - y_{\min }}}{{\bar y}}
+  \sigma  = \left . \frac{{\bar y - y_{\min }}}{{\bar y}} \right|
 \end{equation}
 dove $y_{\min }$ \`e il minimo valore assunto dall'uscita del sistema
 e $\bar{y}$ \`e l'uscita all'equilibrio.
@@ -1564,15 +1584,15 @@ sovraelongazione (da non confondere con andamenti oscillanti) nella
 risposta al gradino, indica la presenza di uno zero reale negativo e
 minore in modulo ai poli.
 \begin{figure}[!h]
-\begin{center}
-\includegraphics[scale=0.5]{./figures/rispscal4.png}
-\caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con $\tau>0$}\label{fig:risp4}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/rispscal4.png}
+    \caption{Risposta al gradino del sistema \ref{eq:secordfdt_cc1} con $\tau>0$}\label{fig:risp4}
+  \end{center}
 \end{figure} 
 Ricordiamo che la sovraelongazione\index{Sovraelongazione} $\sigma$
 \`e definita come:
 \begin{equation}
-  \sigma  = \frac{{\bar y - y_{\max }}}{{\bar y}}
+  \sigma  = \left . \frac{{y_{\max } - \bar y}}{{\bar y}} \right|
 \end{equation}
 dove $y_{\max }$ \`e il massimo valore assunto dall'uscita del sistema
 e $\bar{y}$ \`e l'uscita all'equilibrio.
@@ -1848,6 +1868,762 @@ Il primo passo per la costruzione di un sistema di controllo \`e lo
 sviluppo di una descrizione matematica del processo da
 controllare. L'insieme delle equazioni differenziali che descrivono il
 comportamento dinamico del processo \`e detto {\bf modello}.
+
+\section{Sistemi Meccanici}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/carrello.png}
+\caption{Carrellino\label{fig:carrello}}
+\end{figure}
+\subsection{Carrello}\label{carrello}
+Il carrello di figura \ref{fig:carrello} \`e modellabile come una massa $m$ che si muove spinta da
+un ingresso $u$ fino ad un punto $y$. L'equazione del moto del
+sistema, stando alla Legge di Newton (\ref{leggedinewton}), 
+\`e quindi:
+\begin{equation}
+  F = m \cdot a \Rightarrow u = m \cdot \ddot{y}
+\end{equation}
+Integrando due volte si otttiene:
+$$y(t) = y(0) + \dot{y}(0) + \int_0^t \left ( \int_o^{\theta} u(\tau)d\tau
+\right ) d \theta$$
+La soluzione dell'equazione differenziale dipende dallo stato iniziale
+del carrello. Se ``sostituiamo'' i differenziali con le $s$ otteniamo
+la funzione di trasferimento:
+$$y = \frac{1}{ms^2} \cdot u$$
+Volendo ottenere la rappresentazione in forma di stato poniamo $x_1 =
+y$ e $x_2 = \dot{y}$ e riscriviamo il tutto come:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \frac{1}{m} \cdot u\\
+    y = x_1
+    \end{array}\right .
+\end{eqnarray*}
+Per i sistemi \`e, inoltre, possibile riscrivere il tutto in forma
+matriciale. Il carrello \`e un sistema lineare e quindi:
+\begin{eqnarray*}
+  \begin{array}{l}
+    \dot{x} = 
+    \begin{bmatrix}
+      0 & 1\\
+      0 & 0
+    \end{bmatrix}
+    x + 
+    \begin{bmatrix}
+      0\\
+      \frac{1}{m}
+    \end{bmatrix}u
+    \\
+    y = \begin{bmatrix}1 & 0 \end{bmatrix}x
+    \end{array}
+\end{eqnarray*}
+Nota: possiamo considerare il sistema come una serie di due
+``blocchetti''. Un primo che ne specifica i comportamenti dinamici,
+fornendo come risultato lo stato del sistema, ed un secondo blocchetto
+che specifica il comportamento statico, che riceve in ingresso lo
+stato e fornisce l'uscita totale del sistema.
+
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/massa-molla-smorzatore.png}
+\caption{Massa-molla-smorzatore\label{fig:massa-molla-smorzatore}}
+\end{figure}
+
+\subsubsection{Legge di Newton}\label{leggedinewton}
+Per ottenere un modello matematico per qualsiasi sistema meccanico \`e
+fondamentale la Legge di Newton, che per il moto traslatorio \`e:
+\begin{equation}
+  F = ma = m \cdot \dot{v} = m \cdot \ddot{p}
+\end{equation}
+dove $v$ e $p$ sono rispettivamente ``velocit\`a'' e ``posizione'',
+$F$ \`e la somma vettoriale delle forze applicate al sistema (misurata
+in Newton: una forza di 1 newton imporr\`a una accelerazione di 1
+$\dfrac{m}{s^2}$ ad una massa di un kg), $m$ \`e la massa
+(kg) e $a$ \`e l'accelerazione inerziale $\left(\frac{m}{s^2}\right)$.
+Il metodo per risolvere questo tipo di problema utilizzando la Legge
+di Newton \`e definito dal seguente procedimento:
+
+\begin{itemize}
+  \item assegnare delle variabili necessarie e sufficienti per
+    descrivere una posizione arbitraria dell'oggetto rispetto ad un
+    sistema inerziale
+  \item disegnare lo schema di ogni componente indicando le forze
+    agenti
+  \item applicare la Legge di Newton
+  \item combinare le equazioni per eliminare le forze interne: il
+    numero delle equazioni indipendenti deve essere uguale al numero
+    delle incognite
+  \item valutare accuratamente la scelta delle coordinate
+\end{itemize}
+
+\subsection{Massa-molla-attrito}
+In figura \ref{fig:massa-molla-smorzatore} abbiamo le seguenti variabili:
+$k$ \`e il coeffiente elastico della molla, $b$ \`e il coeffiente di
+attrito dello smorzatore, $u$ \`e la forza applicata, $y$ \`e lo
+spostamento. Dalla formula di Newton (\ref{leggedinewton}) si arriva rapidamente
+all'equazione del moto del sistema:
+\begin{equation}\label{massa-molla-attrito}
+u -ky -b\dot{y} = m \ddot{y}
+\end{equation}
+Notiamo come l'attrito sia proporzionale alla posizione $y$, mentre lo
+smorzamento sia proporzionale alla velocit\`a $\dot{y}$. Sfruttando le
+``sostituzioni di Laplace'' ($\dot{y} \rightarrow sy$, $\ddot{y}
+\rightarrow s^2y$), possiamo riscrivere la funzione di trasferimento come:
+$$m s^2 y + b s y + k y = u \Rightarrow y = \left ( \frac{1}{m s^2 +
+  bs + k} \right )u$$
+La rappresentazione di stato permette di scrivere l'equazione della
+funzione di trasferimento come sistema di equazioni del primo
+ordine. Posti $x_1 = y$ e $x_2 = \dot{y}$ si ha:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \dot{x}_1 = x_2\\
+    \dot{x}_2 = -\left(\dfrac{k}{m}\right)x_1 - \left(\dfrac{b}{m}\right)x_2 + \dfrac{u}{m}\\
+    y = x_1
+    \end{array}\right .
+\end{eqnarray*}
+La rappresentazione di stato in forma matriciale:
+\begin{eqnarray*}
+  \left\{ \begin{array}{lr}
+    \dot{x} = \begin{bmatrix}0 & 1\\-\frac{k}{m} &
+      -\frac{b}{m}\end{bmatrix}x
+    + \begin{bmatrix}0\\ \frac{1}{m}\end{bmatrix}u & \textrm{Come
+      l'ingresso modifica lo stato}\\
+    y = \begin{bmatrix}1 & 0\end{bmatrix}x & \textrm{Come lo stato
+        influisce sull'uscita}
+    \end{array}\right .
+\end{eqnarray*}
+\subsubsection{Stato e uscita di equilibrio}
+Supponiamo un ingresso $u = \overline{u}$ costante. \`E sufficiente
+ora porre le derivate dello stato uguali a zero:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \overline{x_2} = 0\\
+    \overline{u} - k \overline{x_1} = 0
+    \end{array}\right .
+  \Rightarrow
+  \left\{ \begin{array}{l}
+    \overline{x_2} = 0\\
+    \overline{x_1} = \dfrac{\overline{u}}{k}
+  \end{array}\right .
+  \Rightarrow
+  \overline{y} = \dfrac{1}{k} \overline{u} \;\; \textrm{che \`e l'uscita di equilibrio}
+\end{eqnarray*}
+Il valore $\frac{1}{k} = \frac{\overline{y}}{\overline{u}}$ \`e detto
+{\em guadagno statico}\index{Guadagno statico} e per ottenerlo \`e
+sufficiente porre $s = 0$ nella funzione di trasferimento. Non sempre
+un sistema presenta un guadagno statico. Un sistema senza punti di
+equilibrio \`e un sistema senza guadagno statico:
+$$\textrm{Punto di equilibrio} \Leftrightarrow \textrm{Guadagno statico}$$
+
+\subsection{Sospensioni}
+\begin{figure}[!b]
+\centering
+\includegraphics[width=0.4\textwidth]{./images/sospensioni.png}
+\caption{Sospensioni\label{fig:sospensioni}}
+\end{figure}
+Assumiamo il moto della massa dell'automobile su una ruota come
+monodimensionale, cio\`e solo verticale. $k_s$ \`e il coeffiente di
+elasticit\`a delle sospensioni, $b$ \`e il coeffiente di smorzamento
+delle sospensioni, $k_w$ \`e il coeffiente di elasticit\`a del
+pneumatico, $m_1$ \`e la massa della ruota, $m_2$ \`e la massa
+dell'auto, $u$ \`e la superficie stradale. Il modello tralascia
+volutamente la forza di gravit\`a. Lo smorzamento introdotto dalla
+sospensione \`e considerato proporzionale alla velocit\`a di
+variazione dello spostamento relativo tra le due masse, cio\`e a
+$b(\dot{y} - \dot{x})$. Per comodit\`a consideriamo un modello ad
+elementi separati, separando le due masse ed analizzandole singolarmente.
+
+
+Dal punto di vista della della ruota ($m_1$), si hanno tre contributi:
+il contributo della molla $k_w$, che rappresenta l'elasticit\`a del
+pneumatico, \`e diretto verso il suolo; il contributo della molla
+$k_s$ e dello smorzatore $b$ che rappresentano la sospensione e sono
+diretti verso l'automobile.
+
+Dal punto di vista dell'automobile ($m_2$) abbiamo solo i contributi
+della molla $k_s$ e dello smorzatore $b$, entrambi rivolti verso la ruota.
+Il modello complessivo \`e:
+\begin{equation}\label{sospensionem1}
+  k_s(y-x) + b(\dot{y} - \dot{x}) - k_w(x-r) = m_1\ddot{x}
+\end{equation}
+
+\begin{equation}\label{sospensionem2}
+  -k_s(y-x) -b(\dot{y} - \dot{x}) = m_2 \ddot{y}
+\end{equation}
+
+Cerchiamo la funzione di trasferimento del sistema considerando come
+ingresso $r$ e come uscita la sola $y$:
+$$G(s) = \frac{Y(s)}{R(s)}$$
+Dalla \ref{sospensionem1} otteniamo:
+\begin{eqnarray*}
+  \begin{array}{l}
+    k_s(y-x) + bs(y-x) - k_w(x-r) = m_1s^2x\\
+    k_sy - k_sx + bsy - bsx - k_wx + k_wr - m_1s^2x = 0\\
+    k_wr = (k_s + bs + k_w + m_1s^2)x - (k_s +bs)y
+  \end{array}
+\end{eqnarray*}
+Dalla \ref{sospensionem2} otteniamo:
+\begin{eqnarray*}
+  \begin{array}{l}
+    -k_s(y-x) -  bs(\dot{y} - \dot{x}) = m_2s^2y\\
+    (m_2 s^2 +k_s +bs)y - (k_s + bs)x = 0
+  \end{array}
+\end{eqnarray*}
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    k_wr = (k_s + bs + k_w + m_1s^2)x - (k_s +bs)y\\
+    (m_2 s^2 +k_s +bs)y - (k_s + bs)x = 0
+    \end{array}\right .
+\end{eqnarray*}
+La funzione di trasferimento che si ottiene \`e:
+$$\dfrac{Y(s)}{R(s)} = \dfrac{\dfrac{k_wb}{m_1m_2} \left( s +
+  \dfrac{k_s}{b}\right)}{s^4 + \left( \dfrac{b}{m_1} +
+  \dfrac{b}{m_2}\right)s^3 + \left( \dfrac{k_s}{m_1} +
+  \dfrac{k_s}{m_2} + \dfrac{k_w}{m_1}\right)s^2 + \left( \dfrac{k_w
+  b}{m_1 m_2}\right)s + \dfrac{k_w k_s}{m_1 m_2}}$$
+
+Valutiamo ora la rappresentazione in termini di variabili di stato,
+ponendo $x_1 = x$, $x_2 = \dot{x}$, $x_3 = y$, $x_4 = \dot{y}$:
+\begin{eqnarray*}
+  \left\{ \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \frac{k_s}{m_1}(x_3 - x_1) + \frac{b}{m_1}(x_4 - x_2)
+    - \frac{k_w}{m_1}(x_1 - r)\\
+    \dot{x_3} = x_4\\
+    \dot{x_4} = \frac{k_s}{m_2}(x_3 - x_1) + \frac{b}{m_2}(x_4 -
+    x_2)\\
+    x = x_1\\
+    Y = x_3
+    \end{array}\right .
+\end{eqnarray*}
+Mentre in termini matriciali, posto:
+\[
+  x = 
+  \begin{bmatrix}
+    x_1\\
+    x_2\\
+    x_3\\
+    x_4
+  \end{bmatrix}
+\]
+possiamo scrivere:
+\[
+  \dot{x} = 
+  \begin{bmatrix}
+    0 & 1 & 0 & 0\\
+    -\frac{k_s - k_w}{m_1} & -\frac{b}{m_1} & \frac{k_s}{m_1} &
+    \frac{b}{m_1}\\
+    0 & 0 & 0 & 1\\
+    -\frac{k_s}{m_2} & \frac{b}{m_2} & -\frac{k_s}{m_2} &
+    -\frac{b}{m_2}
+  \end{bmatrix}x +
+  \begin{bmatrix}
+    0\\
+    \frac{k_w}{m_1}\\
+    0\\
+    0
+  \end{bmatrix}r
+\]
+
+\[
+  \begin{bmatrix}
+    y\\x
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    0 & 0 & 1 & 0\\
+    1 & 0 & 0 & 0
+  \end{bmatrix}x
+\]
+All'equilibrio le derivate sono nulle e si trova che lo stato di
+equilibrio del sistema \`e:
+
+\[
+  \left\{
+  \begin{array}{l}
+    \overline{x_2} = \overline{x_4} = 0\\
+    \overline{x_1} = \overline{x_3} = r
+  \end{array} \right .
+\]
+A corredo del precedente esempio, consigliamo l'esercizio 2.1 di
+pagina 78 del Franklin Powell e relativa soluzione presente nel file
+\url{http://ur1.ca/9fzq} . Un dato importante che emerge dall'analisi
+di questo tipo di sistemi \`e la necessit\`a di valutare singolarmente
+le diverse masse e scegliere accuratamente i sistemi di
+riferimento. Osservando con attenzione la soluzione dell'esercizio del
+Franklin Powell si nota un differente approccio rispetto a quello
+mostrato in questo paragrafo. Ad un'analisi piu' approfondita si
+noter\`a che le soluzioni sono equivalenti. \`E la scelta dei sistemi
+di riferimento che \`e differente.
+\subsubsection{Errori di segno}
+La principale fonte di errori sono i ``segni''. Una volta ottenute le
+equazioni di un sistema stabile non ci resta che controllare i
+segni delle varie variabili. Tutti i segni devono essere
+concordi. Considerando il predente esempio, tutte le variabili
+$\ddot{x}$, $\dot{x}$ ed $x$ hanno segno concorde. Stesso discorso per
+le $\ddot{y}$, $\dot{y}$ e $y$.
+
+\subsection{Moto rotatorio}
+Per il moto rotatorio la Legge di Newton si modifica nel seguente modo:
+
+\begin{equation}\label{momentodelleforze}
+  M = I \alpha
+\end{equation}
+dove $M$ \`e il {\em momento delle forze}\index{Momento delle forze} applicate al
+sistema (misurato in $N \cdot m$ e spesso indicato alternativamente
+con $\tau$), $I$ \`e il {\em momento di inerzia}\index{Momento di
+  inerzia} del corpo rispetto all'asse di rotazione ($I = mr^2$) ed
+$\alpha$ \`e l'{\em accelerazione
+  angolare}\index{Accelerazione angolare} (misurata in $\frac{rad}{s^2}$).
+% IMMAGINE DI PAGINA 14
+Supponiamo di avere una massa $m$ che si muova nello spazio con
+velocit\`a $\vec{v}$. Definiamo la {\em quantit\`a di
+  moto}\index{Quantit\`a di moto} come:
+\begin{equation}
+  \vec{p} = m \vec{v}
+\end{equation}
+e definiamo la forza come variazione della quantit\`a di moto
+$\Rightarrow \vec{F} = \dfrac{d\vec{p}}{dt}$.
+Si definisce {\em Momento della quantit\`a di moto}\index{Momento
+  della quantit\`a di moto} del punto materiale $m$ rispetto ad un
+riferimento fissato $O$ il vettore $\vec{e}$:
+\begin{equation}
+  \vec{e} \equiv \vec{r^{'}} \times \vec{p}
+\end{equation}
+Supponiamo che su $m$ sia applicata una forza $\vec{F}$; allora
+definiamo il {\em Momento delle forza applicate}\index{Momento delle
+  forza} al punto materiale $m$ come:
+\begin{equation}
+  \vec{\tau} = \vec{r^{'}} \times \vec{F}
+\end{equation}
+Calcoliamo la derivata temporale di $\vec{e}$:
+$$\frac{d \vec{e}}{dt} = \frac{d \vec{r^{'}}}{dt} \times \vec{p} +
+\vec{r^{'}} \times \frac{d \vec{p}}{dt} = \frac{d \vec{r^{'}}}{dt}
+\times \vec{p} = \vec{\tau}$$
+Ma \`e anche vero che:
+$$\vec{r^{'}} = \vec{r} - \vec{r_0} \Rightarrow \frac{d
+  \vec{r^{'}}}{dt} = \frac{d (\vec{r} - \vec{r_0})}{dt} =
+\frac{d\vec{r}}{dt} - \frac{d \vec{r^{'}}}{dt} = \vec{v} -
+\xout{\vec{v_0}} = \vec{v}$$
+$$\Rightarrow \frac{d \vec{e}}{dt} = \xout{\vec{v} \times \vec{p}} +
+\vec{\tau} \Rightarrow \frac{d \vec{e}}{dt} = \vec{\tau}$$
+
+% IMMAGINI DI PAGINA 15
+
+Se invece di un punto materiale, consideriamo un insieme di punti
+materiali ognuno con una sua massa e velocit\`a e su cui agiscono
+delle forze. Detto $i$ il generico punto materiale, supponiamo che
+$m_i$ si muova con velocit\`a $v_i$ e che sia sottoposto ad una forza
+$\vec{F_i}$. Il momento della quantit\`a di moto del punto $i$ sar\`a
+(per ogni $i$):
+$$\frac{d \vec{e_i}}{dt} = \vec{\tau_i}$$
+Sommiamo tutte le equazioni degli $N$ punti materiali:
+$$\sum_{i=1}^{N} \frac{d \vec{e_i}}{dt} = \sum_{i=1}^{N}
+\vec{\tau_i}$$
+La derivazione \`e indipendente dalla operazione di somma, per cui
+``posso invertire e ottengo di nuovo'':
+$$\frac{d \vec{L}}{dt} = \vec{\tau}$$
+Nota: se il numero di punti \`e infinito, si effettua l'integrale
+piuttosto che la somma.
+
+Condideriamo ora un corpo, all'interno di esso consideriamo un
+volumetto infinitesimo $dv$ la cui posizione \`e approssimata a quella
+di $P$, punto interno a $dv$. Nel volumetto $dv$ c'\`e una massa pari
+a: $dm = \mu(p) dv$ dove $\mu(p)$ \`e la densit\`a del corpo. Il
+momento della quantit\`a di moto in questo caso \`e:
+\begin{equation}\label{L}
+\vec{L} = \int_{v} \vec{r_p} \times \mu(p) dv \vec{v}(p)
+\end{equation}
+Supponiamo che il corpo stia ruotando. Se conosciamo l'asse su cui ruota
+possiamo calcolare le componenti del vettore posizione rispetto a
+quell'asse. Per semplicit\`a supponiamo che sia l'asse $y$. Ci sono
+due componenti, una ortogonale e l'altra parallela all'asse:
+$$\vec{v}(p) = \vec{\omega} \times \vec{r_p} = \vec{\omega} \cdot
+(\vec{a_p} + \vec{R_p}) = \xout{\vec{\omega} \times \vec{a_p}} +
+\vec{\omega} \times \vec{R_p}$$
+Nota: dobbiamo considerare solo il contributo ortogonale
+all'asse. Sostituiamo $\vec{v}(p)$ nella \ref{L}:
+$$\vec{L} = \int_v \vec{r_p} \times \mu(p) (\vec{\omega} \times
+\vec{R_p}) dv = \underbrace{\int_v \mu(p) R_p^2 dv}_\text{I} \cdot
+\vec{\omega}$$
+Ma $I = \int_v \mu(p) R_p^2 dv$ \`e il momento di inerzia e quindi
+$\vec{L} = I \vec{omega}$. Derivando, infine, membro a membro
+otteniamo:
+\begin{equation}
+  \frac{d \vec{L}}{dt} = I \frac{d \vec{\omega}}{dt} = \vec{\tau}
+  \Rightarrow \vec{\tau} = I \vec{\alpha}
+\end{equation}
+ottenendo finalmente il principio $F = m \cdot a$ per i moti rotatori
+della \ref{momentodelleforze}.
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=1.0\textwidth]{./images/mototraslatorio-motorotatorio.png}
+  \label{fig:mototraslatorio-motorotatorio}
+  \caption{Moto traslatorio - Moto rotatorio\label{fig:mototraslatorio-motorotatorio}}
+\end{figure}
+
+\subsection{Controllo di un satellite}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/satellite.png}
+  \label{fig:satellite}
+  \caption{Schema di controllo di un satellite\label{fig:satellite}}
+\end{figure}
+
+Le variabili che considereremo sono la propulsione $F_c$, il momento
+delle forze di disturbo $M_D$, la distanza $d$ tra la retta su $F_C$ e
+la retta parallela e passante per il centro di massa e infine $y =
+\theta$, l'uscita.
+La Legge di Newton per il moto
+rotatorio\label{leggedinewtonmotorotatorio} \`e:
+$$M = I \alpha$$
+con $M$ pari alla somma di tutti i momenti esterni, $I$ pari al
+momento di inerzia del corpo e $\alpha$ pari al momento angolare.
+Applicando la legge sul moto rotatorio e considerando
+che sul satellite agisce una forza provocata dalla propulsione che \`e
+una coppia di momento $F_c \cdot d$ e un momento $M_D$ dovuto a forze
+di disturbo, per lo pi\`u la pressione solare sulle superfici
+asimmetriche dei pannelli solari:
+$$F_C \cdot d + M_D = I \ddot{\theta}$$
+Le ipotesi semplificative sono quindi due: il motore che agisce come
+una coppia e il moto in un piano ortogonale all'asse di
+rotazione. L'uscita di questo sistema si ottiene per doppia
+integrazione della somma della coppie di ingresso. Per questa ragione
+questo sistema viene spesso detto {\em doppio
+  integratore}\index{Doppio integratore}. La funzione di trasferimento
+partendo dall'equazione del moto \`e:
+
+\[
+  F_c \cdot M_D = I s^2 \theta \Rightarrow \frac{\theta(s)}{U(s)} =
+  \frac{1}{Is^2} \binom{\textrm{2 ingressi}}{\textrm{1 uscita}}
+\]
+La rappresentazione di stato, posto $x_1 \equiv \theta$ e $x_2 \equiv
+\dot{\theta}$ \`e:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \frac{M_D}{I} + \frac{(F_C \cdot d)}{I}\\
+    y = \theta = x_1
+  \end{array}\right .
+  \Rightarrow
+  \begin{array}{l}
+    \dot{x} = 
+    \begin{bmatrix}
+      0 & 1\\
+      0 & 0
+    \end{bmatrix}x +
+    \begin{bmatrix}
+      0\\
+      \frac{1}{I}
+    \end{bmatrix}u\\
+    y =
+    \begin{bmatrix}
+      1 & 0
+    \end{bmatrix}x
+  \end{array}
+\]
+Per questo sistema non esiste alcun punto di equilibrio. \'E
+deducibile anche dal fatto che manca una qualsiasi forza che si
+opponga ad $F_C$.
+
+\subsection{Disco rotante intorno ad un asse con attrico}\label{par:discorotanteattrito}
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.2\textwidth]{./images/discorotanteattrito.png}
+  \label{fig:discorotanteattrito}
+  \caption{Schema di disco rotante con attrito\label{fig:discorotanteattrito}}
+\end{figure}
+Le variabili del sistema sono: la coppia motrice in ingresso $u$, il
+momento inerziale $I$, lo spostamento angolare $\theta$ e il coeffiente
+di attrito $B$. L'equazione del moto \`e:
+$$u - B \dot{\theta} = I \ddot{\theta} \;\;\;\textrm{con}\;\;\; I =
+\frac{1}{2} m_D R^2$$
+La rappresentazione di stato \`e:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = x_2 = \dot{\theta}\\
+    \dot{x_2} = -\frac{B}{I}x_2 + \frac{u}{I}\\
+    y = x_1 = \theta
+  \end{array}\right .
+\]
+La funzione di trasferimento \`e:
+\[
+  \begin{array}{l}
+    \ddot{\theta} = -(\frac{B}{I})\dot{\theta} + \frac{u}{y}\\
+    s^2 y = -\frac{B}{I} \cdot sy + \frac{u}{I}\\
+    s^2 y + \frac{B}{I} sy = \frac{u}{I}\\
+    \frac{y}{u}(s^2 + \frac{B}{I}s) = \frac{u}{I} \cdot \frac{1}{u}
+  \end{array}
+\]
+$$G(s) = \frac{1}{I(s^2 + \frac{B}{I}s)} = \frac{1}{s^2 I +sB}$$
+
+\subsection{Disco rotante intorno ad un asse con attrico ed
+  elasticit\`a}
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.2\textwidth]{./images/discorotanteattritoelasticita.png}
+  \label{fig:discorotanteattritoelasticita}
+  \caption{Schema di disco rotante con attrito ed elasticit\`a\label{fig:discorotanteattritoelasticita}}
+\end{figure}
+Consideriamo lo stestto esempio. In questo caso, per\`o, \`e presente
+anche una certa elasticit\`a dell'asse di rotazione, con $k$ costante
+elastica. L'equazione del moto \`e:
+$$u - B\dot{\theta} - k \theta = I \ddot{\theta}$$
+La funzione di trasferimento \`e:
+$$s^2 I \theta = u - s B \theta - k \theta \Rightarrow
+\frac{\theta}{u} = \frac{1}{s^2 I + s B  + k}$$
+Si nota che l'equilibrio \`e del tutto simile a quella del caso
+massa-molla-attrito. Essendo la stessa funzione di trasferimento del
+caso massa-molla-attrito (eq. \ref{massa-molla-attrito}) non \`e
+necessario procedere con le considerazioni sullo stato, l'equilibrio e
+la rappresentazione matriciale.
+
+\subsection{Satellite-Terra}
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/terrasatellite.png}
+  \label{fig:terrasatellite}
+  \caption{Schema di un satellite che ruota intorno alla Terra\label{fig:terrasatellite}}
+\end{figure}
+Le variabili del sistema sono: la Terra $T$, il satellite $S$,
+il versore della direzione tangenziale $i_{\theta}$, il versore
+della direzione radiale $i_r$. Modelliamo le interazioni tra due corpi
+quando uno ruota intorno all'altro (Satellite-Terra). Per semplicit\`a
+supporremo che il satellite si muova sempre lungo un'orbita circolare,
+sempre sullo stesso piano perpendicolare all'asse di rotazione e le
+dimensioni di Terra e satellite siano trascurabili. Questo tipo di
+problema si risolve bene in coordinate cilindriche dove $i_r$
+(direzione radiale) e $i_{\theta}$ (direzione tangenziale) ruotano
+anch'essi. Da ricordare, la {\em Legge di gravitazione
+  universale}\index{Legge di gravitazione universale}:
+$$-k \frac{M_T M_S}{r^2}$$
+e le {\em Relazioni di Poisson}\index{Poisson}:
+\[
+  \left\{
+  \begin{array}{l}
+    \dfrac{di_r}{dt} = \dot{\theta}i_{\theta}\\
+    \dfrac{di_{\theta}}{dt} = - \dot{\theta} i_r
+  \end{array}\right .
+\]
+Detta $P$ la posizione del satellite: $\vec{P} = r i_r$, ricordando
+che $\dot{P} = r \dot{\theta} i_{\theta} + \dot{r}i_r$, derivando due
+volte si ottiene l'accelerazione del satellite:
+$$\ddot{P} = (\ddot{r} - r \dot{\theta}^2)i_r + (r \ddot{\theta} + 2r \dot{\theta})i_{\theta}$$
+Le forze agenti sul satellite sono:
+$$F = \left( -k \dfrac{M_T M_S}{r^2} + u_1 \right)i_r + u_2
+i_{\theta}$$
+Le equazioni del moto lungo i versori $i_r$ e $i_{\theta}$:
+\[
+  M_S (\ddot{r} - r \dot{\theta}^2) = -k \dfrac{M_T M_S}{r^2} + u_1
+\]
+\[
+  M_S (r \ddot{\theta} + 2r \dot{\theta}) = u_2
+\]
+Il modello in forma di stato prevede $x_1 = r$, $x_2 = \dot{r}$, $x_3
+= \theta$ e $x_4 = \dot{\theta}$:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x}_1 = x_2\\
+    \dot{x}_2 = - \dfrac{k M_T}{x_1^2} + x_1 x_4^2 +
+    \dfrac{u_1}{M_S}\\
+    \dot{x}_3 = x_4\\
+    \dot{x}_4 = -2 x_4 + \dfrac{u_2}{x_1}\\
+    y_1 = x_1\\
+    y_2 = x_3
+  \end{array}
+  \right .
+\]
+ANDREBBE INTEGRATO, MA NON RIESCO A TROVARE MATERIALE
+
+\subsection{Pendolo}\label{pendolo}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/pendolo.png}
+  \label{fig:pendolo}
+  \caption{Schema di un pendolo\label{fig:pendolo}}
+\end{figure}
+Supponiamo di avere un pendolo di lunghezza $l$. L'asta del pendolo
+\`e rigida. Alla baste dell'asta c'\`e una massa $m$. \`E presente un
+attrito $B$. Le forze agenti
+sono la forza applicata e la forza peso. Considereremo le componenti
+tangenziali al moto e la componente dovuta all'attrito. Abbiamo che
+l'ascissa curvilinea $s$ \`e pari a $s = l \theta$ e l'accelerazione
+tangenziale \`e pari a $\ddot{s} = l \ddot{\theta}$. L'equazione del
+moto \`e:
+\begin{equation}
+  u cos\theta - mg sin\theta - B \dot{\theta} = m l \ddot{\theta}
+\end{equation}
+cio\`e alla forza $u$ in ingresso si oppongono la gravit\`a (lungo
+l'asse verticale) e l'attrito $B$.
+Scriviamo la rappresentazione di stato ponendo $x_1 = \theta$ e $x_2 =
+\dot{\theta}$:
+\[
+  \left\{
+  \begin{array}{l}
+    \dot{x_1} = x_2\\
+    \dot{x_2} = \dfrac{1}{ml}\;u\;cos{x_1} - \dfrac{B}{ml}\;x_2 -
+    \dfrac{g}{l}\;sin{x_1}
+  \end{array}\right .
+\]
+Ponendo le derivate pari a zero, $x_2 = 0$ e, quindi, i punti di
+equilibrio del sistema sono:
+$$mg\sin{\overline{\theta}} = \overline{u}cos{\overline{\theta}}
+\Rightarrow \overline{\theta} \;arctg
+\left(\frac{\overline{u}}{mg}\right)$$
+Se l'ingresso $\overline{u}$ di equilibrio \`e nullo si ottengono due
+punti di equilibrio:
+$\overline{\theta_1} = 0$ e $\overline{\theta_2} = \pi$.
+
+\subsection{Carro-Ponte}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/carroponte.png}
+  \label{fig:carroponte}
+  \caption{Schema di un carro-ponte\label{fig:carroponte}}
+\end{figure}
+Il Carro-Ponte \`e un sistema complesso che, per\`o, pu\`o essere diviso in due
+sottosistemi che gi\`a abbiamo studiato: il carrello (\ref{carrello})
+ed il pendolo (\ref{pendolo}).
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/carroponte-carrello.png}
+  \label{fig:carroponte-carrello}
+  \caption{Schema di un carro-ponte: dettaglio del carrello\label{fig:carroponte-carrello}}
+\end{figure}
+Per il sottosistema ``carrello'', le equazioni sono quelle gi\`a
+ampiamente discusse:
+\begin{equation}\label{eq:carroponte-carrello}
+  m_t \ddot{x} = u - N - b \dot{x}
+\end{equation}
+con lo spostamento $x$, l'attrito $b$ ed una sconosciuta forza di
+reazione $N$ applicata dal pendolo.
+Per il sottosistema del pendolo, le considerazioni sono leggermente diverse da
+quelle fatte in precedenza poich\`e il fulcro del pendolo non \`e
+fisso rispetto al sistema di riferimento inerziale: vanno considerate,
+quindi, anche la rotazione del pendolo e lo spostamento del suo centro
+di massa.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/carroponte-pendolo-a.png}
+  \label{fig:carroponte-pendolo-a}
+  \caption{Schema di un carro-ponte: dettaglio del pendolo\label{fig:carroponte-pendolo-a}}
+\end{figure}
+La figura \ref{fig:carroponte-pendolo-a} mostra alcune delle
+caratteristiche di questo sottosistema:
+\begin{itemize}
+\item $l \dot{\theta}^2$ \`e la componente accelerazione lungo il
+  pendolo ed \`e detta {\em accelerazione
+    centripeta}\index{Accelerazione centripeta} ed \`e presente in
+  ogni oggetto la cui velocit\`a cambi direzione;
+\item $\ddot{x}$ \`e una componente dell'accelerazione ed \`e una
+  conseguenza del fulcro del pendolo che accelera a causa
+  dell'accelerazione del carrello. Avr\`a sempre la stessa direzione e
+  modulo di quella del carrello;
+\item $l \ddot{\theta}$ \`e il risultato dell'accelerazione angolare
+  del pendolo ed \`e sempre perpendicolare al pendolo stesso.
+\end{itemize}
+Questi risultati possono essere confermati considerando il centro di
+massa del pendolo come un vettore, in riferimento ad un sistema di
+riferimento inerziale, come mostrato in figura \ref{fig:carroponte-pendolo-b}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{./images/carroponte-pendolo-b.png}
+  \label{fig:carroponte-pendolo-b}
+  \caption{Schema di un carro-ponte: dettaglio del pendolo\label{fig:carroponte-pendolo-b}}
+\end{figure}
+La figura \ref{fig:carroponte-pendolo-b} mostra gli assi
+$\hat{i}$ e $\hat{j}$, inerzialmente fissi e il vettore $\vec{r}$ che
+descrive la posizione del centro di massa del pendolo. Il vettore
+$\vec{r}$ pu\`o essere espresso come:
+\[
+  \vec{r} = x \hat{i} + l (\hat{i} sin \theta - \hat{j} cos \theta)
+\]
+Derivando otteniamo:
+\[
+\begin{array}{l}
+  \dot{\vec{r}} = \dot{x} \hat{i} + l \dot{\theta} (\hat{i} cos \theta
+  + \hat{j} sin \theta)\\
+  \ddot{\vec{r}} = \ddot{x} \hat{i} + l \ddot{\theta} (\hat{i} cos
+  \theta + \hat{j} sin \theta) - l \dot{\theta}^2 ( \hat{i} sin \theta
+  - \hat{j} cos \theta)
+\end{array}
+\]
+Abbiamo ottenuto tutte le equazioni del sistema. In teoria potremmo
+applicare le equazioni per il moto traslatorio e rotatorio fino ad
+ottenere tre equazioni in tre incognite: $N$, $P$ e $\theta$. Questo
+sistema di equazioni pu\`o per\`o essere manipolato fino ad arrivare
+ad una sola equazione in $\theta$:
+\begin{equation}\label{eq:carroponte-N}
+  N = m_p \ddot{x} + m_p l \ddot{\theta} cos \theta - m_p l
+  \dot{\theta}^2 sin \theta
+\end{equation}
+Tuttavia possiamo limitare notevolmente i calcoli se applichiamo le
+equazioni perpendicolarmete al pendolo:
+\begin{equation}\label{eq:carroponte-P}
+P sin \theta + N cos \theta - m_p g sin \theta = m_p l \ddot{\theta} +
+m_p \ddot{x} cos \theta
+\end{equation}
+Applicando le equazioni intorno al centro di massa del pendolo
+otteniamo:
+\begin{equation}\label{eq:carroponte-I}
+  - P l sin \theta - N l cos \theta = I \ddot{\theta}
+\end{equation}
+Combinando la \ref{eq:carroponte-N} e la \ref{eq:carroponte-carrello} otteniamo:
+\begin{equation}
+  (m_t + m_p) \ddot{x} + b \dot{x} + m_p l \ddot{\theta} cos \theta -
+  m_p l \dot{\theta}^2 sin \theta = u
+\end{equation}
+Combinando la \ref{eq:carroponte-P} e la \ref{eq:carroponte-I}
+otteniamo:
+\begin{equation}
+  (I + m_p l^2) \ddot{x} + m_p g l sin \theta = - m_p l \ddot{x} cos \theta
+\end{equation}
+Entrambe le equazioni sono non-lineari e vanno linearizzate per
+piccoli spostamenti ($\theta = 0$). Supponiamo che $cos \theta
+\cong 1$, $sin \theta \cong 0$ e $\dot{\theta}^2 \cong
+0$. In questo modo le equazioni diventano:
+\begin{equation}\label{eq:carroponte-nonlineare}
+  \left\{
+  \begin{array}{l}
+    ( I + m_p l^2) \ddot{\theta} + m_p g l \theta = - m_p l \ddot{x}\\
+    (m_t + m_p) \ddot{x} + b \dot{x} + m_p l \ddot{\theta} = u
+  \end{array}
+  \right .
+\end{equation}
+Trascurando l'attrito otteniamo la funzione di trasfermimento:
+\begin{equation}
+  \dfrac{\Theta(s)}{U(s)} = \dfrac{- m_p l}{((I + m_p l^2)(m_t + m_p)
+    - m_p^2 l^2)s^2 + m_p g l (m_t + m_p)}
+\end{equation}
+
+\subsubsection{Pendolo inverso}\index{Pendolo inverso}
+Nel caso del pendolo inverso, cio\`e considerando un carrello che si
+muove su un piano e il fulcro del pendolo posto sul carrello le
+considerazioni da fare sono diverse. Quando, in precedenza, abbiamo
+assunto che $\theta \cong \pi$ assumiamo ora $\theta \cong \pi +
+\theta'$, con $\theta'$ pari al movimento verso l'alto. In questo
+caso, $cos \theta \cong -1$ e $sin \theta \cong - \theta'$ trasformano
+la \ref{eq:carroponte-nonlineare} in:
+\begin{equation}\label{eq:carroponte-pendoloinverso}
+  \left\{
+  \begin{array}{l}
+    ( I + m_p l^2) \ddot{\theta'} - m_p g l \theta' = m_p l \ddot{x}\\
+    (m_t + m_p) \ddot{x} + b \dot{x} - m_p l \ddot{\theta'} = u
+  \end{array}
+  \right .
+\end{equation}
+Come detto in precedenza, un sistema stabile ha sempre segni concordi
+per le stesse variabili. Nelle equazioni precedenti notiamo che
+$\theta'$ e $\ddot{\theta'}$ hanno segno opposto; ci\`o indica
+``instabilit\`a'', che \`e la caratteristica principale del pendolo
+inverso. La funzione di trasferimento, nuovamente ignorando l'attrito,
+\`e: 
+\begin{equation}
+   \dfrac{\Theta'(s)}{U(s)} = \dfrac{m_p l}{((I + m_p l^2) - m_p^2
+     l^2) s^2 - m_p g l (m_t + m_p)}
+\end{equation}
 
 \section{Sistemi elettrici}
 
@@ -2396,759 +3172,6 @@ Sostituendo si ottiene l'equazione lineare in $\delta h$:
   \delta \dot{h} = \dfrac{1}{\rho A} \delta \omega_{in} =
   \dfrac{\sqrt{g} \delta h}{\sqrt{\rho \overline{h}} \cdot 2 AR}
 \]
-
-\section{Sistemi Meccanici}
-\begin{figure}[!b]
-\centering
-\includegraphics[width=0.5\textwidth]{./images/carrello.png}
-\caption{Carrellino\label{fig:carrello}}
-\end{figure}
-\subsection{Carrello}\label{carrello}
-Il carrello di figura \ref{fig:carrello} \`e modellabile come una massa $m$ che si muove spinta da
-un ingresso $u$ fino ad un punto $y$. L'equazione del moto del
-sistema, stando alla Legge di Newton (\ref{leggedinewton}), 
-\`e quindi:
-$$F = m \cdot a \Rightarrow u = m \cdot \ddot{y}$$
-Integrando due volte si otttiene:
-$$y(t) = y(0) + \dot{y}(0) + \int_0^t \left ( \int_o^{\theta} u(\tau)d\tau
-\right ) d \theta$$
-La soluzione dell'equazione differenziale dipende dallo stato iniziale
-del carrello. Se ``sostituiamo'' i differenziali con le $s$ otteniamo
-la funzione di trasferimento:
-$$y = \frac{1}{ms^2} \cdot u$$
-Volendo ottenere la rappresentazione in forma di stato poniamo $x_1 =
-y$ e $x_2 = \dot{y}$ e riscriviamo il tutto come:
-\begin{eqnarray*}
-  \left\{ \begin{array}{l}
-    \dot{x_1} = x_2\\
-    \dot{x_2} = \frac{1}{m} \cdot u\\
-    y = x_1
-    \end{array}\right .
-\end{eqnarray*}
-Per i sistemi \`e, inoltre, possibile riscrivere il tutto in forma
-matriciale. Il carrello \`e un sistema lineare e quindi:
-\begin{eqnarray*}
-  \begin{array}{l}
-    \dot{x} = 
-    \begin{bmatrix}
-      0 & 1\\
-      0 & 0
-    \end{bmatrix}
-    x + 
-    \begin{bmatrix}
-      0\\
-      \frac{1}{m}
-    \end{bmatrix}u
-    \\
-    y = \begin{bmatrix}1 & 0 \end{bmatrix}x
-    \end{array}
-\end{eqnarray*}
-Nota: possiamo considerare il sistema come una serie di due
-``blocchetti''. Un primo che ne specifica i comportamenti dinamici,
-fornendo come risultato lo stato del sistema, ed un secondo blocchetto
-che specifica il comportamento statico, che riceve in ingresso lo
-stato e fornisce l'uscita totale del sistema.
-
-\begin{figure}[!b]
-\centering
-\includegraphics[width=0.5\textwidth]{./images/massa-molla-smorzatore.png}
-\caption{Massa-molla-smorzatore\label{fig:massa-molla-smorzatore}}
-\end{figure}
-
-\subsubsection{Legge di Newton}\label{leggedinewton}
-Per ottenere un modello matematico per qualsiasi sistema meccanico \`e
-fondamentale la Legge di Newton, che per il moto traslatorio \`e:
-$$F = ma = m \cdot \dot{v} = m \cdot \ddot{p}$$
-dove $v$ e $p$ sono rispettivamente ``velocit\`a'' e ``posizione'',
-$F$ \`e la somma vettoriale delle forze applicate al sistema (misurata
-in Newton: una forza di 1 newton imporr\`a una accelerazione di 1
-$\dfrac{m}{s^2}$ ad una massa di un kg), $m$ \`e la massa
-(kg) e $a$ \`e l'accelerazione inerziale $\left(\frac{m}{s^2}\right)$.
-Il metodo per risolvere questo tipo di problema utilizzando la Legge
-di Newton \`e definito dal seguente procedimento:
-
-\begin{itemize}
-  \item assegnare delle variabili necessarie e sufficienti per
-    descrivere una posizione arbitraria dell'oggetto rispetto ad un
-    sistema inerziale
-  \item disegnare lo schema di ogni componente indicando le forze
-    agenti
-  \item applicare la Legge di Newton
-  \item combinare le equazioni per eliminare le forze interne: il
-    numero delle equazioni indipendenti deve essere uguale al numero
-    delle incognite
-  \item valutare accuratamente la scelta delle coordinate
-\end{itemize}
-
-\subsection{Massa-molla-attrito}
-In figura \ref{fig:massa-molla-smorzatore} abbiamo le seguenti variabili:
-$k$ \`e il coeffiente elastico della molla, $b$ \`e il coeffiente di
-attrito dello smorzatore, $u$ \`e la forza applicata, $y$ \`e lo
-spostamento. Dalla formula di Newton (\ref{leggedinewton}) si arriva rapidamente
-all'equazione del moto del sistema:
-\begin{equation}\label{massa-molla-attrito}
-u -ky -b\dot{y} = m \ddot{y}
-\end{equation}
-Notiamo come l'attrito sia proporzionale alla posizione $y$, mentre lo
-smorzamento sia proporzionale alla velocit\`a $\dot{y}$. Sfruttando le
-``sostituzioni di Laplace'' ($\dot{y} \rightarrow sy$, $\ddot{y}
-\rightarrow s^2y$), possiamo riscrivere la funzione di trasferimento come:
-$$m s^2 y + b s y + k y = u \Rightarrow y = \left ( \frac{1}{m s^2 +
-  bs + k} \right )u$$
-La rappresentazione di stato permette di scrivere l'equazione della
-funzione di trasferimento come sistema di equazioni del primo
-ordine. Posti $x_1 = y$ e $x_2 = \dot{y}$ si ha:
-\begin{eqnarray*}
-  \left\{ \begin{array}{l}
-    \dot{x}_1 = x_2\\
-    \dot{x}_2 = -\left(\dfrac{k}{m}\right)x_1 - \left(\dfrac{b}{m}\right)x_2 + \dfrac{u}{m}\\
-    y = x_1
-    \end{array}\right .
-\end{eqnarray*}
-La rappresentazione di stato in forma matriciale:
-\begin{eqnarray*}
-  \left\{ \begin{array}{lr}
-    \dot{x} = \begin{bmatrix}0 & 1\\-\frac{k}{m} &
-      -\frac{b}{m}\end{bmatrix}x
-    + \begin{bmatrix}0\\ \frac{1}{m}\end{bmatrix}u & \textrm{Come
-      l'ingresso modifica lo stato}\\
-    y = \begin{bmatrix}1 & 0\end{bmatrix}x & \textrm{Come lo stato
-        influisce sull'uscita}
-    \end{array}\right .
-\end{eqnarray*}
-\subsubsection{Stato e uscita di equilibrio}
-Supponiamo un ingresso $u = \overline{u}$ costante. \`E sufficiente
-ora porre le derivate dello stato uguali a zero:
-\begin{eqnarray*}
-  \left\{ \begin{array}{l}
-    \overline{x_2} = 0\\
-    \overline{u} - k \overline{x_1} = 0
-    \end{array}\right .
-  \Rightarrow
-  \left\{ \begin{array}{l}
-    \overline{x_2} = 0\\
-    \overline{x_1} = \dfrac{\overline{u}}{k}
-  \end{array}\right .
-  \Rightarrow
-  \overline{y} = \dfrac{1}{k} \overline{u} \;\; \textrm{che \`e l'uscita di equilibrio}
-\end{eqnarray*}
-Il valore $\frac{1}{k} = \frac{\overline{y}}{\overline{u}}$ \`e detto
-{\em guadagno statico}\index{Guadagno statico} e per ottenerlo \`e
-sufficiente porre $s = 0$ nella funzione di trasferimento. Non sempre
-un sistema presenta un guadagno statico. Un sistema senza punti di
-equilibrio \`e un sistema senza guadagno statico:
-$$\textrm{Punto di equilibrio} \Leftrightarrow \textrm{Guadagno statico}$$
-
-\subsection{Sospensioni}
-\begin{figure}[!b]
-\centering
-\includegraphics[width=0.4\textwidth]{./images/sospensioni.png}
-\caption{Sospensioni\label{fig:sospensioni}}
-\end{figure}
-Assumiamo il moto della massa dell'automobile su una ruota come
-monodimensionale, cio\`e solo verticale. $k_s$ \`e il coeffiente di
-elasticit\`a delle sospensioni, $b$ \`e il coeffiente di smorzamento
-delle sospensioni, $k_w$ \`e il coeffiente di elasticit\`a del
-pneumatico, $m_1$ \`e la massa della ruota, $m_2$ \`e la massa
-dell'auto, $u$ \`e la superficie stradale. Il modello tralascia
-volutamente la forza di gravit\`a. Lo smorzamento introdotto dalla
-sospensione \`e considerato proporzionale alla velocit\`a di
-variazione dello spostamento relativo tra le due masse, cio\`e a
-$b(\dot{y} - \dot{x})$. Per comodit\`a consideriamo un modello ad
-elementi separati, separando le due masse ed analizzandole singolarmente.
-
-
-Dal punto di vista della della ruota ($m_1$), si hanno tre contributi:
-il contributo della molla $k_w$, che rappresenta l'elasticit\`a del
-pneumatico, \`e diretto verso il suolo; il contributo della molla
-$k_s$ e dello smorzatore $b$ che rappresentano la sospensione e sono
-diretti verso l'automobile.
-
-Dal punto di vista dell'automobile ($m_2$) abbiamo solo i contributi
-della molla $k_s$ e dello smorzatore $b$, entrambi rivolti verso la ruota.
-Il modello complessivo \`e:
-\begin{equation}\label{sospensionem1}
-  k_s(y-x) + b(\dot{y} - \dot{x}) - k_w(x-r) = m_1\ddot{x}
-\end{equation}
-
-\begin{equation}\label{sospensionem2}
-  -k_s(y-x) -b(\dot{y} - \dot{x}) = m_2 \ddot{y}
-\end{equation}
-
-Cerchiamo la funzione di trasferimento del sistema considerando come
-ingresso $r$ e come uscita la sola $y$:
-$$G(s) = \frac{Y(s)}{R(s)}$$
-Dalla \ref{sospensionem1} otteniamo:
-\begin{eqnarray*}
-  \begin{array}{l}
-    k_s(y-x) + bs(y-x) - k_w(x-r) = m_1s^2x\\
-    k_sy - k_sx + bsy - bsx - k_wx + k_wr - m_1s^2x = 0\\
-    k_wr = (k_s + bs + k_w + m_1s^2)x - (k_s +bs)y
-  \end{array}
-\end{eqnarray*}
-Dalla \ref{sospensionem2} otteniamo:
-\begin{eqnarray*}
-  \begin{array}{l}
-    -k_s(y-x) -  bs(\dot{y} - \dot{x}) = m_2s^2y\\
-    (m_2 s^2 +k_s +bs)y - (k_s + bs)x = 0
-  \end{array}
-\end{eqnarray*}
-\begin{eqnarray*}
-  \left\{ \begin{array}{l}
-    k_wr = (k_s + bs + k_w + m_1s^2)x - (k_s +bs)y\\
-    (m_2 s^2 +k_s +bs)y - (k_s + bs)x = 0
-    \end{array}\right .
-\end{eqnarray*}
-La funzione di trasferimento che si ottiene \`e:
-$$\dfrac{Y(s)}{R(s)} = \dfrac{\dfrac{k_wb}{m_1m_2} \left( s +
-  \dfrac{k_s}{b}\right)}{s^4 + \left( \dfrac{b}{m_1} +
-  \dfrac{b}{m_2}\right)s^3 + \left( \dfrac{k_s}{m_1} +
-  \dfrac{k_s}{m_2} + \dfrac{k_w}{m_1}\right)s^2 + \left( \dfrac{k_w
-  b}{m_1 m_2}\right)s + \dfrac{k_w k_s}{m_1 m_2}}$$
-
-Valutiamo ora la rappresentazione in termini di variabili di stato,
-ponendo $x_1 = x$, $x_2 = \dot{x}$, $x_3 = y$, $x_4 = \dot{y}$:
-\begin{eqnarray*}
-  \left\{ \begin{array}{l}
-    \dot{x_1} = x_2\\
-    \dot{x_2} = \frac{k_s}{m_1}(x_3 - x_1) + \frac{b}{m_1}(x_4 - x_2)
-    - \frac{k_w}{m_1}(x_1 - r)\\
-    \dot{x_3} = x_4\\
-    \dot{x_4} = \frac{k_s}{m_2}(x_3 - x_1) + \frac{b}{m_2}(x_4 -
-    x_2)\\
-    x = x_1\\
-    Y = x_3
-    \end{array}\right .
-\end{eqnarray*}
-Mentre in termini matriciali, posto:
-\[
-  x = 
-  \begin{bmatrix}
-    x_1\\
-    x_2\\
-    x_3\\
-    x_4
-  \end{bmatrix}
-\]
-possiamo scrivere:
-\[
-  \dot{x} = 
-  \begin{bmatrix}
-    0 & 1 & 0 & 0\\
-    -\frac{k_s - k_w}{m_1} & -\frac{b}{m_1} & \frac{k_s}{m_1} &
-    \frac{b}{m_1}\\
-    0 & 0 & 0 & 1\\
-    -\frac{k_s}{m_2} & \frac{b}{m_2} & -\frac{k_s}{m_2} &
-    -\frac{b}{m_2}
-  \end{bmatrix}x +
-  \begin{bmatrix}
-    0\\
-    \frac{k_w}{m_1}\\
-    0\\
-    0
-  \end{bmatrix}r
-\]
-
-\[
-  \begin{bmatrix}
-    y\\x
-  \end{bmatrix} = 
-  \begin{bmatrix}
-    0 & 0 & 1 & 0\\
-    1 & 0 & 0 & 0
-  \end{bmatrix}x
-\]
-All'equilibrio le derivate sono nulle e si trova che lo stato di
-equilibrio del sistema \`e:
-
-\[
-  \left\{
-  \begin{array}{l}
-    \overline{x_2} = \overline{x_4} = 0\\
-    \overline{x_1} = \overline{x_3} = r
-  \end{array} \right .
-\]
-A corredo del precedente esempio, consigliamo l'esercizio 2.1 di
-pagina 78 del Franklin Powell e relativa soluzione presente nel file
-\url{http://ur1.ca/9fzq} . Un dato importante che emerge dall'analisi
-di questo tipo di sistemi \`e la necessit\`a di valutare singolarmente
-le diverse masse e scegliere accuratamente i sistemi di
-riferimento. Osservando con attenzione la soluzione dell'esercizio del
-Franklin Powell si nota un differente approccio rispetto a quello
-mostrato in questo paragrafo. Ad un'analisi piu' approfondita si
-noter\`a che le soluzioni sono equivalenti. \`E la scelta dei sistemi
-di riferimento che \`e differente.
-\subsubsection{Errori di segno}
-La principale fonte di errori sono i ``segni''. Una volta ottenute le
-equazioni di un sistema stabile non ci resta che controllare i
-segni delle varie variabili. Tutti i segni devono essere
-concordi. Considerando il predente esempio, tutte le variabili
-$\ddot{x}$, $\dot{x}$ ed $x$ hanno segno concorde. Stesso discorso per
-le $\ddot{y}$, $\dot{y}$ e $y$.
-
-\subsection{Moto rotatorio}
-Per il moto rotatorio la Legge di Newton si modifica cos\`i:
-
-\begin{equation}\label{momentodelleforze}
-  M = I \alpha
-\end{equation}
-dove $M$ \`e il {\em momento delle forze}\index{Momento delle forze} applicate al
-sistema (misurato in $N \cdot m$ e spesso indicato alternativamente
-con $\tau$), $I$ \`e il {\em momento di inerzia}\index{Momento di
-  inerzia} del corpo rispetto all'asse di rotazione ($I = mr^2$) ed
-$\alpha$ \`e l'{\em accelerazione
-  angolare}\index{Accelerazione angolare} (misurata in $\frac{rad}{s^2}$).
-% IMMAGINE DI PAGINA 14
-Supponiamo di avere una massa $m$ che si muova nello spazio con
-velocit\`a $\vec{v}$. Definiamo la {\em quantit\`a di
-  moto}\index{Quantit\`a di moto} come:
-\begin{equation}
-  \vec{p} = m \vec{v}
-\end{equation}
-e definiamo la forza come variazione della quantit\`a di moto
-$\Rightarrow \vec{F} = \dfrac{d\vec{p}}{dt}$.
-Si definisce {\em Momento della quantit\`a di moto}\index{Momento
-  della quantit\`a di moto} del punto materiale $m$ rispetto ad un
-riferimento fissato $O$ il vettore $\vec{e}$:
-\begin{equation}
-  \vec{e} \equiv \vec{r^{'}} \times \vec{p}
-\end{equation}
-Supponiamo che su $m$ sia applicata una forza $\vec{F}$; allora
-definiamo il {\em Momento delle forza applicate}\index{Momento delle
-  forza} al punto materiale $m$ come:
-\begin{equation}
-  \vec{\tau} = \vec{r^{'}} \times \vec{F}
-\end{equation}
-Calcoliamo la derivata temporale di $\vec{e}$:
-$$\frac{d \vec{e}}{dt} = \frac{d \vec{r^{'}}}{dt} \times \vec{p} +
-\vec{r^{'}} \times \frac{d \vec{p}}{dt} = \frac{d \vec{r^{'}}}{dt}
-\times \vec{p} = \vec{\tau}$$
-Ma \`e anche vero che:
-$$\vec{r^{'}} = \vec{r} - \vec{r_0} \Rightarrow \frac{d
-  \vec{r^{'}}}{dt} = \frac{d (\vec{r} - \vec{r_0})}{dt} =
-\frac{d\vec{r}}{dt} - \frac{d \vec{r^{'}}}{dt} = \vec{v} -
-\xout{\vec{v_0}} = \vec{v}$$
-$$\Rightarrow \frac{d \vec{e}}{dt} = \xout{\vec{v} \times \vec{p}} +
-\vec{\tau} \Rightarrow \frac{d \vec{e}}{dt} = \vec{\tau}$$
-
-% IMMAGINI DI PAGINA 15
-
-Se invece di un punto materiale, consideriamo un insieme di punti
-materiali ognuno con una sua massa e velocit\`a e su cui agiscono
-delle forze. Detto $i$ il generico punto materiale, supponiamo che
-$m_i$ si muova con velocit\`a $v_i$ e che sia sottoposto ad una forza
-$\vec{F_i}$. Il momento della quantit\`a di moto del punto $i$ sar\`a
-(per ogni $i$):
-$$\frac{d \vec{e_i}}{dt} = \vec{\tau_i}$$
-Sommiamo tutte le equazioni degli $N$ punti materiali:
-$$\sum_{i=1}^{N} \frac{d \vec{e_i}}{dt} = \sum_{i=1}^{N}
-\vec{\tau_i}$$
-La derivazione \`e indipendente dalla operazione di somma, per cui
-``posso invertire e ottengo di nuovo'':
-$$\frac{d \vec{L}}{dt} = \vec{\tau}$$
-Nota: se il numero di punti \`e infinito, si effettua l'integrale
-piuttosto che la somma.
-
-Condideriamo ora un corpo, all'interno di esso consideriamo un
-volumetto infinitesimo $dv$ la cui posizione \`e approssimata a quella
-di $P$, punto interno a $dv$. Nel volumetto $dv$ c'\`e una massa pari
-a: $dm = \mu(p) dv$ dove $\mu(p)$ \`e la densit\`a del corpo. Il
-momento della quantit\`a di moto in questo caso \`e:
-\begin{equation}\label{L}
-\vec{L} = \int_{v} \vec{r_p} \times \mu(p) dv \vec{v}(p)
-\end{equation}
-Supponiamo che il corpo stia ruotando. Se conosciamo l'asse su cui ruota
-possiamo calcolare le componenti del vettore posizione rispetto a
-quell'asse. Per semplicit\`a supponiamo che sia l'asse $y$. Ci sono
-due componenti, una ortogonale e l'altra parallela all'asse:
-$$\vec{v}(p) = \vec{\omega} \times \vec{r_p} = \vec{\omega} \cdot
-(\vec{a_p} + \vec{R_p}) = \xout{\vec{\omega} \times \vec{a_p}} +
-\vec{\omega} \times \vec{R_p}$$
-Nota: dobbiamo considerare solo il contributo ortogonale
-all'asse. Sostituiamo $\vec{v}(p)$ nella \ref{L}:
-$$\vec{L} = \int_v \vec{r_p} \times \mu(p) (\vec{\omega} \times
-\vec{R_p}) dv = \underbrace{\int_v \mu(p) R_p^2 dv}_\text{I} \cdot
-\vec{\omega}$$
-Ma $I = \int_v \mu(p) R_p^2 dv$ \`e il momento di inerzia e quindi
-$\vec{L} = I \vec{omega}$. Derivando, infine, membro a membro
-otteniamo:
-\begin{equation}
-  \frac{d \vec{L}}{dt} = I \frac{d \vec{\omega}}{dt} = \vec{\tau}
-  \Rightarrow \vec{\tau} = I \vec{\alpha}
-\end{equation}
-ottenendo finalmente il principio $F = m \cdot a$ per i moti rotatori
-della \ref{momentodelleforze}.
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=1.0\textwidth]{./images/mototraslatorio-motorotatorio.png}
-  \label{fig:mototraslatorio-motorotatorio}
-  \caption{Moto traslatorio - Moto rotatorio\label{fig:mototraslatorio-motorotatorio}}
-\end{figure}
-
-\subsection{Controllo di un satellite}
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=0.3\textwidth]{./images/satellite.png}
-  \label{fig:satellite}
-  \caption{Schema di controllo di un satellite\label{fig:satellite}}
-\end{figure}
-
-Le variabili che considereremo sono la propulsione $F_c$, il momento
-delle forze di disturbo $M_D$, la distanza $d$ tra la retta su $F_C$ e
-la retta parallela e passante per il centro di massa e infine $y =
-\theta$, l'uscita.
-La Legge di Newton per il moto
-rotatorio\label{leggedinewtonmotorotatorio} \`e:
-$$M = I \alpha$$
-con $M$ pari alla somma di tutti i momenti esterni, $I$ pari al
-momento di inerzia del corpo e $\alpha$ pari al momento angolare.
-Applicando la legge sul moto rotatorio e considerando
-che sul satellite agisce una forza provocata dalla propulsione che \`e
-una coppia di momento $F_c \cdot d$ e un momento $M_D$ dovuto a forze
-di disturbo, per lo pi\`u la pressione solare sulle superfici
-asimmetriche dei pannelli solari:
-$$F_C \cdot d + M_D = I \ddot{\theta}$$
-Le ipotesi semplificative sono quindi due: il motore che agisce come
-una coppia e il moto in un piano ortogonale all'asse di
-rotazione. L'uscita di questo sistema si ottiene per doppia
-integrazione della somma della coppie di ingresso. Per questa ragione
-questo sistema viene spesso detto {\em doppio
-  integratore}\index{Doppio integratore}. La funzione di trasferimento
-partendo dall'equazione del moto \`e:
-
-\[
-  F_c \cdot M_D = I s^2 \theta \Rightarrow \frac{\theta(s)}{U(s)} =
-  \frac{1}{Is^2} \binom{\textrm{2 ingressi}}{\textrm{1 uscita}}
-\]
-La rappresentazione di stato, posto $x_1 \equiv \theta$ e $x_2 \equiv
-\dot{\theta}$ \`e:
-\[
-  \left\{
-  \begin{array}{l}
-    \dot{x_1} = x_2\\
-    \dot{x_2} = \frac{M_D}{I} + \frac{(F_C \cdot d)}{I}\\
-    y = \theta = x_1
-  \end{array}\right .
-  \Rightarrow
-  \begin{array}{l}
-    \dot{x} = 
-    \begin{bmatrix}
-      0 & 1\\
-      0 & 0
-    \end{bmatrix}x +
-    \begin{bmatrix}
-      0\\
-      \frac{1}{I}
-    \end{bmatrix}u\\
-    y =
-    \begin{bmatrix}
-      1 & 0
-    \end{bmatrix}x
-  \end{array}
-\]
-Per questo sistema non esiste alcun punto di equilibrio. \'E
-deducibile anche dal fatto che manca una qualsiasi forza che si
-opponga ad $F_C$.
-
-\subsection{Disco rotante intorno ad un asse con attrico}\label{par:discorotanteattrito}
-\begin{figure}[!b]
-  \centering
-  \includegraphics[width=0.2\textwidth]{./images/discorotanteattrito.png}
-  \label{fig:discorotanteattrito}
-  \caption{Schema di disco rotante con attrito\label{fig:discorotanteattrito}}
-\end{figure}
-Le variabili del sistema sono: la coppia motrice in ingresso $u$, il
-momendo inerziale $I$, lo spostamento angolare $\theta$ e il coeffiente
-di attrito $B$. L'equazione del moto \`e:
-$$u - B \dot{\theta} = I \ddot{\theta} \;\;\;\textrm{con}\;\;\; I =
-\frac{1}{2} m_D R^2$$
-La rappresentazione di stato \`e:
-\[
-  \left\{
-  \begin{array}{l}
-    \dot{x_1} = x_2 = \dot{\theta}\\
-    \dot{x_2} = -\frac{B}{I}x_2 + \frac{u}{I}\\
-    y = x_1 = \theta
-  \end{array}\right .
-\]
-La funzione di trasferimento \`e:
-\[
-  \begin{array}{l}
-    \ddot{\theta} = -(\frac{B}{I})\dot{\theta} + \frac{u}{y}\\
-    s^2 y = -\frac{B}{I} \cdot sy + \frac{u}{I}\\
-    s^2 y + \frac{B}{I} sy = \frac{u}{I}\\
-    \frac{y}{u}(s^2 + \frac{B}{I}s) = \frac{u}{I} \cdot \frac{1}{u}
-  \end{array}
-\]
-$$G(s) = \frac{1}{I(s^2 + \frac{B}{I}s)} = \frac{1}{s^2 I +sB}$$
-
-\subsection{Disco rotante intorno ad un asse con attrico ed
-  elasticit\`a}
-\begin{figure}[!b]
-  \centering
-  \includegraphics[width=0.2\textwidth]{./images/discorotanteattritoelasticita.png}
-  \label{fig:discorotanteattritoelasticita}
-  \caption{Schema di disco rotante con attrito ed elasticit\`a\label{fig:discorotanteattritoelasticita}}
-\end{figure}
-Consideriamo lo stestto esempio. In questo caso, per\`o, \`e presente
-anche una certa elasticit\`a dell'asse di rotazione, con $k$ costante
-elastica. L'equazione del moto \`e:
-$$u - B\dot{\theta} - k \theta = I \ddot{\theta}$$
-La funzione di trasferimento \`e:
-$$s^2 I \theta = u - s B \theta - k \theta \Rightarrow
-\frac{\theta}{u} = \frac{1}{s^2 I + s B  + k}$$
-Si nota che l'equilibrio \`e del tutto simile a quella del caso
-massa-molla-attrito. Essendo la stessa funzione di trasferimento del
-caso massa-molla-attrito (eq. \ref{massa-molla-attrito}) non \`e
-necessario procedere con le considerazioni sullo stato, l'equilibrio e
-la rappresentazione matriciale.
-
-\subsection{Satellite-Terra}
-\begin{figure}[!b]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/terrasatellite.png}
-  \label{fig:terrasatellite}
-  \caption{Schema di un satellite che ruota intorno alla Terra\label{fig:terrasatellite}}
-\end{figure}
-Le variabili del sistema sono: la Terra $T$, il satellite $S$,
-il versore della direzione tangenziale $i_{\theta}$, il versore
-della direzione radiale $i_r$. Modelliamo le interazioni tra due corpi
-quando uno ruota intorno all'altro (Satellite-Terra). Per semplicit\`a
-supporremo che il satellite si muova sempre lungo un'orbita circolare,
-sempre sullo stesso piano perpendicolare all'asse di rotazione e le
-dimensioni di Terra e satellite siano trascurabili. Questo tipo di
-problema si risolve bene in coordinate cilindriche dove $i_r$
-(direzione radiale) e $i_{\theta}$ (direzione tangenziale) ruotano
-anch'essi. Da ricordare, la {\em Legge di gravitazione
-  universale}\index{Legge di gravitazione universale}:
-$$-k \frac{M_T M_S}{r^2}$$
-e le {\em Relazioni di Poisson}\index{Poisson}:
-\[
-  \left\{
-  \begin{array}{l}
-    \dfrac{di_r}{dt} = \dot{\theta}i_{\theta}\\
-    \dfrac{di_{\theta}}{dt} = - \dot{\theta} i_r
-  \end{array}\right .
-\]
-Detta $P$ la posizione del satellite: $\vec{P} = r i_r$, ricordando
-che $\dot{P} = r \dot{\theta} i_{\theta} + \dot{r}i_r$, derivando due
-volte si ottiene l'accelerazione del satellite:
-$$\ddot{P} = (\ddot{r} - r \dot{\theta}^2)i_r + (r \ddot{\theta} + 2r \dot{\theta})i_{\theta}$$
-Le forze agenti sul satellite sono:
-$$F = \left( -k \dfrac{M_T M_S}{r^2} + u_1 \right)i_r + u_2
-i_{\theta}$$
-Le equazioni del moto lungo i versori $i_r$ e $i_{\theta}$:
-\[
-  M_S (\ddot{r} - r \dot{\theta}^2) = -k \dfrac{M_T M_S}{r^2} + u_1
-\]
-\[
-  M_S (r \ddot{\theta} + 2r \dot{\theta}) = u_2
-\]
-Il modello in forma di stato prevede $x_1 = r$, $x_2 = \dot{r}$, $x_3
-= \theta$ e $x_4 = \dot{\theta}$:
-\[
-  \left\{
-  \begin{array}{l}
-    \dot{x}_1 = x_2\\
-    \dot{x}_2 = - \dfrac{k M_T}{x_1^2} + x_1 x_4^2 +
-    \dfrac{u_1}{M_S}\\
-    \dot{x}_3 = x_4\\
-    \dot{x}_4 = -2 x_4 + \dfrac{u_2}{x_1}\\
-    y_1 = x_1\\
-    y_2 = x_3
-  \end{array}
-  \right .
-\]
-ANDREBBE INTEGRATO, MA NON RIESCO A TROVARE MATERIALE
-
-\subsection{Pendolo}\label{pendolo}
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=0.3\textwidth]{./images/pendolo.png}
-  \label{fig:pendolo}
-  \caption{Schema di un pendolo\label{fig:pendolo}}
-\end{figure}
-Supponiamo di avere un pendolo di lunghezza $l$. L'asta del pendolo
-\`e rigida. Alla baste dell'asta c'\`e una massa $m$. \`E presente un
-attrito $B$. Le forze agenti
-sono la forza applicata e la forza peso. Considereremo le componenti
-tangenziali al moto e la componente dovuta all'attrito. Abbiamo che
-l'ascissa curvilinea $s$ \`e pari a $s = l \theta$ e l'accelerazione
-tangenziale \`e pari a $\ddot{s} = l \ddot{\theta}$. L'equazione del
-moto \`e:
-\begin{equation}
-  u cos\theta - mg sin\theta - B \dot{\theta} = m l \ddot{\theta}
-\end{equation}
-cio\`e alla forza $u$ in ingresso si oppongono la gravit\`a (lungo
-l'asse verticale) e l'attrito $B$.
-Scriviamo la rappresentazione di stato ponendo $x_1 = \theta$ e $x_2 =
-\dot{\theta}$:
-\[
-  \left\{
-  \begin{array}{l}
-    \dot{x_1} = x_2\\
-    \dot{x_2} = \dfrac{1}{ml}\;u\;cos{x_1} - \dfrac{B}{ml}\;x_2 -
-    \dfrac{g}{l}\;sin{x_1}
-  \end{array}\right .
-\]
-Ponendo le derivate pari a zero, $x_2 = 0$ e, quindi, i punti di
-equilibrio del sistema sono:
-$$mg\sin{\overline{\theta}} = \overline{u}cos{\overline{\theta}}
-\Rightarrow \overline{\theta} \;arctg
-\left(\frac{\overline{u}}{mg}\right)$$
-Se l'ingresso $\overline{u}$ di equilibrio \`e nullo si ottengono due
-punti di equilibrio:
-$\overline{\theta_1} = 0$ e $\overline{\theta_2} = \pi$.
-
-\subsection{Carro-Ponte}
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/carroponte.png}
-  \label{fig:carroponte}
-  \caption{Schema di un carro-ponte\label{fig:carroponte}}
-\end{figure}
-Il Carro-Ponte \`e un sistema complesso che, per\`o, pu\`o essere diviso in due
-sottosistemi che gi\`a abbiamo studiato: il carrello (\ref{carrello})
-ed il pendolo (\ref{pendolo}).
-\begin{figure}[!b]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/carroponte-carrello.png}
-  \label{fig:carroponte-carrello}
-  \caption{Schema di un carro-ponte: dettaglio del carrello\label{fig:carroponte-carrello}}
-\end{figure}
-Per il sottosistema ``carrello'', le equazioni sono quelle gi\`a
-ampiamente discusse:
-\begin{equation}\label{eq:carroponte-carrello}
-  m_t \ddot{x} = u - N - b \dot{x}
-\end{equation}
-con lo spostamento $x$, l'attrito $b$ ed una sconosciuta forza di
-reazione $N$ applicata dal pendolo.
-Per il sottosistema del pendolo, le considerazioni sono leggermente diverse da
-quelle fatte in precedenza poich\`e il fulcro del pendolo non \`e
-fisso rispetto al sistema di riferimento inerziale: vanno considerate,
-quindi, anche la rotazione del pendolo e lo spostamento del suo centro
-di massa.
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=0.3\textwidth]{./images/carroponte-pendolo-a.png}
-  \label{fig:carroponte-pendolo-a}
-  \caption{Schema di un carro-ponte: dettaglio del pendolo\label{fig:carroponte-pendolo-a}}
-\end{figure}
-La figura \ref{fig:carroponte-pendolo-a} mostra alcune delle
-caratteristiche di questo sottosistema:
-\begin{itemize}
-\item $l \dot{\theta}^2$ \`e la componente accelerazione lungo il
-  pendolo ed \`e detta {\em accelerazione
-    centripeta}\index{Accelerazione centripeta} ed \`e presente in
-  ogni oggetto la cui velocit\`a cambi direzione;
-\item $\ddot{x}$ \`e una componente dell'accelerazione ed \`e una
-  conseguenza del fulcro del pendolo che accelera a causa
-  dell'accelerazione del carrello. Avr\`a sempre la stessa direzione e
-  modulo di quella del carrello;
-\item $l \ddot{\theta}$ \`e il risultato dell'accelerazione angolare
-  del pendolo ed \`e sempre perpendicolare al pendolo stesso.
-\end{itemize}
-Questi risultati possono essere confermati considerando il centro di
-massa del pendolo come un vettore, in riferimento ad un sistema di
-riferimento inerziale, come mostrato in figura \ref{fig:carroponte-pendolo-b}.
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=0.3\textwidth]{./images/carroponte-pendolo-b.png}
-  \label{fig:carroponte-pendolo-b}
-  \caption{Schema di un carro-ponte: dettaglio del pendolo\label{fig:carroponte-pendolo-b}}
-\end{figure}
-La figura \ref{fig:carroponte-pendolo-b} mostra gli assi
-$\hat{i}$ e $\hat{j}$, inerzialmente fissi e il vettore $\vec{r}$ che
-descrive la posizione del centro di massa del pendolo. Il vettore
-$\vec{r}$ pu\`o essere espresso come:
-\[
-  \vec{r} = x \hat{i} + l (\hat{i} sin \theta - \hat{j} cos \theta)
-\]
-Derivando otteniamo:
-\[
-\begin{array}{l}
-  \dot{\vec{r}} = \dot{x} \hat{i} + l \dot{\theta} (\hat{i} cos \theta
-  + \hat{j} sin \theta)\\
-  \ddot{\vec{r}} = \ddot{x} \hat{i} + l \ddot{\theta} (\hat{i} cos
-  \theta + \hat{j} sin \theta) - l \dot{\theta}^2 ( \hat{i} sin \theta
-  - \hat{j} cos \theta)
-\end{array}
-\]
-Abbiamo ottenuto tutte le equazioni del sistema. In teoria potremmo
-applicare le equazioni per il moto traslatorio e rotatorio fino ad
-ottenere tre equazioni in tre incognite: $N$, $P$ e $\theta$. Questo
-sistema di equazioni pu\`o per\`o essere manipolato fino ad arrivare
-ad una sola equazione in $\theta$:
-\begin{equation}\label{eq:carroponte-N}
-  N = m_p \ddot{x} + m_p l \ddot{\theta} cos \theta - m_p l
-  \dot{\theta}^2 sin \theta
-\end{equation}
-Tuttavia possiamo limitare notevolmente i calcoli se applichiamo le
-equazioni perpendicolarmete al pendolo:
-\begin{equation}\label{eq:carroponte-P}
-P sin \theta + N cos \theta - m_p g sin \theta = m_p l \ddot{\theta} +
-m_p \ddot{x} cos \theta
-\end{equation}
-Applicando le equazioni intorno al centro di massa del pendolo
-otteniamo:
-\begin{equation}\label{eq:carroponte-I}
-  - P l sin \theta - N l cos \theta = I \ddot{\theta}
-\end{equation}
-Combinando la \ref{eq:carroponte-N} e la \ref{eq:carroponte-carrello} otteniamo:
-\begin{equation}
-  (m_t + m_p) \ddot{x} + b \dot{x} + m_p l \ddot{\theta} cos \theta -
-  m_p l \dot{\theta}^2 sin \theta = u
-\end{equation}
-Combinando la \ref{eq:carroponte-P} e la \ref{eq:carroponte-I}
-otteniamo:
-\begin{equation}
-  (I + m_p l^2) \ddot{x} + m_p g l sin \theta = - m_p l \ddot{x} cos \theta
-\end{equation}
-Entrambe le equazioni sono non-lineari e vanno linearizzate per
-piccoli spostamenti ($\theta = 0$). Supponiamo che $cos \theta
-\cong 1$, $sin \theta \cong 0$ e $\dot{\theta}^2 \cong
-0$. In questo modo le equazioni diventano:
-\begin{equation}\label{eq:carroponte-nonlineare}
-  \left\{
-  \begin{array}{l}
-    ( I + m_p l^2) \ddot{\theta} + m_p g l \theta = - m_p l \ddot{x}\\
-    (m_t + m_p) \ddot{x} + b \dot{x} + m_p l \ddot{\theta} = u
-  \end{array}
-  \right .
-\end{equation}
-Trascurando l'attrito otteniamo la funzione di trasfermimento:
-\begin{equation}
-  \dfrac{\Theta(s)}{U(s)} = \dfrac{- m_p l}{((I + m_p l^2)(m_t + m_p)
-    - m_p^2 l^2)s^2 + m_p g l (m_t + m_p)}
-\end{equation}
-
-\subsubsection{Pendolo inverso}\index{Pendolo inverso}
-Nel caso del pendolo inverso, cio\`e considerando un carrello che si
-muove su un piano e il fulcro del pendolo posto sul carrello le
-considerazioni da fare sono diverse. Quando, in precedenza, abbiamo
-assunto che $\theta \cong \pi$ assumiamo ora $\theta \cong \pi +
-\theta'$, con $\theta'$ pari al movimento verso l'alto. In questo
-caso, $cos \theta \cong -1$ e $sin \theta \cong - \theta'$ trasformano
-la \ref{eq:carroponte-nonlineare} in:
-\begin{equation}\label{eq:carroponte-pendoloinverso}
-  \left\{
-  \begin{array}{l}
-    ( I + m_p l^2) \ddot{\theta'} - m_p g l \theta' = m_p l \ddot{x}\\
-    (m_t + m_p) \ddot{x} + b \dot{x} - m_p l \ddot{\theta'} = u
-  \end{array}
-  \right .
-\end{equation}
-Come detto in precedenza, un sistema stabile ha sempre segni concordi
-per le stesse variabili. Nelle equazioni precedenti notiamo che
-$\theta'$ e $\ddot{\theta'}$ hanno segno opposto; ci\`o indica
-``instabilit\`a'', che \`e la caratteristica principale del pendolo
-inverso. La funzione di trasferimento, nuovamente ignorando l'attrito,
-\`e: 
-\begin{equation}
-   \dfrac{\Theta'(s)}{U(s)} = \dfrac{m_p l}{((I + m_p l^2) - m_p^2
-     l^2) s^2 - m_p g l (m_t + m_p)}
-\end{equation}
-
 
 \section{Scambio termico}
 \begin{figure}[!h]
@@ -3972,9 +3995,123 @@ conclude con:
 \]
 
 
-\chapter{Analisi in frequenza e diagrammi di Bode}
-L'analisi in frequenza, si basa sullo studio dell comportamento di un
-sistema, quando questo viene sollecitato da un ingresso sinusoidale.
+\chapter{Analisi in frequenza}
+L'analisi in frequenza \`e lo studio del comportamento di un
+sistema che viene sollecitato con un ingresso sinusoidale.
+
+\section{Sviluppo in serie di Fourier} \label{apx:sdf}
+Lo sviluppo in serie di Fourier (S.d.F.) \`e utilizzato per la
+rappresentazione di funzioni periodiche come somma di un termine
+costante e infiniti termini sinusoidali e cosinusoidali, aventi
+pulsazioni multiple di quella fondamentale.
+
+Si ricorda che una funzione periodica, di periodo $T$, \`e definita
+come: 
+\begin{eqnarray*}
+  \begin{array}{l}
+    f(t+T)=f(t)\qquad,\qquad \forall t\\
+    \textrm{oppure}\\
+    f(t+mT)=f(t)\qquad,\qquad \forall t,m \textrm{ con } m \textrm{
+      intero} 
+  \end{array}
+\end{eqnarray*}
+dove T \`e il periodo misurato in [s]. In particolare:
+\begin{eqnarray*}
+\textrm{PULSAZIONE: } \omega \triangleq \frac{2\pi}{T} \Longrightarrow
+\omega = 2\pi f [rad/s]\\
+\textrm{FREQUENZA: } f\triangleq \frac{1}{T} = \frac{\omega}{2\pi}
+       [Hz] = [1/s]
+\end{eqnarray*}
+
+\subsection{Forma trigonometrica}
+La Serie di Fourier della funzione periodica $f(t)$ \`e:
+\begin{equation}\label{eq:serieDiFourier}
+  f(t) = \dfrac{a_o}{2} + \sum_{n = 1}^{\infty} [ a_n cos(n \omega t)
+    + b_n sin(n \omega t)]
+\end{equation}
+Per calcolare il coefficiente $a_0$:
+\begin{equation}
+  a_0 = \frac{2}{T}\int_0^T f(t) dt
+\end{equation}
+Esso \`e il valor medio del segnale su di un periodo $(<f(t)>)$. $a_0$
+viene anche detta {\em componente a pulsazione nulla}\index{Componente
+a pulsazione nulla}.
+I coefficienti $a_n$ e $b_n$ sono calcolati come:
+\[
+  a_n = \dfrac{2}{T} \int_0^T f(t) cos(n \omega t) dt
+\]
+\[
+  b_n = \dfrac{2}{T} \int_0^T f(t) sin(n \omega t) dt
+\]
+
+Le componenti cosinusoidali sono dette {\em armoniche}\index{Armonica}, di
+pulsazione multipla di $\omega$. L'{\em armonica fondamentale} \`e
+proprio quella di pulsazione $\omega$, mentre le armoniche di generica
+pulsazione $n\omega$ sono dette {\em armoniche n-esime}.
+
+La banda \`e l'intervallo di pulsazione compreso tra la minima $n_1
+\omega$ e la massima $n_2 \omega$. Se $n_2 < \infty$ il segnale \`e a
+      {\em banda limitata}\index{Banda limitata} con larghezza di
+      banda $(n_2 - n_1)\omega$, altrimenti \`e a banda illimitata.
+      
+Per il calcolo dei coefficienti $a_n$ e $b_n$, tornano spesso utili le
+seguenti identit\`a trigonometriche:
+\begin{eqnarray*}
+  \cos A \sin B = \dfrac{1}{2}\sin (A+B)-\dfrac{1}{2}\sin(A-B)\\
+  \cos A \cos B = \dfrac{1}{2}\cos(A+B)+\dfrac{1}{2}\cos(A-B)\\
+  \sin A \sin B = - \dfrac{1}{2} \cos (A + B) - \dfrac{1}{2} \cos(A - B)\\
+  \sin A \cos B = \dfrac{1}{2} \sin (A + B) + \dfrac{1}{2} \sin (A - B)
+\end{eqnarray*}
+
+\subsection{Propriet\`a della serie di Fourier}
+\begin{itemize}
+\item Linearit\`a
+  \subitem 
+  \begin{displaymath}
+    F[\alpha f + \beta g] = \alpha F_n + \beta G_n
+  \end{displaymath}
+\item Funzione Pari o Dispari
+  \subitem 
+  \begin{eqnarray*}
+    f(t) = f(-t) \Longrightarrow \textrm{FUNZIONE PARI}\\
+    -f(t) = f(-t)\Longrightarrow \textrm{FUNZIONE DISPARI}
+\end{eqnarray*}
+  Ricordiamo che una funzione {\em pari} \`e simmetrica rispetto
+  all'asse delle ordinate; una funzione dispari \`e simmetrica
+  rispetto all'origine degli assi.
+\subitem 
+\begin{eqnarray*}
+  \textrm{if ($f(t)=$PARI)$\Longrightarrow b_n=0$ e si calcolano $a_n$ e $a_0$}\\
+  \textrm{if ($f(t)=$DISPARI)$\Longrightarrow a_n=0$ e $a_0=0$ e si calcola $b_n$}
+\end{eqnarray*}
+\end{itemize}
+
+\subsection{Trasformata di Fourier}
+Data $f(t)$, funzione complessa della variabile reale tempo $t$, la
+Trasformata di Fourier \`e definita come:
+\begin{equation}\label{eq:tdf}
+  F(j\omega) = \int_{-\infty}^{+\infty}f(t) e^{-j\omega t} dt
+\end{equation}
+Essa \`e chiamata anche \emph{spettro}\index{Spettro} di $f(t)$. In particolare
+\begin{eqnarray*}
+  |F(j\omega)| \triangleq \textrm{spettro di ampiezza}\index{Spettro
+    di ampiezza}\\
+  \arg F(j\omega)\triangleq \textrm{spettro di fase}\index{Spettro di fase}
+\end{eqnarray*}
+L'antitrasformata di Fourier (indicata con $F(j\omega)^{-1}$) \`e:
+\begin{equation}\label{eq:antitrasfF}
+  f(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} F(j\omega)e^{j\omega t} d\omega
+\end{equation}
+
+\subsubsection{Relazione con la trasformata di Laplace}
+La trasformata di Laplace e la trasformata di Fourier possono essere
+messe in relazione se le funzioni $f(t)$ in esame sono nulle per $t <
+0$ e se l'ascissa di convergenza \`e $\bar{\sigma} < 0$. In questo
+caso abbiamo:
+
+\begin{equation}
+  F[f(t)] = \left . L[f(t)] \right |_{s = j\omega}
+\end{equation}
 
 \section{Risposta in frequenza}
 Il movimento di un sistema lineare e stazionario sollecitato da un
@@ -4089,6 +4226,14 @@ Sostituendo e semplificando, otteniamo:
   =\dfrac{U}{2j}[2j~\Im m\{ G(j\omega)\}\cos (\omega t) + 2j~\Re e
     \{G(j\omega)\}\sin(\omega t)]
 \end{displaymath}
+
+\begin{equation*}
+  \begin{array}{l}
+    \Im m[G(j\omega))] = |G(j\omega)| sin(arg(G(j\omega)))\\
+    \Re e[G(j\omega))] = |G(j\omega)| cos(arg(G(j\omega)))
+  \end{array}
+\end{equation*}
+
 \begin{displaymath}
   =U\left [  |G(j\omega)|\sin(\arg G(j\omega))\cos(\omega t) +
     |G(j\omega)|\cos(\arg(G(j\omega))\sin(\omega t)\right ] 
@@ -4103,10 +4248,10 @@ e
 \]
 possiamo sfruttare:
 \[
-  sin(a)cos(b) = \dfrac{sin(a + b) + sin(a - b)}{b}
+  sin(a)cos(b) = \dfrac{sin(a + b) + sin(a - b)}{2}
 \]
 \[
-  cos(a)sin(b) = \dfrac{sin(a + b) - sin(a + b)}{2}
+  cos(a)sin(b) = \dfrac{sin(a + b) - sin(a - b)}{2}
 \]
 Sostituendo e semplificando, otteniamo:
 \begin{equation}\label{eq:rispfreqfdt}
@@ -4141,20 +4286,38 @@ indipendentemente dallo stato iniziale.
 
 
 % DIAGRAMMA I BODE
-\chapter{Diagrammi di Bode}
+\section{Diagrammi di Bode}
 Per rappresentare la risposta in frequenza $G(j\omega)$ di sistemi
-SISO, si usano i \emph{diagrammi di Bode (o diagrammi cartesiani)}. Essi sono
-costituiti da una coppia di curve che rappresentano il modulo e la
-fase di $G(j\omega)$ in funzione della pulsazione  $\omega$. Le due curve sono dette
+SISO, si usano i \emph{diagrammi di Bode (o diagrammi cartesiani)}. Si
+parla di risposta in frequenza quando la funzione di trasferimento di
+un sistema lineare tempo invariante viene sollecitata da un ingresso
+di tipo sinusoidale con pulsazione $\omega$ al variare di questa. I
+diagrammi di Bode sono costituiti da una coppia di curve che
+rappresentano il modulo e la fase di $G(j\omega)$ in funzione della
+pulsazione  $\omega$, ascissa comune ad entrambi i diagrammi.  Le due
+curve sono dette  
 \emph {diagramma di Bode del modulo} e \emph{diagramma di Bode della
-  fase}. Convenzionalmente si usa una scala logaritmica in base dieci
+  fase}.
+
+\subsubsection{Scala logaritmica}
+Convenzionalmente si usa una scala logaritmica in base dieci
 per l'ascissa (viene rappresentato $\log_{10}\omega_n$ con $\omega_n
 \neq 0$) in modo tale che la distanza tra due pulsazioni  $\omega_1$ e
 $\omega_2 > \omega_1$ sia proporzionale alla differenza dei loro
 logaritmi, ovvero al rapporto $\dfrac{\omega_2}{\omega_1}$ per ogni
-coppia di pulsazioni. In particolare, si definisce \emph{decade}\index{Decade}
-l'intervallo tra due pulsazioni che sono tra loro in rapporto pari a
-dieci. Nel tracciare i diagrammi, \`e conveniente trasformare la
+coppia di pulsazioni.
+
+Si definisce \emph{decade}\index{Decade}  l'intervallo tra due
+pulsazioni che sono tra loro in rapporto pari a dieci.
+
+I vantaggi nell'uso di diagrammi logaritmici sono sostanzialmente la
+possibilit\`a di rappresentare col dovuto dettaglio grandezze che
+variano in campi notevolmente estesi e la possibilit\`a di semplificare
+i calcoli di moltiplicazione che nel caso di logaritmi si riconducono
+semplicemente a somme.
+
+\subsubsection{Bode-form o forma canonica}
+Nel tracciare i diagrammi, \`e conveniente trasformare la
 funzione di trasferimento nella cosiddetta
 \emph{Bode-form}~\footnote{Viene trasformata la forma fattorizzata
   rappresentata dall'eq. \ref{eq:secformfdt}, ponendo $s=j\omega$}:
@@ -4170,12 +4333,13 @@ funzione di trasferimento nella cosiddetta
 \section{Diagrammi dei moduli}
 Nel diagramma del modulo, l'asse delle ordinate riporta in scala
 lineare il $|G(j\omega)|_{dB}$ espresso in decibel (dB)~\footnote{Il
-  valore in decibel di $x$ \`e pari a $20\log x$.} quindi:
+  valore in decibel di $x$ \`e pari a $20\log x$.}:
 \begin{equation}\label{eq:modfdtindb}
   |G(j\omega)|_{dB} = 20\log|G(j\omega)|~\footnote{Valori positivi,
     negativi o nulli di $|G(j\omega)|_{dB}$, corrispondono a  valori
     maggiori, minori o pari a 1 di $|G(j\omega|$.} 
 \end{equation}
+mentre l'asse delle ascisse rappresenta la pulsazione $\omega$.
 Effettuando quindi il modulo della risposta in frequenza in $dB$ si ha:
 \begin{equation}\label{eq:modrispfreq}
   \begin{array}{l}
@@ -4190,8 +4354,10 @@ Effettuando quindi il modulo della risposta in frequenza in $dB$ si ha:
 \end{equation}
 Per tracciare il diagramma di Bode del modulo in $dB$ della risposta
 in frequenza \`e sufficiente tracciare i diagrammi dei singoli termini
-che compaiono nella \ref{eq:modrispfreq}. Ricordando che per
-ogni numero complesso $s\neq 0$ vale $|\frac{1}{s}|_{dB} = -|s|_{dB}$, il
+che compaiono nella \ref{eq:modrispfreq}.
+
+Ricordando che per
+ogni numero complesso $s\neq 0$ vale $|\dfrac{1}{s}|_{dB} = -|s|_{dB}$, il
 diagramma di Bode relativo agli zeri della funzione di trasferimento
 si ricava a partire da quello relativo ai poli, cambiato di segno.
 I termini che ci interessano sono quindi:
@@ -4216,7 +4382,14 @@ si commette nell'approssimazione ed apportare le opportune modifiche.
 \end{displaymath}
 Il diagramma corrisponde ad una retta parallela all'asse delle
 $\omega$ con ordinata maggiore di zero, minore di zero o pari a zero a
-seconda che $|\mu|$ sia maggiore di uno, minore di uno o unitario.
+seconda che $|\mu|$ sia maggiore di uno, minore di uno o unitario:
+\[
+\begin{array}{l}
+  ordinata > 0 \;\; se \;\; |\mu| > 1\\
+  ordinata < 0 \;\; se \;\; |\mu| < 1\\
+  ordinata = 0 \;\; se \;\; |\mu| = 1
+\end{array}
+\]
 
 \subsubsection{Diagramma del modulo di $G_b(j \omega)$}
 \[
@@ -4228,18 +4401,27 @@ seconda che $|\mu|$ sia maggiore di uno, minore di uno o unitario.
 \end{displaymath}
 Il modulo \`e pari a:
 \begin{equation}\label{eq:modulo}
- | | =  \sqrt{\Re e^2 + \Im m^2}
+  | | =  \sqrt{\Re e^2 + \Im m^2}
 \end{equation}
 Quindi il modulo di $j \omega$ \`e $\omega$:
 \[
   |G_b(j\omega)|_{dB} = -20 \log \omega
 \]
-Il diagramma \`e una retta che per essere tracciata necessita della
-conoscenza di due punti: convenzionalmente, osservando che
-$$|G_b(j1)|_{dB} = 0$$ e $$|G_b(j10)|_{dB}=-20$$ si usa indicare come
-pendenza unitaria il valore \textbf{20dB/dec}. Si dice che la retta ha
-pendenza $-1$ o che ``perde 20 dB/decade''.
-In generale il diagramma del $|G(s) = \frac{1}{s^g}|$ \`e una retta con
+Il diagramma \`e una retta poich\`e sia sull'asse delle ordinate che
+sull'asse delle ascisse abbiamo un valore logaritmico.
+Per essere tracciata necessita della conoscenza di due punti:
+convenzionalmente, osservando che 
+\[
+|G_b(j1)|_{dB} = 0
+\]
+e
+\[
+|G_b(j10)|_{dB}=-20
+\]
+si usa indicare come pendenza unitaria il valore \textbf{20dB/dec}. Si
+dice che la retta ha pendenza $-1$ o che ``perde 20 dB/decade''.
+
+In generale il diagramma del $|G(s)| = \dfrac{1}{s^g}$ \`e una retta con
 ordinata pari a zero in $\omega = 1$ e pendenza pari a  $-g$: ovvero perde $20g$
 dB/dec per ogni azione integrale ($g > 0$) e guadagna $20|g|$ dB/dec
 per ogni azione derivativa ($g > 0$).
@@ -4282,7 +4464,8 @@ il suo valore \`e:
 \end{displaymath}
 Sostituendo il diagramma esatto con quello asintotico si commette un
 errore $E_c(\omega)$ pari $20\log\sqrt{2} \simeq -3dB$, nei cosiddetti
-\emph{punti di rottura}\index{Punto di rottura}.
+\emph{punti di rottura}\index{Punto di rottura}: $\omega =
+\dfrac{1}{|T|}$. 
 
 \subsubsection{Diagramma del modulo di $G_d{(j\omega)}$}
 \begin{figure}[!b]
@@ -4293,14 +4476,14 @@ errore $E_c(\omega)$ pari $20\log\sqrt{2} \simeq -3dB$, nei cosiddetti
   \end{center}
 \end{figure}
 \[
-  G_d(s)=\frac{1}{1+2\xi \dfrac{s}{\omega_n} + \dfrac{s^2}{\omega_n^2}}
+  G_d(s)=\dfrac{1}{1+2\xi \dfrac{s}{\omega_n} + \dfrac{s^2}{\omega_n^2}}
 \]
 \begin{eqnarray*}
   \lefteqn{|G_d(j\omega)|_{dB}=20\log \left| \dfrac{1}{1 +
       2j\xi\dfrac{\omega}{\omega_n} -
       \dfrac{\omega^2}{\omega_n^2}}\right| = {} } \\
   & & {}=-20\log\sqrt{\left(1 - \dfrac{\omega^2}{\omega_n^2}\right)^2
-    + 4\xi^2\dfrac{\omega^2}{\omega_n^2}}
+    + 4\dfrac{\xi^2\omega^2}{\omega_n^2}}
 \end{eqnarray*}
 Il diagramma di questa funzione non dipende dal segno di $\xi$ ed in
 particolare il suo massimo si ha per $|\xi| < \dfrac{1}{\sqrt{2}}
@@ -4363,11 +4546,30 @@ tracciando i diagrammi delle singole componenti della
 \end{displaymath}
 E' una retta parallela all'asse delle $\omega$~\footnote{La scelta di
   uno sfasamento di $-180^{\circ}$ \`e puramente convenzionale}
+
 \subsubsection{Diagramma della fase di $G_b(j\omega)$}
-\begin{displaymath}
-  \arg G_b(j\omega)=\arg \left ( \frac{1}{j\omega}\right )=-90^{\circ}
-\end{displaymath}
-Siccome la fase risulta negativa, si dice che il polo nell'origine in
+\begin{equation}\label{fase1/s}
+  \arg G_b(j\omega) = \arg \left ( \frac{1}{j\omega}\right )=-90^{\circ}
+\end{equation}
+Questo risultato \`e ottenuto considerando che:
+\[
+arg \left( \dfrac{x}{y} \right) = arg(x) - arg(y)
+\]
+Se condideriamo:
+\[
+x = a + jb
+\]
+possiamo continuare con:
+\[
+arg(a + jb) = arctan \left( \dfrac{b}{a} \right)
+\]
+Ricordano che:
+\[
+arctan(\infty) = \dfrac{\pi}{2}
+\]
+otteniamo il risultato \ref{fase1/s}.
+
+Dato che la fase risulta negativa, si dice che il polo nell'origine in
 questo caso produce un \emph{ritardo di fase}.
 
 In generale, il diagramma di Bode della fase di $G(s) =
@@ -4450,7 +4652,7 @@ sono comunque due parametri ben distinti.
 
 \subsection{Pendenza iniziale}
 \begin{equation}\label{pendezainiziale}
-  - g_0 \cdot 20dB
+  - g_0 \cdot 20dB/dec
 \end{equation}
 
 \subsection{Punti di rottura}
@@ -4483,7 +4685,7 @@ Tipicamente i punti di rottura sono i valori dei poli e degli zeri,
 presi in modulo. Naturalmente vanno escluse le radici pari a $0$ ;-)
 Nel caso si abbiamo delle radici immaginarie e coincidenti si procede
 individuando $\omega_n$ e $\zeta$. Considerando il nostro esempio
-abbiamo che $\frac{1}{\omega_n^2} s^2$ della formula generale \`e pari
+abbiamo che $\frac{1}{\omega_{n^2}} s^2$ della formula generale \`e pari
 a $100 s^2$. Una rapida manipolazione matematica ed otteniamo
 che $$\frac{1}{\omega_n^2} = 100 \Rightarrow \omega_n = 0.1$$
 Stesso discorso per $\zeta$, che nel nostro caso
@@ -4668,44 +4870,94 @@ con
 ~\footnote{Per le disequazioni fratte, bisogna valutare il segno}
 
 
-\chapter{Trasformata di Laplace}\label{apx:laplace}
-\emph{Si applica ai segnali una trasformazione che rende il sistema
-  pi\`u semplice da studiare, ovvero nel dominio di Laplace, non ho
-  pi\`u le derivate}: 
-\begin{itemize}
-\item {derivata $\stackrel{\mathfrak{L}}{\longrightarrow}$
-  moltiplicazione}\protect\footnote{$\mathfrak{L}$ indica la
-  trasformata di Laplace} 
-\item {dominio della $t \stackrel{\mathfrak{L}}{\longrightarrow}$
-  dominio della $s$} 
-\item {dominio della $s \stackrel{\mathfrak{L^{-1}}}{\longrightarrow}
-  $dominio della $t$} 
-\end{itemize}
-Per convenzione \textbf{si suppone che i segnali trattati siano nulli prima dello 0} ovvero \\
-$$f(t)=0 \;per\; t<0$$\\
-La formula della trasformata di Laplace \`e:
+\chapter{Trasformata di Laplace}\label{apx:laplace}\index{Trasformata
+  di Laplace}
+{\em La trasformata di Laplace di una funzione $f(t)$ \`e una funzione
+lineare che permette di passare dallo studio di una variabile
+temporale (reale) allo studio di una variabile complessa, e
+viceversa.}
+
+Supponiamo di avere una funzione complessa $f$ della variabile reale
+$t$. Supponiamo di avere $s = \sigma + j \omega \in C$, una variabile
+complessa di parte reale $\sigma$ e coefficiente della parte
+immaginaria $j$ pari a $\omega$. Per convenzione:
+\[
+f(t) = 0 \;per\; t < 0
+\]
+Se la funzione
 \begin{equation}\label{eq:laplaceq}
-  \framebox{$F(s) = \int_{0}^{+\infty}f(t) e^{-st} dt$} ~\textrm{dove
-    $f(t)$ \`e il segnale da trasformare.}
+  F(s) = \int_{0}^{+\infty}f(t)\; e^{-st} dt
 \end{equation}
-/!$\backslash$~$s$ \`e un parametro $\in \mathbb{C}$ e NON \`e un
-fasore! In particolare $s = \alpha + j\omega$\\
+estiste almeno per qualche valore di s, essa di dice {\em trasformata
+  di Laplace di $f(t)$}.
 La trasformata di Laplace della funzione $f(t)$ si denota come: 
 \[
 F(s) = \mathfrak{L}\{f(t)\}
 \]
-L'antitrasformata di Laplace si denota come:
+L'antitrasformata di Laplace\index{Antitrasformata di Laplace} si
+denota come: 
 \[
-f(t)=\mathfrak{L^{-1}}\{F(s)\}
+f(t)=\mathfrak{L^{-1}}\{F(s)\} = \dfrac{1}{2 \pi j} \int_{\sigma - j
+  \infty}^{\sigma + j \infty} F(s)\; e^{st} ds
 \]
-Analizzando la \ref{eq:laplaceq} si ha:
+Analizzando la \ref{eq:laplaceq}, si ha:
 \begin{displaymath}
-  e^{-st} = e^{-(\alpha + j \omega)t} = e^{-\alpha t}e^{-j\omega t} =
-  e^{-\alpha t}\underbrace{(\cos(\omega t)-j \sin(\omega
-    t)}_{e^{-j\omega t}} = \frac{1}{e^{\alpha t}}\frac{1}{e^{j \omega t}} 
+  e^{-st} = e^{-(\sigma + j \omega)t} = e^{-\sigma t}e^{-j\omega t} =
+  e^{-\sigma t}\underbrace{(\cos(\omega t)-j \sin(\omega
+    t)}_{e^{-j\omega t}}) = \frac{1}{e^{\sigma t}}\frac{1}{e^{j \omega t}} 
 \end{displaymath}
+La funzione \`e definita solo per $\sigma > 0$, quindi la trasformata
+\`e definita solo per valori di $s$ tali che l'equazione
+\ref{eq:laplaceq} converga, cio\`e $Re(s) > 0$.
 
-\subsection {Propriet\`a della trasformata}
+Come gi\`a datto, se $F(s)$ esiste pe run valore $s = \sigma + j
+\omega$, allora esiste per tutti i valori di $s$ tali che $Re(s)
+\geq \sigma$. Il pi\`u piccolo valore di $\sigma$ per cui esiste
+$F(s)$ viene detto {\em ascissa di convergenza}\index{Ascissa di
+  convergenza} e la regione a destra di $Re(s) \geq \sigma$ \`e detta
+{\em regione di convergenza}\index{Regione di convergenza}.
+
+%% Trasformatate DELL'IMPULSO
+\section{Tasformata dell'impulso}\index{Trasformata dell'impulso}
+Sia
+\[
+f(t) = imp(t)
+\]
+per una qualunque $s$, si ottiene:
+\begin{equation}
+  \mathfrak{L}[imp(t)] = \int_{0^-}^{+\infty} imp(t)\; e^{-st} dt =
+  e^{-s0} = 1
+\end{equation}
+
+\section{Trasformata del gradino}\index{Trasformata del gradino}
+Sia
+\[
+f(t) = sca(t)
+\]
+si ottiene
+\[
+\mathfrak{L}[sca(t)] = \int_{0}^{+\infty} sca(t)\; e^{-st} dt =
+\int_{0}^{+\infty} e^{-st} = \left
+. \dfrac{e^{-st}}{-s}\right|^{+\infty}_{0} =
+\]
+\[
+ = \left . \left [ \dfrac{e^{-\sigma
+    t}}{-(\sigma + j \omega)} (cos(\omega t)) - j sin(\omega t)
+  \right] \right|^{+\infty}_{0}
+\]
+e per $\sigma > 0$
+\begin{equation}\label{Trasformata del gradino}
+  \mathfrak{L}[sca(t)] = \dfrac{0 - 1}{- (\sigma + j \omega)} = \dfrac{1}{s}
+\end{equation}
+Dai calcoli, ci accorgiamo che $\bar{\sigma} = 0$, ma $\dfrac{1}{s}$
+\`e definito per qualsiasi $s \neq 0$.
+
+\section{Trasformata dell'esponenziale}
+
+\section{Trasformata della rampa}
+
+
+\section {Propriet\`a della trasformata}
 \begin{itemize}
 \item{ \textbf{Linearit\`a}: la trasformata di Laplace \`e lineare ovvero: 
   \begin{equation}\label{eq:laplinear}
@@ -4843,114 +5095,28 @@ converga.
 Si possono introdurre  due importanti teoremi che legano il
 guadagno statico (\ref{ch:chapter4}) di un sistema con la sua Funzione
 di Trasferimento (\ref{ch:chapter4}). Questi teoremi sono:
-\newtheorem{Th7}{Teorema}[chapter]
-\newtheorem{Th8}[Th7]{Teorema}
 
-\begin{Th7}\label{th:startvalth}
-\textbf{Teorema del valore iniziale} 
-\begin{displaymath}
-  \lim_{s \to \infty} sF(s)=f(0)
-\end{displaymath}
-\end{Th7}
-
-\begin{Th8}\label{th:endvalth}
-\textbf{Teorema del valore finale} 
-\begin{displaymath}
-\lim_{t \to \infty} f(t)=\lim_{s \to 0} s F(s)
-\end{displaymath}
-\end{Th8}
-
-\chapter{Serie di Fourier} \label{apx:sdf}
-Lo sviluppo in Serie di Fourier (S.d.F.) \`e utilizzato per la
-rappresentazione di funzioni periodiche come somma di un termine
-costante e infiniti termini sinusoidali e cosinusoidali, aventi
-pulsazioni multiple di quella fondamentale.
-
-Si ricorda che una funzione periodica, di periodo $T$, \`e definita
-come: 
-\begin{eqnarray*}
-  \begin{array}{l}
-    f(t+T)=f(t)\qquad,\qquad \forall t\\
-    \textrm{oppure}\\
-    f(t+mT)=f(t)\qquad,\qquad \forall t,m \textrm{ con } m \textrm{
-      intero} 
-  \end{array}
-\end{eqnarray*}
-dove T \`e il periodo misurato in [s]. In particolare:
-\begin{eqnarray*}
-\textrm{PULSAZIONE: } \omega \triangleq \frac{2\pi}{T} \Longrightarrow
-\omega = 2\pi f [rad/sec]\\
-\textrm{FREQUENZA: } f\triangleq \frac{1}{T} = \frac{\omega}{2\pi}
-       [Hz] = [1/sec]
-\end{eqnarray*}
-La Serie di Fourier della funzione periodica $f(t)$ \`e:
-\begin{equation}\label{eq:serieDiFourier}
-  f(t) = \dfrac{a_o}{2} + \sum_{n = 1}^{\infty} [ a_n cos(n \omega t)
-    + b_n sin(n \omega t)]
-\end{equation}
-Per calcolare il coefficiente $a_0$ si procede come:
+\section{Teorema del valore iniziale}
+Data la funzione $f(t)$ tale che la sua trasformata sia razionale e
+con grado del denominatore maggiore del grado del numeratore, allora:
 \begin{equation}
-  a_0 = \frac{2}{T}\int_0^T f(t) dt
+  \lim_{s \to \infty} sF(s)=f(0)
 \end{equation}
-Esso \`e il valor medio del segnale su di un periodo $(<f(t)>)$.
-I coefficienti $a_n$ e $b_n$ sono calcolati come:
-\[
-  a_n = \dfrac{2}{T} \int_0^T f(t) cos(n \omega t) dt
-\]
-\[
-  b_n = \dfrac{2}{T} \int_0^T f(t) sin(n \omega t) dt
-\]
-Sfruttando le seguenti identit\`a trigonometriche
-\begin{eqnarray*}
-  \cos A \sin B = \dfrac{1}{2}\sin (A+B)-\dfrac{1}{2}\sin(A-B)\\
-  \cos A \cos B = \dfrac{1}{2}\cos(A+B)+\dfrac{1}{2}\cos(A-B)\\
-  \sin A \sin B = - \dfrac{1}{2} \cos (A + B) - \dfrac{1}{2} \cos(A - B)\\
-  \sin A \cos B = \dfrac{1}{2} \sin (A + B) + \dfrac{1}{2} \sin (A - B)
-\end{eqnarray*}
-Si arriva alla conclusione che:
-\begin{enumerate}
-\item $\int_0^T\sin (n\omega t)\cos(m\omega t)=0$ sempre
-\item $\int_0^T\cos (n\omega t)\cos(m\omega t)=0$ per $n\neq m$ e $=T/2$ per $n=m$
-\item $\int_0^T\sin (n\omega t)\sin(m\omega t)=0$ per $n\neq m$ e $=T/2$ per $n=m$
-\item $f(t)=a_0+\sum_{n=1}^\infty a_n\cos(n\omega t)+\sum_{n=1}^\infty b_n\sin(n\omega t)$
-\item $a_0=\frac{1}{T}\int_0^T f(t) dt $
-\item $a_n=\frac{2}{T}\int_0^T f(t)\cos(n\omega t) dt $
-\item $b_n=\frac{2}{T}\int_0^T f(t)\sin(n\omega t) dt $
-\end{enumerate}
 
-\section{Propriet\`a della serie di Fourier}
-\begin{itemize}
-\item Linearit\`a
-  \subitem 
-  \begin{displaymath}
-    F[\alpha f + \beta g]=\alpha F_n+\beta G_n
-  \end{displaymath}
-\item Funzione Pari o Dispari
-  \subitem 
-  \begin{eqnarray*}
-    f(t) = f(-t) \Longrightarrow \textrm{FUNZIONE PARI ($f(t)$ simmetrica rispetto alle ordinate)}\\
-    -f(t) = f(-t)\Longrightarrow \textrm{FUNZIONE DISPARI ($f(t)$ simmetrica rispetto all'origine)}
-\end{eqnarray*}
-\subitem 
-\begin{eqnarray*}
-\textrm{if ($f(t)=$PARI)$\Longrightarrow b_n=0$ e si calcolano $a_n$ e $a_0$}\\
-\textrm{if ($f(t)=$DISPARI)$\Longrightarrow a_n=0$ e $a_0=0$ e si calcola $b_n$}
-\end{eqnarray*}
-\end{itemize}
-\section{Trasformata di Fourier (T.d.F.)}
-La T.d.F. \`e definita come:
-\begin{equation}\label{eq:tdf}
-F(j\omega)=\int_{-\infty}^{+\infty}f(t)e^{-j\omega t} dt
+Nota: il teorema \`e valido che per funzioni non razionali, ma $f(0)$
+deve essere definito.
+
+\section{Teorema del valore finale}\label{teoremaValoreFinale}
+Data la funzione $f(t)$ tale che la sua trasformata sia razionale e
+con grado del denominatore maggiore del grado del numeratore e poli
+nulli o con parte reale negativa, allora:
+\begin{equation}
+  \lim_{t \to \infty} f(t)=\lim_{s \to 0} s F(s)
 \end{equation}
-Essa \`e chiamata anche \emph{spettro} di $f(t)$. In particolare
-\begin{eqnarray*}
-|F(j\omega)| \triangleq \textrm{spettro di ampiezza}\\
-\arg F(j\omega)\triangleq \textrm{spettro di fase}
-\end{eqnarray*}
-L'antitrasformata di Fourier (indicata con $F(j\omega)^-1$) si calcola come segue
-\begin{equation}\label{eq:antitrasfF}
-f(t)=\frac{1}{2\pi}\int_{-\infty}^{+\infty}F(j\omega)e^{j\omega t} d\omega
-\end{equation}
+Nota: il teorema \`e valido che per funzioni non razionali, ma $f(0)$
+deve essere definito.
+
+
 
 %% \chapter{Diagrammi di Bode}\label{apx:bode}
 %% In questa sezione vengono riassunti gli algoritmi per il tracciamento asintotico dei diagrammi di Bode dei moduli e delle fasi.\\
