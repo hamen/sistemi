@@ -24,6 +24,7 @@
 
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
+\newtheorem{definizione}{Definizione}
 
 \usepackage{makeidx}
 \makeindex
@@ -4759,6 +4760,52 @@ Nota: Per il diagramma delle fasi vale la seguente dichiarazione:
   negativi. Nel caso di zeri e poli positivi, i poli fanno salire e
                      gli zeri fanno scendere} ;-)
 
+
+% SISTEMI A TEMPO DISCRETO - CORSO DI CONTROLLI
+\chapter{Sistemi a tempo discreto}
+Quando lo spazio di stato di un sistema \`e descritto da un insieme
+discreto di tipo $\{0, 1, 2, ...\}$ e le transizioni di stato si
+verificano solo ad instanti discreti nel tempo, associamo queste
+transizioni di stato ad {\em eventi}\index{Evento} e parliamo di
+sistemi a tempo discreto.
+
+\section{Il concetto di evento}
+Le principali considerazioni da fare sul concetto di evento:
+\begin{itemize}
+\item \`e istantaneo
+\item causa la transizione da uno stato ed un altro
+\end{itemize}
+
+Nel nostro studio, ci riferiremo al singolo evento con la lettera $e$
+ed all'insieme di eventi con la lettera $E$.
+
+\section{DES logici e temporizzati}
+Esistono due principali tipi di sistemi ad eventi discreti:
+\begin{description}
+\item[Temporizzati]:
+  Le transizioni di stato possono verificarsi sia a causa di eventi
+  che a causa di determinate condizioni temporali: es. si verifica
+  l'evento $e$ o trascorrono $n$ secondi;
+\item [Logici]:
+  Le transizioni di stato solo determinate unicamente dal verificarsi
+  di specifici e determinati eventi $e$, appartenenti ad $E$;
+\end{description}
+
+I DES (Discrete Events Systems) Logici sono anche detti {\em
+  Event-driven DES}\index{Event-driven Discrete Events
+  Systems}. Questo tipo di sistema \`e particolarmente complicato da
+modellare ed analizzare a causa della natura asincrona delle
+transizioni di stato.
+
+\begin{definizione}\label{def:DES}
+  Un sistema ad eventi discreti (DES) \`e un sistema con un numero di
+  stati finiti e transizioni di stato generate da specifici eventi,
+  cio\`e la sua evoluzione nel tempo dipende esclusivamente dal
+  verificarsi di eventi asincroni nel tempo.
+\end{definizione}
+
+
+
 % APPENDICI
 \appendix
 \chapter {Calcolo della Jacobiana per la valutazione della stabilit\`a}\label{apx:jacob}
@@ -5118,95 +5165,37 @@ deve essere definito.
 
 
 
-%% \chapter{Diagrammi di Bode}\label{apx:bode}
-%% In questa sezione vengono riassunti gli algoritmi per il tracciamento asintotico dei diagrammi di Bode dei moduli e delle fasi.\\
-%% Si ricorda che \framebox{$g=(P-Z) \textrm{in} O$} ovvero (poli-zeri) nell'origine.
-%% \section*{Diagramma dei moduli}\label{sec:diagmodul}
-%% \framebox{
-%% \begin{minipage}{13cm}
-%% \begin{enumerate}
-%% \item Si calcolano poli e zeri del sistema
-%% \begin{itemize}
-%% \item se essi sono pari a $\pm1$, si posizionano sull'asse delle $\omega$ nell'O (origine)
-%% \item se essi sono pari a 0, NON VANNO RIPORTATI SUL DIAGRAMMA.
-%% \item se sono complex. conj. si calcolano $\omega_n$ e $\xi$ con le formule presentate nel paragrafo \ref{par:pulsazsmorz} e si riporta sulle ascisse il valore di $\omega_n$. In corrispondenza di punti di rottura complex. conj. bisogna valutare $\xi$ per poter riportare sul diagramma la curva (ovvero il picco o l'appiattimento) corrispondente.
-%% \end{itemize}
-%% \item Si calcola il guadagno generalizzato (/!$\backslash$ NON il guadagno statico, anche se in certi casi esso pu\`o coincidere) $K$ come (V. \ref{eq:gengain})
-%% \begin{displaymath}
-%% K=\lim_{s \to 0} s^g G(s)
-%% \end{displaymath}
-%% e lo si trasforma in dB
-%% \begin{displaymath}
-%% |K|_{dB}=20\log K
-%% \end{displaymath}
-%% \item Il punto di partenza da cui iniziare a tracciare il diagramma \`e pari a:
-%% \begin{displaymath}
-%% Partenza=|K|_{dB}-20g\log\omega_0
-%% \end{displaymath}
-%% dove $\omega_0$ \`e la pulsazione scelta come punto di intersezione degli assi (convenzionalmente \`e pari a una o due decadi prima, del polo$\backslash$zero pi\`u piccolo)
-%% \item La Pendenza Iniziale \`e
-%% \begin{displaymath}
-%% P.I.=(Z-P)\textrm{in O}\times20 ~\textrm{dB}
-%% \end{displaymath}
-%% \item La Pendenza Finale \`e
-%% \begin{displaymath}
-%% P.F.=(Z-P)_{TOT}\times20 ~\textrm{dB}
-%% \end{displaymath}
-%% \item Inizio a tracciare il diagramma secondo il punto di partenza calcolato nel punto 3. e la P.I. del punto 4. Devo disegnare le rette decade per decade.
-%% Nel caso in cui si incontra un \emph{punto di rottura o breakpoint} ovvero un polo o uno zero durante il tracciamento delle rette, si continua come segue:
-%% \begin{itemize}
-%% \item Se incontro uno zero: salgo con una pendenza di +20 dB/dec (Se sono $n$ zeri, salgo di $+(n\times20)$ dB/dec)
-%% \item Se incontro un polo: scendo con una pendenza di -20 dB/dec (Se sono $p$ poli, scendo di $-(p\times20)$ dB/dec)
-%% \end{itemize}
-%% \end{enumerate}
-%% \end{minipage}
-%% }
-%% \section*{Diagramma delle fasi}
-%% \framebox{
-%% \begin{minipage}{13cm}
-%% \begin{enumerate}
-%% \item Come nel diagramma dei moduli (presentato nella sezione precedente \ref{sec:diagmodul}), si calcola $K$, ovvero il guadagno generalizzato e si valuta il segno per calcolare la sua fase.\\
-%% $\arg K =$
-%% \begin{itemize}
-%% \item Se $K<0 \Longrightarrow $ si parte con una fase $=-180°$
-%% \item Se $K>0 \Longrightarrow $ si parte con una fase $=0°$
-%% \end{itemize}
-%% \item Si calcola la Fase Iniziale come segue:
-%% \begin{displaymath}
-%% F.I.=(Z-P)\textrm{in O} \times 90° + \arg K
-%% \end{displaymath}
-%% dove $\arg K$ \`e la fase del guadagno generalizzato calcolata nel punto 1.
-%% \item Si posizionano poli e zeri cos\`i come \`e descritto nella sezione \ref{sec:diagmodul} e $\forall$ poli e zeri considero la decade prima e la decade dopo:~\footnote{
-%% /!$\backslash$ Il modo descritto nel punto 3. serve per disegnare il diagramma delle fasi con 'pendenze di 45°'; nel caso in cui si volesse disegnare il diagramma delle fasi 'a gradini' bisogna considerare non 45° ma 90° di fase e procedere allo stesso modo (ma senza considerare decade prima/dopo)}
-%% \begin{itemize}
-%% \item Se lo zero \`e $>0$: si scende 45° e si mette una freccia verso il basso sulla decade prima e una verso l'alto sulla decade dopo. (Se gli zeri sono $n$, si scende di $(n\times 45°)$).
-%% \item Se lo zero \`e $<0$: si sale di 45° e si mette una freccia verso l'alto sulla decade prima e una verso il basso sulla decade dopo. (Se gli zeri sono $n$, si sale di $(n\times 45°)$).
-%% \item Se il polo \`e $>0$: si sale di 45° e si mette una freccia verso l'alto sulla decade prima e una verso il basso sulla decade dopo. (Se i poli sono $p$, allora si sale di $(p\times 45°)$).
-%% \item Se il polo \`e$<0$: si scende di 45° e si mette una freccia verso il basso sulla decade prima e una verso l'alto sulla decade dopo. (Se i poli sono $p$, allora si scende di $(p\times 45°)$).
-%% \end{itemize}
-%% Se esisono poli e zeri complex. conj. ci si comporta come segue:
-%% \begin{itemize}
-%% \item Per i poli: nel punto $\omega_n$ 
-%% \subitem -si sale di 180° se $\xi<0$
-%% \subitem -si scende di 180° se  $\xi \geq0$
-%% \item Per gli zeri: nel punto $\omega_n$
-%% \subitem -si sale di 180° se $\zeta\geq0$
-%% \subitem -si scende di 180° se $\zeta<0$
-%% \end{itemize}
-%% \item La Fase Finale \`e
-%% \subitem -se poli e zeri hanno tutti lo stesso segno
-%% \begin{displaymath}
-%% F.F.=(Z-P)_{TOT}\times 90°+\arg{K}
-%% \end{displaymath}
-%% \subitem {-se invece sono discordi si effettua una somma algebrica delle fasi prese come di seguito elencate:}
-%% \subsubitem Lo zero $>0$ ritarda di $90° \textrm{quindi la fase \`e} -90°$
-%% \subsubitem Lo zero $<0$ anticipa di $90° \textrm{quindi la fase \`e} +90°$
-%% \subsubitem Il polo $>0$ anticipa di $90° \textrm{quindi la fase \`e} +90°$
-%% \subsubitem Il polo $<0$ ritarda di $90° \textrm{quindi la fase \`e} -90°$
-%% \subsubitem e poi si somma l'$\arg K$.
-%% \end{enumerate}
-%% \end{minipage}
-%% }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{thebibliography}{99}
 \bibitem{FCA} Bolzen, Scattolini, Schiavoni: \emph{Fondamenti di controlli automatici ed. 2} - CAP.2 Par. 2.2.3
