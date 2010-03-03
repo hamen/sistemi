@@ -4804,6 +4804,43 @@ transizioni di stato.
   verificarsi di eventi asincroni nel tempo.
 \end{definizione}
 
+\section{Gli automi a stati finiti}
+Un automa a stati finiti (ASF) \`e un sistema dinamico, invariante,
+discreto nell'avanzamento e nelle interazioni nel quale gli insiemi
+dei possibili valori di ingresso, uscita e stato sono insiemi finiti.
+
+\begin{itemize}
+\item dinamico: evolve nel tempo passando da uno stato all'altro in
+  funzione dei segnali d'ingresso e dello stato precedente;
+\item invariante: a parit\`a di condizioni iniziali il comportamento
+  del sistema \`e sempre lo stesso;
+\item discreto: le variabili d'ingresso, di stato, d'uscita, possono
+  assumere solo valori discreti.
+\end{itemize}
+
+\subsection{Automi a stati finiti deterministici}
+Un automa a stati finiti deterministico (ASFD) \`e un'automa a stati
+finiti dove per ogni coppia di stato e simbolo in ingresso c'\`e una
+ed una sola transizione allo stato successivo.
+
+Un ASFD \`e costituito da una quintupla:
+\begin{equation}
+  A = \{ E, \overline{\underline{X}}, \overline{\underline{X}}_m, x_0,
+  \delta \}
+\end{equation}
+\begin{description}
+\item[$E$] insieme degli eventi: $\{ e_1, e_2, e_3, ..., e_n\}$
+\item[$\overline{\underline{X}}$] insieme degli stati: $\{ x_0, x_1,
+  x_2, ..., x_n\}$
+\item[$\overline{\underline{X}}_m$] insieme degli stati finali o {\em
+  marcati}
+\item[$x_0$] lo stato iniziale
+\item[$\delta$] funzione di transizione: $\overline{\underline{X}}
+  \times E$
+\end{description}
+
+
+
 
 
 % APPENDICI
