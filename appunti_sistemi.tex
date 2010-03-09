@@ -25,6 +25,7 @@
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
 \newtheorem{definizione}{Definizione}
+\newcommand{\bo}{\bfseries } 
 
 \usepackage{makeidx}
 \makeindex
@@ -4838,6 +4839,85 @@ Un ASFD \`e costituito da una quintupla:
 \item[$\delta$] funzione di transizione: $\overline{\underline{X}}
   \times E$
 \end{description}
+
+\subsection{Automi composizione concorrente}
+Si possono unire pi\`u automi per formare un automa piu\`u complesso,
+detto tipicamente ``automa composizione concorrente''. I due automi
+originali vengono ``collegati'' tramite un evento comune.
+
+Dati $k$ automi da $N$ stati, l'automa composizione concorrente avr\`a
+$k^N$ stati. \`E palese la difficolt\`a di utilizzare questo genere di
+strumento per l'analisi di sistemi complessi.
+
+\section{Reti di Petri}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/petri.png}
+    \caption{Esempio di una rete di Petri}\label{fig:petri01}
+  \end{center}
+\end{figure} 
+
+Una rete di Petri (conosciuta anche come rete posto/transizione o rete
+P/T) \`e una delle varie rappresentazioni matematiche di un sistema
+distribuito discreto. Una rete di Petri ha dei {\bo nodi posti}, dei
+{\bo nodi transizioni} e degli {\bo archi diretti} che connettono
+posti e transizioni. Possono esserci archi tra posti e transizioni, ma
+non tra posti e posti o transizioni e transizioni. 
+
+I posti possono contenere un certo numero di {\em
+  token}\index{Token}\index{Gettone} o gettoni. Una distribuzione di
+token sull'insieme dei posti della rete \`e detta marcatura.
+
+Le transizioni agiscono sui token in ingresso secondo una regola, detta
+regola di scatto (in inglese firing). Una transizione \`e {\em
+  abilitata} se pu\`o scattare, cio\`e se ci sono token in ogni posto
+di input. Quando una transizione scatta, essa consuma token dai suoi
+posti di input, esegue dei task e posiziona un numero specificato di
+token in ognuno dei suoi posti di uscita. Il numero totale di token
+{\em non \`e conservativo}: una transizione $t_x$ pu\`o portare un generico
+posto $p_n$ a perdere $k$ token e un generico posto $p_m$ a guadagnare
+$z$ token.
+
+\subsection{Definizione formale}
+Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
+\begin{itemize}
+\item $P$ \`e l'insieme dei posti
+\item $T$ \`e l'insieme delle transizioni
+\item $M$ \`e il vettore marcatura
+\item $Post$ \`e la matrice di Post-incidenza\index{Matrice di
+  Post-incidenza} 
+\item $Pre$ \`e la matrice di Pre-incidenza\index{Matrice di
+  Pre-incidenza} 
+\end{itemize}
+
+\subsection{Vettore marcatura}\index{Vettore marcatura}
+Il vettore marcatura \`e lo {\em stato} della rete di Petri. Indica
+quanti token sono contenuti in ogni posto. \`E un vettore colonna di
+interi non negativi:
+\[
+M = 
+ \begin{bmatrix}
+  k\\
+  n\\
+  m
+ \end{bmatrix}
+\]
+
+\subsection{Matrice di Post-incidenza}
+\`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
+pari al numero di transizioni. Indica la quantit\`a di token che il
+posto $p_n$ guadagna allo ``scattare'' della transizioni $t_m$.
+
+Dal punto di vista grafico, la matrice di post-incidenza ``muove''
+dalla transizione al posto.
+
+\subsection{Matrice di Pre-incidenza}
+\`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
+pari al numero di transizioni. Indica il peso degli archi che
+collegano posti e transizioni. 
+
+Dal punto di vista grafico, la matrice di pre-incidenza ``muove''
+dal posto alla transizione.
 
 
 
