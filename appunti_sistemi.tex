@@ -21,8 +21,10 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
+
 \usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit}
+\usepackage{pgf}
+\usetikzlibrary{automata,arrows,decorations.pathmorphing,backgrounds,fit}
 
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
@@ -4847,6 +4849,48 @@ Un ASFD \`e costituito da una quintupla:
 \item $\delta$ \`e la funzione di transizione: $\overline{\underline{X}}
   \times E$
 \end{itemize}
+
+\subsubsection{Buffer / Coda / Magazzino}
+La figura \ref{fig:coda} mostra l'ASFD di una generica coda.
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node
+      distance=2.8cm,semithick]
+   
+    \node[state] (A)             {$x_0$};
+    \node[initial above, state](B) [right of=A] {$x_1$};
+    \node[state]         (C) [right of=B] {$x_2$};
+    
+    \path
+    (A) edge [bend left] node {a} (B)
+    (B)
+    edge [bend left] node {a} (C)
+    edge [bend left] node {p} (A)
+    (C) edge [bend left] node {p} (B);
+  \end{tikzpicture}
+  \caption{Coda}
+  \label{fig:coda}
+\end{figure}
+La coda o buffer o magazzino ha capacit\`a 2. \`E costituito da tre
+stati:
+\[
+\overline{\underline{X}} = \{ x_0, x_1, x_2\}
+\]
+Lo stato iniziale \`e $x_1$. Gli eventi sono due:
+\begin{itemize}
+\item $a$ indica l'arrivo di un nuovo pezzo
+\item $p$ indica il prelievo di un pezzo
+\end{itemize}
+La funzione di transizione \`e:
+\[
+\begin{array}{l}
+  \delta(x_0, a) = x_1\\
+  \delta(x_1, a) = x_2\\
+  \delta(x_1, p) = x_0\\
+  \delta(x_2, p) = x_1
+\end{array}
+\]
 
 \subsection{Automi composizione concorrente}
 Si possono unire pi\`u automi deterministici per formare un automa
