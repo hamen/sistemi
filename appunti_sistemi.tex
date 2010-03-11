@@ -21,6 +21,8 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit}
 
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
@@ -4777,7 +4779,7 @@ sistemi a tempo discreto.
 \end{definizione}
 
 \section{Il concetto di evento}
-Le principali considerazioni da fare sul concetto di evento:
+Ecco le principali considerazioni da fare sul concetto di evento:
 \begin{itemize}
 \item \`e istantaneo
 \item causa la transizione da uno stato ed un altro
@@ -4787,7 +4789,7 @@ Nel nostro studio, ci riferiremo al singolo evento con la lettera $e$
 ed all'insieme di eventi con la lettera $E$.
 
 \section{DES logici e temporizzati}
-Esistono due principali tipi di sistemi ad eventi discreti:
+Esistono due principali tipi di sistemi ad eventi discreti (DES):
 \begin{description}
 \item[Temporizzati]:
   Le transizioni di stato possono verificarsi sia a causa di eventi
@@ -4815,7 +4817,7 @@ transizioni di stato.
 Un automa a stati finiti (ASF) \`e un sistema dinamico, invariante,
 discreto nell'avanzamento e nelle interazioni nel quale gli insiemi
 dei possibili valori di ingresso, uscita e stato sono insiemi finiti.
-
+Nel dettaglio, un ASF \`e:
 \begin{itemize}
 \item dinamico: evolve nel tempo passando da uno stato all'altro in
   funzione dei segnali d'ingresso e dello stato precedente;
@@ -4835,21 +4837,22 @@ Un ASFD \`e costituito da una quintupla:
   A = \{ E, \overline{\underline{X}}, \overline{\underline{X}}_m, x_0,
   \delta \}
 \end{equation}
-\begin{description}
-\item[$E$] insieme degli eventi: $\{ e_1, e_2, e_3, ..., e_n\}$
-\item[$\overline{\underline{X}}$] insieme degli stati: $\{ x_0, x_1,
+\begin{itemize}
+\item $E$ \`e l'insieme degli eventi: $\{ e_1, e_2, e_3, ..., e_n\}$
+\item $\overline{\underline{X}}$ \`e l'insieme degli stati: $\{ x_0, x_1,
   x_2, ..., x_n\}$
-\item[$\overline{\underline{X}}_m$] insieme degli stati finali o {\em
+\item $\overline{\underline{X}}_m$ \`e l'insieme degli stati finali o {\em
   marcati}
-\item[$x_0$] lo stato iniziale
-\item[$\delta$] funzione di transizione: $\overline{\underline{X}}
+\item $x_0$ \`e lo stato iniziale
+\item $\delta$ \`e la funzione di transizione: $\overline{\underline{X}}
   \times E$
-\end{description}
+\end{itemize}
 
 \subsection{Automi composizione concorrente}
-Si possono unire pi\`u automi per formare un automa piu\`u complesso,
-detto tipicamente ``automa composizione concorrente''. I due automi
-originali vengono ``collegati'' tramite un evento comune.
+Si possono unire pi\`u automi deterministici per formare un automa
+pi\`u complesso, detto tipicamente ``automa composizione
+concorrente''. I due automi originali vengono ``collegati'' tramite un
+evento comune. 
 
 Dati $k$ automi da $N$ stati, l'automa composizione concorrente avr\`a
 $k^N$ stati. \`E palese la difficolt\`a di utilizzare questo genere di
@@ -4877,9 +4880,13 @@ token sull'insieme dei posti della rete \`e detta marcatura.
 Le transizioni agiscono sui token in ingresso secondo una regola, detta
 regola di scatto (in inglese firing). Una transizione \`e {\em
   abilitata} se pu\`o scattare, cio\`e se ci sono token in ogni posto
-di input. Quando una transizione scatta, essa consuma token dai suoi
+di input, cio\`e se il vettore di marcatura \`e ``maggiore o uguale''
+della colonna associata alla transizione nella matrice di
+Pre-incidenza. Quando una transizione scatta, essa consuma token dai suoi
 posti di input, esegue dei task e posiziona un numero specificato di
-token in ognuno dei suoi posti di uscita. Il numero totale di token
+token in ognuno dei suoi posti di uscita. 
+
+Il numero totale di token
 {\em non \`e conservativo}: una transizione $t_x$ pu\`o portare un generico
 posto $p_n$ a perdere $k$ token e un generico posto $p_m$ a guadagnare
 $z$ token.
@@ -4925,9 +4932,14 @@ collegano posti e transizioni.
 Dal punto di vista grafico, la matrice di pre-incidenza ``muove''
 dal posto alla transizione.
 
-
-
-
+bozza grafico rete di petri
+\begin{tikzpicture}
+  \path ( 0,2) node [shape=circle,draw] {}
+        ( 0,1) node [shape=circle,draw] {}
+        ( 0,0) node [shape=circle,draw] {}
+        ( 1,1) node [shape=rectangle,draw] {}
+        (-1,1) node [shape=rectangle,draw] {};
+\end{tikzpicture}
 
 % APPENDICI
 \appendix
