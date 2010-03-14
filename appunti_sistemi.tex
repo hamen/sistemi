@@ -22,9 +22,12 @@
 \usepackage{amsthm}
 \usepackage{mathrsfs}
 
+\def\xcolorversion{2.00}
+\def\xkeyvalversion{1.8}
+\usepackage[version=0.96]{pgf}
 \usepackage{tikz}
 \usepackage{pgf}
-\usetikzlibrary{automata,arrows,decorations.pathmorphing,backgrounds,fit}
+\usetikzlibrary{automata,arrows,decorations.pathmorphing,backgrounds,fit,petri,shapes}
 
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
@@ -5089,14 +5092,79 @@ collegano posti e transizioni.
 Dal punto di vista grafico, la matrice di pre-incidenza ``muove''
 dal posto alla transizione.
 
-bozza grafico rete di petri
-\begin{tikzpicture}
-  \path ( 0,2) node [shape=circle,draw] {}
-        ( 0,1) node [shape=circle,draw] {}
-        ( 0,0) node [shape=circle,draw] {}
-        ( 1,1) node [shape=rectangle,draw] {}
-        (-1,1) node [shape=rectangle,draw] {};
-\end{tikzpicture}
+\subsubsection{Magazzino multiclasse - Petri}\index{Magazzino
+  multiclasse Petri}
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=above:$P_2$] (p2)      {};
+  \node [place,label=above:$P_1$] (p1) [below of=p2] {};
+  \node [place,label=below:$P_3$] (p3)  [below of=p1] {};
+
+  \node [transition,label=left:$t_3$] (t3) [above left of=p1] {}
+  edge [pre, bend right] node [left] {2} (p1)
+  edge [post, bend left]    (p2);
+
+  \node [transition,label=right:$t_4$] (t4) [above right of=p1] {}
+  edge [pre, bend right] (p2)
+  edge [post, bend left] node [right] {2} (p1);
+
+  \node [transition,label=left:$t_1$] (t1) [below left of=p1] {}
+  edge [pre, bend left] (p1)
+  edge [post, bend right] (p3);
+
+  \node [transition,label=right:$t_2$] (t2) [below right of=p1] {}
+  edge [pre, bend left] (p3)
+  edge [post, bend right] (p1);
+  \end{tikzpicture}
+  \label{fig:magazzinoMulticlassePetri}
+  \caption{Magazzino multiclasse di Petri}
+\end{figure}
+La figura \ref{fig:magazzinoMulticlassePetri} mostra un magazzino
+multiclasse rappresentato con una rete di Petri. La rete \`e
+costituita da 3 posti e 4 transitioni.
+
+Le marcature nei posti solo le seguenti:
+\begin{itemize}
+\item $M_{p_1}$ indica il numero di posti liberi nel magazzino
+\item $M_{p_2}$ indica il numero di pezzi di tipo 2
+\item $M_{p_3}$ indica il numero di pezzi di tipo 1
+\end{itemize}
+
+La transizioni sono le seguenti:
+
+\begin{itemize}
+\item $t_1$ indica il deposito di un pezzo di tipo 1
+\item $t_2$ indica il prelievo di un pezzo di tipo 1
+\item $t_3$ indica il deposito di un pezzo di tipo 2
+\item $t_4$ indica il prelievo di un pezzo di tipo 2
+\end{itemize}
+La matrice di pre-incidenza \`e:
+\[
+Pre =
+\begin{bmatrix}
+  0 & 1 & 0 & 2\\
+  0 & 0 & 1 & 0\\
+  1 & 0 & 0 & 0
+\end{bmatrix}
+\]
+La matrice di post-incidenza \`e:
+\[
+Post = 
+\begin{bmatrix}
+  1 & 0 & 2 & 0\\
+  0 & 0 & 0 & 1\\
+  0 & 1 & 0 & 0
+\end{bmatrix}
+\]
 
 % APPENDICI
 \appendix
