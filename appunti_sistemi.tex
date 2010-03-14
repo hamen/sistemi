@@ -5033,6 +5033,18 @@ distribuito discreto. Una rete di Petri ha dei {\bo nodi posti}, dei
 posti e transizioni. Possono esserci archi tra posti e transizioni, ma
 non tra posti e posti o transizioni e transizioni. 
 
+\subsection{Definizione formale}
+Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
+\begin{itemize}
+\item $P$ \`e l'insieme dei posti
+\item $T$ \`e l'insieme delle transizioni
+\item $M$ \`e il vettore marcatura
+\item $Post$ \`e la matrice di Post-incidenza\index{Matrice di
+  Post-incidenza} 
+\item $Pre$ \`e la matrice di Pre-incidenza\index{Matrice di
+  Pre-incidenza} 
+\end{itemize}
+
 \subsubsection{Posti}
 I posti possono contenere un certo numero di {\em
   token}\index{Token}\index{Gettone} o gettoni. Una distribuzione di
@@ -5077,18 +5089,6 @@ elemento, tra il vettore marcatura (una colonna) e la colonna $t_i$ (o
 $t_j$) della matrice di pre-incidenza (o post-incidenza). Il vettore
 marcatura \`e maggiore solo se tutti i suoi elementi confrontati sono
 maggiori (AND).
-
-\subsection{Definizione formale}
-Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
-\begin{itemize}
-\item $P$ \`e l'insieme dei posti
-\item $T$ \`e l'insieme delle transizioni
-\item $M$ \`e il vettore marcatura
-\item $Post$ \`e la matrice di Post-incidenza\index{Matrice di
-  Post-incidenza} 
-\item $Pre$ \`e la matrice di Pre-incidenza\index{Matrice di
-  Pre-incidenza} 
-\end{itemize}
 
 \subsection{Vettore marcatura}\index{Vettore marcatura}
 Il vettore marcatura \`e lo {\em stato} della rete di Petri. Indica
@@ -5192,6 +5192,31 @@ Post =
   0 & 1 & 0 & 0
 \end{bmatrix}
 \]
+
+\subsubsection{Contatore ``a salire'' e ``a scendere'' di numeri
+  interi non negativi}
+
+\begin{figure}[!h]
+  \centering
+  \label{fig:contatorePetri}
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=above:$P_1$] (p1)      {};
+
+  \node [transition,label=above:$t_1$(sale)] (t1) [left of=p1] {}
+  edge [post] (p1);
+  \node [transition,label=above:$t_2$(scende)] (t2) [right of=p1] {}
+  edge [pre] (p1);
+  \end{tikzpicture}
+  \caption{Contatore di Petri}
+\end{figure}
 
 % APPENDICI
 \appendix
