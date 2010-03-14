@@ -4850,7 +4850,7 @@ Un ASFD \`e costituito da una quintupla:
   \times E$
 \end{itemize}
 
-\subsubsection{Macchina}
+\subsubsection{Macchina}\index{Macchina ASFD}
 La figura \ref{fig:macchina} mostra l'ASFD di una generica macchina:
 la macchina \`e pronta a ricevere un pezzo. Passa cos\`i dallo stato
 ``Idle'' allo stato ``Busy''. Conclusa la lavorazione, il pezzo viene
@@ -4890,7 +4890,8 @@ La funzione di transizione \`e:
 Nota: l'evento ``end'' deve indicare la fine di tutti i task. \`E
 impossibile trovarsi contemporaneamente in due stati.
 
-\subsubsection{Buffer / Coda / Magazzino}
+\subsubsection{Buffer / Coda / Magazzino}\index{Buffer
+  ASFD}\index{Coda AFSD}\index{Magazzino ASFD}
 La figura \ref{fig:coda} mostra l'ASFD di una generica coda.
 
 \begin{figure}[!h]
@@ -4931,6 +4932,78 @@ La funzione di transizione \`e:
   \delta(x_2, p) = x_1
 \end{array}
 \]
+
+\subsubsection{Magazzino multiclasse}\index{Magazzino multiclasse ASFD}
+Un magazzino multiclasse \`e un magazzino che pu\`o contenere pezzi di
+cardinalit\`a differente. La figura \ref{fig:magazzinoMulticlasse} mostra
+un ASFD di un magazzino che pu\`o contenere quattro elementi di tipo 1
+o due elementi di tipo 2. Gli stati ``doppio cerchio'' sono detti
+stati finali.
+
+\begin{itemize}
+\item L'evento $d_1$ indica il deposito di un pezzo di tipo 1
+\item L'evento $d_2$ indica il deposito di un pezzo di tipo 2
+\item L'evento $p_1$ indica il prelievo di un pezzo di tipo 1
+\item L'evento $p_2$ indica il prelievo di un pezzo di tipo 2
+\end{itemize}
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node
+      distance=2.4cm,semithick]
+   
+    \node[initial, state] (A) {$0,0$};
+    \node[state](B) [right of=A] {$1,0$};
+    \node[state](C) [right of=B] {$2,0$};
+    \node[state](D) [right of=C] {$3,0$};
+    \node[state, accepting](E) [right of=D] {$4,0$};
+
+    \node[state](F) [below of=A] {$0,1$};
+    \node[state](G) [right of=F] {$1,1$};
+    \node[state, accepting](H) [right of=G] {$2,1$};
+    \node[state, accepting](I) [below of=F] {$0,2$};
+    
+    \path
+    (A)
+    edge [bend left] node {$d_1$} (B)
+    edge [bend left] node {$d_2$} (F)
+    
+    (B)
+    edge [bend left] node {$d_1$} (C)
+    edge [bend right] node [left] {$d_2$} (G)
+    edge [bend left] node {$p_1$} (A)
+        
+    (C)
+    edge [bend left] node {$d_1$} (D)
+    edge [bend left] node {$d_2$} (H)
+    edge [bend left] node {$p_1$} (B)
+
+    (D)
+    edge [bend left] node {$p_1$} (C)
+    edge [bend left] node {$d_1$} (E)
+
+    (E)
+    edge [bend left] node {$p_1$} (D)
+    
+    (F)
+    edge [bend left] node {$d_2$} (I)
+    edge [bend left] node {$p_2$} (A)
+    edge [bend left] node {$d_1$} (G)
+    
+    (G)
+    edge [bend left] node {$d_1$} (H)
+    edge [bend right] node [right] {$p_2$} (B)
+    edge [bend left] node {$p_1$} (F)
+
+    (H)
+    edge [bend left] node {$p_2$} (C)
+    edge [bend left] node {$p_1$} (G)
+    
+    (I)
+    edge [bend left] node {$p_2$} (F);
+  \end{tikzpicture}
+  \caption{ASFD Magazzino multiclasse}
+  \label{fig:magazzinoMulticlasse}
+\end{figure}
 
 \subsection{Automi composizione concorrente}
 Si possono unire pi\`u automi deterministici per formare un automa
