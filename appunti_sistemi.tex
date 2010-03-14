@@ -5033,10 +5033,15 @@ distribuito discreto. Una rete di Petri ha dei {\bo nodi posti}, dei
 posti e transizioni. Possono esserci archi tra posti e transizioni, ma
 non tra posti e posti o transizioni e transizioni. 
 
+\subsubsection{Posti}
 I posti possono contenere un certo numero di {\em
   token}\index{Token}\index{Gettone} o gettoni. Una distribuzione di
 token sull'insieme dei posti della rete \`e detta marcatura.
-
+Il numero totale di token
+{\em non \`e conservativo}: una transizione $t_x$ pu\`o portare un generico
+posto $p_n$ a perdere $k$ token e un generico posto $p_m$ a guadagnare
+$z$ token.
+\subsubsection{Transizioni}
 Le transizioni agiscono sui token in ingresso secondo una regola, detta
 regola di scatto (in inglese firing). Una transizione \`e {\em
   abilitata} se pu\`o scattare, cio\`e se ci sono token in ogni posto
@@ -5045,11 +5050,33 @@ della colonna associata alla transizione nella matrice di
 Pre-incidenza. Quando una transizione scatta, essa consuma token dai suoi
 posti di input, esegue dei task e posiziona un numero specificato di
 token in ognuno dei suoi posti di uscita. 
-
-Il numero totale di token
-{\em non \`e conservativo}: una transizione $t_x$ pu\`o portare un generico
-posto $p_n$ a perdere $k$ token e un generico posto $p_m$ a guadagnare
-$z$ token.
+\begin{description}
+\item[Transizioni sempre abilitate] sono transizioni che possono
+  scattare quando necessario, senza le limitazioni imposte dai
+  token. Questo genere di transizioni portano la rete di Petri ad
+  avere un vettore di marcatura potenzialmente sempre diverso: una
+  rete di Petri di questo tipo ha, quindi, un numero illimitato di stati;
+\item[Transizioni in conflitto] sono transizioni abilitate che in caso
+  di ``scatto'' si disabilitano l'un l'altra. Per definizione, due
+  transizioni si dicono in conflitto se sono verificate tutte e tre
+  queste condizioni:
+  \[
+  \left \{
+  \begin{array}{l}
+    M \geq Pre(\bullet, t_i)\\
+    M \geq Pre(\bullet, t_j)\\
+    M \ngeq Pre(\bullet, t_i) + M \geq Pre(\bullet, t_j)
+  \end{array}
+  \right .
+  \]
+\end{description}
+cio\`e il vettore di marcatura \`e maggiore del numero di token nella
+colonna $t_i$ (o $t_j$) della matrice di pre-incidenza (o
+post-incidenza). Per ``maggiore'' si intende un confronto elemento per
+elemento, tra il vettore marcatura (una colonna) e la colonna $t_i$ (o
+$t_j$) della matrice di pre-incidenza (o post-incidenza). Il vettore
+marcatura \`e maggiore solo se tutti i suoi elementi confrontati sono
+maggiori (AND).
 
 \subsection{Definizione formale}
 Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
