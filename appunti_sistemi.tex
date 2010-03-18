@@ -5363,6 +5363,67 @@ Ci si pone la questione se sia possibile con una passeggiata seguire
 un percorso che attraversa ogni ponte una e una volta sola e tornare
 al punto di partenza.
   
+\subsubsection{Mutua esclusione}
+\subsubsection{Lettori - Scrittori}
+Un problema comune in informatica \`e l'accesso concorrente ad una
+risorsa. Si suppongano $l$ lettori ed $s$ scrittori. Un lettore pu\`o
+essere ``inattivo'' o ``in lettura''. Uno scrittore pu\`o essere
+``inattivo'' o ``in scrittura''. La fase di lettura pu\`o essere
+concorrente: fino ad $n$ lettori possono leggere
+contemporaneamente. L'accesso in scrittura \`e mutuamente esclusivo:
+uno scrittore in scrittura disabilita l'accesso in scrittura ad un
+secondo scrittore e in lettura a tutti i lettori.
+La figura \ref{fig:lettoriScrittoriPetri} mostra una reti di Petri che
+descrive la soluzione al problema.
+\begin{figure}[!h]
+  \centering
+  \label{fig:lettoriScrittoriPetri}
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=left:$lettore\;inattivo$] (p1) {};
+  \node [] at (p1) {$l$};
+  \node [place,label=right:$scrittore\;inattivo$] (p2) [right
+    of=p1,xshift=1.3cm]     {};
+  \node [] at (p2) {$s$};
+  \node [place,label=left:$in\; lettura$] (p3) [above of=p1,yshift=-4cm]     {};
+  \node [place,label=below:$S$] (p4) [right of=p3, ]     {};
+  \node [] at (p4) {$n$};
+  \node [place,label=right:$in\; scrittura$] (p5) [right of=p4]     {};
+  
+  \node [transition,label=left:$leggi$] (t1) [below of=p1] {}
+  edge [pre] (p1)
+  edge [pre, bend left] (p4)
+  edge [post] (p3);
+  \node [transition,label=right:$scrivi$] (t2) [below of=p2] {}
+  edge [post] (p5)
+  edge [pre, bend right] node [above] {n} (p4)
+  edge [pre] (p2);
+  \node [transition,label=left:$termina\;lettura$] (t3) [below of=p3] {}
+  edge [pre] (p3)
+  edge [post, bend left] (p4)
+  edge [post, bend left] (p1);
+  \node [transition,label=right:$termina\;scrittura$] (t4) [below of=p5] {}
+  edge [pre] (p5)
+  edge [post, bend right]  node [below] {n} (p4)
+  edge [post, bend right] (p2);
+  \end{tikzpicture}
+  \caption{Lettori - Scrittori di Petri}
+\end{figure}
+Il posto $S$ soddisfa le condizioni del problema. Quando uno scrittore
+inizia a scrivere, il posto $S$ si svuota e nessun altro
+lettore o scrittore pu\`o accedere.
+
+Quando un lettore accede in lettura, il posto $S$ perde uno dei suoi
+$n$ token: nessuno scrittore pu\`o accedere, ma possono accedere
+ancora $n - 1$ token.
+
 % APPENDICI
 \appendix
 \chapter {Calcolo della Jacobiana per la valutazione della stabilit\`a}\label{apx:jacob}
