@@ -5424,6 +5424,52 @@ Quando un lettore accede in lettura, il posto $S$ perde uno dei suoi
 $n$ token: nessuno scrittore pu\`o accedere, ma possono accedere
 ancora $n - 1$ token.
 
+\subsubsection{Sequenze ripetute abilitanti}
+Supponiamo di volere che una determinata operazione $op_2$ sia
+abilitata solo dopo una sequenza di almeno $N$ operazioni di tipo
+$op_1$.
+
+\input{./tex/sequenzeRipetuteAbilitantiPetri}
+Il posto $P_m$ rende mutuamente esclusive le operazioni $op_1$ e
+$op_2$. Supponiamo $N = 3$. Grazie alla rete di Petri, la sequenza di
+scatto seguente \`e possibile.:
+
+\[
+\begin{array}{c c c c c c c c c}
+  &
+  \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
+  \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
+  \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
+  \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
+  \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
+  \underbrace{t_{21} \; t_{22}}_\text{$op_1$}\; &
+  \underbrace{t_{21} \; t_{22}}_\text{$op_1$}\; &
+  \underbrace{t_{21} \; t_{22}}_\text{$op_1$}\; \\
+  M(p_N) &
+  1 &
+  2 &
+  3 &
+  3 &
+  3 &
+  0 &
+  0 &
+  1
+\end{array}
+\]
+Si noti che essendo $N = 3$, quando $M(p_N) < 3$ (cio\`e non si sono
+avute almeno 3 $op_1$ consecutive) la $t_{21}$ (cio\`e l'inizio di
+$op_2$) non \`e abilitata.
+
+La rete si pu\`o completare in modo simmetrico supponendo di voler
+abilitare le $op_1$ solo dopo aver avuto almeno $M$ volte $op_2$. La
+figura \ref{fig:sequenzeRipetutePetri1} ne mostra la realizzazione.
+\input{./tex/sequenzeRipetuteAbilitantiPetri02}
+
+La transizione $t_{11}$ non \`e abilitata se $M(p_N) < M$.
+Il ruolo dei posti $P_N$ e $P_M$ \`e di contatore da zero ad $N$ ed
+$M$, rispettivamente. Per sequenze di $op_1$ (o $op_2$) superiori ad
+$N$ (o $M$) si ha comunque $M(p_N) = N$ e $M(p_M) = M$, facendo
+scattare $t_N$ e $t_M$.
 % APPENDICI
 \appendix
 \chapter {Calcolo della Jacobiana per la valutazione della stabilit\`a}\label{apx:jacob}

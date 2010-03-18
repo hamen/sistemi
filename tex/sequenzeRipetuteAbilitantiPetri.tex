@@ -1,0 +1,44 @@
+\begin{figure}[!h]
+  \centering
+  \label{fig:sequenzeRipetutePetri1}
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=below:$P_N$] (pn) {};
+  \node [place,label=right:$op_1$] (op1) [right of=pn] {};
+  \node [place,label=below:$P_M$] (pm) [right of=op1] {};
+  \node [place,label=right:$op_2$] (op2) [right of=pm] {};
+
+  \node [transition,label=above:$t_{11}$] (t11) [above of=op1] {}
+  edge [pre] (pm)
+  edge [post] (pn)
+  edge [post] (op1);
+
+  \node [transition,label=above right:$t_{21}$] (t21) [above of=op2]{}
+  edge [pre] (pm)
+  edge [post] (op2);
+  \draw [->]
+  (pn)
+  -- ++(0, 2) node [left] {N}
+  -| (t21);
+
+  \node [transition,label=right:$t_{12}$] (t12) [below of=op1] {}
+  edge [pre] (op1)
+  edge [post] (pm);
+
+  \node [transition,label=right:$t_{21}$] (t21) [below of=op2] {}
+  edge [pre] (op2)
+  edge [post] (pm);
+
+  \node [transition,label=left:$t_{N}$,xshift=-0.5cm] (tn) [left of=pn] {}
+  edge [pre, bend right] node [below] {$N+1$} (pn)
+  edge [post, bend left] node [above] {$N$} (pn);
+  \end{tikzpicture}
+  \caption{Sequenze ripetute abilitanti - prima analisi}
+\end{figure}
