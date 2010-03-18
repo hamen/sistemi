@@ -1,0 +1,42 @@
+\begin{figure}[!h]
+  \centering
+  \label{fig:cicloForPetri}
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=above:$P_1$] (p1)      {};
+  \node [place,label=above:$P_2$] (p2) [right of=p1,xshift=1.3cm] {};
+  \node [place,label=above:$P_3$] (p3) [right of=p2,xshift=1.3cm] {};
+  \node [place,label=above:$P_4$] (p4) [above of=p2] {};
+  \node [place,label=above:$P_5$] (p5) [above of=p4] {};
+  
+
+  \node [transition,label=below left:$t_1$] (t1) [left of=p1] {}
+  edge [pre, bend left] (p5)
+  edge [post] (p1);
+
+  \node [transition,label=above right:$t_2$] (t2) [right of=p1] {}
+  edge [pre] (p1)
+  edge [pre, bend left] (p4)
+  edge [post] (p2);
+
+
+  \node [transition,label=above:$t_3$] (t3) [right of=p2] {}
+  edge [post, bend left] (p1)
+  edge [post] (p3)
+  edge [pre] (p2);
+
+  \node [transition,label=right:$t_4$] (t4) [right of=p3] {}
+  edge [pre, bend left] (p1)
+  edge [pre] node [above] {n} (p3)
+  edge [post, bend right] (p5)
+  edge [post, bend right] node [above] {n} (p4);
+  \end{tikzpicture}
+  \caption{Ciclo For - Petri}
+\end{figure}

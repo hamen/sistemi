@@ -5432,7 +5432,7 @@ $op_1$.
 \input{./tex/sequenzeRipetuteAbilitantiPetri}
 Il posto $P_m$ rende mutuamente esclusive le operazioni $op_1$ e
 $op_2$. Supponiamo $N = 3$. Grazie alla rete di Petri, la sequenza di
-scatto seguente \`e possibile.:
+scatto seguente \`e possibile:
 
 \[
 \begin{array}{c c c c c c c c c}
@@ -5470,6 +5470,53 @@ Il ruolo dei posti $P_N$ e $P_M$ \`e di contatore da zero ad $N$ ed
 $M$, rispettivamente. Per sequenze di $op_1$ (o $op_2$) superiori ad
 $N$ (o $M$) si ha comunque $M(p_N) = N$ e $M(p_M) = M$, facendo
 scattare $t_N$ e $t_M$.
+
+\subsubsection{Rete di Petri di un ciclo for}
+Vogliamo costruire una RP che descriva la ripetizione di una azione
+$n$ volte consecutive prima di svolgere una successiva operazione. Una
+possibile implementazione \`e mostrata in figura
+\ref{fig:cicloForPetri}.
+\input{./tex/cicloForPetri}
+\begin{itemize}
+\item $t_1$: pu\`o cominciare il ciclo
+\item $t_2$: comincia una iterazione del ciclo
+\item $t_3$: finisce una iterazione del ciclo
+\item $t_4$: finisce il ciclo
+\item $+$
+\item $M(P_1)$: pu\`o cominciare una iterazione del ciclo
+\item $M(P_2)$: \`e in corso una iterazione del ciclo (una sola
+  iterazione per volta)
+\item $M(P_3)$: numero di iterazioni del ciclo completate
+\item $M(P_4)$: numero di iterazioni del ciclo ancora da avviare
+\item $M(P_5)$: pu\`o cominciare un nuovo ciclo
+\end{itemize}
+
+Si noti che l'arco da $P_1$ a $t_4$ serve ad eliminare il token da
+$P_1$ (disabilitare una nuova iterazione) quando il ciclo finisce.
+
+\begin{figure}[!h]
+  \centering
+  \label{fig:}
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=above:$P_1$] (p1)      {};
+
+  \node [transition,label=above:$t_1$(sale)] (t1) [left of=p1] {}
+  edge [post] (p1);
+  \end{tikzpicture}
+  \caption{}
+\end{figure}
+
+\subsubsection{Albero di raggiungibilit\`a}
+\subsubsection{Incrocio}
+
 % APPENDICI
 \appendix
 \chapter {Calcolo della Jacobiana per la valutazione della stabilit\`a}\label{apx:jacob}
@@ -5501,7 +5548,7 @@ trovare nell'Appendice \ref{apx:stabil}
 
 \chapter{Considerazioni sul polinomio caratteristico e regola di
   Cartesio}\label{apx:stabil} 
-Per un sistema del $II°$ ordine
+Per un sistema del $II$ ordine
 \begin{displaymath}
   A=\left[
     \begin {array}	{ll} 
