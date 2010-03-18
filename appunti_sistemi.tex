@@ -5285,6 +5285,69 @@ Post =
   \end{tikzpicture}
   \caption{Macchina - Magazzino - Macchina}
 \end{figure}
+
+\subsubsection{Mittente - Destinatario}
+\begin{figure}
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[shape=rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+  \tikzstyle{every label}=[red]
+
+  \begin{scope}
+  \node [place,label=above:$P_1$] (p1) {};
+  \node [place,label=left:$P_2$] (p2) [below of=p1, yshift=-1.3cm]{};
+  \node [place,label=above:$P_3$] (p3) [right of=p1]{};
+  \node [place,label=above:$P_4$] (p4) [right of=p3]{};
+  \node [place,label=right:$P_5$] (p5) [below of=p4, yshift=-1.3cm]{};
+  \node [place,label=left:$P_6$] (p6) [below of=p2, yshift=-1.3cm]{};
+  \node [place,label=below:$P_7$] (p7) [right of=p6]{};
+  \node [place,label=right:$P_8$] (p8) [below of=p5, yshift=-1.3cm]{};
+
+  \node [transition,label=left:$t_1$] (t1) [below of=p1] {}
+  edge [pre] (p1)
+  edge [post, bend left] (p3)
+  edge [post](p2);
+
+  \node [transition,label=left:$t_2$] (t2) [below of=p4] {}
+  edge [pre] (p4)
+  edge [pre, bend right] (p3)
+  edge [post] (p5);
+
+  \node [transition,label=left:$t_3$] (t3) [below of=p5] {}
+  edge [pre] (p5)
+  edge [post, bend left] (p7)
+  edge [post] (p8);
+  
+  \node [transition,label=left:$t_4$] (t4) [below of=p2] {}
+  edge [pre] (p2)
+  edge [pre, bend right] (p7)
+  edge [post] (p6);
+  \end{scope}
+  \begin{scope}[xshift=2cm]
+    \node [right=1cm,text width=8cm] at (p5)
+          {
+            \begin{itemize}
+            \item $P_1$: \`e pronto a trasmettere
+            \item $t_1$: \`e stato inviato un messaggio e si \`e in
+              attesa della ricevuta
+            \item $P_4$: \`e in attesa del messaggio
+            \item $t_2$: \`e stato ricevuto un messaggio
+            \item $P_5$: invia la ricevuta
+            \end{itemize}
+          };
+  \end{scope}
+  \end{tikzpicture}
+  \caption{}
+  \label{fig:mittenteDestinatarioPetri}
+\end{figure}
+La figura \ref{fig:mittenteDestinatarioPetri} mostra una rete di Petri
+di un sistema Mittente-Destinatario: il mittente \`e pronto ad inviare
+un messaggio. Inviato il messaggio, attende la ricevuta. Il ricevente
+\`e in attesa di un messaggio. Ricevuto il messaggio, invia una
+risposta. 
 % APPENDICI
 \appendix
 \chapter {Calcolo della Jacobiana per la valutazione della stabilit\`a}\label{apx:jacob}
