@@ -1,0 +1,45 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=below right:$P_1$,tokens=1] (p1)      {};
+  \node [place,label=below:$P_2$] (p2) [below of=p1,yshift=-1.3cm] {};
+  \node [place,label=below:$P_3$] (p3) [right of=p2,xshift=1.3cm] {};
+  \node [place,label=below:$P_4$] (p4) [left of=p2,xshift=-1.3cm] {};
+
+  \node [transition,label=right:$t_1$] (t1) [below of=p1] {}
+  edge [pre] (p1)
+  edge [post] (p2);
+
+  \node [transition,label=below:$t_2$] (t2) [right of=p2] {}
+  edge [pre] (p2)
+  edge [post] (p3);
+  \node [transition,label=below:$t_6$] (t6) [right of=p3] {}
+  edge [pre, bend right] (p3)
+  edge [post, bend left] (p3);
+  
+  \node [transition,label=below:$t_3$] (t3) [left of=p2] {}
+  edge [pre] (p2)
+  edge [post] (p4);
+  \node [transition,label=below:$t_7$] (t7) [left of=p4] {}
+  edge [pre, bend left] (p4)
+  edge [post, bend right] (p4);
+
+  \node [transition,label=right:$t_4$] (t4) [above of=p3] {}
+  edge [pre] (p3)
+  edge [post, bend right] (p1);
+
+  \node [transition,label=left:$t_5$] (t5) [above of=p4] {}
+  edge [pre] (p4)
+  edge [post, bend left] (p1);
+  \end{tikzpicture}
+  \caption{Ascensore semplice - Petri}
+  \label{fig:ascensoreSemplicePetri}
+\end{figure}

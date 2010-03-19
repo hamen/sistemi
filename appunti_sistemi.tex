@@ -5546,6 +5546,68 @@ possibile implementazione \`e mostrata in figura
 Si noti che l'arco da $P_1$ a $t_4$ serve ad eliminare il token da
 $P_1$ (disabilitare una nuova iterazione) quando il ciclo finisce.
 
+\subsubsection{Incrocio semaforico}
+Si consideri un incrocio costituito da fue flussi di attraversamento:
+Nord-Sud ed Est-Ovest. Il semaforo consente un flusso per volta e un
+numero massimo di due vetture che possono occupuare l'incrocio.
+\input{./tex/incrocioPetri}
+La figura \ref{fig:incrocioPetri} mostra la rete di Petri di questo
+incrocio. Ecco nel dettaglio il significato di posti e transizioni:
+\begin{itemize}
+\item $P_1$: Coda N-S
+\item $P_2 \; e \; P_6$: attraversamento incrocio
+\item $P_3 \; e \; P_7$: attraversamento numero vetture
+\item $P_5$: Coda E-O
+\item $P_4 \; e \; P_8$: numero di posti liberi nell'incrocio
+\item $P_9$: semaforo verde N-S
+\item $P_{10}$: semaforo verde E-O
+\end{itemize}
+
+\begin{itemize}
+\item $t_1$: arrivo nuova vettura al semaforo N-S
+\item $t_2$: impegna l'incrocio N-S
+\item $t_3$: fine attraversamento incrocio N-S
+\item $t_4$: arrivo nuova vettura al semaforo E-O
+\item $t_5$: impegna incrocio E-O
+\item $t_6$: fine attraversamento incrocio E-O
+\item $t_7$: scatta al verde per E-O
+\item $t_8$: scatta al verde per N-S
+\end{itemize}
+
+\subsubsection{Ascensore semplice}
+\input{./tex/ascensoreSemplicePetri}
+La figura \ref{fig:ascensoreSemplicePetri} mostra un modello di Petri
+di un ascensore semplice\index{Ascensore semplice}. Il comportamento
+dell'ascensore \`e il segunte:
+\begin{itemize}
+\item Arriva una prenotazione:
+  \begin{itemize}
+  \item se \`e libero va al piano della prenotazione
+  \item se \`e in movimento la prenotazione viene ignorata
+  \end{itemize}
+\item Un utente sale sull'ascensore ed effettua una prenotazione;
+  questa non pu\`o essere annullata.
+\end{itemize}
+Due dati fondamentali sono:
+\begin{itemize}
+\item $\bar{c}$: piano corrispondente alla chiamata
+\item $\pi$: piano in cui si trova l'ascensore
+\end{itemize}
+Questa \`e la descrizione dei posti e delle transizioni:
+\begin{itemize}
+\item $P_1$: Ascensore libero e fermo
+\item $P_2$: Sceltra tra salita e discesa
+\item $P_3$: Ascensore in salita
+\item $P_4$: Ascensore in discesa
+\item $t_1$: chiamata o prenotazione
+\item $t_2$: chiamata in salita $\bar{c} > \pi$
+\item $t_3$: chiamata in discesa $\bar{c} < \pi$
+\item $t_4$: l'ascensore arriva ad un nuono piano $\pi = \bar{c}$
+\item $t_5$: l'ascensore arriva ad un nuono piano $\pi = \bar{c}$
+\item $t_6$: l'ascensore arriva ad un nuono piano, ma $\bar{c} > \pi$
+\item $t_7$: l'ascensore arriva ad un nuono piano, ma $\bar{c} < \pi$
+\end{itemize}
+
 \begin{figure}[!h]
   \centering
   \label{fig:}
