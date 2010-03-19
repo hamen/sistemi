@@ -4801,7 +4801,7 @@ Esistono due principali tipi di sistemi ad eventi discreti (DES):
   che a causa di determinate condizioni temporali: es. si verifica
   l'evento $e$ o trascorrono $n$ secondi;
 \item [Logici]:
-  Le transizioni di stato solo determinate unicamente dal verificarsi
+  Le transizioni di stato sono determinate unicamente dal verificarsi
   di specifici e determinati eventi $e$, appartenenti ad $E$;
 \end{description}
 
@@ -4879,7 +4879,7 @@ pu\`o essere prelevato e la macchina diventa nuovamente ``Idle''.
 
 \begin{itemize}
 \item $E = \{ task, end, free \}$
-\item $\overline{\underline{X}} \{ Idle, Busy, Blocked\}$
+\item $\overline{\underline{X}} = \{ Idle, Busy, Blocked\}$
 \item $x_0 = \{ Idle\}$
 \end{itemize}
 
@@ -5077,18 +5077,18 @@ token in ognuno dei suoi posti di uscita.
   \begin{array}{l}
     M \geq Pre(\bullet, t_i)\\
     M \geq Pre(\bullet, t_j)\\
-    M \ngeq Pre(\bullet, t_i) + M \geq Pre(\bullet, t_j)
+    M \ngeq Pre(\bullet, t_i) + Pre(\bullet, t_j)
   \end{array}
   \right .
   \]
 \end{description}
 cio\`e il vettore di marcatura \`e maggiore del numero di token nella
-colonna $t_i$ (o $t_j$) della matrice di pre-incidenza (o
-post-incidenza). Per ``maggiore'' si intende un confronto elemento per
+colonna $t_i$ (o $t_j$) della matrice di pre-incidenza. Per
+``maggiore'' si intende un confronto elemento per
 elemento, tra il vettore marcatura (una colonna) e la colonna $t_i$ (o
-$t_j$) della matrice di pre-incidenza (o post-incidenza). Il vettore
+$t_j$) della matrice di pre-incidenza. Il vettore
 marcatura \`e maggiore solo se tutti i suoi elementi confrontati sono
-maggiori (AND).
+maggiori o uguali (AND logico).
 
 \subsection{Vettore marcatura}\index{Vettore marcatura}
 Il vettore marcatura \`e lo {\em stato} della rete di Petri. Indica
@@ -5103,14 +5103,6 @@ M =
  \end{bmatrix}
 \]
 
-\subsection{Matrice di Post-incidenza}
-\`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
-pari al numero di transizioni. Indica la quantit\`a di token che il
-posto $p_n$ guadagna allo ``scattare'' della transizioni $t_m$.
-
-Dal punto di vista grafico, la matrice di post-incidenza ``muove''
-dalla transizione al posto.
-
 \subsection{Matrice di Pre-incidenza}
 \`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
 pari al numero di transizioni. Indica il peso degli archi che
@@ -5118,6 +5110,55 @@ collegano posti e transizioni.
 
 Dal punto di vista grafico, la matrice di pre-incidenza ``muove''
 dal posto alla transizione.
+
+\[
+Pre =
+\begin{array}{c}
+  P_1\\
+  P_2\\
+  ...\\
+  P_n\\
+  
+\end{array}
+\begin{array}{cc}
+  \\
+ \begin{bmatrix}
+   ... & ... & ... & ... \\
+   ... & ... & ... & ... \\
+   ... & ... & ... & ... \\
+   ... & ... & ... & ... \\
+ \end{bmatrix}\\
+  t_1\;\;t_2\;\;...\;\;\;t_m
+\end{array}
+\]
+
+\subsection{Matrice di Post-incidenza}
+\`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
+pari al numero di transizioni. Indica la quantit\`a di token che il
+posto $p_n$ guadagna allo ``scattare'' della transizioni $t_m$.
+
+Dal punto di vista grafico, la matrice di post-incidenza ``muove''
+dalla transizione al posto.
+\[
+Post =
+\begin{array}{c}
+  P_1\\
+  P_2\\
+  ...\\
+  P_n\\
+  
+\end{array}
+\begin{array}{cc}
+  \\
+ \begin{bmatrix}
+   ... & ... & ... & ... \\
+   ... & ... & ... & ... \\
+   ... & ... & ... & ... \\
+   ... & ... & ... & ... \\
+ \end{bmatrix}\\
+  t_1\;\;t_2\;\;...\;\;\;t_m
+\end{array}
+\]
 
 \subsubsection{Magazzino multiclasse - Petri}\index{Magazzino
   multiclasse Petri}
@@ -5152,22 +5193,19 @@ dal posto alla transizione.
   edge [pre, bend left] (p3)
   edge [post, bend right] (p1);
   \end{tikzpicture}
-  \label{fig:magazzinoMulticlassePetri}
   \caption{Magazzino multiclasse di Petri}
+  \label{fig:magazzinoMulticlassePetri}
 \end{figure}
 La figura \ref{fig:magazzinoMulticlassePetri} mostra un magazzino
 multiclasse rappresentato con una rete di Petri. La rete \`e
 costituita da 3 posti e 4 transitioni.
-
-Le marcature nei posti solo le seguenti:
+Le marcature nei posti sono le seguenti:
 \begin{itemize}
 \item $M_{p_1}$ indica il numero di posti liberi nel magazzino
 \item $M_{p_2}$ indica il numero di pezzi di tipo 2
 \item $M_{p_3}$ indica il numero di pezzi di tipo 1
 \end{itemize}
-
 La transizioni sono le seguenti:
-
 \begin{itemize}
 \item $t_1$ indica il deposito di un pezzo di tipo 1
 \item $t_2$ indica il prelievo di un pezzo di tipo 1
@@ -5176,20 +5214,20 @@ La transizioni sono le seguenti:
 \end{itemize}
 La matrice di pre-incidenza \`e:
 \[
-Pre =
-\begin{bmatrix}
-  0 & 1 & 0 & 2\\
-  0 & 0 & 1 & 0\\
-  1 & 0 & 0 & 0
-\end{bmatrix}
-\]
-La matrice di post-incidenza \`e:
-\[
-Post = 
+Pre = 
 \begin{bmatrix}
   1 & 0 & 2 & 0\\
   0 & 0 & 0 & 1\\
   0 & 1 & 0 & 0
+\end{bmatrix}
+\]
+La matrice di post-incidenza \`e:
+\[
+Post =
+\begin{bmatrix}
+  0 & 1 & 0 & 2\\
+  0 & 0 & 1 & 0\\
+  1 & 0 & 0 & 0
 \end{bmatrix}
 \]
 
@@ -5331,16 +5369,22 @@ Post =
           {
             \begin{itemize}
             \item $P_1$: \`e pronto a trasmettere
-            \item $t_1$: \`e stato inviato un messaggio e si \`e in
-              attesa della ricevuta
+            \item $P_2$: \`e in attesa della ricevuta
+            \item $P_3$: \`e il canale di invio del messaggio
             \item $P_4$: \`e in attesa del messaggio
+            \item $P_5$: riceve il messaggio
+            \item $P_7$: \`e il canale di invio della ricevuta
+            \item $P_6$ e $P_8$ sono dei contatori delle ricevute
+              recapitate ed inviate
+            \item $t_1$: \`e stato inviato un messaggio
             \item $t_2$: \`e stato ricevuto un messaggio
-            \item $P_5$: invia la ricevuta
+            \item $t_3$: \`e stata inviata la ricevuta
+            \item $t_4$: la ricevuta \`e stata recapitata
             \end{itemize}
           };
   \end{scope}
   \end{tikzpicture}
-  \caption{}
+  \caption{Mittente - Destinatario Petri}
   \label{fig:mittenteDestinatarioPetri}
 \end{figure}
 La figura \ref{fig:mittenteDestinatarioPetri} mostra una rete di Petri
@@ -5348,7 +5392,6 @@ di un sistema Mittente-Destinatario: il mittente \`e pronto ad inviare
 un messaggio. Inviato il messaggio, attende la ricevuta. Il ricevente
 \`e in attesa di un messaggio. Ricevuto il messaggio, invia una
 risposta. 
-
 
 \subsubsection{Ponti di Konigsberg}
 \begin{figure}[!h]
@@ -5364,6 +5407,16 @@ un percorso che attraversa ogni ponte una e una volta sola e tornare
 al punto di partenza.
   
 \subsubsection{Mutua esclusione}
+Una risorsa \`e disponibile solo ad una operazione delle $n$ presenti
+nella rete.
+\include{./tex/mutuaEsclusionePetri}
+La figura \ref{fig:mutuaEsclusionePetri} mostra la marcatura del
+robot: un token che abilita $t_1$ e $t_3$. Se scatta $t_1$, la prima
+macchina inizia a lavorare, il posto robot perde il suo token e $t_3$
+\`e disabilitato. Allo scatto di $t_2$, il posto robot acquista un
+token che riabilita allo scatto $t_1$ e $t_3$. Nel caso scatti $t_3$,
+il comportamento della rete \`e simmetrico allo scatto di $t_1$.
+
 \subsubsection{Lettori - Scrittori}
 Un problema comune in informatica \`e l'accesso concorrente ad una
 risorsa. Si suppongano $l$ lettori ed $s$ scrittori. Un lettore pu\`o
@@ -5377,7 +5430,6 @@ La figura \ref{fig:lettoriScrittoriPetri} mostra una reti di Petri che
 descrive la soluzione al problema.
 \begin{figure}[!h]
   \centering
-  \label{fig:lettoriScrittoriPetri}
   \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
 
   \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
@@ -5415,6 +5467,7 @@ descrive la soluzione al problema.
   edge [post, bend right] (p2);
   \end{tikzpicture}
   \caption{Lettori - Scrittori di Petri}
+  \label{fig:lettoriScrittoriPetri}
 \end{figure}
 Il posto $S$ soddisfa le condizioni del problema. Quando uno scrittore
 inizia a scrivere, il posto $S$ si svuota e nessun altro
@@ -5422,7 +5475,7 @@ lettore o scrittore pu\`o accedere.
 
 Quando un lettore accede in lettura, il posto $S$ perde uno dei suoi
 $n$ token: nessuno scrittore pu\`o accedere, ma possono accedere
-ancora $n - 1$ token.
+ancora $n - 1$ lettori.
 
 \subsubsection{Sequenze ripetute abilitanti}
 Supponiamo di volere che una determinata operazione $op_2$ sia
@@ -5442,9 +5495,9 @@ scatto seguente \`e possibile:
   \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
   \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
   \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
-  \underbrace{t_{21} \; t_{22}}_\text{$op_1$}\; &
-  \underbrace{t_{21} \; t_{22}}_\text{$op_1$}\; &
-  \underbrace{t_{21} \; t_{22}}_\text{$op_1$}\; \\
+  \underbrace{t_{21} \; t_{22}}_\text{$op_2$}\; &
+  \underbrace{t_{21} \; t_{22}}_\text{$op_2$}\; &
+  \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; \\
   M(p_N) &
   1 &
   2 &
@@ -5465,7 +5518,7 @@ abilitare le $op_1$ solo dopo aver avuto almeno $M$ volte $op_2$. La
 figura \ref{fig:sequenzeRipetutePetri1} ne mostra la realizzazione.
 \input{./tex/sequenzeRipetuteAbilitantiPetri02}
 
-La transizione $t_{11}$ non \`e abilitata se $M(p_N) < M$.
+La transizione $t_{11}$ non \`e abilitata se $M(p_M) < M$.
 Il ruolo dei posti $P_N$ e $P_M$ \`e di contatore da zero ad $N$ ed
 $M$, rispettivamente. Per sequenze di $op_1$ (o $op_2$) superiori ad
 $N$ (o $M$) si ha comunque $M(p_N) = N$ e $M(p_M) = M$, facendo
@@ -5482,7 +5535,6 @@ possibile implementazione \`e mostrata in figura
 \item $t_2$: comincia una iterazione del ciclo
 \item $t_3$: finisce una iterazione del ciclo
 \item $t_4$: finisce il ciclo
-\item $+$
 \item $M(P_1)$: pu\`o cominciare una iterazione del ciclo
 \item $M(P_2)$: \`e in corso una iterazione del ciclo (una sola
   iterazione per volta)
@@ -5514,8 +5566,7 @@ $P_1$ (disabilitare una nuova iterazione) quando il ciclo finisce.
   \caption{}
 \end{figure}
 
-\subsubsection{Albero di raggiungibilit\`a}
-\subsubsection{Incrocio}
+
 
 % APPENDICI
 \appendix

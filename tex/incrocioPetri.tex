@@ -1,0 +1,60 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=left:$P_1$] (p1)      {};
+  \node [place,label=right:$P_2$] (p2) [below of=p1,yshift=-1.3cm] {};
+  \node [place,label=left:$P_3$] (p3) [below of=p2,yshift=-1.3cm] {};
+  \node [place,label=left:$P_4$] (p4) [left of=p2] {};
+
+  \node [place,label=below:$P_9$] (p9) [right of=p2] {};
+  \node [place,label=below:$P_{10}$] (p10) [right of=p9,xshift=0.5cm] {};
+
+  \node [place,label=right:$P_6$] (p6) [right of=p10] {};
+  \node [place,label=right:$P_5$] (p5) [above of=p6,yshift=1.3cm] {};
+  \node [place,label=right:$P_7$] (p7) [below of=p6,yshift=-1.3cm] {};
+  \node [place,label=right:$P_8$] (p8) [right of=p6] {};
+  
+  \node [transition,label=above:$t_1$] (t1) [above of=p1] {}
+  edge [post] (p1);
+  \node [transition,label=left:$t_2$] (t2) [below of=p1] {}
+  edge [pre] (p1)
+  edge [pre] (p4)
+  edge [pre, bend left] (p9)
+  edge [post] (p2)
+  edge [post] (p9);
+  \node [transition,label=left:$t_3$] (t3) [below of=p2] {}
+  edge [pre] (p2)
+  edge [post] (p3)
+  edge [post] (p4);
+
+  \node [transition,label=above:$t_7$] (t7) [above right of=p9] {}
+  edge [pre] (p9)
+  edge [post] (p10);
+  \node [transition,label=below:$t_8$] (t8) [below right of=p9] {}
+  edge [pre] (p10)
+  edge [post] (p9);
+
+  \node [transition,label=above:$t_4$] (t4) [above of=p5] {}
+  edge [post] (p5);
+  \node [transition,label=right:$t_5$] (t5) [below of=p5] {}
+  edge [pre] (p5)
+  edge [pre] (p8)
+  edge [pre, bend right] (p10)
+  edge [post] (p10)
+  edge [post] (p6);
+  \node [transition,label=left:$t_6$] (t6) [below of=p6] {}
+  edge [pre] (p6)
+  edge [post] (p8)
+  edge [post] (p7);
+  \end{tikzpicture}
+  \caption{Incrocio Semaforizzato - Petri}
+    \label{fig:incrocioPetri}
+\end{figure}

@@ -1,6 +1,5 @@
 \begin{figure}[!h]
   \centering
-  \label{fig:sequenzeRipetutePetri1}
   \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
 
   \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
@@ -32,7 +31,7 @@
   edge [pre] (op1)
   edge [post] (pm);
 
-  \node [transition,label=right:$t_{21}$] (t21) [below of=op2] {}
+  \node [transition,label=right:$t_{22}$] (t22) [below of=op2] {}
   edge [pre] (op2)
   edge [post] (pm);
 
@@ -41,4 +40,5 @@
   edge [post, bend left] node [above] {$N$} (pn);
   \end{tikzpicture}
   \caption{Sequenze ripetute abilitanti - prima analisi}
+  \label{fig:sequenzeRipetutePetri1}
 \end{figure}

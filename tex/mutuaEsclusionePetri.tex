@@ -1,0 +1,33 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=left:$Carica\;M_1$] (p1)      {};
+  \node [place,label=above:$robot$,tokens=1] (p2) [right of=p1] {};
+  \node [place,label=right:$Carica\;M_2$] (p3) [right of=p2] {};
+
+  \node [transition,label=left:$t_1$] (t1) [above of=p1] {}
+  edge [pre] (p2)
+  edge [post] (p1);
+
+  \node [transition,label=left:$t_2$] (t2) [below of=p1] {}
+  edge [pre] (p1)
+  edge [post] (p2);
+
+  \node [transition,label=right:$t_3$] (t3) [above of=p3] {}
+  edge [pre] (p2)
+  edge [post] (p3);
+
+  \node [transition,label=right:$t_4$] (t4) [below of=p3] {}
+  edge [pre] (p3)
+  edge [post] (p2);
+  \end{tikzpicture}
+  \caption{Mutua esclusione - Petri}
+  \label{fig:mutuaEsclusionePetri}
+\end{figure}
