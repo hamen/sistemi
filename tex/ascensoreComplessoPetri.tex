@@ -1,0 +1,66 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',auto,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=left:$P_{31}$] (p31)      {};
+
+  \node [place,label=right:$P_{32}$] (p32) [above right of=p31,yshift=1.3cm] {};
+  \node [place,label=right:$P_{33}$] (p33) [above left of=p31,yshift=1.3cm] {};
+  \node [place,label=below left:$P_{34}$] (p34) [left
+    of=p33,xshift=-0.6cm] {};
+
+  \node [place,label=right:$P_{35}$] (p35) [above of=p32,yshift=1.3cm]{};
+  \node [place,label=right:$P_{36}$] (p36) [above of=p33,yshift=1.3cm]{};
+  \node [place,label=left:$P_{37}$] (p37) [above of=p34,yshift=1.3cm]{};
+  \node [place,label=right:$P_{38}$] (p38) [above left of=p35,yshift=1.3cm]{};
+
+  
+  \node [transition,label=below:$t_2$] (t2) [below of=p31] {}
+  edge [post] (p31);
+
+  \node [transition,label=below right:$t_{61}$] (t61) [above of=p31]{}
+  edge [post] (p32)
+  edge [post] (p33)
+  edge [pre] (p31);
+  \node [transition,label=right:$t_{62}$] (t62) [above left of=p33]{}
+  edge [post] (p34)
+  edge [pre] (p33);
+  \node [transition,label=right:$t_{63}$] (t63) [below left of=p33]{}
+  edge [post] (p33)
+  edge [pre] (p34);
+
+
+  \node [transition,label=right:$t_{64}$] (t64) [below left of=p35] {}
+  edge [pre] (p32)
+  edge [pre] (p33)
+  edge [post] (p35)
+  edge [post] (p36);
+
+  \node [transition,label=right:$t_{65}$] (t65) [above left of=p36] {}
+  edge [pre] (p36)
+  edge [post] (p37);
+  \node [transition,label=right:$t_{66}$] (t66) [below left of=p36] {}
+  edge [pre] (p37)
+  edge [post] (p36);
+
+  \node [transition,label=right:$t_{67}$] (t67) [above left of=p35] {}
+  edge [pre] (p35)
+  edge [pre] (p36)
+  edge [post] (p38);
+
+  \node [transition,label=right:$t_{68}$] (t68) [above right of=p38] {}
+  edge [pre] (p38)
+  edge [post, bend left=60] (p31);
+  \node [transition,label=left:$t_{4}$] (t4) [above left of=p38] {}
+  edge [pre] (p38);
+  \end{tikzpicture}
+  \caption{Ascensore compleeso - Dettagli della salita}
+  \label{fig:ascensoreComplessoPetri}
+\end{figure}

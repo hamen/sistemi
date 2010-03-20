@@ -5608,6 +5608,48 @@ Questa \`e la descrizione dei posti e delle transizioni:
 \item $t_7$: l'ascensore arriva ad un nuono piano, ma $\bar{c} < \pi$
 \end{itemize}
 
+\subsection{Ascensore complesso}\index{Ascensore complesso}
+\input{./tex/ascensoreComplessoPetri}
+La figura \ref{fig:ascensoreComplessoPetri} mostra il dettaglio della
+salita di una implementazione pi\`u elaborata dell'ascensore. In
+questa implementazione assumiamo che sia possibile la prenotazione
+anche quando l'ascensore \`e in movimento. Se, per\`o, l'ascensore \`e
+in salita si accettano solo prenotazioni per i piani superiori. Se
+l'ascensore \`e in discesa si accettano prenotazioni solo per i piani
+inferiori. Considerando la figura \ref{fig:ascensoreSemplicePetri}, dobbiamo
+sostituire la rete di Petri in figura
+\ref{fig:ascensoreComplessoPetri} al posto $P_3$ e alla transizione
+$t_6$.
+
+I primi tre elementi da considerare sono:
+\begin{itemize}
+\item $\eta$: la lista delle chiamate
+\item $P_{31}$: l'abilitazione a salire
+\item $t_{61}$: mette in parallelo la salita $P_{32}$ e la
+  prenotazione in salita $P_{33}$
+\end{itemize}
+
+Se durante la salita arriva una nuova chiamata $\neq \bar{c}$ e $>
+\pi$, scatta $t_{62}$ ed in $P_{34}$ si ordinano le prenotazioni in un
+vettore $\eta$ di elementi crescenti e si assegna $\bar{c} = \eta(1)$.
+
+$t_{64}$ scatta quando $\bar{c} = \pi$ (l'ascensore ha raggiunto il
+piano prenotato pi\`u vicino). Partono quindi le operazioni in
+parallelo associate a $P_{35}$ e $P_{36}$. $P_{36}$ svolge un lavoro
+analogo a $P_{33}$, accettando la prenotazione mentre l'ascensore \`e
+fermo a $P_{35}$.
+
+Ultimate le operazioni associate alla fermata, scatta $t_{67}$ ed
+attraverso $P_{38}$ si effettua una scelta:
+\begin{itemize}
+\item Se $\eta$ \`e vuoto scatta $t_4$
+\item Se $\eta$ non \`e vuoto ci saranno altre operazioni da servire
+  in salita e scatta quindi $t_{68}$.
+\end{itemize}
+
+Per la fase di discesa, la rete \`e praticamente la stessa, ma ordinata
+in maniera inversa.
+
 \begin{figure}[!h]
   \centering
   \label{fig:}
