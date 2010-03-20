@@ -1,0 +1,33 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+
+  \node [place,label=above:$P_{1}$,tokens=1] (p1) {};
+  \node [place,label=above:$P_{2}$] (p2) [right of=p1,xshift=0.5cm]{};
+  \node [place,label=below:$P_{3}$] (p3) [below right of=p1,yshift=-1.3cm]{};
+  
+  \node [transition,label=above:$t_1$] (t1) [above right of=p1]{}
+  edge [pre] (p1)
+  edge [post] (p2);
+    
+  \node [transition,label=below:$t_2$] (t2) [below right of=p1]{}
+  edge [pre] (p2)
+  edge [post] (p1);
+
+  \node [transition,label=right:$t_3$] (t3) [right of=t2]{}
+  edge [pre] (p2)
+  edge [post] (p3);
+  \node [transition,label=left:$t_4$] (t4) [left of=t2]{}
+  edge [pre] (p3)
+  edge [post] (p1);
+  \end{tikzpicture}
+  \caption{Macchina non affidabile}
+  \label{fig:macchinaNonAffidabilePetri}
+\end{figure}

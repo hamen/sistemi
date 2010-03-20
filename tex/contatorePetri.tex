@@ -1,0 +1,21 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=above:$P_1$] (p1)      {};
+
+  \node [transition,label=above:$t_1$] (t1) [left of=p1] {}
+  edge [post] (p1);
+  \node [transition,label=above:$t_2$] (t2) [right of=p1] {}
+  edge [pre] (p1);
+  \end{tikzpicture}
+  \caption{Contatore di Petri}
+  \label{fig:contatorePetri}
+\end{figure}
