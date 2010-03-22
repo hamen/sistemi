@@ -5027,8 +5027,8 @@ strumento per l'analisi di sistemi complessi.
 \end{figure} 
 
 Una rete di Petri (conosciuta anche come rete posto/transizione o rete
-P/T) \`e una delle varie rappresentazioni matematiche di un sistema
-distribuito discreto. Una rete di Petri ha dei {\bo nodi posti}, dei
+P/T) \`e un grafo bipartito orientato e pesato di un sistema ad eventi
+discreti. Una rete di Petri ha dei {\bo nodi posti}, dei 
 {\bo nodi transizioni} e degli {\bo archi diretti} che connettono
 posti e transizioni. Possono esserci archi tra posti e transizioni, ma
 non tra posti e posti o transizioni e transizioni. 
@@ -5598,6 +5598,34 @@ attraverso $P_{38}$ si effettua una scelta:
 
 Per la fase di discesa, la rete \`e praticamente la stessa, ma ordinata
 in maniera inversa.
+
+\subsubsection{Carroponte di Petri}
+\input{./tex/carropontePetri}
+La figura \ref{fig:carropontePetri} mostra la rete di Petri di un
+carroponte. Il carroponte ha 4 postazioni $P_1$, $P_2$, $P_3$ e
+$P_4$; pu\`o scendere, salire, muovere a sinistra e destra.  Il
+sensore $P_s$ \`e alto quando il carroponte \`e vicino alla 
+sinistra di una postazione; il sensore $P_d$ \`e alto quando \`e
+vicino alla destra.
+
+\begin{itemize}
+\item $P_1$: servo una postazione
+\item $P_2$: carroponte libero
+\item $P_3$: confronto tra chiamata e posizione (c,p)
+\item $P_4$: carroponte si sposta a sinistra
+\item $P_5$: carroponte si sposta a destra
+\item $P_6$: postazione in cui si trova il carroponte
+\item $t_1$: fine servizio
+\item $t_2$: ricezione chiamata
+\item $t_3$: se $c=p$
+\item $t_4$: se $c<p$
+\item $t_5$: se $c>p$
+\item $t_6$: arriva un segnale $P_d$
+\item $t_7$: arriva un segnale $P_s$
+\item $t_8$: $c=p$
+\item $t_9$: $c=p$
+\end{itemize}
+
 
 \begin{figure}[!h]
   \centering
