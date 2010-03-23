@@ -1,0 +1,34 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=above:$P_2$] (p2)      {};
+  \node [place,label=above:$P_1$] (p1) [below of=p2] {};
+  \node [place,label=below:$P_3$] (p3)  [below of=p1] {};
+
+  \node [transition,label=left:$t_3$] (t3) [above left of=p1] {}
+  edge [pre, bend right] node [left] {2} (p1)
+  edge [post, bend left]    (p2);
+
+  \node [transition,label=right:$t_4$] (t4) [above right of=p1] {}
+  edge [pre, bend right] (p2)
+  edge [post, bend left] node [right] {2} (p1);
+
+  \node [transition,label=left:$t_1$] (t1) [below left of=p1] {}
+  edge [pre, bend left] (p1)
+  edge [post, bend right] (p3);
+
+  \node [transition,label=right:$t_2$] (t2) [below right of=p1] {}
+  edge [pre, bend left] (p3)
+  edge [post, bend right] (p1);
+  \end{tikzpicture}
+  \caption{Magazzino multiclasse di Petri}
+  \label{fig:magazzinoMulticlassePetri}
+\end{figure}

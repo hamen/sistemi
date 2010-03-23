@@ -1,0 +1,41 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+  
+  \node [place,label=left:$lettore\;inattivo$] (p1) {};
+  \node [] at (p1) {$l$};
+  \node [place,label=right:$scrittore\;inattivo$] (p2) [right
+    of=p1,xshift=1.3cm]     {};
+  \node [] at (p2) {$s$};
+  \node [place,label=left:$in\; lettura$] (p3) [above of=p1,yshift=-4cm]     {};
+  \node [place,label=below:$S$] (p4) [right of=p3, ]     {};
+  \node [] at (p4) {$n$};
+  \node [place,label=right:$in\; scrittura$] (p5) [right of=p4]     {};
+  
+  \node [transition,label=left:$leggi$] (t1) [below of=p1] {}
+  edge [pre] (p1)
+  edge [pre, bend left] (p4)
+  edge [post] (p3);
+  \node [transition,label=right:$scrivi$] (t2) [below of=p2] {}
+  edge [post] (p5)
+  edge [pre, bend right] node [above] {n} (p4)
+  edge [pre] (p2);
+  \node [transition,label=left:$termina\;lettura$] (t3) [below of=p3] {}
+  edge [pre] (p3)
+  edge [post, bend left] (p4)
+  edge [post, bend left] (p1);
+  \node [transition,label=right:$termina\;scrittura$] (t4) [below of=p5] {}
+  edge [pre] (p5)
+  edge [post, bend right]  node [below] {n} (p4)
+  edge [post, bend right] (p2);
+  \end{tikzpicture}
+  \caption{Lettori - Scrittori di Petri}
+  \label{fig:lettoriScrittoriPetri}
+\end{figure}

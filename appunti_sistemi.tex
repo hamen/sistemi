@@ -5018,7 +5018,7 @@ Dati $k$ automi da $N$ stati, l'automa composizione concorrente avr\`a
 $k^N$ stati. \`E palese la difficolt\`a di utilizzare questo genere di
 strumento per l'analisi di sistemi complessi.
 
-\section{Reti di Petri}
+\chapter{Reti di Petri}
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{./figures/petri.png}
@@ -5033,7 +5033,7 @@ discreti. Una rete di Petri ha dei {\bo nodi posti}, dei
 posti e transizioni. Possono esserci archi tra posti e transizioni, ma
 non tra posti e posti o transizioni e transizioni. 
 
-\subsection{Definizione formale}
+\section{Definizione formale}
 Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
 \begin{itemize}
 \item $P$ \`e l'insieme dei posti
@@ -5045,7 +5045,7 @@ Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
   Pre-incidenza} 
 \end{itemize}
 
-\subsubsection{Posti}
+\subsection{Posti}
 I posti possono contenere un certo numero di {\em
   token}\index{Token}\index{Gettone} o gettoni. Una distribuzione di
 token sull'insieme dei posti della rete \`e detta marcatura.
@@ -5053,42 +5053,66 @@ Il numero totale di token
 {\em non \`e conservativo}: una transizione $t_x$ pu\`o portare un generico
 posto $p_n$ a perdere $k$ token e un generico posto $p_m$ a guadagnare
 $z$ token.
-\subsubsection{Transizioni}
+\subsection{Transizioni}
 Le transizioni agiscono sui token in ingresso secondo una regola, detta
 regola di scatto (in inglese firing). Una transizione \`e {\em
   abilitata} se pu\`o scattare, cio\`e se ci sono token in ogni posto
 di input, cio\`e se il vettore di marcatura \`e ``maggiore o uguale''
 della colonna associata alla transizione nella matrice di
-Pre-incidenza. Quando una transizione scatta, essa consuma token dai suoi
+Pre-incidenza:
+\begin{equation}\label{eq:transizioneAbilitata}
+M \geq Pre(\cdot,t)
+\end{equation}
+Quando una transizione scatta, essa consuma token dai suoi
 posti di input, esegue dei task e posiziona un numero specificato di
-token in ognuno dei suoi posti di uscita. 
-\begin{description}
-\item[Transizioni sempre abilitate] sono transizioni che possono
-  scattare quando necessario, senza le limitazioni imposte dai
-  token. Questo genere di transizioni portano la rete di Petri ad
-  avere un vettore di marcatura potenzialmente sempre diverso: una
-  rete di Petri di questo tipo ha, quindi, un numero illimitato di stati;
-\item[Transizioni in conflitto] sono transizioni abilitate che in caso
-  di ``scatto'' si disabilitano l'un l'altra. Per definizione, due
-  transizioni si dicono in conflitto se sono verificate tutte e tre
-  queste condizioni:
-  \[
-  \left \{
-  \begin{array}{l}
-    M \geq Pre(\bullet, t_i)\\
-    M \geq Pre(\bullet, t_j)\\
-    M \ngeq Pre(\bullet, t_i) + Pre(\bullet, t_j)
-  \end{array}
-  \right .
-  \]
-\end{description}
+token in ognuno dei suoi posti di uscita. Pi\`u formalmente, lo scatto
+di $t$ rimuove $Pre(p_n,t)$ token da ogni posto $p_n$ ad essa connesso
+e aggiunge $Post(p_n,t)$ in ogni posto $p_n$ ad essa connesso. Si
+arriva, quindi, ad una nuova marcatura $M'$:
+\begin{equation}\label{eq:marcaturaPostScatto}
+  M' = M - Pre(\cdot,t) + Post(\cdot,t) = M + C(\cdot,t)
+\end{equation}
+dove $C$ \`e la matrice di incidenza\index{Matrice di incidenza}:
+\[
+C = Post(\cdot, t) - Pre(\cdot, t)
+\]
+
+\subsubsection{Transizioni sempre abilitate}
+Le transizioni sempre abilitate o transizioni ``sorgente'' non
+hanno archi in entrata e possono scattare quando necessario, senza
+le limitazioni imposte dai token:
+\[
+Pre(\cdot,t) = 0
+\]
+e l'equazione \ref{eq:transizioneAbilitata} \`e sempre verificata.
+Questo genere di transizioniportano la rete di Petri ad avere un
+vettore di marcatura potenzialmente sempre diverso: una rete di
+Petri di questo tipo ha, quindi, un numero illimitato di stati; 
+
+\subsubsection{Transizioni in conflitto}
+Le transizioni in conflitto sono transizioni abilitate che in caso di
+``scatto'' si disabilitano l'un l'altra. Per definizione, due
+transizioni si dicono in conflitto se sono verificate tutte e tre
+queste condizioni:
+\[
+\left \{
+\begin{array}{l}
+  M \geq Pre(\cdot, t_i)\\
+  M \geq Pre(\cdot, t_j)\\
+  M \ngeq Pre(\cdot, t_i) + Pre(\cdot, t_j)
+\end{array}
+\right .
+\]
 cio\`e il vettore di marcatura \`e maggiore del numero di token nella
 colonna $t_i$ (o $t_j$) della matrice di pre-incidenza. Per
 ``maggiore'' si intende un confronto elemento per
 elemento, tra il vettore marcatura (una colonna) e la colonna $t_i$ (o
 $t_j$) della matrice di pre-incidenza. Il vettore
 marcatura \`e maggiore solo se tutti i suoi elementi confrontati sono
-maggiori o uguali (AND logico).
+maggiori o uguali (AND logico). In altri termini, la marcatura $M$
+abilita entrambe le transizioni, ma tale marcatura non contiene un
+numero sufficiente di token per consentire lo scatto di entrambe le
+transizioni. 
 
 \subsection{Vettore marcatura}\index{Vettore marcatura}
 Il vettore marcatura \`e lo {\em stato} della rete di Petri. Indica
@@ -5098,10 +5122,17 @@ interi non negativi:
 M = 
  \begin{bmatrix}
   k\\
-  n\\
-  m
+  ...\\
+  n
  \end{bmatrix}
+ \Leftrightarrow
+ M = [ k \; ... \; n]^T
 \]
+Una marcatura \`e una funzione $M : P \rightarrow N$ che assegna ad
+ogni posto un numero intero non negativo di gettoni.
+
+Una marcatura $M_0$ indica una rete $N$ detta rete marcata ed indicata
+come $(N,M_0)$.
 
 \subsection{Matrice di Pre-incidenza}
 \`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
@@ -5160,42 +5191,44 @@ Post =
 \end{array}
 \]
 
-\subsubsection{Magazzino multiclasse - Petri}\index{Magazzino
+\subsection{Sequenza di scatto e vettore di scatto}
+La sequenza di scatto abilitata $\sigma$\`e una sequenza di
+transizioni $t_n$ tali che ad ogni scatto si giunga ad una marcatura
+che abilita la successiva transizione della sequenza. 
+L'esistenza di una sequenza di scatto che da $M_0$ ci porti ad una
+marcatura $M_r$ rende $M_r$ una {\em marcatura
+  raggiungibile}\index{Marcatura raggiungibile}. L'insieme di
+raggiungibilit\`a di una rete \`e l'insieme delle marcature che si
+possono raggiungere, partendo da $M_0$. L'insieme delle sequenze di
+scatto abilitate da $M_0$ \`e detto {\em
+  comportamento}\index{Comportamento} (o linguaggio). 
+
+Il vettore di scatto associato a $\sigma$ rappresenta il numero di
+occorrenze di ogni transizione in una specifica sequenza di
+scatto $\sigma$. Tipicamente \`e un vettore colonna, di $m$ elementi
+quante sono le transizioni $t$. 
+
+Il vettore di scatto ci porta all'equazione di stato delle reti di
+Petri\index{Equazione dei stato dell reti di Petri}:
+\begin{equation}
+  M_r = M_0 + C \cdot \sigma
+\end{equation}
+dove
+\begin{itemize}
+\item $M_r$ \`e la marcatura che si vuole raggiungere
+\item $M_0$ \`e la marcatura iniziale
+\item $C$ \`e la matrice di incidenza
+\item $\sigma$ \`e il vettore di scatto
+\item $C \cdot \sigma$ \`e il prodotto riga x colonna
+\end{itemize}
+Questa relazione vale se $M_r$ \`e raggiungibile da $M_0$ scattando la
+sequenza di transizioni $\sigma$.
+
+
+\section{Reti di Petri comuni}
+\subsection{Magazzino multiclasse - Petri}\index{Magazzino
   multiclasse Petri}
-\begin{figure}[!h]
-  \centering
-  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
-
-  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
-  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
-  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
-  			  fill=black!20,minimum size=4mm]
-
-  \tikzstyle{every label}=[red]
-  
-  \node [place,label=above:$P_2$] (p2)      {};
-  \node [place,label=above:$P_1$] (p1) [below of=p2] {};
-  \node [place,label=below:$P_3$] (p3)  [below of=p1] {};
-
-  \node [transition,label=left:$t_3$] (t3) [above left of=p1] {}
-  edge [pre, bend right] node [left] {2} (p1)
-  edge [post, bend left]    (p2);
-
-  \node [transition,label=right:$t_4$] (t4) [above right of=p1] {}
-  edge [pre, bend right] (p2)
-  edge [post, bend left] node [right] {2} (p1);
-
-  \node [transition,label=left:$t_1$] (t1) [below left of=p1] {}
-  edge [pre, bend left] (p1)
-  edge [post, bend right] (p3);
-
-  \node [transition,label=right:$t_2$] (t2) [below right of=p1] {}
-  edge [pre, bend left] (p3)
-  edge [post, bend right] (p1);
-  \end{tikzpicture}
-  \caption{Magazzino multiclasse di Petri}
-  \label{fig:magazzinoMulticlassePetri}
-\end{figure}
+\input{./tex/magazzinoMulticlassePetri}
 La figura \ref{fig:magazzinoMulticlassePetri} mostra un magazzino
 multiclasse rappresentato con una rete di Petri. La rete \`e
 costituita da 3 posti e 4 transitioni.
@@ -5231,7 +5264,7 @@ Post =
 \end{bmatrix}
 \]
 
-\subsubsection{Contatore o magazzino infinito}
+\subsection{Contatore o magazzino infinito}
 La figura \ref{fig:contatorePetri} mostra un contatore ``a salire'' e
 ``a scendere'' di numeri interi non negativi oppure un magazzino di
 capacit\`a infinita:
@@ -5242,7 +5275,7 @@ capacit\`a infinita:
 \end{itemize}
 \input{./tex/contatorePetri}
 
-\subsubsection{Magazzino finito}
+\subsection{Magazzino finito}
 La figura \ref{fig:magazzinoPetri} un magazzino di capacit\`a finita:
 \begin{itemize}
 \item $P_1$ indica il numero di pezzi nel magazzino
@@ -5253,12 +5286,12 @@ La figura \ref{fig:magazzinoPetri} un magazzino di capacit\`a finita:
 \input{./tex/magazzinoPetri}
 
 
-\subsubsection{Macchina - Magazzino - Macchina}
+\subsection{Macchina - Magazzino - Macchina}
 \input{./tex/macchinaMagazzinoMacchinaPetri}
 La figura \ref{fig:macchinaMagazzinoMacchinaPetri} mostra una rete
 complessa, costituita da tre reti legate da due transizioni comuni.
 
-\subsubsection{Macchina non affidabile}
+\subsection{Macchina non affidabile}
 \input{./tex/macchinaNonAffidabilePetri}
 La figura \ref{fig:macchinaNonAffidabilePetri} mostra la rete di Petri
 una macchina non affidabile. La rete e` piu` complessa di una macchina
@@ -5273,76 +5306,15 @@ normale:
 \item $t_4$: riparazion macchina
 \end{itemize}
 
-\subsubsection{Mittente - Destinatario}
-\begin{figure}
-  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
-
-  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
-  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
-  \tikzstyle{transition}=[shape=rectangle,thick,draw=black!75,
-  			  fill=black!20,minimum size=4mm]
-  \tikzstyle{every label}=[red]
-
-  \begin{scope}
-  \node [place,label=above:$P_1$] (p1) {};
-  \node [place,label=left:$P_2$] (p2) [below of=p1, yshift=-1.3cm]{};
-  \node [place,label=above:$P_3$] (p3) [right of=p1]{};
-  \node [place,label=above:$P_4$] (p4) [right of=p3]{};
-  \node [place,label=right:$P_5$] (p5) [below of=p4, yshift=-1.3cm]{};
-  \node [place,label=left:$P_6$] (p6) [below of=p2, yshift=-1.3cm]{};
-  \node [place,label=below:$P_7$] (p7) [right of=p6]{};
-  \node [place,label=right:$P_8$] (p8) [below of=p5, yshift=-1.3cm]{};
-
-  \node [transition,label=left:$t_1$] (t1) [below of=p1] {}
-  edge [pre] (p1)
-  edge [post, bend left] (p3)
-  edge [post](p2);
-
-  \node [transition,label=left:$t_2$] (t2) [below of=p4] {}
-  edge [pre] (p4)
-  edge [pre, bend right] (p3)
-  edge [post] (p5);
-
-  \node [transition,label=left:$t_3$] (t3) [below of=p5] {}
-  edge [pre] (p5)
-  edge [post, bend left] (p7)
-  edge [post] (p8);
-  
-  \node [transition,label=left:$t_4$] (t4) [below of=p2] {}
-  edge [pre] (p2)
-  edge [pre, bend right] (p7)
-  edge [post] (p6);
-  \end{scope}
-  \begin{scope}[xshift=2cm]
-    \node [right=1cm,text width=8cm] at (p5)
-          {
-            \begin{itemize}
-            \item $P_1$: \`e pronto a trasmettere
-            \item $P_2$: \`e in attesa della ricevuta
-            \item $P_3$: \`e il canale di invio del messaggio
-            \item $P_4$: \`e in attesa del messaggio
-            \item $P_5$: riceve il messaggio
-            \item $P_7$: \`e il canale di invio della ricevuta
-            \item $P_6$ e $P_8$ sono dei contatori delle ricevute
-              recapitate ed inviate
-            \item $t_1$: \`e stato inviato un messaggio
-            \item $t_2$: \`e stato ricevuto un messaggio
-            \item $t_3$: \`e stata inviata la ricevuta
-            \item $t_4$: la ricevuta \`e stata recapitata
-            \end{itemize}
-          };
-  \end{scope}
-  \end{tikzpicture}
-  \caption{Mittente - Destinatario Petri}
-  \label{fig:mittenteDestinatarioPetri}
-\end{figure}
+\subsection{Mittente - Destinatario}
+\input{./tex/mittenteDestinatarioPetri}
 La figura \ref{fig:mittenteDestinatarioPetri} mostra una rete di Petri
 di un sistema Mittente-Destinatario: il mittente \`e pronto ad inviare
 un messaggio. Inviato il messaggio, attende la ricevuta. Il ricevente
 \`e in attesa di un messaggio. Ricevuto il messaggio, invia una
 risposta. 
 
-\subsubsection{Ponti di Konigsberg}
+\subsection{Ponti di Konigsberg}
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{./figures/konigsberg_bridges.png}
@@ -5355,7 +5327,7 @@ Ci si pone la questione se sia possibile con una passeggiata seguire
 un percorso che attraversa ogni ponte una e una volta sola e tornare
 al punto di partenza.
   
-\subsubsection{Mutua esclusione}
+\subsection{Mutua esclusione}
 Una risorsa \`e disponibile solo ad una operazione delle $n$ presenti
 nella rete.
 \include{./tex/mutuaEsclusionePetri}
@@ -5366,7 +5338,7 @@ macchina inizia a lavorare, il posto robot perde il suo token e $t_3$
 token che riabilita allo scatto $t_1$ e $t_3$. Nel caso scatti $t_3$,
 il comportamento della rete \`e simmetrico allo scatto di $t_1$.
 
-\subsubsection{Lettori - Scrittori}
+\subsection{Lettori - Scrittori}
 Un problema comune in informatica \`e l'accesso concorrente ad una
 risorsa. Si suppongano $l$ lettori ed $s$ scrittori. Un lettore pu\`o
 essere ``inattivo'' o ``in lettura''. Uno scrittore pu\`o essere
@@ -5377,47 +5349,7 @@ uno scrittore in scrittura disabilita l'accesso in scrittura ad un
 secondo scrittore e in lettura a tutti i lettori.
 La figura \ref{fig:lettoriScrittoriPetri} mostra una reti di Petri che
 descrive la soluzione al problema.
-\begin{figure}[!h]
-  \centering
-  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
-
-  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
-  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
-  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
-  			  fill=black!20,minimum size=4mm]
-
-  \tikzstyle{every label}=[red]
-  
-  \node [place,label=left:$lettore\;inattivo$] (p1) {};
-  \node [] at (p1) {$l$};
-  \node [place,label=right:$scrittore\;inattivo$] (p2) [right
-    of=p1,xshift=1.3cm]     {};
-  \node [] at (p2) {$s$};
-  \node [place,label=left:$in\; lettura$] (p3) [above of=p1,yshift=-4cm]     {};
-  \node [place,label=below:$S$] (p4) [right of=p3, ]     {};
-  \node [] at (p4) {$n$};
-  \node [place,label=right:$in\; scrittura$] (p5) [right of=p4]     {};
-  
-  \node [transition,label=left:$leggi$] (t1) [below of=p1] {}
-  edge [pre] (p1)
-  edge [pre, bend left] (p4)
-  edge [post] (p3);
-  \node [transition,label=right:$scrivi$] (t2) [below of=p2] {}
-  edge [post] (p5)
-  edge [pre, bend right] node [above] {n} (p4)
-  edge [pre] (p2);
-  \node [transition,label=left:$termina\;lettura$] (t3) [below of=p3] {}
-  edge [pre] (p3)
-  edge [post, bend left] (p4)
-  edge [post, bend left] (p1);
-  \node [transition,label=right:$termina\;scrittura$] (t4) [below of=p5] {}
-  edge [pre] (p5)
-  edge [post, bend right]  node [below] {n} (p4)
-  edge [post, bend right] (p2);
-  \end{tikzpicture}
-  \caption{Lettori - Scrittori di Petri}
-  \label{fig:lettoriScrittoriPetri}
-\end{figure}
+\input{./tex/lettoriScrittoriPetri}
 Il posto $S$ soddisfa le condizioni del problema. Quando uno scrittore
 inizia a scrivere, il posto $S$ si svuota e nessun altro
 lettore o scrittore pu\`o accedere.
@@ -5426,16 +5358,14 @@ Quando un lettore accede in lettura, il posto $S$ perde uno dei suoi
 $n$ token: nessuno scrittore pu\`o accedere, ma possono accedere
 ancora $n - 1$ lettori.
 
-\subsubsection{Sequenze ripetute abilitanti}
+\subsection{Sequenze ripetute abilitanti}
 Supponiamo di volere che una determinata operazione $op_2$ sia
 abilitata solo dopo una sequenza di almeno $N$ operazioni di tipo
 $op_1$.
-
 \input{./tex/sequenzeRipetuteAbilitantiPetri}
 Il posto $P_m$ rende mutuamente esclusive le operazioni $op_1$ e
 $op_2$. Supponiamo $N = 3$. Grazie alla rete di Petri, la sequenza di
 scatto seguente \`e possibile:
-
 \[
 \begin{array}{c c c c c c c c c}
   &
@@ -5473,7 +5403,7 @@ $M$, rispettivamente. Per sequenze di $op_1$ (o $op_2$) superiori ad
 $N$ (o $M$) si ha comunque $M(p_N) = N$ e $M(p_M) = M$, facendo
 scattare $t_N$ e $t_M$.
 
-\subsubsection{Rete di Petri di un ciclo for}
+\subsection{Rete di Petri di un ciclo for}
 Vogliamo costruire una RP che descriva la ripetizione di una azione
 $n$ volte consecutive prima di svolgere una successiva operazione. Una
 possibile implementazione \`e mostrata in figura
@@ -5495,7 +5425,7 @@ possibile implementazione \`e mostrata in figura
 Si noti che l'arco da $P_1$ a $t_4$ serve ad eliminare il token da
 $P_1$ (disabilitare una nuova iterazione) quando il ciclo finisce.
 
-\subsubsection{Incrocio semaforico}
+\subsection{Incrocio semaforico}
 Si consideri un incrocio costituito da fue flussi di attraversamento:
 Nord-Sud ed Est-Ovest. Il semaforo consente un flusso per volta e un
 numero massimo di due vetture che possono occupuare l'incrocio.
@@ -5523,7 +5453,7 @@ incrocio. Ecco nel dettaglio il significato di posti e transizioni:
 \item $t_8$: scatta al verde per N-S
 \end{itemize}
 
-\subsubsection{Ascensore semplice}
+\subsection{Ascensore semplice}
 \input{./tex/ascensoreSemplicePetri}
 La figura \ref{fig:ascensoreSemplicePetri} mostra un modello di Petri
 di un ascensore semplice\index{Ascensore semplice}. Il comportamento
@@ -5557,7 +5487,7 @@ Questa \`e la descrizione dei posti e delle transizioni:
 \item $t_7$: l'ascensore arriva ad un nuono piano, ma $\bar{c} < \pi$
 \end{itemize}
 
-\subsubsection{Ascensore complesso}\index{Ascensore complesso}
+\subsection{Ascensore complesso}\index{Ascensore complesso}
 \input{./tex/ascensoreComplessoPetri}
 La figura \ref{fig:ascensoreComplessoPetri} mostra il dettaglio della
 salita di una implementazione pi\`u elaborata dell'ascensore. In
@@ -5599,7 +5529,7 @@ attraverso $P_{38}$ si effettua una scelta:
 Per la fase di discesa, la rete \`e praticamente la stessa, ma ordinata
 in maniera inversa.
 
-\subsubsection{Carroponte di Petri}
+\subsection{Carroponte di Petri}
 \input{./tex/carropontePetri}
 La figura \ref{fig:carropontePetri} mostra la rete di Petri di un
 carroponte. Il carroponte ha 4 postazioni $P_1$, $P_2$, $P_3$ e
@@ -5617,14 +5547,57 @@ vicino alla destra.
 \item $P_6$: postazione in cui si trova il carroponte
 \item $t_1$: fine servizio
 \item $t_2$: ricezione chiamata
-\item $t_3$: se $c=p$
-\item $t_4$: se $c<p$
-\item $t_5$: se $c>p$
+\item $t_3$: se $c = p$
+\item $t_4$: se $c < p$
+\item $t_5$: se $c > p$
 \item $t_6$: arriva un segnale $P_d$
 \item $t_7$: arriva un segnale $P_s$
-\item $t_8$: $c=p$
-\item $t_9$: $c=p$
+\item $t_8$: $c = p$
+\item $t_9$: $c = p$
 \end{itemize}
+
+
+
+\chapter{Programma di Controlli}
+\section{Capitolo 1}
+\begin{itemize}
+\item pag. 1-15
+\end{itemize}
+
+\section{Capitolo 2}
+\begin{itemize}
+\item par. 2.2.1 +
+\item par. 2.5.1 +
+\item par. 2.5.2 +
+\item par. 2.8
+\end{itemize}
+
+\section{Capitolo 4}
+\begin{itemize}
+\item par. 4.1.1 +
+\item par. 4.1.2 +
+\item par. 4.1.3 +
+\item par. 4.1.4 +
+\item par. 4.2.1
+\item par. 4.3.1
+\item par. 4.3.2
+\item par. 4.7
+\end{itemize}
+
+\section{Capitolo 8}
+\begin{itemize}
+\item par. 8.1
+\item par. 8.2.1
+\item par. 8.2.3
+\end{itemize}
+
+\section{Capitolo 5}
+\begin{itemize}
+\item par. 5.1
+\item par. 5.2.1
+\item par. 8.2.3
+\end{itemize}
+
 
 
 \begin{figure}[!h]
