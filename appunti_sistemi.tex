@@ -5224,6 +5224,24 @@ dove
 Questa relazione vale se $M_r$ \`e raggiungibile da $M_0$ scattando la
 sequenza di transizioni $\sigma$.
 
+\section{Reti di Petri elementari}
+La figura \ref{fig:sequenzalitaPetri} mostra una rete di Petri in cui
+gli eventi si succedono in un ben determinato ordine.
+\input{./tex/sequenzialitaPetri}
+La figura \ref{fig:parallelismoSincronizzazionePetri} mostra un
+esempio di rete di Petri ``parallelo'' e una rete di Petri
+``sincronizzazione''. 
+\input{./tex/parallelismoSincronizzazionePetri}
+Nel parallelismo, gli eventi possono verificarsi senza alcun ordine
+prefissato; non sono in conflitto strutturale tra di loro, poich\`e il
+verificarsi di un evento non pregiudica l'abilitazione di un altro
+evento. Nella sincronizzazione, pi\`u eventi paralleli devono
+verificarsi per proter proseguire.
+\input{./tex/sceltaPetri}
+La figura \ref{fig:sceltaPetri} mostra una ``scelta'': un solo evento
+tra i tanti possibili pu\`o verificarsi, poich\`e lo scatto di una
+transizione disabilita le altre. Il posto iniziale a pi\`u transizioni
+determina il conflitto strutturale.
 
 \section{Reti di Petri comuni}
 \subsection{Magazzino multiclasse - Petri}\index{Magazzino

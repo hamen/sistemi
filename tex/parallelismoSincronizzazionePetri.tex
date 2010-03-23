@@ -1,0 +1,54 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+  \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+  \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+  \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=4mm]
+
+  \tikzstyle{every label}=[red]
+
+  \begin{scope}
+    \node [place,label=above:$P_1$] (p1)      {};
+    \node [place,label=above:$P_2$] (p2) [right of=p1,xshift=1.3cm] {};
+    \node [place,label=above:$P_3$] (p3) [above of=p2] {};
+    \node [place,label=above:$P_4$] (p4) [below of=p2] {};
+    
+    \node [transition,label=above:$t_1$] (t1) [right of=p1] {}
+    edge [pre] (p1)
+    edge [post] (p2)
+    edge [post] (p3)
+    edge [post] (p4);
+
+    \node [transition,label=above:$t_2$] (t2) [right of=p2] {}
+    edge [pre] (p2);
+    \node [transition,label=above:$t_3$] (t) [right of=p3] {}
+    edge [pre] (p3);
+    \node [transition,label=above:$t_4$] (t4) [right of=p4] {}
+    edge [pre] (p4);
+    
+  \end{scope}
+  \begin{scope}[xshift=7cm]
+    \node [place,label=above:$P_2$] (p12) {};
+    \node [place,label=above:$P_1$] (p11) [right of=p12,xshift=1.3cm]{};
+    \node [place,label=above:$P_3$] (p13) [above of=p12] {};
+    \node [place,label=above:$P_4$] (p14) [below of=p12] {};
+    
+    \node [transition,label=above:$t_{11}$] (t11) [right of=p12] {}
+    edge [post] (p11)
+    edge [pre] (p12)
+    edge [pre] (p13)
+    edge [pre] (p14);
+
+    \node [transition,label=above:$t_2$] (t12) [left of=p12] {}
+    edge [post] (p12);
+    \node [transition,label=above:$t_3$] (t13) [left of=p13] {}
+    edge [post] (p13);
+    \node [transition,label=above:$t_4$] (t14) [left of=p14] {}
+    edge [post] (p14);
+  \end{scope}
+  \end{tikzpicture}
+  \caption{Parallelismo - Sincronizzazione}
+  \label{fig:parallelismoSincronizzazionePetri}
+\end{figure}
