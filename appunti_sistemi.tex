@@ -5574,6 +5574,173 @@ vicino alla destra.
 \item $t_9$: $c = p$
 \end{itemize}
 
+\section{GMEC}
+Le {\em Generalized Mutual Exclusion Constraints}\index{GMEC},
+vincoli di mutua esclusione generalizzate, consentono di descrivere
+in modo naturale una classe importante di specifiche statiche, tipiche
+del controllo di processi composti da pi\`u sottosistemi concorrenti
+che accedono in parallelo a un numero limitato di risorse.
+
+\subsection{Mutua esclusione e GMEC}
+Supponiamo di avere due condizioni logiche $A_1$ e $A_2$. Esse sono in
+mutua esclusione se non possono verificarsi entrambe
+contemporaneamente.
+\[
+M(p_1) = 1
+\]
+\[
+M(p_2) = 1
+\]
+sono le marcature che indicano le condizioni logiche vere
+rispettivamente di $A_1$ e $A_2$. Il vincolo
+\begin{equation}\label{eq:mutuaEsclusioneGMEC}
+M(p_1) + M(p_2) \leq 1
+\end{equation}
+rappresenta la specifica che le due condizioni non debbano mai essere
+contemporaneamente vere, quindi \`e vietata la marcatura
+\[
+M(p_1) = M(p_2) = 1
+\]
+Se la rete ha $m$ posti e
+\[
+\begin{array}{cccccccc}
+  w = & [ & 1 & 1 & 0 & ... & 0 & ]^T\\
+  M = & [ & M(p_1) & M(p_2) & M(p_3) & ... & M(p_m) & ]^T
+\end{array}
+\]
+dove $w_i$ indica il numero di token del posto $i$-simo per cui la
+condizione \`e vera. La condizione diventa, quindi,
+\[
+M(p_1) + M(p_2) = \omega^T M
+\]
+e posto $k = 1$, la \ref{eq:mutuaEsclusioneGMEC} pu\`o anche
+scriversi
+\[
+\omega^T M \leq k
+\]
+In generale
+\begin{array}{cccccccc}
+  w = & [ & w_1 & w_2 & w_3 & ... & w_m & ]^T\\
+  w^T M = & [ & w_1\;M(p_1) & w_2\;M(p_2) & w_3\;M(p_3) & ... & w_m\;(p_m) & ]^T
+\end{array}
+\]
+dove $(w,k) \in \mathbb{Z}$. In questo modo \`e possibile pesare in
+maniera diversa le marcature di posti diversi.
+
+Sia $\langle N, M_0 \rangle$ una rete marcata con $m$ posti. La GMEC
+$(w,k)$ definisce un insieme di {\em marcature legali}
+\[
+\mathcal{L}(w,k) = \{ M \in \mathbb{N}^m | w^T M \leq k \}
+\]
+\subsection{Il job-shop}\index{Job-Shop}
+Supponiamo di avere un robot $r$ che carica due macchine $m_1$ ed
+$m_2$ che lavorano dei pezzi e li immagazzinano in un deposito $d$. Il
+robot $r$ pu\`o caricare una sola macchina per volta. La macchina
+$m_1$ pu\`o lavorare pezzi di tipo $A$, con cardinalit\`a 2; la
+macchina $m_2$ pu\`o lavorare pezzi di tipo $B$, con cardinalit\`a
+1. Dal deposito $d$ si caricano contemporaneamente un pezzo di tipo
+$A$ e un pezzo di tipo $B$ per un successivo assemblamento.
+\input{./tex/jobShopPetri}
+La figura \ref{fig:jobShopPetri} mostra la rete di Petri che descrive
+lo scenario di cui sopra. Di seguito il dettaglio dei posti e delle
+transizioni:
+\begin{itemize}
+\item $t_1$: inizio caricamento pezzo su $m_1$
+\item $p_1$: caricamento $m_1$ in corso
+\item $t_2$: fine caricamento pezzo su $m_1$ e inizio lavorazione su
+  $m_1$
+\item $p_2$: $m_1$ sta lavorando
+\item $t_3$: fine lavorazione $m_1$ e deposito pezzo tipo $A$ in $d$
+\item $p_3$: parti di tipo $A$ deposite in $d$
+\end{itemize}
+Analogamente
+\begin{itemize}
+\item $t_4$: inizio caricamento pezzo su $m_2$
+\item $p_4$: caricamento $m_2$ in corso
+\item $t_5$: fine caricamento pezzo su $m_2$ e inizio lavorazione su
+  $m_2$
+\item $p_5$: $m_2$ sta lavorando
+\item $t_6$: fine lavorazione $m_2$ e deposito pezzo tipo $B$ in $d$
+\item $p_6$: parti di tipo $B$ deposite in $d$
+\end{itemize}
+Si conclude con
+\begin{itemize}
+\item $t_7$: prelievo coppia di parti da $d$
+\end{itemize}
+Lo scenario di arricchisce di alcuni vincoli che guidano la rete di
+Petri:
+\begin{itemize}
+\item il robot $r$ \`e unico e quindi pu\`o caricare una sola macchina
+  per volta. Abbiamo un vincolo di mutua esclusione:
+  \[
+  M(p_1) + M(p_4) \leq 1
+  \]
+  e la GMEC $(w_1, k_1)$ \`e:
+  \[
+  \begin{array}{ccccccccc}
+    w_1 = & [ & 1 & 0 & 0 & 1 & 0 & 0 & ]^T\\
+    k_1 = 1
+  \end{array}
+  \]
+\item le due macchine possono lavorare una sola parte per volta:
+  \[
+  M(p_2) \leq 1
+  \]
+  \[
+  M(p_5) \leq 1
+  \]
+  e le GMEC $(w_{2a}, k_{2a})$ e $(w_{2b}, k_{2b})$ sono:
+  \[
+  \begin{array}{ccccccccc}
+    w_{2a} = & [ & 0 & 1 & 0 & 0 & 0 & 0 & ]^T\\
+    k_{2a} = 1\\
+    w_{2b} = & [ & 0 & 0 & 0 & 0 & 1 & 0 & ]^T\\
+    k_{2b} = 1
+  \end{array}
+  \]
+\item il deposito ha una capacit\`a finita $x$. I pezzi di tipo $A$
+  occupano 2 postazioni, quelli di tipo $B$ ne occupano 1. Il vincolo
+  \`e:
+  \[
+  2M(p_3) + M(p_6) \leq x
+  \]
+  e la GMEC $(w_3, k_3)$ \`e:
+  \[
+  \begin{array}{ccccccccc}
+    w_1 = & [ & 0 & 0 & 2 & 0 & 0 & 1 & ]^T\\
+    k_1 = x
+  \end{array}
+  \]
+\item l'eccedenza di pezzi di un tipo rispetto ad un altro non deve
+  mai superare le $y$ unit\`a. Il vincolo \`e:
+  \[
+  |M(p_3) - M(p_6)| \leq y
+  \]
+  ma \`e non lineare, per via del modulo. In questi caso, il vincolo
+  va riscritto come un sistema di vincoli lineari:
+  \[
+  \left \{
+  \begin{array}{l}
+  M(p_3) - M(p_6) \leq y\\
+  M(p_6) - M(p_3) \leq y\\
+  \end{array}
+  \right .
+  \]
+  e le GMEC $(w_{4a}, k_{4a})$ e $(w_{4b}, k_{4b})$ sono:
+  \[
+  \begin{array}{ccccccccc}
+    w_{4a} = & [ & 0 & 0 & 1 & 0 & 0 & -1 & ]^T\\
+    k_{4a} = y\\
+    w_{4b} = & [ & 0 & 0 & -1 & 0 & 0 & 1 & ]^T\\
+    k_{4b} = y
+  \end{array}
+  \]
+  Questo ultimo vincolo \`e detto {\em vincolo di
+    equit\`a}\index{Vincolo di equit\`a}. \`E usato
+  quando si richiede che diversi sottoprocessi non debbano
+  monopolizzare l'uso di una risorsa ma debbano, al contrario,
+  spartirsela secondo oppurtune regole.
+\end{itemize}
 
 
 \chapter{Programma di Controlli}
