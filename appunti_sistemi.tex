@@ -5659,6 +5659,7 @@ scriversi
 \omega^T M \leq k
 \]
 In generale
+\[
 \begin{array}{cccccccc}
   w = & [ & w_1 & w_2 & w_3 & ... & w_m & ]^T\\
   w^T M = & [ & w_1\;M(p_1) & w_2\;M(p_2) & w_3\;M(p_3) & ... & w_m\;(p_m) & ]^T
@@ -5782,6 +5783,37 @@ Petri:
   spartirsela secondo oppurtune regole.
 \end{itemize}
 
+\subsection{GMEC multipla}
+Nell'esempio del job-shop, si desiderava imporre ad un processo pi\`u
+GMEC $(w_i, k_i)$ con $i = 1,\;...,\;q$. \`E possibile raccogliere
+queste GMEC in una unica GMEC multipla $(W, k)$ dove 
+
+\[
+\begin{array}{cccccccc}
+  W = & [ & w_1 & w_2 & w_3 & ... & w_q & ]^T\\
+\end{array}
+\]
+dove $W$ \`e una matrice $[m \times q]$ le cui colonne sono i vettori
+$w$ che definiscono le singole GMEC e
+\[
+\begin{array}{cccccccc}
+  k = & [ & k_1 & k_2 & k_3 & ... & k_q & ]^T\\
+\end{array}
+\]
+\`e un vettore $[q \times 1]$ che ha per elementi gli scalari $k_i$
+delle singole GMEC.
+L'insieme delle marcature legali per questa GMEC \`e:
+\[
+\begin{array}{ccc}
+\mathcal{L}(W,k) & = & \{ M \in \mathbb{N}^m | W^T M \leq k\}\\
+ & = & \{ M \in \mathbb{N}^m | w_1^T M \leq k_1, w_2^T M \leq k_2,
+..., w_q^T M \leq k_q \}\\
+ & = & \mathcal{L} (w_1, k_1) \cap \mathcal{L} (w_2, k_2) \cap
+... \cap \mathcal{L} (w_q, k_q)
+\end{array}
+\]
+Una marcatura \`e legame per la GMEC multipla $(W,k)$ se \`e legale per ogni
+singola GMEC $(w_i, k_i)$.
 
 \section{Posti monitor}
 
