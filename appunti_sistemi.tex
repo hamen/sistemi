@@ -5816,6 +5816,94 @@ Una marcatura \`e legame per la GMEC multipla $(W,k)$ se \`e legale per ogni
 singola GMEC $(w_i, k_i)$.
 
 \section{Posti monitor}
+I posti monitor controllano che che le specifiche non vengano
+violate. La rete in esempio si trova in una marcatura legale $M$ e lo
+scatto della transizioni $t$ porta in una marcatura $M' = M + C(\cdot,
+t)$. Il supervisore (posto monitor) dovra` permettere lo scatto di $t$
+se $M'$ \`e legale o impedire lo scatto di $t$ se $M'$ \`e illegale.
+
+Considerata una GMEC $(w,k)$, si definisce {\em monitor}
+corrispondente a $(w,k)$ il nuovo posto $p_s$ che ha per matrice di
+incidenza il vettore riga $[1 \times n]$:
+\[
+\begin{array}{cccccc}
+  C_s = & [ & C_s(t_1) & ... & C_s(t_n) & ]^T = -w^T C\\
+\end{array}
+\]
+e marcatura iniziale
+\[
+M_0(p_s) = k - w^T M_0
+\]
+
+Con riferimento al job-shop, realizziamo i posti monitor. Per
+calcolare la matrice di incidenza del posto monitor $p_{s1}$
+consideriamo la matrice di incidenza $C$ della rete di Petri del
+job-shop:
+\[
+C =
+\begin{array}{c}
+  P_1\\
+  P_2\\
+  P_3\\
+  P_4\\
+  P_5\\
+  P_6
+\end{array}
+\begin{array}{cc}
+  \\
+ \begin{bmatrix}
+   1 & -1 & 0 & 0 & 0 & 0 & 0\\
+   0 & 1 & -1 & 0 & 0 & 0 & 0\\
+   0 & 0 & 1 & 0 & 0 & 0 & -1\\
+   0 & 0 & 0 & 1 & -1 & 0 & 0\\
+   0 & 0 & 0 & 0 & 1 & -1 & 0\\
+   0 & 0 & 0 & 0 & 0 & 1 & 1
+ \end{bmatrix}\\
+  t_1\;\;\;t_2\;\;\;t_3\;\;\;t_4\;\;\;t_5\;\;\;t_6\;\;\;t_7
+\end{array}
+\]
+la marcatura iniziale $M_0$:
+\[
+\begin{array}{ccccccccc}
+  M_0 = & [ & 0 & 0 & 0 & 0 & 0 & 0 &]^T
+\end{array}
+\]
+ed il vettore della GMEC:
+\[
+\begin{array}{ccccccccc}
+  w_1 = & [ & 1 & 0 & 0 & 1 & 0 & 0 & ]^T\\
+\end{array}
+\]
+A questo punto sfruttiamo la definizione di ``monitor'' e la sua
+matrice di incidenza:
+\begin{equation}\label{eq:matriceIncidenzaMonitor}
+C_s = -w^T C
+\end{equation}
+\[
+\begin{array}{ccccccccc}
+  -w_1 = & [ & -1 & 0 & 0 & -1 & 0 & 0 & ]^T\\
+\end{array}
+\]
+Il prodotto riga $\times$ colonna tra la riga $-w_1$ e le colonne
+della matrice di incidenza $C$, produce un vettore riga $C_{s1}$ pari
+a:
+\[
+\begin{array}{cccccccccc}
+  C_{s1} = -w_1^T C= & [ & -1 & 1 & 0 & -1 & 1 & 0 & 0 &]\\
+\end{array}
+\]
+cio\`e tale monitor ha due archi pre (verso $t_1$ e $t_4$) e due archi
+post (da $t_2$ e da $t_5$). La marcatura inizale del posto monitor
+\`e calcolata come:
+\begin{equation}\label{eq:marcaturaInizialeMonitor}
+M_0(p_s) = k - w^TM_0
+\end{equation}
+Nel nostro caso
+\[
+M_0(p_{s1}) = k_1 - w_1^T M_0 = 1 - 0 = 1
+\]
+Bisogner\`a iterare il procedimento e calcolare gli altri sposti
+monitor per le rispettive GMEC.
 
 
 \chapter{Programma di Controlli}
