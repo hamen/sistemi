@@ -3,6 +3,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[pdftex]{graphicx}
+\usepackage{subfig}
 \usepackage[pdftex,colorlinks=true]{hyperref} 
 \hypersetup{linkcolor=blue}
 \usepackage{amssymb}
@@ -5905,6 +5906,110 @@ M_0(p_{s1}) = k_1 - w_1^T M_0 = 1 - 0 = 1
 Bisogner\`a iterare il procedimento e calcolare gli altri sposti
 monitor per le rispettive GMEC.
 
+\chapter{Reti di Petri temporizzate}
+\section{Introduzione}
+Sono nate per rendere le reti di Petri uno strumento utile anche per
+la valutazione delle prestazioni. Le reti di Petri temporizzate sono
+un ambiente omogeneo per la modellazione, il progetto e l'analisi
+delle prestazioni dei DES.
+
+Il concetto principale delle reti di Petri temporizzate \`e la
+possibilit\`a di associare delle variabili temporali (tempi di
+ritardo) ai posti, alle transitioni, agli archi ed alle marcature che
+costituiscono una rete di Petri.
+
+\section{Reti di Petri temporizzate deterministiche}
+Nel nostro studio, ci concentreremo sulle reti di Petri temporizzate
+di tipo deterministico.
+\begin{definizione}\label{def:reteDiPetriTemporizzataDeterministica}
+Una rete di Petri temporizzata \`e deterministica se ad essa \`e
+associato un ritardo deterministico $\theta_i$; tale tempo viene
+scelto {\em costante}, talvolta {\em variabile} secondo una sequenza
+$\{ \theta_{i,1},\theta_{i,2},\theta_{i,3}, ... \}$ di tempi di ritardo noti
+a priori, raramente funzione della marcatura.
+\end{definizione}
+Queste reti di Petri si basano sul concetto di {\em memoria di
+  abilitazione}\index{Memoria di abilitazione}.
+\begin{definizione}
+Una transizione $t_i$ si dice a ``memoria di abilitazione'' se la
+transizione $t_i$ ha memoria solo dell'attuale abilitazione e potr\`a
+scattare solo dopo un ritardo pari a $\theta_i$ dall'istante della sua
+abilitazione.
+\end{definizione}
+\begin{definizione}
+  Una rete di Petri temporizzata deterministica \`e caratterizzata
+  dalla struttura algebrica
+  \[
+  N_d = (N, \Theta)
+  \]
+  dove
+  \begin{itemize}
+  \item $N = (P,T,Pre,Post)$
+  \item $\Theta = \{ \Theta_i\; : \; t_i \in T\}$
+    dove
+    \begin{itemize} 
+    \item[*] $\Theta_i = \{\theta_{i,1},\theta_{i,2},... \}$
+    \item[*] $t_i \in T$
+    \item[*] $\theta_{i,k} \in \mathbb{R_+} \cup \{0\}$
+    \item[*] $k \in \mathbb{N_+}$
+    \end{itemize}
+  \end{itemize}
+\end{definizione}
+$\Theta$ \`e una struttura di orologio (o di temporizzazione)
+deterministica. Nel caso di ritardi costanti, $\theta_{i,k}$ \`e
+semplificato in $\theta_i, \forall k \in \mathbb{N_+}$.
+
+Una RPTD $N_d$ con una marcatura $M_0$ all'istante di tempo iniziale
+$\tau_0$ \`e detta RPTD marcata $\langle N_d, M_0 \rangle$.
+\subsection{Evoluzione dinamica}
+Lo stato di una RPTD \`e determinato dalla marcatura e dal valore
+degli orologi associati alle transitioni.
+\begin{definizione}
+  Una transizione $t_i$ \`e detta abilitata da una marcatura $M_j$ se
+  ogni posto $p \in P$ della rete contiene un numero di marche pari o
+  superiore a $Pre(p,t_i)$, cio\`e se $M_j \geq Pre(\cdot, t_i)$.
+\end{definizione}
+\begin{definizione}\index{Grado di
+    abilitazione}\label{def:gradoDiAbilitazion}
+  Il grado di abilitazione di una transizione $t_i$ abilitata da una
+  marcatura $M_j$ \`e il pi\`u grande numero intero $k$ tale che $M_j
+  \geq Pre(\cdot, t_i)$. Il grado di abilitazione di $t_i$ da $M_j$
+  viene indicato con $\alpha_i(j)$.
+\end{definizione}
+\input{./tex/rptdEsempi}
+La figura \ref{fig:retiPetriTemporizzate} mostra due esempi elementari
+di reti temporizzate. La figura \ref{fig:gradoAbilitazioneInfinito}
+mostra una transizione con grado di abilitazione infinito. La figura
+\ref{fig:gradoAbilitazione2} mostra una transizione con grado di
+abilitazione 2. Ogni transizione ha associato un numero di orologi
+pari al suo grado di abilitazione corrente. Ogni volta che la
+marcatura cambia, cio\`e allo scatto della transizione, cambia anche
+il grado di abilitazione e cambia il numero di orologi.
+
+Considerata una transizione $t_i$ abilitata, il tempo che deve passare
+prima del prossimo scatto di $t_i$ \`e determinato dal pi\`u piccolo
+orologio $o_i$ associato a $t_i$. Se il valore minimo di orologi \`e
+maggiore di uno, quando la transizione sar\`a pronta a scattare,
+scatter\`a $n$ volte quanti sono gli orologi associati a $t_i$.
+
+\subsubsection{Esempi}
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./images/petriEsempio01.png}
+    \caption{Esempio RPTD}
+    \label{fig:petriEsempio01}
+  \end{center}
+\end{figure}
+La figura \ref{fig:petriEsempio01} mostra l'evoluzione della rete
+\ref{fig:gradoAbilitazione2}. All'istante $\tau_0 = 0$, alla
+transizione $t_1$ \`e associata una coppia di orologi $\vartheta_{1,1}
+= 2$ e $\vartheta_{1,2} = 2$ dato il grado di abilitazione
+$\alpha_1(0) = 2$.
+
+All'istante $\tau_1 = \tau_0 + \vartheta_1$, dopo cio\`e un ritardo 2,
+entrambi gli orologi si annullano, la transizione scatta due volte e i
+due orologi si resettano nuovamente a $\vartheta_1 = 2$.
+
 
 \chapter{Programma di Controlli}
 \section{Capitolo 1}
@@ -5934,8 +6039,8 @@ monitor per le rispettive GMEC.
 
 \section{Capitolo 8}
 \begin{itemize}
-\item par. 8.1
-\item par. 8.2.1
+\item par. 8.1 + 
+\item par. 8.2.1 + 
 \item par. 8.2.3
 \end{itemize}
 
@@ -5969,6 +6074,12 @@ monitor per le rispettive GMEC.
 \end{figure}
 
 
+\begin{figure}[!hbp]
+  \begin{center}
+%    \includegraphics[scale=0.5]{./figures/}
+    \caption{}\label{fig:}
+  \end{center}
+\end{figure} 
 
 % APPENDICI
 \appendix

@@ -1,0 +1,37 @@
+\begin{figure}[!h]
+  \centering
+  \subfloat[]{\label{fig:gradoAbilitazioneInfinito}
+      \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+        \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+        \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+        \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+          fill=black,minimum size=4mm]
+        
+        \tikzstyle{every label}=[red]
+        \node [place,label=above:$P_1$] (p1)      {};
+        
+        \node [transition,label=above:$t_1$][label=below:$\vartheta
+          \equiv 1.5$] (t1) [left of=p1] {}
+        edge [post] (p1);
+      \end{tikzpicture}
+  }
+  \subfloat[]{\label{fig:gradoAbilitazione2}
+    \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+      \tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+      \tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+      \tikzstyle{transition}=[rectangle,thick,draw=black!75,
+        fill=black,minimum size=4mm]
+      
+      \node [place,label=above:$P_1$] (p1) {};
+      \node [place,label=above:$P_2$] (p2) [right of=p1,xshift=1.3cm]{};
+      
+      \node [transition,label=above:$t_1$][label=below:$\vartheta_1
+        \equiv 2$] (t1) [right of=p1] {}
+      edge [pre, bend right] (p1)
+      edge [post, bend left] (p1)
+      edge [post] (p2);
+    \end{tikzpicture}
+  }
+  \caption{Reti di Petri temporizzate}
+  \label{fig:retiPetriTemporizzate}
+\end{figure}
