@@ -1,0 +1,19 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node
+      distance=2.8cm,semithick]
+   
+    \node[state] (A)             {$x_0$};
+    \node[initial above, state](B) [right of=A] {$x_1$};
+    \node[state]         (C) [right of=B] {$x_2$};
+    
+    \path
+    (A) edge [bend left] node {a} (B)
+    (B)
+    edge [bend left] node {a} (C)
+    edge [bend left] node {p} (A)
+    (C) edge [bend left] node {p} (B);
+  \end{tikzpicture}
+  \caption{Coda}
+  \label{fig:coda}
+\end{figure}

@@ -4792,6 +4792,10 @@ Ecco le principali considerazioni da fare sul concetto di evento:
 \end{itemize}
 Nel nostro studio, ci riferiremo al singolo evento con la lettera $e$
 ed all'insieme di eventi con la lettera $E$.
+\begin{definizione}
+  Un evento $e$ si definisce abilitato (o attivo) nello stato $x$ se
+  \`e definita una funzione di transizione $\delta (x,e)$.
+\end{definizione}
 
 \section{DES logici e temporizzati}
 Esistono due principali tipi di sistemi ad eventi discreti (DES):
@@ -4883,28 +4887,9 @@ Nota: l'evento ``end'' deve indicare la fine di tutti i task, poich\`e
 \subsubsection{Buffer / Coda / Magazzino}\index{Buffer
   ASFD}\index{Coda AFSD}\index{Magazzino ASFD}
 La figura \ref{fig:coda} mostra l'ASFD di una generica coda.
-
-\begin{figure}[!h]
-  \centering
-  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node
-      distance=2.8cm,semithick]
-   
-    \node[state] (A)             {$x_0$};
-    \node[initial above, state](B) [right of=A] {$x_1$};
-    \node[state]         (C) [right of=B] {$x_2$};
-    
-    \path
-    (A) edge [bend left] node {a} (B)
-    (B)
-    edge [bend left] node {a} (C)
-    edge [bend left] node {p} (A)
-    (C) edge [bend left] node {p} (B);
-  \end{tikzpicture}
-  \caption{Coda}
-  \label{fig:coda}
-\end{figure}
-La coda o buffer o magazzino ha capacit\`a 2. \`E costituito da tre
-stati:
+\input{./tex/magazzinoASFD}
+La coda o buffer o magazzino della figura \ref{fig:coda} ha capacit\`a
+2. \`E costituito da tre stati:
 \[
 \overline{\underline{X}} = \{ x_0, x_1, x_2\}
 \]
