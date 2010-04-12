@@ -4771,7 +4771,7 @@ Nota: Per il diagramma delle fasi vale la seguente dichiarazione:
 
 
 % SISTEMI A TEMPO DISCRETO - CORSO DI CONTROLLI
-\chapter{Sistemi a tempo discreto}
+\chapter{Sistemi ad eventi discreti}
 Quando lo spazio di stato di un sistema \`e descritto da un insieme
 discreto di tipo $\{0, 1, 2, ...\}$ e le transizioni di stato si
 verificano solo ad instanti discreti nel tempo, associamo queste
@@ -4790,7 +4790,6 @@ Ecco le principali considerazioni da fare sul concetto di evento:
 \item \`e istantaneo
 \item causa la transizione da uno stato ed un altro
 \end{itemize}
-
 Nel nostro studio, ci riferiremo al singolo evento con la lettera $e$
 ed all'insieme di eventi con la lettera $E$.
 
@@ -4805,7 +4804,6 @@ Esistono due principali tipi di sistemi ad eventi discreti (DES):
   Le transizioni di stato sono determinate unicamente dal verificarsi
   di specifici e determinati eventi $e$, appartenenti ad $E$;
 \end{description}
-
 I DES (Discrete Events Systems) Logici sono anche detti {\em
   Event-driven DES}\index{Event-driven Discrete Events
   Systems}. Questo tipo di sistema \`e particolarmente complicato da
@@ -4820,22 +4818,22 @@ transizioni di stato.
 \end{definizione}
 
 \section{Gli automi a stati finiti}
-Un automa a stati finiti (ASF) \`e un sistema dinamico, invariante,
+Un automa a stati finiti (ASF) \`e un sistema dinamico, tempo invariante,
 discreto nell'avanzamento e nelle interazioni nel quale gli insiemi
 dei possibili valori di ingresso, uscita e stato sono insiemi finiti.
 Nel dettaglio, un ASF \`e:
 \begin{itemize}
 \item dinamico: evolve nel tempo passando da uno stato all'altro in
   funzione dei segnali d'ingresso e dello stato precedente;
-\item invariante: a parit\`a di condizioni iniziali il comportamento
-  del sistema \`e sempre lo stesso;
-\item discreto: le variabili d'ingresso, di stato, d'uscita, possono
+\item tempo invariante: a parit\`a di condizioni iniziali il
+  comportamento del sistema \`e sempre lo stesso;
+\item discreto: le variabili d'ingresso, di stato e d'uscita possono
   assumere solo valori discreti.
 \end{itemize}
 
 \subsection{Automi a stati finiti deterministici}
-Un automa a stati finiti deterministico (ASFD) \`e un'automa a stati
-finiti dove per ogni coppia di stato e simbolo in ingresso c'\`e una
+Un automa a stati finiti deterministico (ASFD) \`e un automa a stati
+finiti in cui per ogni coppia di stato e simbolo in ingresso c'\`e una
 ed una sola transizione allo stato successivo.
 
 Un ASFD \`e costituito da una quintupla:
@@ -4855,29 +4853,18 @@ Un ASFD \`e costituito da una quintupla:
 \end{itemize}
 
 \subsubsection{Macchina}\index{Macchina ASFD}
-La figura \ref{fig:macchina} mostra l'ASFD di una generica macchina:
-la macchina \`e pronta a ricevere un pezzo. Passa cos\`i dallo stato
-``Idle'' allo stato ``Busy''. Conclusa la lavorazione, il pezzo viene
-depositato e si passa allo stato ``Blocked''. A questo punto, il pezzo
-pu\`o essere prelevato e la macchina diventa nuovamente ``Idle''.
-\begin{figure}[!h]
-  \centering
-  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node
-      distance=2.8cm,semithick]
-   
-    \node[initial, state] (idle)             {$Idle$};
-    \node[state] (blocked) [below right of=idle] {$Blocked$};
-    \node[state] (busy) [above right of=blocked] {$Busy$};
-    
-    \path
-    (idle) edge [bend left] node {task} (busy)
-    (busy)edge [bend left] node {end} (blocked)
-    (blocked) edge [bend left] node {free} (idle);
-  \end{tikzpicture}
-  \caption{Macchina}
-  \label{fig:macchina}
-\end{figure}
-
+La figura \ref{fig:macchina} mostra l'ASFD di una generica
+macchina. L'evoluzione della macchina \`e la seguente:
+\begin{itemize}
+\item La macchina \`e pronta a ricevere un pezzo. Passa cos\`i dallo
+  stato ``Idle'' allo stato ``Busy''.
+\item Conclusa la lavorazione, il pezzo viene depositato e si passa
+  allo stato ``Blocked''.
+\item A questo punto, il pezzo pu\`o essere prelevato e la macchina
+  diventa nuovamente ``Idle''.
+\end{itemize}
+\input{./tex/macchinaASFD}
+Gli eventi e gli stati sono:
 \begin{itemize}
 \item $E = \{ task, end, free \}$
 \item $\overline{\underline{X}} = \{ Idle, Busy, Blocked\}$
@@ -4890,9 +4877,8 @@ La funzione di transizione \`e:
 \item $\delta$(Busy, end ) = Blocked
 \item $\delta$(Blocked, free) = Idle
 \end{itemize}
-
-Nota: l'evento ``end'' deve indicare la fine di tutti i task. \`E
-impossibile trovarsi contemporaneamente in due stati.
+Nota: l'evento ``end'' deve indicare la fine di tutti i task, poich\`e
+\`e impossibile trovarsi contemporaneamente in due stati.
 
 \subsubsection{Buffer / Coda / Magazzino}\index{Buffer
   ASFD}\index{Coda AFSD}\index{Magazzino ASFD}
