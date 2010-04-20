@@ -1,0 +1,58 @@
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node
+      distance=2.4cm,semithick]
+   
+    \node[initial, state] (A) {$0,0$};
+    \node[state](B) [right of=A] {$1,0$};
+    \node[state](C) [right of=B] {$2,0$};
+    \node[state](D) [right of=C] {$3,0$};
+    \node[state, accepting](E) [right of=D] {$4,0$};
+
+    \node[state](F) [below of=A] {$0,1$};
+    \node[state](G) [right of=F] {$1,1$};
+    \node[state, accepting](H) [right of=G] {$2,1$};
+    \node[state, accepting](I) [below of=F] {$0,2$};
+    
+    \path
+    (A)
+    edge [bend left] node {$d_1$} (B)
+    edge [bend left] node {$d_2$} (F)
+    
+    (B)
+    edge [bend left] node {$d_1$} (C)
+    edge [bend right] node [left] {$d_2$} (G)
+    edge [bend left] node {$p_1$} (A)
+        
+    (C)
+    edge [bend left] node {$d_1$} (D)
+    edge [bend left] node {$d_2$} (H)
+    edge [bend left] node {$p_1$} (B)
+
+    (D)
+    edge [bend left] node {$p_1$} (C)
+    edge [bend left] node {$d_1$} (E)
+
+    (E)
+    edge [bend left] node {$p_1$} (D)
+    
+    (F)
+    edge [bend left] node {$d_2$} (I)
+    edge [bend left] node {$p_2$} (A)
+    edge [bend left] node {$d_1$} (G)
+    
+    (G)
+    edge [bend left] node {$d_1$} (H)
+    edge [bend right] node [right] {$p_2$} (B)
+    edge [bend left] node {$p_1$} (F)
+
+    (H)
+    edge [bend left] node {$p_2$} (C)
+    edge [bend left] node {$p_1$} (G)
+    
+    (I)
+    edge [bend left] node {$p_2$} (F);
+  \end{tikzpicture}
+  \caption{ASFD Magazzino multiclasse}
+  \label{fig:magazzinoMulticlasse}
+\end{figure}

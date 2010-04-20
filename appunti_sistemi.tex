@@ -8,6 +8,7 @@
 \hypersetup{linkcolor=blue}
 \usepackage{amssymb}
 \usepackage{verbatim}
+\usepackage{enumitem}
 
 \hypersetup{ colorlinks,
   linkcolor=blue,
@@ -29,6 +30,8 @@
 \usepackage{tikz}
 \usepackage{pgf}
 \usetikzlibrary{automata,arrows,decorations.pathmorphing,backgrounds,fit,petri,shapes}
+\tikzstyle{int}=[draw, fill=blue!20, minimum size=2em]
+\tikzstyle{init} = [pin edge={to-,thin,black}]
 
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
@@ -4911,9 +4914,9 @@ La funzione di transizione \`e:
 \subsubsection{Magazzino multiclasse}\index{Magazzino multiclasse ASFD}
 Un magazzino multiclasse \`e un magazzino che pu\`o contenere pezzi di
 cardinalit\`a differente. La figura \ref{fig:magazzinoMulticlasse} mostra
-un ASFD di un magazzino che pu\`o contenere quattro elementi di tipo 1
-o due elementi di tipo 2. Gli stati ``doppio cerchio'' sono detti
-stati finali.
+un ASFD di un magazzino di capacit\`a 4 e che,quindi, pu\`o contenere
+quattro elementi di tipo 1 o due elementi di tipo 2. Gli stati
+``doppio cerchio'' sono detti stati finali.
 
 \begin{itemize}
 \item L'evento $d_1$ indica il deposito di un pezzo di tipo 1
@@ -4921,64 +4924,7 @@ stati finali.
 \item L'evento $p_1$ indica il prelievo di un pezzo di tipo 1
 \item L'evento $p_2$ indica il prelievo di un pezzo di tipo 2
 \end{itemize}
-\begin{figure}[!h]
-  \centering
-  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node
-      distance=2.4cm,semithick]
-   
-    \node[initial, state] (A) {$0,0$};
-    \node[state](B) [right of=A] {$1,0$};
-    \node[state](C) [right of=B] {$2,0$};
-    \node[state](D) [right of=C] {$3,0$};
-    \node[state, accepting](E) [right of=D] {$4,0$};
-
-    \node[state](F) [below of=A] {$0,1$};
-    \node[state](G) [right of=F] {$1,1$};
-    \node[state, accepting](H) [right of=G] {$2,1$};
-    \node[state, accepting](I) [below of=F] {$0,2$};
-    
-    \path
-    (A)
-    edge [bend left] node {$d_1$} (B)
-    edge [bend left] node {$d_2$} (F)
-    
-    (B)
-    edge [bend left] node {$d_1$} (C)
-    edge [bend right] node [left] {$d_2$} (G)
-    edge [bend left] node {$p_1$} (A)
-        
-    (C)
-    edge [bend left] node {$d_1$} (D)
-    edge [bend left] node {$d_2$} (H)
-    edge [bend left] node {$p_1$} (B)
-
-    (D)
-    edge [bend left] node {$p_1$} (C)
-    edge [bend left] node {$d_1$} (E)
-
-    (E)
-    edge [bend left] node {$p_1$} (D)
-    
-    (F)
-    edge [bend left] node {$d_2$} (I)
-    edge [bend left] node {$p_2$} (A)
-    edge [bend left] node {$d_1$} (G)
-    
-    (G)
-    edge [bend left] node {$d_1$} (H)
-    edge [bend right] node [right] {$p_2$} (B)
-    edge [bend left] node {$p_1$} (F)
-
-    (H)
-    edge [bend left] node {$p_2$} (C)
-    edge [bend left] node {$p_1$} (G)
-    
-    (I)
-    edge [bend left] node {$p_2$} (F);
-  \end{tikzpicture}
-  \caption{ASFD Magazzino multiclasse}
-  \label{fig:magazzinoMulticlasse}
-\end{figure}
+\input{./tex/magazzinoMulticlasseASFD}
 
 \subsection{Automi composizione concorrente}
 Si possono unire pi\`u automi deterministici per formare un automa
@@ -5980,6 +5926,154 @@ $\alpha_1(0) = 2$.
 All'istante $\tau_1 = \tau_0 + \vartheta_1$, dopo cio\`e un ritardo 2,
 entrambi gli orologi si annullano, la transizione scatta due volte e i
 due orologi si resettano nuovamente a $\vartheta_1 = 2$.
+
+\chapter{Modelli ricavati dalla risposta al gradino}
+\section{Metodo della tangente}
+\begin{figure}[!hbp]
+  \center
+  \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+    \node [int] (a) {$G(s)$};
+    \node (b) [left of=a,node distance=2cm, coordinate] {a};
+    \node [coordinate] (end) [right of=a, node distance=2cm]{};
+    \path[->] (b) edge node {$u$} (a);
+    \path[->] (a) edge node {$y$} (end);
+  \end{tikzpicture}
+  \caption{Schema a blocchi}
+  \label{fig:schemaABlocchi}
+\end{figure}
+Si assume che il sistema sia modellabile con una funzione di
+trasferimento del primo ordine del tipo:
+\[
+G(s) = \dfrac{\mu}{1 + sT} \cdot e^{-s\tau}
+\]
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/metodoTangente01.png}
+    \caption{Risposta al gradino di un sistema del primo ordine}
+    \label{fig:rispostaGradino1Ordine}
+  \end{center}
+\end{figure}
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/metodoTangente02.png}
+    \caption{Risposta al gradino di un sistema del primo ordine}
+    \label{fig:rispostaGradino1Ordineyr}
+  \end{center}
+\end{figure}
+Bisogna determinare i parametri della funzione di trasferimento:
+\begin{itemize}
+\item $\mu$ il guadagno statico
+\item $T$ la costante di tempo
+\item $\tau$ il ritardo
+\end{itemize}
+Vene considerata la risposta sperimentale (reale) del sistema con
+ingresso a scalino:
+\[
+u(t) = \bar{u} \cdot 1(t)
+\]
+
+Supponiamo che i campioni dell'uscita siano determinati con un periodo
+di campionamento $\Delta$, cio\`e un campione ogni $\Delta$
+secondi. Il periodo di campionamento va scelto abbastanza piccolo
+rispetto alla costante di tempo; diversamente, pero`, un periodo di
+campionamento troppo piccolo porterebbe ad un inutile sovraccarico dei
+dati da memorizzare.\\
+Gli istanti di tempo di campionamento saranno:
+\[
+t_1 = \Delta \;\; t_2 = 2\Delta \;\; t_3 = 3\Delta \;\; ... \;\; t_k =
+k\Delta \;\; ... \;\; t_N = N\Delta
+\]
+Il numero di campionamento $N$ va scelto in modo da ``raccogliere''
+l'evoluzione dinamica del sistema, ma senza memorizzare campioni
+``inutili'', una volta esautito il transitorio e si e` a regime. Ad
+esempio, si pu\`o scegliere:
+\[
+N : |t_N - 2 t_a| < \Delta
+\]
+cio\`e scegliere $N$ tale che $t_N$ sia circa pari al doppio del tempo
+di assestamento $t_a$.\\
+I campioni dell'uscita saranno:
+\[
+y_1 = y(t_1) = y (\Delta) \;\; ... \;\; y_k = y(t_k) = y(k\Delta) \;\;
+... \;\; y_N = y(t_N) = y(N\Delta)
+\]
+Per trovare il guadagno statico si pu\`o assumere:
+\[
+y_{infty} = \lim_{t \to \infty} y(t) \simeq y(N\Delta)
+\]
+e quindi fissare
+\[
+\mu = \dfrac{y(N\Delta)}{\bar{u}}
+\]
+essendo $\bar{u}$ una grandezza nota. Per calcolare i parametri $\tau$
+e $T$, dobbiamo calcolare:
+\begin{enumerate}[label=\emph{\alph*})]
+\item la derivata di $y$, che indicheremo con $dy$;
+\item il valore del massimo della derivata $(dy_{max})$ e il
+  corrispondente istante di tempo $k_{max} \cdot \Delta$;
+\item il valore di $y(k_{max} \cdot \Delta)$;
+\item la retta $y_r(t)$ che passa per $(k_{max}\Delta,
+  y(k_{max}\Delta))$ e ha pendenza $dy_{max}$;
+\item i punti di intersezione della retta $y_r(t)$ con l'asse dei
+  tempi $(y = 0)$ e con il valore a regime $(y = \mu \bar{u})$, come
+  mostrato in figura \ref{fig:rispostaGradino1Ordineyr}.
+\end{enumerate}
+\begin{enumerate}[label=\underline{\emph{Punto \alph*}}]
+\item La derivata di $y$ si pu\`o calcolare col medoto del rapporto
+  incrementale. Con un algoritmo in stile Matlab:
+  \[
+  \begin{array}{l}
+    dy(1) = y(1)/\Delta;\\
+    for\;\; k = 2 : N\\
+    \;\;\; dy(k) = (y(k) - y(k-1))/\Delta;\\
+    end  
+  \end{array}
+  \]
+\item Per calcolare il massimo, possiamo usare il comando Matlab:
+  \[
+  [kmax, dymax] = max(dy);
+  \]
+\item Il valore di $y$ nell'istante $k_{max}\cdot \Delta$ \`e dato da
+  $y(k_{max})$
+\item L'equazione della retta \`e
+  \[
+  y_r(t) = \alpha + \beta t
+  \]
+  Il parametro $\beta$ \`e la pendenza della retta e quindi
+  \[
+  \beta = dy_{max}
+  \]
+  Inoltre la retta deve passare per il punto $(k_{max}\cdot \Delta,
+  y(k_{max}))$
+  \[
+   y(k_{max}) = \alpha + dy_{max} \cdot k_{max} \cdot \Delta
+  \]
+  da cui
+  \[
+  \alpha  = y(k_{max}) - dy_{max} \cdot k_{max} \cdot \Delta
+  \]
+\item Per trovare $\tau$ basta imporre
+  \[
+  y_r(\tau) = 0 \Rightarrow \alpha + \beta \tau = 0 \Rightarrow \tau = -\dfrac{\alpha}{beta}
+  \]
+  da cui sostituendo i valori di $\alpha$ e $\beta$ si ha
+  \[
+  \tau = k_{max} \cdot \Delta - \dfrac{y(k_{max})}{dy_{max}}
+  \]
+  Per trovare $T$ si pu\`o imporre
+  \[
+  y_r(\tau + T) = y(N\Delta) \Rightarrow \alpha + \beta(\tau + T) = y(N\Delta)
+  \]
+  \[
+  \Rightarrow \tau + T = \dfrac{y(N\Delta) - \alpha}{\beta} =
+  \dfrac{y(N\Delta)}{\beta} - \dfrac{\alpha}{\beta}
+  \]
+  e considerato che $\tau = - \dfrac{\alpha}{\beta}$ si ha:
+  \[
+  T = \dfrac{y(N\Delta)}{dy_{max}}
+  \]
+\end{enumerate}
+
 
 
 \chapter{Programma di Controlli}
