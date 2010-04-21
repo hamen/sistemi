@@ -5927,6 +5927,7 @@ All'istante $\tau_1 = \tau_0 + \vartheta_1$, dopo cio\`e un ritardo 2,
 entrambi gli orologi si annullano, la transizione scatta due volte e i
 due orologi si resettano nuovamente a $\vartheta_1 = 2$.
 
+% MODELLI RICAVATI DALLA RISPOSTA AL GRADINO
 \chapter{Modelli ricavati dalla risposta al gradino}
 \section{Metodo della tangente}
 \begin{figure}[!hbp]
@@ -6073,6 +6074,130 @@ e $T$, dobbiamo calcolare:
   T = \dfrac{y(N\Delta)}{dy_{max}}
   \]
 \end{enumerate}
+\chapter{Modelli strutturali sistemi del primo ordine}
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/modelliStrutturali01.png}
+    \caption{Circuito RC}
+    \label{fig:circuitoRC}
+  \end{center}
+\end{figure}
+Consideriamo il circuito elettronico in figura
+\ref{fig:circuitoRC}. Applicando i principi di Kirchhoff si ha:
+\begin{equation}\label{eq:modelliStrutturali01}
+C \dfrac{dy}{dt} = \dfrac{1}{R} (u_1 - y) - u_2
+\end{equation}
+Applicando la trasformata di Laplace all'equazione
+\ref{eq:modelliStrutturali01} si ha:
+\[
+(sC + \dfrac{1}{R}) Y(s) = \dfrac{1}{R} v_1(s) - v_2(s)
+\]
+da cui:
+\begin{equation}\label{eq:modelliStrutturali02}
+  Y(s) = \dfrac{1}{1 + sRC}v_1(s) - \dfrac{R}{1 + sRC} v_2(s)
+\end{equation}
+Le funzioni di trasferimento tra $u_1$ (ingresso) ed $y$ (uscita) e
+tra $u_2$ e $y$ sono entrambe del primo ordine ed esprimibili nella
+forma:
+\begin{equation}\label{eq:modelliStrutturali03}
+  G(s) = \dfrac{\mu}{1 + sT} = \dfrac{\dfrac{\mu}{T}}{s + \dfrac{1}{T}} =
+    \dfrac{\rho}{s + p_1}
+\end{equation}
+con $G(0) = \mu$, guadagno statico.
+\begin{figure}
+  \center
+  \begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \tikzstyle{pallino}=[circle,thick,draw=blue!75,fill=blue!20,minimum
+      size=6mm]
+
+    \node [pallino, label=below left:$+$] (a) {};
+    \node [int] (R) [above of=a] {$R$};
+    \node (b) [left of=a,node distance=2cm, coordinate] {a};
+    \node (d) [left of=R,node distance=2cm, coordinate] {R};
+    \node [int] (c) [right of=a] {$\dfrac{1}{1+ sRC}$};
+    \node [coordinate] (end) [right of=c, node distance=2cm]{};
+    
+    \path[->] (b) edge node {$u_1$} (a);
+    \path[->] (d) edge node {$u_2$} (R);
+    \path[->] (a) edge node {} (c);
+    \path[->] (R) edge node {$-$} (a);
+    \draw[->] (c) edge node {$y$} (end) ;
+  \end{tikzpicture}
+  \caption{}
+  \label{fig:modelliStrutturali01}
+\end{figure}
+Un possibile schema a blocchi
+associato all'equazione \ref{eq:modelliStrutturali02} \`e mostrato in
+figura \ref{fig:modelliStrutturali01}.
+
+Supponiamo che $u_2 = 0$ e $u_1 = \bar{u} \cdot 1(t)$ (un gradino di
+ampiezza unitaria) usando la funzione di trasferimento avremo:
+\begin{equation}\label{eq:modelliStrutturali04}
+  Y(s) = G(s) U_1(s) = \dfrac{\mu}{1 + s T} - \dfrac{\bar{u}}{s}
+\end{equation}
+Scomponendo in fratti semplici:
+\[
+Y(s) = \mu \bar{u} \dfrac{1}{s(1 + sT)} = \mu \bar{u} \left [ \dfrac{1}{s}
+- \dfrac{T}{1 - ST} \right] = \mu \bar{u} \left [ \dfrac{1}{s} -
+  \dfrac{1}{s + \frac{1}{T}} \right ]
+\]
+Antitrasformando si ha:
+\begin{equation}\label{eq:modelliStrutturali05}
+  y(t) = \mu \bar{u} (1 - e^{-\frac{t}{T}}) \; 1(t)
+\end{equation}
+dove $T$ \`e la costante di tempo.
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/modelliStrutturali03.png}
+    \caption{Risposta al gradino}
+    \label{fig:modelliStrutturali03}
+  \end{center}
+\end{figure}
+La figura \ref{fig:modelliStrutturali03} mostra che
+\begin{equation}\label{eq:modelliStrutturali06}
+  \mu\bar{u} = T \cdot tan\alpha
+\end{equation}
+Infatti
+\begin{equation}\label{eq:modelliStrutturali07}
+  tan \alpha = \left . \dfrac{dy}{dt} \right | = \mu \bar{u} \left . \left [ +
+    ( - \dfrac{1}{T} e^{-\frac{t}{T}})\right] \right |_{t = 0} = \mu
+  \bar{u} \dfrac{1}{T}
+\end{equation}
+cio\`e l'equazione \ref{eq:modelliStrutturali07} coincide con
+l'equazione \ref{eq:modelliStrutturali06}.
+
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/modelliStrutturali04.png}
+    \caption{Tempo di assestamento}
+    \label{fig:modelliStrutturali04}
+  \end{center}
+\end{figure}
+Il tempo di assestamento all'$1\%$ \`e l'instante di tempo in cui la
+risposta al gradino $y(t)$ diventa prossima al valore di regime
+$\bar{y} = \mu \bar{u}$ a meno dell'$1\%$ del valore di regime stesso
+come mostrato in figura \ref{fig:modelliStrutturali04}.
+\[
+\left . \bar{y} - y(t) \right |_{t = t_a} = 0.01\bar{y}
+\]
+\[
+\bar{y} - (\bar{y} - \bar{y} e^{-\frac{t_a}{T}}) = 0.01\bar{y}
+\Rightarrow \bar{y} e^{-\frac{t_a}{T}} = 0.01\bar{y}
+\]
+\[
+\Rightarrow e^{-\frac{t_a}{T}} = 0.01 \Rightarrow  - t_a = T \cdot ln
+0.01 \Rightarrow t_a \simeq 4.6 T
+\]
+
+
+
+
+
+
+
+
+
+
 
 
 
