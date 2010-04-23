@@ -32,7 +32,7 @@
 \usetikzlibrary{automata,arrows,decorations.pathmorphing,backgrounds,fit,petri,shapes}
 \tikzstyle{int}=[draw, fill=blue!20, minimum size=2em]
 \tikzstyle{init} = [pin edge={to-,thin,black}]
-
+\tikzstyle{pallino}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
 \newtheorem{definizione}{Definizione}
@@ -6107,8 +6107,6 @@ con $G(0) = \mu$, guadagno statico.
 \begin{figure}
   \center
   \begin{tikzpicture}[node distance=2cm,auto,>=latex']
-    \tikzstyle{pallino}=[circle,thick,draw=blue!75,fill=blue!20,minimum
-      size=6mm]
 
     \node [pallino, label=below left:$+$] (a) {};
     \node [int] (R) [above of=a] {$R$};
@@ -6189,16 +6187,105 @@ come mostrato in figura \ref{fig:modelliStrutturali04}.
 0.01 \Rightarrow t_a \simeq 4.6 T
 \]
 
+\chapter{Controllo ad anello aperto}
+Supponiamo di voler individuare un controllore $R(s)$ in modo che
+l'uscita $y$ insegua nel miglior modo possibile l'uscita desiderata
+(segnale di riferimento) $w$.
+\begin{figure}[!hbp]
+  \center
+  \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+    \node [int] (rs) {$R(s)$};
+    \node (b) [left of=rs,node distance=2cm, coordinate] {rs};
+    \node [int] (gs) [right of=rs] {$G(s)$};
+    \node [coordinate] (end) [right of=gs, node distance=2cm]{};
 
+    \path[->] (b) edge node {$w$} (rs);
+    \path[->] (rs) edge node {$u$} (gs);
+    \path[->] (gs) edge node {$y$} (end);
+  \end{tikzpicture}
+  \caption{Schema a blocchi}
+  \label{fig:controlloACicloAperto01}
+\end{figure}
+Potremmo scegliere
+\begin{equation}\label{eq:controlloACicloAperto01}
+  R(s) = \dfrac{1}{G(s)}
+\end{equation}
+in modo che
+\begin{equation}\label{eq:controlloACicloAperto02}
+  Y(s) = R(s) G(s) W(s) = \dfrac{1}{G(s)} G(s) W(s) = W(s)
+\end{equation}
+Per implementare l'equazione \ref{eq:controlloACicloAperto01} dovremmo
+conoscere esattamente la $G(s)$. Considerata una incertezza $\Delta
+G(s)$, lo schema in figura \ref{fig:controlloACicloAperto01}
+diventerebbe come quello in figura \ref{fig:controlloACicloAperto02}
+\begin{figure}[!hbp]
+  \center
+  \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+    \node [int] (rs) {$R(s)$};
+    \node (b) [left of=rs,node distance=2cm, coordinate] {rs};
+    \node [int] (gs) [right of=rs] {$G(s) + \Delta G(s)$};
+    \node [coordinate] (end) [right of=gs, node distance=2cm]{};
 
+    \path[->] (b) edge node {$w$} (rs);
+    \path[->] (rs) edge node {$u$} (gs);
+    \path[->] (gs) edge node {$y$} (end);
+  \end{tikzpicture}
+  \caption{Schema a blocchi}
+  \label{fig:controlloACicloAperto02}
+\end{figure}
+e l'equazione \ref{eq:controlloACicloAperto02} diventerebbe:
+\begin{equation}\label{eq:controlloACicloAperto03}
+  \begin{array}{l}
+  Y(s) = (G(s) + \Delta G(s)) W(s) = (G(s) + \Delta G(s))
+  \dfrac{1}{G(s)} W(s) = \\
+  = W(s) + \dfrac{\Delta G(s)}{G(s)} W(s) \neq W(s)
+  \end{array}
+\end{equation}
+Quindi l'incertezza sul modello di $G$ si ripercuote direttamente su
+una differenza tra $w$ e $y$. Un altro elemento che riduce l'efficacia
+della scelta di un controllore ad anello aperto \`e legato alla
+presenza di disturbi. Se l'uscita $y$ \`e influenzata da un disturbo,
+si ha lo scema a blocci in figura \ref{fig:controlloACicloAperto03}.
+\begin{figure}[!hbp]
+  \center
+  \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+    \node [int] (1gs) {$\dfrac{1}{G(s)}$};
+    \node (w) [left of=1gs,node distance=2cm, coordinate] {1gs};
+    \node [int] (gs) [right of=1gs] {$G(s)$};
+    \node [pallino] (sommatore) [right of=gs] {$+$};
+    \node (d) [above of=sommatore, node distance=2cm, coordinate] {};
+    \node [coordinate] (end) [right of=sommatore, node distance=2cm]{};
 
+    \path[->] (w) edge node {$w$} (1gs);
+    \path[->] (1gs) edge node {} (gs);
+    \path[->] (gs) edge node {} (sommatore);
+    \path[->] (d) edge node {$d$} (sommatore);
+    \path[->] (sommatore) edge node {$y$} (end);
+  \end{tikzpicture}
+  \caption{Schema a blocchi}
+  \label{fig:controlloACicloAperto03}
+\end{figure}
+e l'equazione dell'uscita diventa
+\begin{equation}\label{eq:controlloACicloAperto05}
+  Y(s) = D(s) + G(s) \dfrac{1}{G(s)} W(s) = W(s) + D(s) \neq W(s)
+\end{equation}
+Anche in questo caso la presenza di disturbi si ripercuote
+direttamente su una differenza tra $w$ e $y$.
 
-
-
-
-
-
-
+Infine il controllore mostrato in figura
+\ref{fig:controlloACicloAperto01} il pi\`u delle volte non \`e
+fisicamente realizzabile, cio\`e la funzione di trasferimento $R(s)$
+ha pi\`u zeri che poli. Un modo per intuire il perch\`e una funzione
+di trasferimento con pi\`u zeri che poli non sia fisicamente
+realizzabile \`e riferirsi ai diagrammi di Bode dei moduli della sua
+corrispondente risposta in frequenza. Con un grado relativo
+(differenza tra numero di poli e numero di zeri) negativo, si avrebbe:
+\[
+\lim_{w \to +\infty} |R(j\omega)| = + \infty
+\]
+e quindi al crescere della frequenza dovremmo essere in grado di
+produrre un segnale di controllo sempre pi\`u elevato, il che non \`e
+possibile. 
 
 
 \chapter{Programma di Controlli}
