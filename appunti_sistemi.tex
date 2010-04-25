@@ -18,8 +18,6 @@
 
 \usepackage[normalem]{ulem}
 
-\usepackage{graphicx}
-\usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
@@ -4012,7 +4010,7 @@ conclude con:
 L'analisi in frequenza \`e lo studio del comportamento di un
 sistema che viene sollecitato con un ingresso sinusoidale.
 
-\section{Sviluppo in serie di Fourier} \label{apx:sdf}
+\section{Sviluppo in serie di Fourier}\label{apx:sdf}
 Lo sviluppo in serie di Fourier (S.d.F.) \`e utilizzato per la
 rappresentazione di funzioni periodiche come somma di un termine
 costante e infiniti termini sinusoidali e cosinusoidali, aventi
@@ -6287,49 +6285,118 @@ e quindi al crescere della frequenza dovremmo essere in grado di
 produrre un segnale di controllo sempre pi\`u elevato, il che non \`e
 possibile. 
 
+\chapter{Controllo a retroazione}
+\section{Schema generale del controllo a retroazione}
+\input{./tex/controlloARetroazione}
+La figura \ref{fig:controlloARetroazione} mostra lo schema generale di
+un controllo a retroazione. In seguito, per semplicit\`a, i blocchi
+Controllore, Attuatore e Processo verranno collassati in un unico
+blocco $L(s)$ che rappresenza la funzione di trasferimento ad anello
+aperto:
+\[
+L(s) = R(s) A(s) P(s) = R(s) G(s)
+\]
 
-\chapter{Programma di Controlli}
-\section{Capitolo 1}
-\begin{itemize}
-\item pag. 1-15
-\end{itemize}
+\section{Convertitore elettronico DC/DC}
+La figura ``da disegnare'' mostra il circuito RLC che compone un
+convertitore elettronico DC/DC. Un convertitore DC-DC \`e un circuito
+che converte una sorgente di corrente continua da una tensione a
+un'altra. Il convertitore in figura \`e un convertitore a switch di
+tipo buck.
 
-\section{Capitolo 2}
-\begin{itemize}
-\item par. 2.2.1 +
-\item par. 2.5.1 +
-\item par. 2.5.2 +
-\item par. 2.8
-\end{itemize}
+La presenza dei due interruttori, $S_1$ ed $S_2$, permette di avere un
+comportamento periodico della tensione $v$ ai capi dell'interruttore
+$S_2$. I due interruttori sono mutuamente esclusivi:
+\[
+S_1 \neq S_2
+\]
+Se $S_1$ \`e chiuso, $S_2$ \`e aperto e la tensione $v$ sar\`a pari
+alla tensione di alimentazione $V_{dc}$. Viceversa, se $S_1$ \`e aperto, $S_2$
+\`e chiuso e la tensione $v$ \`e nulla. Questo comportamento ci
+consente di avere in ingresso un'onda quadra di ampiezza massima
+$V_{dc}$ e di periodo $T$, come mostrato in figura ``da disegnare''.
 
-\section{Capitolo 4}
-\begin{itemize}
-\item par. 4.1.1 +
-\item par. 4.1.2 +
-\item par. 4.1.3 +
-\item par. 4.1.4 +
-\item par. 4.2.1 +
-\item par. 4.3.1
-\item par. 4.3.2
-\item par. 4.7
-\end{itemize}
+L'ingresso periodo, nonostante non sia sinusoidale, \`e sufficiente
+per poter sfruttare le propriet\`a della serie di
+Fourier(\ref{apx:sdf}): un segnale periodo pu\`o essere rappresentato
+come la somma di infiniti segnali sinusoidali.
+\[
+v = \bar{v} + \sum_{n=1}^{\infty} V_n sin(n \omega t + \varphi_n)
+\]
+\[
+y_{\infty}(t) = G(0) \bar{v} + \sum_{n=1}^{\infty} V_n \cdot
+|G(j\omega)| \cdot sin(n \omega t + \varphi_{n} + arg(G(j n \omega))
+\]
+\[
+y_m = R_s y \;\;\; y = \dfrac{1}{R_s} y_m
+\]
+\[
+\begin{array}{l}
+  \bar{v} = \dfrac{1}{T} \int_0^T v(t) dt \equiv \textrm{valore
+    medio}\\
+  = \dfrac{1}{T} \left[ \int_0^{\tau} v(t) dt + \int_{\tau}^T v(t) dt
+    \right] = V_{dc} \cdot \dfrac{\tau}{T}
+\end{array}
+\]
+con $\dfrac{\tau}{T} = D$: duty cicle\index{Duty cicle}, il cui valore
+varia tra $0$ e $1$.
+\[
+v = D V_{dc} + d_A
+\]
+con $d_A$ pari al disturbo.
+\input{./tex/convertitoreDCDC01}
+\[
+\left\{
+\begin{array}{l}
+  L \dfrac{dx_1}{dt} = - R_1 x_1 - x_2 + v\\
+  C \dfrac{dx_2}{dt} = x_1 - \dfrac{1}{R_s + R_2}x_2\\
+  y = \dfrac{1}{R_s + R_2}x_2
+\end{array}
+\right .
+\]
+\[
+\left\{
+\begin{array}{l}
+  sLX_1(s) = -R_1 X_1(s) - X_2(s) + V(s)\\
+  sCX_2(s) = X_1(s) - \dfrac{1}{R_s + R_2}X_2(s)\\
+  Y(S) = \dfrac{1}{R_s + R_2}X_2(s)
+\end{array}
+\right .
+\]
+\[
+\left\{
+\begin{array}{l}
+ X_1(s) = \dfrac{1}{R_1 + sL} (V(s) - X_2(s))\\
+ X_2(s) = \dfrac{1}{sC + \dfrac{1}{R_s + R_2}} X_1(s)
+\end{array}
+\right .
+\]
+\input{./tex/convertitoreDCDC02}
+La figura \ref{fig:convertitoreDCDC02} pu\`o essere ripensata
+raggruppando i due blocchi in serie
+\[
+\dfrac{1}{R_1 + sL}
+\]
+\[
+\dfrac{1}{sC + \dfrac{1}{R_s + R_2}}
+\]
+ed ottenere cos\`i un'unica funzione di trasferimento $\tilde{L}(s)$:
+\[
+x_2 = \tilde{L}(V - x_2) = (1 + \tilde{L}) x_2 = \tilde{L}V
+\]
+\[
+x_2(s) = \dfrac{\tilde{L}(s)}{1 + \tilde{L}(s)} V(s)
+\]
+dove $\dfrac{\tilde{L}}{1 + \tilde{L}(s)} = \tilde{F}(s)$ \e` la
+funzione di trasferimento a ciclo chiuso o funzione di sensitivit\a`
+complementare\index{Funzione di sensitivit\a` complementare}.
 
-\section{Capitolo 8}
-\begin{itemize}
-\item par. 8.1 + 
-\item par. 8.2.1 + 
-\item par. 8.2.3
-\end{itemize}
-
-\section{Capitolo 5}
-\begin{itemize}
-\item par. 5.1
-\item par. 5.2.1
-\item par. 8.2.3
-\end{itemize}
 
 
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!h]
   \centering
   \begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]

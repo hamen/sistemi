@@ -1,0 +1,32 @@
+\begin{figure}[!hbp]
+  \center
+  \scalebox
+      {0.8}
+      {
+        \begin{tikzpicture}[node distance=3.5cm,auto,>=latex']
+          \tikzstyle{int}=[draw, fill=blue!20, minimum size=1.8em,text width=2.5cm, text centered]
+          
+          \node [pallino,label=below left:$-$] (sommatore) {};
+          \node (V) [left of=sommatore,node distance=2cm, coordinate]{sommatore};
+          \node [int] (R1) [right of=sommatore] {$\dfrac{1}{R_1 + sL}$};
+          \node [int] (sC) [right of=R1] {$\dfrac{1}{sC + \dfrac{1}{R_s +
+                R_2}}$};
+          \node [int] (Rs) [right of=sC] {$\dfrac{1}{R_s + R_2}$};
+          \node (y) [right of=Rs] {};
+          
+          \path [->] (V) edge node {$V$} (sommatore);
+          \path [->] (sommatore) edge node {} (R1);
+          \path [->] (R1) edge node {$X_1$} (sC);
+          \path [->] (sC) edge node {$X_2$} (Rs);
+          \path [->] (Rs) edge node {$y$} (y);
+          \path (sC) -- coordinate (branch) (Rs);
+          \draw [->]
+          (branch)
+          -- ++(0, -2)
+          -- ++(-8.8cm, 0) node [above right] {$X_2$}
+          -- (sommatore);
+        \end{tikzpicture}
+      }
+      \caption{Schema a blocchi (parziale)}
+      \label{fig:convertitoreDCDC02}
+\end{figure}

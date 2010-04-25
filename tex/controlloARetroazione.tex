@@ -1,0 +1,37 @@
+\begin{figure}[!hbp]
+  \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+    \tikzstyle{int}=[draw, fill=blue!20, minimum size=1.8em,text width=5em, text centered]
+    \node [int] (trasdrif) {Trasduttore di riferimento};
+    \node (w) [left of=trasdrif,node distance=2cm, coordinate]
+          {trasdrif};
+          
+    \node [pallino] (sommatore) [right of=trasdrif] {};
+    
+    \node [int] (controllore) [right of=sommatore] {Controllore};
+    \node [int] (attuatore) [right of=controllore] {Attuatore};
+    \node [int] (processo) [right of=attuatore] {Processo};
+    \node [int] (trasdmis) [below of=controllore] {Trasduttore di
+      misura};
+    \draw [->]
+    (trasdmis)
+    -- ++(-2, 0)
+    -| (sommatore) node [xshift=-2mm,yshift=-2mm, below left] {$-$};
+        
+    \node [coordinate] (end) [right of=processo, node distance=2cm]{};
+    \path (processo) -- coordinate (branch) (end);
+    \draw [->]
+    (branch)
+    -- ++(0, -2.5) node [left] {}
+    |- (trasdmis);
+    
+    \path[->] (w) edge node {$w$} (trasdrif);
+    \path[->] (trasdrif) edge node {$w_m \; +$} (sommatore);
+    \path[->] (sommatore) edge node {} (controllore);
+    \path[->] (controllore) edge node {} (attuatore);
+    \path[->] (attuatore) edge node {} (processo);
+    \path[->] (processo) edge node {$y$} (end);
+
+  \end{tikzpicture}
+  \caption{Schema generale di controllo a retroazione}
+  \label{fig:controlloARetroazione}
+\end{figure}

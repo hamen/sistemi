@@ -1,0 +1,36 @@
+\begin{figure}[!hbp]
+  \center
+  \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+    \tikzstyle{int}=[draw, fill=blue!20, minimum size=1em,text width=5em, text centered]
+    
+    \node [int] (Vdc) {$V_{dc}$};
+    \node (D) [left of=Vdc,node distance=2cm, coordinate]{Vdc};
+    \node [pallino] (sommatore) [right of=Vdc] {$+$};
+    \node (dA) [above of=sommatore,node distance=2cm, coordinate]{sommatore};
+    \node [int] (Gs) [right of=sommatore] {};
+    \node (y) [right of=Gs] {};
+    \node [int] (Rs) [below of=sommatore] {$R_s$};
+    \node [pallino] (sommatore2) [left of=Rs] {$+$};
+    \node (dT) [below of=sommatore2,node
+      distance=2cm,coordinate]{sommatore2};
+    \node (retro) [left of=sommatore2,node distance=2cm,
+      coordinate]{sommatore2};
+
+    \path[->] (D) edge node {$D$} (Vdc);
+    \path[->] (Vdc) edge node {} (sommatore);
+    \path[->] (dA) edge node {$d_A$} (sommatore);
+    \path[->] (sommatore) edge node {$v$} (Gs);
+    \path[->] (Gs) edge node {$y$} (y);
+    \path (Gs) -- coordinate (branch) (y);
+    \draw[->]
+    (branch)
+    -- ++(0, -2.5) node [left] {}
+    |- (Rs);
+    \path[->] (Rs) edge node {$y_m$} (sommatore2);
+    \path[->] (dT) edge node {$d_T$} (sommatore2);
+    \path[->] (sommatore2) edge node {} (retro);
+    
+  \end{tikzpicture}
+  \caption{Schema a blocchi (parziale)}
+  \label{fig:convertitoreDCDC01}
+\end{figure}
