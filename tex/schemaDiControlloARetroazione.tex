@@ -1,0 +1,45 @@
+\begin{figure}[!hbp]
+  \center
+  \scalebox
+      {0.8}
+      {
+        \begin{tikzpicture}[node distance=2cm,auto,>=latex']
+          \tikzstyle{int}=[draw, fill=blue!20, minimum size=1em,text width=3em, text centered]
+
+          \node [pallino,label=below left:$-$] (sommatore) {};
+          \node (w) [left of=sommatore,node distance=2cm,
+            coordinate] {sommatore};
+          
+          \node [pallino,label=above right:$-$,right of=sommatore]
+          (sommatore2) {};
+          \node (n) [above of=sommatore2,node distance=2cm,coordinate]
+                {sommatore2};
+                
+                \node [int] (Rs) [right of=sommatore2] {$R(s)$};
+                \node [int] (Gs) [right of=Rs] {$G(s)$};
+                
+                \node [pallino,right of=Gs] (sommatore3) {$+$};
+                \node [coordinate] (end) [right of=sommatore3, node distance=2cm]{};
+                \node (d) [above of=sommatore3,node distance=2cm,coordinate] {sommatore3};
+
+                \path (sommatore3) -- coordinate (branch) (end);
+                \draw [->]
+                (branch)
+                -- ++(0, -1)
+                -- ++(-4, 0)
+                -| (sommatore);
+                
+                \path[->] (w) edge node {$w \;+$} (sommatore);
+                \path[->] (sommatore) edge node {$e \;\;+$} (sommatore2);
+                \path[->] (n) edge node {$n$} (sommatore2);
+                \path[->] (sommatore2) edge node {} (Rs);
+                \path[->] (Rs) edge node {$u$} (Gs);
+                \path[->] (Gs) edge node {} (sommatore3);
+                \path[->] (d) edge node {$d$} (sommatore3);
+                \path[->] (sommatore3) edge node {$y$} (end);
+
+        \end{tikzpicture}
+      }
+  \caption{Schema generale di controllo a retroazione}
+  \label{fig:schemaABlocchiLs}
+\end{figure}

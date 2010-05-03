@@ -1,0 +1,28 @@
+\begin{figure}[!hbp]
+  \center
+  \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+    \tikzstyle{int}=[draw, fill=blue!20, minimum size=1.8em,text width=5em, text centered]
+
+    \node [pallino,label=below left:$-$] (sommatore) {};
+    \node (w) [left of=sommatore,node distance=2cm,
+      coordinate] {sommatore};
+
+    \node [int] (e) [right of=sommatore] {$e^{- \tau s}$};
+    \node [int] (Ls) [right of=Ls] {$L(s)$};
+    \node [coordinate] (end) [right of=Ls, node distance=2cm]{};
+    \path (Ls) -- coordinate (branch) (end);
+    \draw [->]
+    (branch)
+    -- ++(0, -1)
+    -- ++(-4, 0)
+    -| (sommatore);
+    
+    \path[->] (w) edge node {$+$} (sommatore);
+    \path[->] (sommatore) edge node {} (e);
+    \path[->] (e) edge node {} (Ls);
+    \path[->] (Ls) edge node {} (end);
+
+  \end{tikzpicture}
+  \caption{Sistema retroazionato con ritardo}
+  \label{fig:sistemaRetroazionatoConRitardo}
+\end{figure}

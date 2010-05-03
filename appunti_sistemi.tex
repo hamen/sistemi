@@ -6389,9 +6389,598 @@ x_2 = \tilde{L}(V - x_2) = (1 + \tilde{L}) x_2 = \tilde{L}V
 \[
 x_2(s) = \dfrac{\tilde{L}(s)}{1 + \tilde{L}(s)} V(s)
 \]
-dove $\dfrac{\tilde{L}}{1 + \tilde{L}(s)} = \tilde{F}(s)$ \e` la
+dove $\dfrac{\tilde{L}}{1 + \tilde{L}(s)} = \tilde{F}(s)$ \`e la
 funzione di trasferimento a ciclo chiuso o funzione di sensitivit\a`
 complementare\index{Funzione di sensitivit\a` complementare}.
+\section{Cruise control}
+Partendo dall'equazione di Newton
+\[
+m \cdot a = F
+\]
+ricaviamo il modello del cruise Controllore:
+\[
+m \dfrac{dv}{dt} = - \beta v + F_w - F_L
+\]
+dove
+\begin{itemize}
+\item $- \beta v$ \`e l'attrito dell'aria
+\item $F_w$ \`e la forza sulle ruote
+\item $F_L$ \`e la forza di carico. \`E contraria al moto se, per
+  esempio, l'auto procede in salita. \`E additiva al moto se l'auto
+  \`e in discesa
+\end{itemize}
+La velocit\`a dell'automobile non viene calcolata con il GPS, ma
+conoscendo la velocit\`a angolare della ruota e approssimando ad una
+circonferenza la ruota:
+\[
+v = \omega_w \cdot R_w
+\]
+\[
+\omega_w = \dfrac{1}{R_w} v
+\]
+dove $\omega_w$ \`e la velocit\`a angolare della ruota ed $R_w$ \`e il
+raggio della ruota. Va ingnorata la deformazione del pneumatico che
+rende la ruota non perfettamente circolare. Possiamo introdurre ance
+le coppie:
+\[
+T_w = F_w \cdot R_w
+\]
+\[
+T_w \omega_w = T_e \omega_e
+\]
+dove
+\begin{itemize}
+\item $T_w$ \`e la coppia sulle ruote
+\item $T_e$ \`e la coppia motore
+\item $\omega_e$ \`e la velocit\`a angolare del motore
+\end{itemize}
+
+\section{Margine di guadagno}
+\input{./tex/schemaABlocchiLs}
+Si supponga che la funzione $L(s)$, mostrata in figura
+\ref{fig:schemaABlocchiLs}, abbia guadagno positivo e possieda solo
+poli a parte reale negativa. Si definisce ``margine di guadagno'' del
+sistema retroazionato, il valore
+\[
+k_m = \dfrac{1}{|L(j \omega_\pi)|}
+\]
+$\omega_{\pi}$ \`e il punto in cui il diagramma delle fasi della funzione
+$L(s)$ attraversa il valore $-\pi$, come mostrato dalla figura {\bo DA
+  SCANSIONARE 9.21}. Data la $L(s)$, possiamo pensare di aumentare il
+guadagno del sistema di un parametro $k$. $k_m$ \`e il massimo valore
+che pu\`o assumere $k$ senza trasformare il sistema asintoticamente
+stabile in un sistema instabile.
+\section{Margine di fase}
+Se consideriamo il sistema \ref{fig:schemaABlocchiLs} con un guadagno
+positivo, la figura {\bo DA SCANSIONARE 9.24} ne mostra i diagrammi di
+Bode con una particolare attenzione al margine di fase $\varphi_m$. Il
+diagramma dei moduli interseca l'asse delle $\omega$ in un punto
+$\omega_c$ noto come ``pulsazione critica''\index{Pulsazione
+  critica} o ``pulsazione di attraversamento''\index{Pulsazione di
+  attraversamento} e rappresenta la pulsazione alla quale il modulo di
+$L(j \omega)$ vale $1$. Il margine di fase $\varphi$ pu\`o essere
+calcolato con:
+\[
+\begin{array}{l}
+  \varphi_m = \pi - |arg L(j \omega_c)|
+  \varphi_c = arg L(j \omega_c)\\
+  |L(j \omega_c)| = 1
+\end{array}
+\]
+Con un $\varphi_m > 0$ il sistema \`e asintoticamente stabile, secondo
+il criterio di Bode(\ref{criterioDiBode}). Per ottenere questa
+condizione: 
+\begin{itemize}
+\item I poli devono essere a parte reale negativa
+\item Il diagramma dei moduli deve ``attraversare'' una sola volta
+  l'asse a $0 dB$.
+\end{itemize}
+\subsection{Sistema retroazionato con ritardo}
+\input{./tex/sistemaRetrazionatoConRitardo}
+La figura \ref{fig:sistemaRetrazionatoConRitardo} mostra il sistema
+$L(s)$, preso gi\`a in esame, ritardato. La variabile $\tau$
+rappresenta un arbitrario ritardo di tempo. La presenza del ritardo
+non altera il valore del modulo, ma induce uno sfasamento.
+\[
+\mathfrak{L}[f(T - \tau)] = e^{-s \tau} F(s)
+\]
+quindi
+\[
+L_1(s) = e^{-s \tau} L(s)\\
+\]
+e calcoliamo il modulo:
+\[
+\begin{array}{l}
+  |L_1(j \omega)| = |e^{-j \omega \tau}| \cdot |L(j \omega)| = 1 \cdot
+  |L(j \omega)|\\
+  \textrm{dato che}\\
+  |e^{j \alpha}| = |cos \alpha + j sin \alpha| = 1 \;\;\; \forall \alpha \in
+  \mathfrak{R}\\
+  \textrm{quindi}\\
+  |L(j \omega_c)| = 1 \Rightarrow |L_1(j \omega_{c_{1}})| = 1\\
+  \textrm{e abbiamo che } \omega_c = \omega_{c_{1}}
+\end{array}
+\]
+Calcoliamo la fase:
+\[
+\begin{array}{l}
+  arg L_1(j \omega) = arg e^{-j \omega \tau} + arg L(j \omega) =
+  -\omega \tau + arg L(j \omega)\\
+  \varphi_{n1} = \pi - |arg L_1(j \omega_{c_{1}})| = \pi - |L_1(j
+  \omega_c)|\\
+  = \pi - | - \omega \tau + arg L(j \omega) = \pi - | - (\omega_c \tau
+  - arg L(j \omega_c))|\\
+  \pi - \omega_c \tau - |arg L(j \omega_c)| =
+\end{array}
+\]
+\begin{equation}
+  \varphi_{m1} = \varphi_m - \omega_c \tau
+\end{equation}
+Ricordando il teorema di Bode:
+\[
+L_1(s) \textrm{ \`e asintoticamente stabile se } \varphi_{m1} > 0
+\Rightarrow \varphi_m > \omega_c \tau
+\]
+$\omega_c$ \`e un valore costante, quindi \`e $\tau$ la varibile che
+pu\`o rendere instabile il sistema.
+\subsubsection{Esempio di sistema con ritardo}
+Calcoliamo il modulo:
+\[
+\begin{array}{l}
+  L(s) = \dfrac{10}{(s + 1)^2}\\
+  L(j \omega) = \dfrac{10}{(j \omega +1)^2}\\
+  |L(j \omega)| = \dfrac{10}{(1 + \omega_c^2)} = 1\\
+  \omega_c^2 = 10 -1 \Rightarrow \omega_c = 3
+\end{array}
+\]
+Calcoliamo la fase:
+\[
+\begin{array}{l}
+  arg L(j \omega) = arg 10 - 2 arg (j \omega + 1) = 2 tan^{-1}
+  \omega\\
+  arg L(j \omega_c) = -2 \cdot tan^{-1} \cdot 3
+  \varphi_m = \pi - 2 \cdot tan^{-1} \cdot 3 = 0.64
+\end{array}
+\]
+Dovendo rispettare il vincolo
+\[
+\varphi_m > \omega_c \tau
+\]
+si capisce che
+\[
+\varphi_m \cdot \dfrac{\pi}{180}= \omega_c \tau_{max} \Rightarrow
+\tau_{max} = \dfrac{\varphi_m}{\omega_c} = 0.2 secondi
+\]
+Il fattore di conversione \`e necessario perch\`e la pulsazione
+$\omega_c$ \`e espressa in radianti al secondo, mentre il margine di
+fase $\varphi_m$ \`e espresso in gradi. In definitiva, il sistema \`e
+asintoticamente stabile per tutti valori
+\[
+\textrm{di } \tau \textrm{ inferiori a }
+\dfrac{\dfrac{\varphi_m}{\omega_c}\pi}{180}
+\]
+\section{Criterio di Bode}\label{criterioDiBode}
+\`E un utile metodo per determinare i criteri di stabilit\`a di un
+sistema sfruttando i diagrammi di Bode, i margini di fase e i margini
+di guadagno, a patto che
+\begin{itemize}
+\item il sistema in esame non possieda poli a parte reale positiva;
+\item il diagramma di Bode del modulo attraversi una sola volta l'asse
+  a $0 dB$.
+\end{itemize}
+Se consideriamo ancora la figura \ref{fig:schemaABlocchiLs}, $\mu$ il
+suo guadagno e $\varphi_m$ il suo margine di fase, il sistema \`e
+asintoticamente stabile se
+\[
+\begin{array}{l}
+  \mu > 0\\
+  \varphi_m > 0^{\circ}
+\end{array}
+\]
+Inoltre notiamo che:
+\[
+\tau_{max} = \dfrac{\varphi_m}{\omega_c}
+\]
+
+\section{Prestazioni di un sistema di controllo}
+\input{./tex/schemaDiControlloARetroazione.tex}
+\begin{itemize}
+\item funzione di sensitivit\`a
+  \begin{equation}\label{eq:funzioneDiSensitivita}
+  S(s) = \dfrac{1}{1 + R(s)G(s)}
+  \end{equation}
+\item funzione di sensitivit\`a complementare
+  \begin{equation}\label{eq:funzioneDiSensitivitaComplementare}
+  F(s) = \dfrac{R(s) G(s)}{1 + R(s) G(s)} = \dfrac{L(s)}{1 + L(s)}
+  \end{equation}
+\item funzione di sensitivit\`a di Controllore
+  \begin{equation}\label{eq:funzioneDiSensitivitaDiControllore}
+  Q(s) = \dfrac{R(s)}{1 + R(s) G(s)} = F(s)G(s)^{-1} = R(s)S(s)
+  \end{equation}
+\end{itemize}
+Analizzando lo schema a blocchi, riusciamo ad isolare $Y(s)$, $U(s)$ e
+$E(s)$ ed otteniamo le equazioni del sistema di controllo:
+\begin{equation}\label{eq:sistemaDiControllo}
+\left \{
+\begin{array}{l}
+  Y(s) = W(s)F(s) + D(s)S(s) - N(s)F(s)\\
+  U(s) = W(s)F(Q(s)) - D(s)Q(s) - N(s)Q(s)\\
+  E(s) = W(s)S() - D(s)S(s) + N(s)F(s)
+\end{array}
+\right .
+\end{equation}
+In forma matriciale:
+\[
+  \begin{bmatrix}
+    Y(s)\\
+    U(s)\\
+    E(s)
+  \end{bmatrix}\\
+  =
+  \begin{bmatrix}
+    F(S) & S(s) & -F(s)\\
+    Q(s) & -Q(s) & -Q(s)\\
+    S(s) & -S(s) & F(s)
+  \end{bmatrix}
+  \begin{bmatrix}
+    W(s)\\
+    D(s)\\
+    N(s)
+  \end{bmatrix}
+\]
+Affinch\`e l'uscita $y$ coincida con il segnale di riferimento $w$ e
+siano nulli i disturbi $d$ su $y$, basterebbe imporre
+\[
+\begin{array}{l}
+  F(s) = 1\\
+  S(s) = 0
+\end{array}
+\]
+ma questo comporterebbe un ripercuotersi totale, senza attenuazione,
+del disturbo $n$ sull'uscita $y$ e sull'errore $e$:
+\[
+Y(s) = W(s) - N(s)\\
+E(s) = N(s)
+\]
+Si nota la necessit\`a di un approccio flessibile al problema del
+controllo e ad un invevitabile compromesso. Si punter\`a ad avere
+\[
+|F(j \omega)| \simeq 1
+\]
+nella banda di pulsazioni in cui prevale l'esigenza di un inseguimento
+del riferimento $w$;
+\[
+|F(j \omega)| \simeq 0
+\]
+alle alte frequenze, dove \`e tipicamente contentrata l'energia del
+disturbo $n$.
+
+Nota:
+\begin{itemize}
+\item $G(s)$ \`e la funzione di trasferimento in anello aperto del
+  sistema, da $u$ ad $y$;
+\item $L(s)$ \`e la funzione di trasferimento in anello aperto del
+  sistema controllato, da $e$ ad $y$;
+\item $F(s)$ \`e la funzione di trasferimento in anello chiuso del
+  sistema controllato, da $w$ ad $y$.
+\end{itemize}
+
+\section{Analisi della funzione di sensitivit\`a complementare}
+La funzione di sensitivit\`a complementare
+\[
+F(s) = \dfrac{L(s)}{1 + L(s)}
+\]
+\`e la funzione di trasferimento a ciclo chiuso del sistema
+controllato. Questa funzione $F(s)$ \`e anche:
+\begin{itemize}
+\item la funzione di trasferimento tra il riferimento $\omega$ e
+  l'uscita $y$
+  \[
+  F(s) = \dfrac{Y(s)}{W(s)}
+  \]
+\item la funzione di trasferimento, cambiata di segno, tra il disturbo
+  $n$ e l'uscita $y$
+  \[
+  - F(s) = \dfrac{Y(s)}{N(s)}
+  \]
+\item la funzione di trasferimento tra il disturbo $n$ e l'errore $e$
+  \[
+  F(s) = \dfrac{E(s)}{N(s)}
+  \]
+\end{itemize}
+
+\subsection{Precisione statica a regime}
+Consideriamo la $L(s)$ in forma di Bode:
+\[
+\L(s) = \dfrac{\mu}{s^g} \cdot \dfrac{\prod (1 + s\tau_i) \cdot \prod
+  (1 + \dfrac{2 \xi}{\alpha_{ni}}s + \dfrac{1}{\alpha_{ni}^2}
+  s^2)}{\prod (1 + sT_i) \cdot \prod \left(1 + \dfrac{2
+    \zeta}{\omega_{ni}}s + \dfrac{1}{\omega_{ni}^2}s^2\right)}
+\]
+Il segnale di riferimento \`e
+\[
+W(s) = \dfrac{\overline{A}}{s}
+\]
+un gradino di ampiezza $A$.
+\[
+\begin{array}{l}
+  y_{\infty} = \lim_{s \to 0} sF(s) W(s)\\
+  \textrm{con le opportune sostituzioni}\\
+  \lim_{s \to 0} F(s) = \lim_{s \to 0}\dfrac{\dfrac{\mu}{s^g}}{1 +
+    \dfrac{\mu}{s^g}} = \lim_{s \to 0} \dfrac{\mu}{s^g + \mu}
+\end{array}
+\]
+Al variare dei valori di $g$ avremo limiti differenti:
+\[
+\left\{
+\begin{array}{ll}
+  \dfrac{\mu}{1 + \mu} & \textrm{per } g = 0\\
+  0 & \textrm{per } g < 0\\
+  1 & \textrm{per } g > 0\\
+\end{array}
+\right.
+\]
+\begin{itemize}
+\item Caso $g > 0$\\
+  $y_{\infty} = A = W_{\infty}$ ovvero se la funzione d'anello
+  possiede almeno un polo nell'origine, il sistema in feedback
+  fornisce migliori prestazioni statiche, in quanto il guadagno di
+  $F(S)$ \`e unitario ed $y$ segue fedelmente $w$;
+\item Caso $g = 0$\\
+  Il guadagno di $F(s)$ \`e $\mu = \dfrac{\mu}{1 + \mu}$ ed \`e
+  prossimo ad $1$ solo per valori di $\mu$ elevati ed in generale
+  risulta $0 < \mu_F < 1$ quando $\mu > 0$. Inoltre se $g = 0, \; \mu
+  = -1$ $F(s)$ ha almeno un polo nell'origine e non \`e
+  asintoticamente stabile.
+\item Caso $g < 0$\\
+  C'e` almeno un polo nell'origine ed $F(s)$ contiene almeno una
+  azione derivativa (cio\`e un prodotto per $s$). Quindi il sistema di
+  controllo non offre buone prestazioni statiche in quanto $y_{\infty}
+  = 0 \;\; \forall \;W$ 
+\end{itemize}
+
+\subsection{Poli e zeri}
+Calcoliamo i poli e gli zeri di $F(s)$ per analizzare il comportamento
+dinamico.
+\[
+\begin{array}{l}
+  L(s) = \dfrac{N_(s)}{D_L(s)} = \dfrac{numeratore}{denominatore}\\
+  \\
+  F(s) = \dfrac{\dfrac{N_L(s)}{D_L(s)}}{1 + \dfrac{N_L(s)}{D_L(s)}} = 
+  \dfrac{\dfrac{N_L(s)}{D_L(s)}}{\dfrac{N_L(s) + D_L(s)}{D_L(s)}}\\
+  \\
+  F(s) = \dfrac{N_L(s)}{D_L(s) + N_L(s)}
+\end{array}
+\]
+Quindi gli zeri di $F(s)$ sono gli zeri di $L(s)$ e i poli di $F(s)$
+sono le radici del polonimio $D_Ls) + N_L(s)$ che \`e il polinomio
+caratteristico del sistema retroazionato.
+
+\subsection{Risposta in frequenza}
+Per soddisfare le specifiche sulle prestazioni nominali dell'uscita
+$y$ e dell'errore $e$, dovremmo cercare di otterenere $F(s) = 1$. Ci
+basta per\`o considerare la struttura dell'equazione
+\ref{eq:funzioneDiSensitivitaComplementare} per capire che \`e
+irrealizzabile. Possiamo per\`o considerare l'esempio in cui $L(s)$
+sia un tipico filtro passa-basso. Il diagramma dei moduli \`e piatto
+fino al punto di rottura, per poi scendere con una certa pendenza,
+fino ad intersecare l'asse a $0 dB$ nel punto $\omega_c$. SCANSIONARE
+LA FIGURA 10.2 
+
+La funzione di sensitivit\`a complementare \`e
+\[
+F(s) = \dfrac{L(s)}{1 + L(s)}
+\]
+\[
+F(j \omega) = \dfrac{L(j \omega)}{1 + L(j \omega)}
+\]
+\[
+|F(j \omega)| = \dfrac{|L(j \omega)|}{|1 + L(j \omega)|}
+\]
+A questo punto abbiamo due possibili scenari:\begin{enumerate}
+\item $\omega \ll \omega_c$
+  \[
+  \begin{array}{l}
+    |L(j \omega)| \gg 1\\
+    |1 + L(j \omega)| \simeq |L(j \omega)|\\
+    |F(j \omega)| = 1
+  \end{array}
+  \]
+  Questo \`e lo scenario ideale per quanto riguarda l'obbiettivo di far
+  coincidere l'uscita $y$ con il riferimento $\omega$, ma non consente
+  di di attenuare in alcun modo l'effetto del disturbo $n$ sull'uscita
+  stessa e sull'errore $e$.
+\item $\omega \gg \omega_c$
+  \[
+  \begin{array}{l}
+    |1 + L(j \omega)| \simeq 1\\
+    F(j \omega) = L(j \omega)
+  \end{array}
+  \]
+  Quindi, $|F(j \omega)|$ insegue perfettamente $|L(j \omega)|$.
+\end{enumerate}
+Il modulo della risposta in frequenza di $F(j \omega)$ \`e simile a
+quello di un filtro passa-basso ideale (nell'intervallo $[0,
+\omega_c]$). Finch\`e $\omega \leq \omega_c$, $F(j
+\omega)$ insegue correttamente. Quando $\omega > \omega_c$, $F(j
+\omega)$ attenua il segnale in ingresso. Quindi, tutte le componenti
+di $\omega$ a pulsazione minore di $\omega_c$ vengo riprodotte
+fedelmente in uscita. Vengono per\`o riprodotte anche tutte le
+componenti di $n$ di frequenza minore di $\omega_c$. Fortunatamente
+$n$ \`e tipicamente una sinusoide a frequenza molto elevata e viene,
+quindi, attenuanta naturalmente dal sistema.
+
+Dato che nel diagramma di $|F(j \omega))|_{dB}$ non ci sono variazioni
+di pendenza prima di $\omega_c$, possiamo affermare che in
+prossimit\`a di $\omega_c$ di sono i poli dominanti della
+$F(s)$. Bisogna considerare che al fine di non provovare eccessive
+distorsioni di fase, \`e necessario che $arg F(j ]omega) \simeq 0$
+all'interno della banda passante (supposto che $W(j \omega)$ non
+abbia componenti significative al di fuori di tale banda).
+  
+In definitiva, conviene sempre aumentare $\omega_c$ per incrementare
+la capacit\`a del sistema di inseguire le veloci variazioni del
+riferimento $\omega$, ma senza raggiungere le frequenze in cui il
+disturbo $n$ sul trasduttore diventerebbe rilevante.
+
+\subsection{Legame tra il margine di fase $\varphi_m$ e il picco di
+  risonanza $\zeta$} 
+Scriviamo F(s) nella forma di Bode:
+\[
+F(s) \simeq \dfrac{1}{\dfrac{1}{\omega_c^2}s^2 + \dfrac{2
+    \zeta}{\omega_c}s + 1}
+\]
+dove $\omega_c$ \`e una approssimazione della pulsazione di naturale
+$\omega_n$ dei poli dominanti, considerati complessi coniugati.
+\[
+\begin{array}{l}
+  |L(j \omega)| = 1\\
+  |F(j \omega_c)| = \dfrac{|L(j \omega_L)|}{|1 + L(j \omega_c)|} =
+  |\dfrac{1}{|1 + L(j \omega_c)|}\\
+\end{array}
+\]
+Tenendo conto che
+\[
+L(j \omega_c) = e^{j \varphi_c}
+\]
+ha modulo unitario e che
+\[
+\varphi_m = \pi - |\varphi_c|
+\]
+\[
+\begin{array}{l}
+  |F(j \omega_c)| = \dfrac{|L(j \omega_L)|}{|1 + L(j \omega_c)|} =
+  \dfrac{1}{|1 + L(j \omega_c)|} = \\
+  = \dfrac{1}{1 + e^{- j \varphi_c}} = \dfrac{1}{|1 + cos \varphi_c -
+    j sin \varphi_c|} =\\
+  = \dfrac{1}{\sqrt{1 + cos^2 \varphi_c + 2 cos \varphi_c + sin^2
+      \varphi_c}} = \\
+  = \dfrac{1}{\sqrt{2 \cdot (1 + cos \varphi_c)}} = \dfrac{1}{\sqrt{2
+      \cdot (1 - cos \varphi_m)}}\\
+  \textrm{ con } - \varphi_c = \varphi_m - \pi\\
+  \textrm{Considerata la formula di bisezione }\\
+  cos \varphi_m = cos \left( \dfrac{\varphi_m}{2} +
+  \dfrac{\varphi_m}{2} \right) = cos^2 \dfrac{\varphi_m}{2} - sin^2
+  \dfrac{\varphi_m}{2}\\ 
+  \Rightarrow \dfrac{1}{\sqrt{2 \cdot (1 - cos \varphi_m)}} =
+  \dfrac{1}{\sqrt{2 \cdot 2 sin^2 \dfrac{\varphi_m}{2}}} =
+  \dfrac{1}{2 sin \dfrac{\varphi_m}{2}}\\
+  \\
+  |F(j \omega_c)| = \dfrac{1}{|1 + \dfrac{2 \zeta}{\omega_c} j
+    \omega_c + \dfrac{1}{\omega_c^2}(- \omega^2)} = \dfrac{1}{2 \zeta}
+\end{array}
+\]
+Considerate che $\omega_n = \omega_c$ e che il sistema \`e sel secondo
+ordine, senza zeri e con guadagno unitario:
+\begin{equation}
+  \begin{array}{l}
+    \dfrac{1}{2 \zeta} = \dfrac{1}{2sin \left( \dfrac{\varphi_m}{2} \right)}\\
+    \zeta = sin \left( \dfrac{\varphi_m}{2} \right)\\
+    \varphi_m = 2 arc sin(\zeta)\\
+    \textrm{oppure}\\
+    \zeta = \dfrac{\varphi_m}{2} \dfrac{\pi}{180} \simeq
+    \dfrac{\varphi_m}{100}
+  \end{array}
+\end{equation}
+e abbiamo quindi la possibilit\`a di variare lo smorzamento variando il
+margine di fase. Questa formula ci fornisce una valutazione
+attendibile di $\zeta$ fino a valori di $\varphi_m \simeq
+75^{\circ}$:
+\[
+\varphi_m > 75^{\circ} \;\; F(s) \textrm{ ha un polo dominante reale
+  con } \tau \simeq \dfrac{1}{\omega_c}
+\]
+\[
+0 < \varphi_m \leq 75^{\circ} \;\; F(s) \textrm{ ha una coppia di poli
+complessi con } \omega_n \simeq \omega_c \textrm{ e } \zeta \simeq
+\left(\dfrac{\varphi_m}{100}\right) 
+\]
+
+\subsection{Risposta allo scalino}
+Anche le informazioni relative al tempo di assestamento $T_{a
+  \varepsilon}$, alla sovraelongazione $S\%$ ed al periodo $T_P$, la
+distanza temporale tra due picchi successivi, possono essere ricavate
+dalla $F(s)$ con le stesse approssimazioni a poli dominanti effettuate
+in precedenza e con l'utilizzo della $\omega_c$ e $\varphi_m$.
+
+\subsection{Effetto di un ritardo di tempo}
+Se la $L(s)$ contiene un ritardo di tempo, ovvero essa \`e
+\[
+L(s) = e^{-\tau s} L'(s) \;\; \textrm{con $L'(s)$ razionale}
+\]
+gran parte dei risultati ricavati in precedenza possono essere
+applicati anche in questo caso.
+
+Per quanto riguarda l'analisi statica, il fattore $e^{- \tau s}$ non
+modifica il calcolo del limite. Per le caratteristiche dinamiche, la
+presenza del ritardo non modifica la $\omega_c$, ma il margine di fase
+$\varphi_m$ diminuisce di una quantit\`a pari a $\omega_c \tau
+\dfrac{180}{\pi}$. Pertanto, anche se $F(s)$ continua ad essere un
+filtro passa-basso, ha una dinamica con smorzamento $\zeta$ minore. In
+definitiva, il margine di fase per effetto del ritardo di tempo
+sar\`a
+\[
+\varphi_{m_{\tau}} = \varphi_m - \omega_c \tau - \dfrac{180}{\pi}
+\]
+
+\section{Analisi della funzione di sensitivit\`a}
+Consideriamo la classica
+\[
+\begin{array}{l}
+  Y(s) = D(s) + L(s)(W(s) - Y(s))\\
+  \textrm{e scegliamo } W(s) = 0\\
+  Y(s) = \dfrac{1}{1 + L(s)} + D(s)
+\end{array}
+\]
+A questo punto abbiamo ottenuto la funzione di sensitivit\`a $S(s)$
+\begin{equation}\label{eq:funzioneDiSensitivitaLs}
+S(s) = \dfrac{1}{1 + L(s)}
+\end{equation}
+che rappresenta
+\begin{itemize}
+\item la funzione di trasferimento tra il disturbo~$d$ e l'uscita~$y$
+  \[
+   S(s)  = \dfrac{Y(s)}{D(s)}
+  \]
+\item la funzione di trasferimento tra il riferimento~$\omega$ e
+  l'errore~$e$
+  \[
+  S(s) = \dfrac{E(s)}{W(s)}
+  \]
+\item la funzione di trasferimento, cambiata di segno, tra il
+  disturbo~$d$ e l'errore~$e$
+  \[
+  S(s) = - \dfrac{E(s)}{D(s)}
+  \]
+\end{itemize}
+Teoricamente dovremmo puntare ad avere $S(s) = 0$ che ci consentirebbe
+di non avere effetti sull'errore degli ingressi~$\omega$ e $d$. Si
+nota, per\`o, che dall'equazione~\ref{eq:funzioneDiSensitivitaLs}
+\[
+\lim_{s \to \infty} S(s) = 1
+\]
+ed $S(s) = 0$ \`e praticamente irrealizzabile.
+Possiamo invece cercare di ottenere una risposta in frequenza di $S(j
+\omega)$ in cui il modulo sia sufficientemente piccolo nella banda di
+pulsazioni dove si presume che lo spettro dei segnali~$\omega$ e $d$
+presenti parti significative.
+\[
+|S(j \omega) = \dfrac{1}{|1 + L(j \omega)|} \simeq
+\left\{
+\begin{array}{l}
+  \dfrac{1}{|L(j \omega)|} \;\;,\; \omega \leq \omega_c\\
+  1 \;\;,\; \omega > \omega_c
+\end{array}
+\right.
+\]
+Il diagramma di Bode di $S(s)$ \`e mostrato in figura SCANSIONARE LA
+FIGURA 10.11 e si nota la natura passa-alto di $S(s)$. Il sistema
+retroazionato produce una attenuazione della variabile controllata per
+tutte le componenti del disturbo a pulsazione minore di $\omega_c$. Le
+componenti di disturbo $d$ a pulsazione maggiore di $\omega_c$ non
+subiscono attenuazioni. Quindi otteniamo un valore di $|S(j \omega)|$
+piccolo scegliendo un valore elevato della pulsazione $\omega_c$.
+\subsection{Ingresso a scalino}
 
 
 
