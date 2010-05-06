@@ -6923,6 +6923,7 @@ sar\`a
 \varphi_{m_{\tau}} = \varphi_m - \omega_c \tau - \dfrac{180}{\pi}
 \]
 
+% ANALISI DELLA FUNZIONE DI SENSITIVITA`
 \section{Analisi della funzione di sensitivit\`a}
 Consideriamo la classica
 \[
@@ -6964,6 +6965,114 @@ Possiamo invece cercare di ottenere una risposta in frequenza di $S(j
 \omega)$ in cui il modulo sia sufficientemente piccolo nella banda di
 pulsazioni dove si presume che lo spettro dei segnali~$\omega$ e $d$
 presenti parti significative.
+\subsection{Analisi statica}
+Applicando le considerazioni fatte per la funzione di sensitivit\`a
+complementare, otteniamo:
+\[
+\lim_{s \to 0} S(s) = \lim_{s \to 0} \dfrac{s^g}{s^g + \mu} =
+\left\{
+\begin{array}{cll}
+  \dfrac{1}{1 + \mu} &,& g = 0\\
+  1 &,& g < 0\\
+  0 &,& g > 0
+\end{array}
+\right.
+\]
+Pertanto si ha che
+\begin{itemize}
+\item se $g > 0$ esiste una azione derivativa nella S(s)
+\item se $g = 0\;\;\mu = -1$ esiste una azione integrale nella S(s)
+\item se $g < 0$ e in tutti gli altri casi il limite rappresenta il
+  guadagno statico $\mu_s$ sella $S(s)$
+  \[
+  \left\{
+  \begin{array}{l}
+    g = 0\;,\;\mu \neq -1 \Rightarrow \mu_s = \dfrac{1}{1 +
+      \mu}\\
+    g < 0 \Rightarrow \mu_s = 1
+  \end{array}
+  \right.
+  \]
+\end{itemize}
+Se condideriamo un ingresso $W$ a gradino, $W(t) = A \delta_1(t)$,
+l'errore a transitorio esautito sar\`a per il teorema del valore
+finale:
+\[
+e_{\infty} = \lim_{s \to 0} s S(s) \dfrac{A}{s} = A \lim_{s \to 0}
+  S(s) =
+\]
+\begin{itemize}
+\item $g > 0 \;,\; e_{\infty} = 0$ \\
+  C'\`e almeno un polo nell'origine. La precisione statica \`e
+  massima.
+\item $g = 0\;,\; e_{\infty} = \dfrac{A}{1 + \mu}$\\
+  se $\mu > 0$ la precisione aumenta all'aumentare di $\mu$ (il
+  guadagno d'anello) e l'errore all'infinito pu\`o essere reso
+  arbitrariamente piccolo scegliendo $\mu$ sufficientemente grande;  
+\item $g < 0$ $L(s)$ ha un'azione derivativa; l'entit\`a dell'errore
+  \`e pari a quella dell'ingresso che lo ha generato.
+\end{itemize}
+Nota: se invertiamo il segno di questi risultati, possiamo accettarli
+anche per l'errore a transitorio esaurito dovuto ad un andamento a
+gradino del disturbo $d$.
+
+In generale, nel caso in cui ci sia un ingresso $W$, dinamico, con
+$\mathfrak{L}\{ W(t)\} = \dfrac{A}{s^i}$ con $i > 0$ e intero, si ha
+che
+\[
+W(s) = \dfrac{A}{s^i} \;\;,\;\; i \leq 2
+\]
+dall'applicazione del teorema del valore finale si ha
+\[
+e_{\infty} = \lim_{s \to \infty} sS(s) \dfrac{A}{s^i} = A \lim_{s \to
+  \infty} \dfrac{s^{g-i+1}}{s^g + \mu} = 
+\]
+\[
+\left \{
+\begin{array}{cll}
+  \infty & g < i -1 & \textrm{ L'errore diverge}\\
+  \dfrac{A}{\mu} & g = i -1 & e_{\infty} \propto \mu\\
+  0 & g > i - 1 & \textrm{L'errore all'infinito \`e asintoticamente nullo} 
+\end{array}
+\right .
+\]
+
+In definitiva, per limitare $e_{\infty}$ bisogna aumentare le azioni
+integrali al crescere di $i$. La tabella \ref{tab:errorig} mostra
+l'errore all'infinito $e_{\infty}$ per ingressi $W$ canonici e tipo
+$g$ della funzione d'anello diverso. Gli stessi risultati, ma cambiati
+di segno valgono anche per l'errore in risposta ad un disturbo $d$
+canonico.
+\begin{equation}\label{tab:errorig}
+  \begin{array}{cccc}
+    & A\delta_{-1}(t) & Aramp(t) & Apar(t)\\
+    g = 0 & \dfrac{A}{1 + \mu} & \infty & \infty\\
+    g = 1 & 0 & \dfrac{A}{\mu} & \infty \\
+    g = 2 & 0 & 0 & \dfrac{A}{\mu}\\
+    g = 3 & 0 & 0 & 0
+  \end{array}
+\end{equation}
+I risultati ottenuti sono totalmente indipendenti dalla $G(s)$ del
+sistema sotto controllo. Tali risultati godono quindi della
+propriet\`a di robustezza essendo validi anche in presenza di
+incertezza. Se sono presenti incertezze sulla $G(s)$ tali da non
+pregiudicare l'asintotica stabilit\`a in anello chiuso e il regolatore
+$R(s)$ ha almeno una azione integrale, $e_{\infty} = 0$. In questo
+caso si dice che il regolatore assicura la regolazione robusta a zero
+dell'errore, o nel caso dell'errore $d$, la reiezione robusta del
+disturbo a gradino.
+\subsection{Poli e zeri}
+\[
+L(s) = \dfrac{N_c(s)}{D_L(s)}
+\]
+\[
+S(s) = \dfrac{D_L(s)}{D_L(s) + N_L(s)}
+\]
+Si evince che gli zeri di $S(s)$ sono i poli di $L(s)$, mentre i poli
+di $S(s)$ sono le radici del polinomio $D_L(s) + N_L(s)$. In
+particolarmente se risulta $L(s)$ asintoticamente stabile, cio\`e
+$S(s)$ non ha zeri a $\mathfrak{R} > 0$.
+\subsection{Risposta in frequenza}
 \[
 |S(j \omega) = \dfrac{1}{|1 + L(j \omega)|} \simeq
 \left\{
@@ -6974,16 +7083,36 @@ presenti parti significative.
 \right.
 \]
 Il diagramma di Bode di $S(s)$ \`e mostrato in figura SCANSIONARE LA
-FIGURA 10.11 e si nota la natura passa-alto di $S(s)$. Il sistema
-retroazionato produce una attenuazione della variabile controllata per
-tutte le componenti del disturbo a pulsazione minore di $\omega_c$. Le
-componenti di disturbo $d$ a pulsazione maggiore di $\omega_c$ non
-subiscono attenuazioni. Quindi otteniamo un valore di $|S(j \omega)|$
-piccolo scegliendo un valore elevato della pulsazione $\omega_c$.
-\subsection{Ingresso a scalino}
+FIGURA 10.11 e si nota la natura passa-alto di $S(s)$. Se si guarda ad
+$S$ come una funzione di trasferimento tra $d$ ed $y$ si deduce che,
+in condizioni di asintoticamente stabilit\`a, il sistema in feedback
+ha un effetto attenuante, sulla variabile controllata per tutte le
+componenti del disturbo a pulsazione $\omega < \omega_c$; effetto
+tanto pi\`u consistente quanto maggiore \`e il $|L(j \omega)|$ in
+quella banda di pulsazioni. Le componenti di disturbo $d$ a pulsazione
+maggiore di $\omega_c$ non subiscono attenuazioni. Quindi otteniamo un
+valore di $|S(j \omega)|$ piccolo scegliendo un valore elevato della
+pulsazione $\omega_c$. 
+\subsection{Altri limiti prestazionali}
+Nel caso in cui la differenza tra il grado del denominatore e il grado
+del numeratore (grado relativo del della funzione d'anello) sia
+maggiore o uguale a 2 si pu\`o applicare il seguente teorema:
+\begin{teorema}
+  In condizioni di asintotica stabilit\`a, la $L(s)$ non ha poli a
+  parte reale positiva e ha grado relativo maggiore o uguale di 2,
+  risulta
+  \[
+  \int_{0}^{\infty} |S(j \omega)|_{dB} d\omega = 0
+  \]
+\end{teorema}
+cio\`e il valore medio di $|S(j \omega)|_{dB}$ sull'intero asse delle
+pulsazioni \`e nullo. Se ci sono, quindi, tratti del diagramma sotto
+l'asse a $0_{dB}$. ve ne devono essere altrettanti al di sopra dello
+stesso asse.
 
-
-
+Ricordando che $S(s)$ \`e la funzione di trasferimento, cambiata di
+segno, tra $d$ ed $e$, si pu\`o concludere che un'attenuzione in una
+certa banda di pulsazioni \`e inevitabilmente compensata da una
 
 
 
