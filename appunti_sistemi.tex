@@ -7113,9 +7113,287 @@ stesso asse.
 Ricordando che $S(s)$ \`e la funzione di trasferimento, cambiata di
 segno, tra $d$ ed $e$, si pu\`o concludere che un'attenuzione in una
 certa banda di pulsazioni \`e inevitabilmente compensata da una
+significativa Amplificazione in un'altra banda.
 
+\section{Analisi della funzione di sensitivit\`a del controllo}
+\begin{equation}\label{eq:sensitivitaControllo}
+  Q(s) = \dfrac{R(s)}{1 + L(s)} = R(s) S(s) = F(s) G(s)^{-1}
+\end{equation}
+L'equazione \ref{eq:sensitivitaControllo} rappresenta la funzione di
+trasferimento tra $W$ ed $n$ e la variabile di controllo
+$u$. Analizzare la $Q(s)$ significa analizzare la moderazione della
+variabile di controllo. Per ridurre le sollecitazioni a cui $u$ \`e
+sottoposta, sarebbe desiderabile che la $Q(j \omega)$ sia quanto pi\`u
+piccola possibile nell'intervallo di pulsazioni in cui gli ingressi
+presentano componenti significative. Purtroppo nella maggior parte dei
+casi reali, lo spettro del disturbo $\mu$ \`e prevalentemente
+concentrato verso le alte frequenze, mentre $W$ e $d$ verso le basse
+frequenze.
 
+\subsection{Analisi statica}
+Considerando una $L(s)$ con $g = 0$, cio\`e senza alcuna azione
+integrale o derivativa n\`e nel controllore n\`e nel processo, e
+indicando con $\mu_R$, $\mu_G$ e $\mu$ i guadagni di $R(s)$, $G(s)$ e
+$L(s)$ si ha che:
+\[
+\mu_q = \lim_{s \to 0} Q(s) = \lim_{s \to 0} \mu_R S(s) =
+\dfrac{\mu_R}{1 + \mu} = \lim_{s \to 0} \dfrac{F(s)}{\mu_G} =
+\dfrac{\mu}{\mu_G(1 + \mu)}
+\]
+Quindi, se
+\[
+\mu \gg 1 \Rightarrow \mu_q \simeq \dfrac{1}{\mu_G}
+\]
+Ci\`o significa che per ottenere un piccolo guadagno nella regolazione
+di un processo ed avere prestazioni soddisfacenti, \`e necessario
+imporre valori elevati della variabile di controllo $u$, perch\`e il
+suo valore di regime $\mu_{\infty}$ \`e inversamente proporzionale al
+guadagno del processo da controllare.
 
+\subsection{Poli e zeri}
+Utilizzando li relazioni:
+\[
+\begin{array}{l}
+  R(s) = \dfrac{N_R(s)}{D_R(s)}\\
+  G(s) = \dfrac{N_G(s)}{D_G(s)}
+\end{array}
+\]
+si ricava che
+\[
+\begin{array}{ll}
+  Q(s) = & \dfrac{\dfrac{N_R(s)}{D_R(s)}}{1 +
+    \dfrac{N_R(s)N_G(s)}{D_G(s)D_R(s)}} =
+  \dfrac{\dfrac{N_R(s)}{D_R(s)}}{\dfrac{D_G(s)D_R(s) +
+      N_R(s)N_G(s)}{D_G(s)D_R(s)}} \\
+   & \dfrac{N_R(s)D_G(s)}{D_G(s)D_R(s) + N_R(s)N_G(s)}\\
+   & \dfrac{N_R(s)D_G(s)}{D_L(s) + N_L(s)}
+\end{array}
+\]
+Gli zeri di $Q(s)$ sono quindi i poli di $G(s)$ e gli zeri di $R(s)$,
+per cui la risposta al gradino delle $Q(s)$ pu\`o avere
+sovraelongazioni di elevata ampiezza ogni volta che $R(s)$ ha zeri o
+$G(s)$ ha poli inferiori a $\omega_c$ che rappresenta in buona
+approssimazione la pulsazione dei poli dominanti a ciclo chiuso. La
+presenza di sovraelongazione \`e incompatibile con le limitazioni
+naturali della variabile di controllo $u$.
+\subsection{Risposta in frequenza}
+Mediante le consuete approssimazioni si pu\`o scrivere:
+\[
+|Q(j \omega)| = \dfrac{R(j \omega)}{|1 + L(j \omega)|} \simeq
+\left \{
+\begin{array}{ll}
+  \dfrac{1}{|G(j \omega)|} & \omega \leq \omega_c\\
+  |R(j \omega)| & \omega > \omega_c
+\end{array}
+\right .
+\]
+In corrispondenza di $\omega_c$, i diagrammi $\dfrac{1}{|G(j
+  \omega)|}$ e $|R(j \omega)|$ si ingersecano e
+\[
+|L(j \omega_c)| = |R(j \omega_c)| |G(j \omega_c)| = 1
+\]
+Si pu\`o dire, esaminando il diagramma di $|Q(j \omega)|_{dB}$, che
+\begin{itemize}
+\item il $|Q(j \omega)|_{dB}$ dipende solo dal processo $G(s)$ per
+  pulsazioni $\omega < \omega_c$
+\item il $|Q(j \omega)|_{dB}|$ dipende solo dal regolatore $R(s)$ a
+  pulsazioni elevata
+\end{itemize}
+Per limitare le sollecitazioni sulla variabile di controllo $u$,
+bisogna evitare regolatori con $|R(j \omega)|$ elevato ad alta
+frequenza. Considerando invece la relazione
+\[
+|Q(j \omega)| = \dfrac{|F(j \omega)}{|G(j \omega)|}
+\]
+si pu\`o dire che, siccome il diagramma di $|Q(j \omega)|$ \`e la
+differenza tra quello di $|F(j \omega)|$ e $|G(j \omega)|$ e $|F(j
+\omega)|$ \`e tipicamente un filtro passa-basso con guadagno unitario
+e banda passante $[0, \omega_c]$, considerando che $G(s)$ tipicamente
+\`e un filtro passa-basso con $B = [0, \overline{\omega}]$, si
+conclude che per $\omega_c > \overline{\omega}$, il diagramma di $|Q(j
+\omega)|$ ha un tratto con andamento crescente nell'intervallo
+$[\overline{\omega}, \omega_c]$. Se quindi risulta $\omega \gg
+\overline{\omega}$ $|Q(j \omega)|$ raggiunge valori elevati ad alte
+frequenze. Ci\`o evidenzia il compromesso a cui si \`e soggetti quando
+si vuole aumentare $\omega_c$ per otterenere un sistema a ciclo chiuso
+pi\`u veloce di quello in anello aperto.
+\subsection{Prestazioni in condizioni perturbate}
+Nel caso in caso in cui non si conosca in maniera definitiva il
+modello del sistema ed in particolare quello del processo $G(s)$, \`e
+importante garantire quanto pi\`u possibile, che le prestazioni del
+sistema di controllo rimangano inalterate anche in presenza di
+incertezze in $G(s)$. In particolare, si indica con $G_a(s)$ la
+funzione di trasferimento effettiva e $G(s)$ quella nominale.
+\subsection{Regolazione ... a zero dell'errore}
+Tale propriet\`a \`e gi\`a stata discussa in precedenza ed indica che
+\[
+\lim_{s \to 0} e_{\infty} = 0 \;\; se \;\; g_L(s) > 0
+\]
+indipendentemente dalla presenza di incertezze su $G(s)$, purch\`e
+queste non pregiudichino l'asintotica stabilit\`a in anello chiuso.
+\subsection{Reiezione robusta di disturbi sinusoidali}
+Si suppone che $d(t) = A sin(\overline{\omega}t)$. Assumendo il sistema
+di controllo asintoticamente stabile, affinch\`e l'effetto di $d(t)$
+su $e(t)$ sia nullo, occorre che risulti $|S(j \overline{\omega})| =
+0$ ovvero occorre cge $S(s)$ abbia una coppia di zeri in $s = \pm j
+\overline{\omega}$ per cui bisogna utilizzare un $R(s)$ con poli in $s
+= \pm j \overline{\omega}$. Questo risultato \`e indipendente  da
+incertezze su $G(s)$ che non alterano l'asintotica stabilit\`a e si
+parla quindi di reiezione robusta al disturbo sinusoidale.
+
+\`E differente, invece, il caso in cui siano presenti in certezze su
+$\overline{\omega}$ del disturbo. Inoltre bisogna considerare che \`e
+difficile garantire l'asintotica stabilit\`a, quando un $R(s)$ ha poli
+in $s = \pm j \overline{\omega}$ con smorzamento nullo, in quanto
+questi determinano uno sfasamento di $- 180^{\circ}$ da
+$\overline{\omega}$ in poi.
+\subsection{Attenuazione robusta dei disturbi a banda limitata}
+In presenza di disturbi che non hanno componenti spettrali a
+pulsazioni maggiori di $\overline{\omega}$, un tipico requisito per il
+sistema di controllo consiste nell'imporre
+\[
+|S(j \omega)| < c \;\;,\;\; \forall \omega \in [0, \overline{\omega}]
+\;\;\textrm{con c = costante} < 1
+\]
+In questo modo tutte le componenti del disturbo vengono attenuate di
+un fattore pari a $c$.
+
+Comn un'incertezza su $G(s)$ si ha:
+\[
+G_a(s) = G(s) + \delta G(s)
+\]
+con
+\begin{itemize}
+\item $G(s)$ pari al modello nominale
+\item $\delta G(s)$ pari alla perturbazione
+\end{itemize}
+La perturbazione \`e tale per cui
+\[
+|\delta G(j \omega)| \leq \gamma(\omega)
+\]
+con $\gamma(\omega)$ assegnata. Inoltre
+\[
+\begin{array}{l}
+L_a(s) = R(s) G_a(s) = R(s) (G(s) + \delta G(s)) =\\
+= R(s)G(s) + R(s)\delta G(s) = L(s) + R(s)\delta G(s)
+\end{array}
+\]
+e
+\[
+S_a(s) = \dfrac{1}{1 + L_a(s)}
+\]
+Per un'attenuzione robusta bisogna avere
+\[
+\begin{array}{ll}
+  |S_a(j \omega)| < c & \\
+  |1 + L_a(j \omega)| > \dfrac{1}{c} & \forall \omega \in [0,
+  |\overline{\omega}]\;\textrm{e}\;\forall \delta G(s) \textrm{ ammissibile}
+\end{array}
+\]
+Si osserva che
+\[
+\begin{array}{l}
+  |1 + L_a(j \omega)| = |1 + L(j \omega) + R(j \omega) \delta G(s)|
+  \geq\\
+  \geq |1 + L(j \omega)| - |R(j \omega)|\cdot|\delta G(j \omega)|
+  \geq\\
+  \geq |1 + L(j \omega)| - \gamma(\omega) |R(j \omega)|
+\end{array}
+\]
+dove si \`e sfruttata la diseguaglianza triangolare, ovvero che
+\[
+| a + b | \geq |a| - |b| \;\; \textrm{con } a \textrm{ e } b \in
+\mathfrak{C}
+\]
+Quindi se ponendo
+\[
+|1 + L(j \omega)| > \dfrac{1}{c} + \gamma(\omega) |R(j \omega)| \;,\;
+\omega \leq \overline{\omega}
+\]
+si ricava che
+\[
+|1 + L(j \omega)| > \dfrac{1}{c}
+\]
+
+\section{Sensitivit\`a rispetto ad incertezze parametriche}
+Considerando una funzione di trasferimento del processo acente
+incertezza su un parametro $\theta$, possiamo scrivere:
+\begin{itemize}
+\item $G(s, \overline{\theta}) = $ Funzione di trasferimento nominale
+\item $G(s, \theta) = $ Funzione di trasferimento perturbata
+\end{itemize}
+con $\Delta \theta \equiv \theta - \overline{\theta}$ lo scostamento
+del valore effettivo da quello nominale.
+
+L'analisi di sensitivit\`a consente di determinare l'effetto del
+$\Delta \theta$ sul sistema retrazionato.
+
+Per quanto riguarda l'effetto di $\Delta \theta$ su $G(s, \theta)$,
+utilizziamo lo sviluppo in serie di Taylor, fermato al primo ordine,
+si ha, per $\Delta \theta$ sufficientemente piccolo:
+\[
+\Delta G(s, \theta, \overline{\theta}) = G(s, \theta) - G(s,
+\overline{\theta}) \simeq \dfrac{\partial G(s,
+  \theta)}{\left. \partial \theta \right|_{\theta = \overline{\theta}}
+\Delta \theta}
+\]
+effettivo
+\[
+E_G(s, \theta, \overline{\omega}) = \dfrac{\Delta G(s, \theta,
+  \overline{\theta})}{G(s, \theta)}
+\]
+che \`e la variazione relativa della funzione di trasferimento in
+anello aperto e $E_G(j \omega, \theta, \overline{\theta})$ rappresenta
+l'effetto dell'incertezza parametrica sulla risposta in
+frequenza. Valori elevati del $|E_G(j \omega, \theta,
+\overline{\omega})|$ indicano che in quella banda di pulsazioni, la
+risposta in frequenza presenta un elevato grado di sensitivit\`a
+rispetto alla variazione del parametro. Considerando l'impatto
+dell'incertezza sulla $F(s)$ si ha:
+\[
+F(s, \theta) = \dfrac{R(s) G(s, \theta)}{1 + R(s) G(s, \theta)}
+\]
+e la $F(s, \overline{\theta})$ \`e la funzione di trasferimento in
+condizioni nominali.\\
+Si pone:
+\[
+\begin{array}{l}
+  \Delta F(s, \theta, \overline{\theta}) = F(s, \theta) - F(s,
+  \overline{\theta})\\
+  \dfrac{\partial F(s, \theta)}{\partial \theta} = \dfrac{R(s)}{(1 +
+    R(s) G(s, \theta))^2} \dfrac{\partial G(s, \theta)}{\partial
+    \theta}
+\end{array}
+\]
+Si ricava cha la variazione relativa alla $F(s, \theta)$ \`e:
+\[
+E_F(s, \theta, \overline{\theta}) = \dfrac{\Delta F(s, \theta,
+  \overline{\theta})}{F(s, \overline{\theta})} \simeq \dfrac{1}{F(s,
+  \overline{\theta})} \left. \dfrac{\partial F(s, \theta)}{\partial
+  \theta} \right |_{\theta = \overline{\theta}}
+\]
+\[
+\dfrac{\Delta G(s, \theta, \overline{\theta})}{(1 + R(s)G(s,
+  \overline{\theta}))G(s, \overline{\theta})} = S(s,
+\overline{\theta})E_G(s, \theta, \overline{\theta})
+\]
+dove $S(s, \overline{\theta})$ \`e la funzione di sensitivit\`a
+nominale. In particolare:
+\[
+|E_F(j \omega, \theta, \overline{\theta})| = |S(j \omega,
+\overline{\theta})||E_G(j \omega, \theta, \overline{\theta})|
+\]
+quindi
+\[
+|S(j \omega, \overline{\theta})| = \dfrac{|E_F(j \omega, \theta,
+  \overline{\theta})|}{|E_G(j \omega, \theta, \overline{\theta})|}
+\]
+Per cui nell'intervallo in cui $|S(j \omega, \overline{\theta})| \ll
+1$ la presenza della retroazione produce una notevole attenuazione
+dell'effetto dell'incertezza. Dato che tipicamente $|S(j \omega,
+\overline{\theta})| < 1$ con $\omega < \omega_c$, il feedback
+garantisce un buon livello di insensitivit\`a rispertto a incertezze
+parametriche all'interno della banda passante del sistema di controllo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!h]
   \centering
