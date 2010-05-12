@@ -6444,6 +6444,8 @@ sistema retroazionato, il valore
 \[
 k_m = \dfrac{1}{|L(j \omega_\pi)|}
 \]
+Indica di quando pu\`o aumentare il guadagno d'anello aperto del sistema
+prima che il sistema a ciclo chiuso diventi instabile.
 $\omega_{\pi}$ \`e il punto in cui il diagramma delle fasi della funzione
 $L(s)$ attraversa il valore $-\pi$, come mostrato dalla figura {\bo DA
   SCANSIONARE 9.21}. Data la $L(s)$, possiamo pensare di aumentare il
@@ -6451,6 +6453,8 @@ guadagno del sistema di un parametro $k$. $k_m$ \`e il massimo valore
 che pu\`o assumere $k$ senza trasformare il sistema asintoticamente
 stabile in un sistema instabile.
 \section{Margine di fase}
+Indica di quando pu\`o aumentare la fase d'anello aperto del sistema
+prima che il sistema a ciclo chiuso diventi instabile.
 Se consideriamo il sistema \ref{fig:schemaABlocchiLs} con un guadagno
 positivo, la figura {\bo DA SCANSIONARE 9.24} ne mostra i diagrammi di
 Bode con una particolare attenzione al margine di fase $\varphi_m$. Il
@@ -7393,7 +7397,90 @@ Per cui nell'intervallo in cui $|S(j \omega, \overline{\theta})| \ll
 dell'effetto dell'incertezza. Dato che tipicamente $|S(j \omega,
 \overline{\theta})| < 1$ con $\omega < \omega_c$, il feedback
 garantisce un buon livello di insensitivit\`a rispertto a incertezze
-parametriche all'interno della banda passante del sistema di controllo.
+parametriche all'interno della banda passante del sistema di
+controllo.
+
+\section{Sintesi dei sistemi di controlli a tempo continui}
+Il progetto di un sistema di controllo in retroazione, si concentra
+alla scelta accurata della $R(s)$.
+
+\subsection{Requisiti di riferimento per il progetto di un
+  controllore}
+\input{./tex/schemaDiControlloARetroazione.tex}
+Supponendo di conoscere il sistema sotto controllo $G(s)$, il progetto
+consiste nella scelta di $R(s)$ in modo tale che il sistema di
+controllo fornisca determinate prestazioni e risponda a determinati
+requisiti. Si \`e visto in precedenza che gran parte dei requisiti
+possono essere soddisfatti imponendo specifiche sulla funzione di
+anello $L(s) = R(s) G(s)$. Si assumer\`a in seguito che la $L(s)$
+soddisfi le condizioni di applicabilit\`a del criterio di Bode ($\mu >
+0$ e $\varphi_m > 0^{\circ}$) per cui $G(s)$ non abbia poli a parte
+reale positiva.
+
+\subsection{Principali requisiti}
+\subsubsection{Stabilit\`a in condizioni nominali}
+Se il Criterio di Bode \`e applicabile, \`e garantita l'asintotica
+stabilit\`a. Bisogna evitare cancellazioni tra singolarit\`a con parte
+reale maggiore di zero.
+\subsubsection{Stabilit\`a in condizioni perturbate}
+L'obiettivo \`e ottenere un elevato grado di robustezza nei confronti
+di incertezze sulla $G(s)$. Un modo per ottenere ci\`o \`e quello di
+imporre valori elevati del margine di fase $\varphi_m$ e del margine
+di guadagno $k_m$. La scelta di $\omega_c$, per evitare eventuali
+ritardi di tempo di cui non si \`e tenuto conto, possono condurre ad
+instantilit\`a. Ricordiamo che un ritardo di tempo porta a:
+\[
+\varphi_{m_{\tau}} = \varphi_m - \omega_c \tau \dfrac{180}{\pi}
+\]
+\subsubsection{Precisione statica}
+Per ridurre l'ampiezza dell'errore all'infinito $e_{\infty}$ in
+presenza di $W$ e $d$ canonici, occorre aumentare il tipo $g$ e/o il
+guadagno $\mu$ della $L(s)$.
+\subsubsection{Precisione dinamica}
+Per permettere all'uscita $y$ di seguire fedelmente il riferimento
+$W$, anche quando questo varia velocemente, occorre aumentare la banda
+passante della $F(s)$ ed ottenere, quindi, una $\omega_c$
+sufficientemente elevata.
+
+Se si vogliono limitare le sovraelongazioni ed evitare eccessive
+oscillazioni della risposta al gradino, bisogna imporre uno
+smorzamento $\zeta$ minimo ai poli dominanti di $F(s)$, cio\`e
+richiedere un margine di fase $\varphi_m$ elevato.
+
+Le specifiche del dominio del tempo relative al tempo di assistamento
+$T_{a\varepsilon}$ e alla sovraelongazione $S\%$ possono essere
+tradotte in limiti inferiori, sui valori di $\omega_c$ e $\varphi_m$.
+
+\subsubsection{Attenuazione dell'effetto del disturbo $d$}
+Analizzando le propriet\`a della $S(s)$, bisogna fare in modo che
+risulti:
+\[
+|L(j \omega)| \gg 1
+\]
+nell'intervallo di pulsazioni in cui \`e concentrato lo spettro del
+disturbo $d$. Ci\`o implica un vincolo sul valore minimo della
+$\omega_c$.
+
+\subsubsection{Attenuazione dell'effetto del disturbo $n$}
+Se lo spettro di $n$ \`e tipicamente confinato ad alta frequenza
+questo requisito implica un vincolo sul massimo valore di $\omega_c$.
+
+\subsubsection{Moderazione della varibile di controllo}
+Dalla $Q(s)$ si evince che la propriet\`a di moderazione \`e legata al
+valore di $|R(j \omega)$ a pulsazioni maggiori di $\omega_c$. \`E
+opportuno mantenere limitato $|R(j \omega)|$ per $\omega > \omega_c$ o
+evitare che nello stesso insieme di pulsazioni risulti $|L(j \omega)|
+\gg |G(j \omega)|$.
+
+\subsubsection{Realizzabilit\`a del regolatore}
+Per soddisfare requisiti di realizzabilit\`a del regolatore (deve
+essere un sistema dinamico proprio) \`e necessario imporre che
+risulti:
+\[
+-k_L \leq -k_G \Rightarrow k_L > k_G
+\]
+dove $k_L$ e $k_G$ sono le pendenze asintotiche per $\omega \to
+\infty$ dei diagrammi di Bode del $|L(j \omega)|$ e $|G(j \omega)|$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!h]
   \centering
