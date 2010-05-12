@@ -1,6 +1,7 @@
 # Makefile to compile latex files
 CC = pdflatex
 FILE = appunti_sistemi
+OFILE=sistemi.controlli.appunti.collettivo
 DATE=$(shell date -u +%Y%m%d)
 
 all:	pdf 
@@ -19,5 +20,5 @@ clean:
 	rm *.log
 	rm *.out
 
-newrelease: pdf pdf
-	cp $(FILE).pdf sistemi.appunti.collettivo.$(DATE).pdf	
+release: pdf pdf
+	cp $(FILE).pdf $(OFILE).$(DATE).pdf	
