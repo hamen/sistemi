@@ -18,7 +18,7 @@
 
 \usepackage[normalem]{ulem}
 
-\usepackage{amsmath}
+\usepackage[intlimits,sumlimits]{amsmath}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
 
@@ -39,7 +39,7 @@
 \usepackage{makeidx}
 \makeindex
 
-\sloppy
+%\sloppy
 
 \author{Collettivo studentesco Ingegneria Informatica Unisannio}
 \title{Appunti di Sistemi}
@@ -7481,6 +7481,184 @@ risulti:
 \]
 dove $k_L$ e $k_G$ sono le pendenze asintotiche per $\omega \to
 \infty$ dei diagrammi di Bode del $|L(j \omega)|$ e $|G(j \omega)|$.
+
+%%%%%%%%%%%%%%%%%%%%
+% LUOGO DELLE RADICI
+%%%%%%%%%%%%%%%%%%%%
+\chapter{Luogo delle radici}
+Un'altra tecnica di analisi e sintesi dei sistemi di controllo in
+retroazione per sistemi SISO \`e la tecnica del Luogo delle
+radici. Attraverso una particolare rappresentazione grafica, consente
+di ottenere informazioni circa l'esatta collocazione dei poli del
+sistema a ciclo chiuso a partire dalla funzione a ciclo aperto $L(s)$.
+
+Tale tecnica \`e applicabile anche nel caso di sistemi di controllo
+instabili ed in situazioni in cui non sono soddistatte le condizioni
+di applicabilit\`a del criterio di Bode.
+
+\section{Definizione e propriet\`a}
+\input{./tex/schemaABlocchiLs}
+La funzione di trasferimento d'anello pu\`o essere espressa come
+\begin{equation}\label{eq:luogoRadiciLs}
+L(s) = \rho \dfrac{\prod\limits_{i = 1}^{m} (s + z_i)}{\prod\limits_{i = 1}^{n} (s +
+  p_i)} = \rho \dfrac{N(s)}{D(s)}
+\end{equation}
+dove $\rho$ \`e la costante di trasferimento. Lo schema di riferimento
+\`e quello mostrato in figura \ref{fig:schemaABlocchiLs}. Lo schema
+non presenta riferimenti ai disturbi perch\`e l'attenuazione \`e
+concentrata esclusivamente nei poli del sistema a ciclo chiuso ovvero
+nelle della seguente equazione caratteristica:
+\begin{equation}
+  1 + L(s) = 0
+\end{equation}
+Il problema \`e tipicamente quello di determinare come si modificano i
+poli in anello chiuso al variare di $\rho$ che \`e proporzionale al
+guadagno d'anello $\mu$:
+\[
+F(s) = \rho \dfrac{\rho \dfrac{N(s)}{D(s)}}{1 + \rho
+  \dfrac{N(s)}{D(s)}} = \dfrac{\rho N(s)}{D(s) + \rho N(s)}
+\]
+Quindi al variare di $\rho$, variano i poli di $F(s)$ ed al variare
+dei poli c'\`e il luogo delle radici.
+
+\section{Caratterizzazione del luogo}
+Consideriamo il seguente esempio:
+\[
+L(s) = \rho \dfrac{1}{s + \frac{5}{2}}
+\]
+Quindi
+\[
+F(s) = \dfrac{\rho \dfrac{1}{s + \frac{5}{2}}}{1 + \rho \dfrac{1}{s +
+    \frac{5}{2}}} = \dfrac{\rho}{s + \frac{5}{2} + \rho}
+\]
+$\overline{s}_f = \left(- \dfrac{5}{2} - \rho \right)$ \`e il polo di $F(s)$.
+Variando $\rho$ variamo i poli:
+\begin{definizione}
+  Il luogo delle radici \`e il luogo descritto nel piano complesso
+  dalle radici dell'equazione caratteristica al variare di $\rho$ da
+  $- \infty$ a $+ \infty$, con $\rho \neq 0$
+\end{definizione}
+Abbiamo quindi tre diversi scenari:
+\begin{itemize}
+\item $\rho = 0$ \`E il caso in cui i poli di $F(s)$ sono i poli di
+  $L(s)$, cio\`e l'assenza di retroazione;
+\item $\rho > 0$ \`E il {\em luogo diretto}\index{Luogo diretto}:
+  comprende tutti i punti dell'asse reale che lasciano alla propria
+  destra un numero dispari di poli e zeri di $L(s)$. Nei nostri studi,
+  saremo sempre in questo scenario;
+\item $\rho < 0$ \`E il {\em luogo inverso}\index{Luogo inverso}.
+\end{itemize}
+Se riconsiderdiamo l'esempio precedente, noteremo che all'aumentare di
+$\rho$, il polo si muove verso sinistra. Avremo cos\`i una $F(s)$
+sempre pi\`u veloce. Di conseguenza, $\omega_c$ si muover\`a verso
+destra e avremo una banda passante sempre maggiore.
+
+Consideriamo un ulteriore esempio:
+\[
+L(s) = R(s)G(s) = \mu_R \dfrac{s + }{2S + 1} = \rho \dfrac{s + 1}{s + \frac{1}{2}}
+\]
+con $\rho = \dfrac{\mu_R}{2}$
+\[
+\left\{
+\begin{array}{l}
+  N(s) = s + 1\\
+  D(s) = \overline{s}_F + \frac{1}{2}
+\end{array}
+\right .
+\]
+\[
+\begin{array}{l}
+  D(s) + \rho N(s) = 0 \;\;\;\textrm{Poli a ciclio chiuso}\\
+  \overline{s}_F + \frac{1}{2} + \rho (s + 1) = 0\\
+  (1 + \rho) \overline{s}_F = - \frac{1}{2} - \rho\\
+  \overline{s}_F = \dfrac{- \frac{1}{2} - \rho}{1 + \rho}\\
+  \lim_{\rho \to \infty} \overline{s}_F = -1
+\end{array}
+\]
+Quando $\rho \to \infty$, l'unico polo finisce nell'unico zero. In
+generale, vale la regola:
+\[
+\left\{
+\begin{array}{l}
+  m \textrm{ rami vanno negli zeri}\\
+  \nu = n - m \textrm{ rami vanno all'infinito}
+\end{array}
+\right .
+\]
+
+Per determinare la forma del luogo delle radici, sfruttiamo
+l'equazione
+\[
+\begin{array}{l}
+  \rho \dfrac{N(s)}{D(s)} + 1 = 0\\
+  \dfrac{N(s)}{D(s)} = - \dfrac{1}{\rho}\\
+  \dfrac{D(s)}{N(s)} = - \rho
+\end{array}
+\]
+quindi i valori di $s$ che soddisfano tale equazione per qualche
+valore reale di $\rho$ corrispondono ai punti che appartengono al
+luogo delle radici. La relazione complessa equivale alle relazioni
+espresse in termini di modulo e fase:
+\begin{equation}\label{eq:luogoRadiciModulo}
+  \dfrac{|N(s)|}{|D(s)|} = \dfrac{1}{|\rho|} \Rightarrow
+  \dfrac{|D(s)|}{|N(s)|} = |\rho|
+\end{equation}
+che caratterizza completamente l'aspetto geometrico del luogo;
+\begin{equation}\label{eq:luogoRadiciFasi}
+  \begin{array}{l}
+    arg N(s) - arg D(s) = 18^{\circ} - arg \rho = \\
+    \left \{
+    \begin{array}{lcl}
+      (2k + 1)\cdot 180^{\circ} &,& \rho > 0 \;\;,\; k \textrm{
+        intero}\\
+      2k \cdot 180^{\circ} &,& \rho < 0 \;\;,\; k \textrm{ intero}
+    \end{array}
+    \right .
+  \end{array}
+\end{equation}
+che determina la punteggiatura del luogo rispetto a $\rho$.
+
+Sfruttando l'equazione \ref{eq:luogoRadiciLs}, otteniamo:
+\begin{equation}
+  \begin{array}{l}
+    arg N(s) = arg \prod\limits_{i = 1}^{m} (s + z_i) = \sum_{i =
+      1}^{m} arg (s + z_i) = \sum_{i = 1}^{m}\theta_i\\
+    arg D(s) = arg \prod\limits_{i = 1}^{n} (s + p_i) = \sum_{i =
+      1}^{n} arg (s + p_i) = \sum_{i = 1}^{m}\varphi_i
+  \end{array}
+\end{equation}
+dove gli angoli $\theta_i$ e $\varphi_i$ rappresentano rispettivamente
+l'angolo formato con il semiasse $\mathfrak{R}e > 0$ del vettore
+congiungente lo zero $(-z_i)$ o il polo $(-p_i)$ al generico punto s
+del piano.
+
+Un punto $s$ del piano appartiene al luogo diretto semiasse
+\[
+\sum_i \theta_i - \sum_i \varphi_i = (2k + 1) \pi
+\]
+cio\`e ad un multiplo dispari di $pi$:
+\[
+\sum_{i = 1}^{m} arg (s + z_i) - \sum_{i = 1}^{n} arg (s + p_i) = (2k
++ 1) \pi \;\;\; k = 0,1,2,...,(n - m -1)
+\]
+Notiamo anche che
+\[
+|N(s)| = \prod\limits_{i = 1}^{m} |s + z_i|
+\]
+\`e il prodotto delle distanze del generico punto $s$ dagli zeri e
+\[
+|D(s)| = \prod\limits_{i = 1}^{n} |s + p_i|
+\]
+\`e il prodotto delle distanze del generico punto $s$ dai poli.
+
+
+
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!h]
   \centering
