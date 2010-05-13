@@ -7482,6 +7482,69 @@ risulti:
 dove $k_L$ e $k_G$ sono le pendenze asintotiche per $\omega \to
 \infty$ dei diagrammi di Bode del $|L(j \omega)|$ e $|G(j \omega)|$.
 
+%%%%%%%%%%%%%%%%%%%%%%%
+% APPROCCI ALLA SINTESI
+%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Approcci alla sintesi}
+Un primo approccio alla progettazione del controllore \`e descritto
+nei passi seguenti:
+\begin{itemize}
+\item Traduzione dei requisiti del sistema di controllo in vincoli di
+  progetto sulla $L(s)$ con l'aggiunta di ulteriori condizioni su
+  margine di fase $\varphi_m$ e/o margine di guadagno $k_m$ e
+  sull'assenza di cancellazioni tra singolarit\`a a parte reale
+  positiva;
+\item Individuazione di una funzione $L(s)$ il cui diagramma di Bode
+  del modulo giaccia nella regione di ammissibilit\`a e che soddisfi
+  anche i rimanenti requisiti o vincoli;
+\item Determinazione della funzione di trasferimento del regolatore
+  attraverso la relazione
+  \[
+  R(s) = \dfrac{L(s)}{G(s)}
+  \]
+\end{itemize}
+Tale approccio per\`o, se da una parte rispetta per costruzione tutti
+i requisiti posti inizialmente, dall'altra non permette di tener
+facilmente conto di vincoli aggiuntivi relativi alla struttura del
+regolatore, in quanto nelle applicazioni reali non tutti gli
+obbiettibi sono noti a priori in maniera chiara, precisa ed
+esauriente.
+
+Si preferisce, quindi, un approccio noto come {\em sintesi per
+  tentativi}\index{Sintesi per tentativi}: si considerano dapprima
+regolatori strutturalmente semplici e li si complica poco per volta in
+modo da rispettare tutte le specifiche di progetto, valutando di volta
+in volta i risultati tramite diagrammi di Bode di $L(j
+\omega)$. Seguendo questo approccio \`e conveniente esprimere la
+$R(s)$ come:
+\[
+R(s) = R_1(s) R_2(s)
+\]
+con
+\[
+R_1(s) = \dfrac{\mu_R}{s^r}
+\]
+parte statica del regolatore e $r$ tipo della $R(s)$ e con
+\[
+R_2(s) = \dfrac{\prod_i (1 + \tau_i s) \prod_i (1 + \frac{2\xi_i
+    s}{\alpha_{n_i}} + \frac{s^2}{\alpha^2_{n_i}})}{\prod_i (1 + T_i s) \prod_i (1 + \frac{2\zeta_i
+    s}{\omega_{n_i}} + \frac{s^2}{\omega^2_{n_i}})}
+\]
+parte dinamica o rete stabilizzatrice.
+\section{Il progetto}
+Il progetto allora si articola in due fasi:
+\begin{enumerate}
+\item Assumendo il sistema retroazionato asintoticamente stabile al
+  termine della sintesi, si sceglie $R_1(s)$ (ovvero il tipo $r$ e il
+  guadagno $\mu_R$ del regolatore) in maniera tale da soddisfare le
+  specifiche di progetto statico;
+\item In un secondo momento si considera la possibilit\`a di
+  introdurre un fattore $R_2(s) \neq 1$ per assicurare l'asintotica
+  stabilit\`a e il rispetto di tutti gli altri vincoli di progetto
+  (... dinamico). $R_2(s)$ \`e utilizzata per modificare
+  opportunamente le caratteristiche della $L(s)$ a pulsazione diversa
+  da zero.
+\end{enumerate}
 %%%%%%%%%%%%%%%%%%%%
 % LUOGO DELLE RADICI
 %%%%%%%%%%%%%%%%%%%%
