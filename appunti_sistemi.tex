@@ -34,6 +34,7 @@
 \newtheorem{teorema}{Teorema}
 \renewcommand{\arraystretch}{2}
 \newtheorem{definizione}{Definizione}
+\newtheorem{dimostrazione}{Dimostrazione}
 \newcommand{\bo}{\bfseries } 
 
 \usepackage{makeidx}
@@ -7714,14 +7715,476 @@ Notiamo anche che
 \]
 \`e il prodotto delle distanze del generico punto $s$ dai poli.
 
+\section{Regole di tracciamento}
+Nota: il baricentro\index{Baricentro} \`e la somma dei poli in anello
+chiuso diviso per $n$.
 
+Ponendo $n$ ed $m$ i gradi del numeratore e del denominatore di
+$L(s)$, strettamente proprie, e $\nu = n - m > 0$ il grado relativo,
+il tracciamento del luogo delle radici avviene come segue:
+\begin{enumerate}
+\item Il luogo delle radici \`e composto da $2n$ rami: $n$ del luogo
+  diretto e $n$ del luogo inverso.
+  \begin{equation}\label{eq:polinomioCaratteristicoFs}
+    D(s) + \rho N(s) = 0
+  \end{equation}
+  che ha $n$ radici complesse e dipendenti da $\rho$
+\item Il luogo delle radici \`e simmetrico rispetto all'asse reale;
+\item I rami partono dai poli di $L(s)$. Per $|\rho| \to 0$ le radici
+  dell'equazione \ref{eq:polinomioCaratteristicoFs} convergono verso i
+  poli della funzione d'anello $L(s)$;
+\item Sia nel luogo diretto che nel luogo inverso, per $|\rho| \to
+  \infty$, $m$ rami arrivano negli zeri di $L(s)$ e i restanti $\nu
+  \to infty$. Quando $|\rho| \to \infty$ l'equazione
+  \ref{eq:polinomioCaratteristicoFs} diventa
+  \[
+  N(s) = 0
+  \]
+  che ha solo $m$ radici: gli zeri di $L(s)$.
+\item I rami che vanno all'infinito, lo fanno lungo gli $\nu$ asintoti
+  che intersecano l'asse reale nel punto di ascissa
+  \begin{equation}\label{eq:xa}
+    x_a = \dfrac{1}{\nu} \left( \sum_{i = 1}^{m} z_i - \sum_{i =
+      1}^{n} p_i  \right) 
+  \end{equation}
+  e formano con l'asse reale angoli pari a:
+  \[
+  \psi_{ak} =
+  \left \{
+  \begin{array}{llll}
+    \dfrac{(2k + 1) \cdot 180^{\circ}}{\nu} &, k=0,1,...,\nu - 1 &,
+    \rho > 0 & LD\\
+    \dfrac{2k \cdot 180^{\circ}}{\nu} &, k=0,1,...,\nu - 1 &,
+    \rho < 0 & LI
+  \end{array}
+  \right .
+  \]
+\item Tutti i punti dell'asse reale, tranne quelli corrispondenti a
+  singolarit\`a di $L(s)$, appartengono a luogo delle radici. Fanno
+  parte del luogo diretto tutti i punti a sinistra di un numero
+  dispari di singolarit\`a di $L(s)$. Fanno parte del luogo inverso,
+  tutti i punti a sinistra di un numero pari di singolarit\`a di
+  $L(s)$.
+  \begin{dimostrazione}
+    Preso un generico punto $s$ sull'asse reale, per ogni
+    singolarit\`a reale alla sua sinistra e ogni coppia di
+    singolarit\`a complesse, produce un contributo a
+    \[
+    arg N(s) - arg D(s)
+    \]
+    nullo o pari a $\pm 360^{\circ}$. Invece per ogni
+    singolarit\`a alla sua destra d\`a un contributo di $\pm
+    180^{\circ}$. Affinch\`e la somma dei vari termini sia pari ad un
+    multiplo dispari (o pari) di $180^{\circ}$, il punto deve essere a
+    sinistra di un numero dispari (o pari) di singolarit\`a.
+  \end{dimostrazione}
+\item Quando $\nu \geq 2$, il baricentro del luogo delle radici non
+  dipende da $\rho$ ed \`e costante e coincide col punto di ascissa:
+  \begin{equation}\label{eq:xb}
+    x_b = - \dfrac{1}{n} \sum_{i = 1}^{n} p_i
+  \end{equation}
+  \begin{dimostrazione}
+    In un polinonio di grado $n$, il rapporto tra i coefficienti del
+    termine di grado $n - 1$ e quello di grado $n$, cambiato di segno,
+    \`e sempre uguale alla somma delle radici ( e quindi alla somma
+    delle parti reali). Quando $\nu \geq 2$ i due coefficienti
+    dell'equazione \ref{eq:polinomioCaratteristicoFs} non dipende da
+    $\rho$ e quindi al variare di $\rho$ la somma delle radici rimane
+    costante, e coincide col baricentro moltiplicato per $n$. Poich\`e
+    per $\rho = 0$ il baricentro coincide con il punto di ascissa
+    $x_b$, la propriet\`a \`e dimostrata.
+  \end{dimostrazione}
+\item Si consideri un polo $-p_j$ di $L(s)$ con molteplicit\`a
+  $h_j$. Gli $h_j$ rami del luogo diretto e gli $h_j$ rami del luogo
+  inverso che partono da questo polo, hanno in quel punto tangenti che
+  formano con l'asse reale angoli pari a
+  \[
+  \alpha_{jk} =
+  \left \{
+  \begin{array}{lll}
+    \dfrac{1}{h_j} \left[ (2k + 1) \cdot 180^{\circ} + \sum\limits_{i =
+        1}^{m} \theta_i - \sum\limits_{i \neq j} \varphi_i \right], & k=0, 1,
+    ..., h_j - 1, & \rho > 0 LD\\
+    \dfrac{1}{h_j} \left[ 2k \cdot 180^{\circ} + \sum\limits_{i =
+        1}^{m} \theta_i - \sum\limits_{i \neq j} \varphi_i \right], & k=0, 1,
+    ..., h_j - 1, & \rho < 0 LI
+  \end{array}
+  \right .
+  \]
+  dove gli angoli $\varphi_i$ e $\theta_i$ son oquelli calcolati in
+  base alla F3, considerando i vettori congiungenti il punto $s =
+  -p_j$ agli altri poli e agli zeri. Se il polo \`e semplice, la
+  tangente del ramo uscente presenta un angolo pari a:
+  \[
+  a_j =
+  \left \{
+  \begin{array}{ll}
+    180^{\circ} + \sum\limits_{i = 1}^{m} \theta_i - \sum\limits_{i \neq j}
+    \varphi_i &, \rho > 0 LD\\
+    \sum\limits_{i = 1}^{m} \theta_i - \sum\limits_{i \neq j} \varphi_i &, \rho < 0 LI
+  \end{array}
+    \right .
+  \]
+\item Si consideri lo zero $-z_i$ di $L(s)$ con molteplicit\`a
+  $h_j$. Gli $h_j$ rami del luogo diretto LD e gli $h_j$ rami del
+  luogo inverso LI che arrivano in questo zero hanno in quel punto
+  tangenti che formano con l'asse reale $\mathfrak{R}e$ angoli uguali
+  a:
+  \[
+  \beta_{jk} =
+  \left\{
+  \begin{array}{lll}
+    \dfrac{1}{h_j}\left[ (2k + 1)\cdot 180^{\circ} - \sum\limits_{i
+        \neq 1} \theta_i + \sum\limits_{i=1}^{n}\varphi_i \right] & k
+    = 0, 1, ..., h_j - 1 & \rho > 0\;LD\\
+    \dfrac{1}{h_j}\left[ 2k\cdot 180^{\circ} - \sum\limits_{i
+        \neq 1} \theta_i + \sum\limits_{i=1}^{n}\varphi_i \right] & k
+    = 0, 1, ..., h_j - 1 & \rho < 0\;LI\\
+  \end{array}
+  \right .
+  \]
+  dove gli angoli $\theta_i$ e $\varphi_i$ sono quelli che formano i
+  vettori congiungenti il punto $-z_i$ agli altri zeri e ai poli.
 
+  Se lo zero \`e semplice, la tangente del ramo entrante presenta un
+  angolo pari a
+  \[
+  \beta_j =
+  \left\{
+  \begin{array}{ll}
+  180^{\circ} - \sum\limits_{i \neq j}\theta_i + \sum\limits_{i = j}^n
+  \varphi_i &, \rho > 0 \; LD\\
+  - \sum\limits_{i \neq j}\theta_i + \sum\limits_{i = j}^n
+  \varphi_i &, \rho < 0 \; LI\\
+  \end{array}
+  \right .
+  \]
+\item Eventuali punti di incrocio di rami sull'asse reale si possono
+  determinare i minimi e i massimi relativi della funzione
+  \[
+  \gamma(x) = -\dfrac{D(x)}{N(x)}
+  \]
+  con $x$ reale. Se $\overline{x}$ \`e un punto di minimo e $s =
+  \overline{x}$ appartine al luogo diretto, esistono 2 rami complessi
+  che intersecano l'asse reale in $\overline{x}$; se $\overline{x}$
+  \`e un punto di massimo e $s = \overline{x}$ appartiene al luogo
+  diretto, esistono 2 rami reali che si incontrano in $\overline{x}$ e
+  si separano diventendo complessi. La situazione \`e inversa nel caso
+  del luogo inverso.
+\item Per ogni punto del luogo, il valore di $|\rho|$ \`e dato dato
+  \[
+  |\rho| = \dfrac{\prod\limits_{i = 1}^{n} \eta_i}{\prod\limits_{i =
+      1}^{m}\lambda_i} 
+  \]
+  con $\lambda_i$ e $\eta_i$ che rappresentano le distanze del punto
+  dagli zeri e dai poli di $L(s)$.
+\end{enumerate}
+Nota: con $\rho > 0$ (LD) l'angolo con il quale il luogo delle radici
+lascia un polo $p_i$ in anello aperto vale:
+\[
+ \varphi_{p_i} = (2 \nu +1)\pi + \sum\limits_{j = 1}^{m} arg(p_i -
+ z_j) - \sum\limits_{j = 1\\j\neq 1} arg(p_i - p_j)
+\]
+con $\nu = 0, 1, ... , n-m$.
+Per lo zero, invece, l'angolo \`e:
+\[
+ \varphi_{p_i} = (2 \nu +1)\pi - \sum\limits_{j = 1}^{m} arg(z_i -
+ z_j) + \sum\limits_{j = 1\\j\neq 1} arg(z_i - p_j)
+\]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regola del baricentro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+La regola del baricentro \`e applicabile solo se l'eccesso poli-zeri
+\`e maggiore o uguale di 2:
+\[
+\nu = n - m \geq 2
+\]
+Fatta questa supposizione, data una funzione di trasferimento ad
+anello aperto 
+\begin{equation}\label{eq:baricentro01}
+L(s) = \rho \dfrac{N(s)}{D(s)} = \rho \dfrac{\prod\limits_{i =
+    1}^{m} (s + z_i)}{\prod\limits_{i = 1}^{n} (s + p_i)}
+\end{equation}
+la funzione di trasferimento a ciclo chiuso \`e data data
+\begin{equation}\label{eq:baricentro02}
+F(s) = \dfrac{L(s)}{1 + L(s)} = \dfrac{\rho N(s)}{D(s) + \rho N(s)} =
+\dfrac{\rho \prod\limits_{i = 1}^{m} (s + z_i)}{\prod\limits_{i =
+    1}^{n} (s + p_{F_i})}
+\end{equation}
+dove con $-p_{F_i}$ sono indicati i poli della funzione di
+trasferimento a ciclo chiuso $F(s)$, mentre $-p_i$ e $-z_i$ sono i
+poli e gli zeri della funzione di trasferimento ad anello aperto
+$L(s)$. 
 
+Se consideriamo nell'equazione~\ref{eq:baricentro02} i valori di $N(s)$
+e $D(s)$ espressi nell'equazione~\ref{eq:baricentro01} ottiamo la
+seguente uguaglianza
+\begin{equation}\label{eq:baricentro03}
+  \prod\limits_{i = 1}^{n} (s + p_i) + \prod\limits_{i = 1}^{m} (s +
+  z_i) = \prod\limits_{i = 1}^{n} (s + p_{F_i})
+\end{equation}
+\[
+s^n + \left( \sum\limits_{i = 1}^{n} p_i \right)\cdot s^{n - 1} + 
+... = s^n + \left( \sum\limits_{i = 1}^{n} p_{F_i} \right)\cdot s^{n - 1} +
+\]
+Quindi
+\[
+\sum\limits_{i = 1}^{n} p_{F_i} = \sum\limits_{i = 1}^{m} p_i
+\]
+cio\`e
+\begin{definizione}
+  La somma dei poli della funzione di trasferimento a ciclo chiuso
+  \`e pari alla somma dei poli della funzione di trasferimento a ciclo
+  aperto.
+\end{definizione}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regola degli angoli}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Data una funzione di trasferimento ad anello aperto 
+\begin{equation}\label{eq:angoli01}
+L(s) = \rho \dfrac{N(s)}{D(s)} = \rho \dfrac{\prod\limits_{i =
+    1}^{m} (s + z_i)}{\prod\limits_{i = 1}^{n} (s + p_i)}
+\end{equation}
+la funzione di trasferimento a ciclo chiuso \`e data data
+\begin{equation}\label{eq:angoli02}
+F(s) = \dfrac{L(s)}{1 + L(s)} =  \dfrac{\rho N(s)}{D(s) + \rho N(s)}
+\end{equation}
+I poli della $F(s)$ sono le radici di
+\[
+D(s) + \rho N(s) = 0
+\]
+che possiamo riscrivere come
+\begin{equation}\label{eq:angoli03}
+- \rho = \dfrac{D(s)}{N(s)}
+\end{equation}
 
+Supponiamo di voler calcolare l'angolo di partenza del luogo delle
+radici dal generico polo $-p_1$. Calcolando la fase del primo e del
+secondo membro dell'equazione~\ref{eq:angoli03}, per ogni valore di
+$s$ corrispondente ad un punto del luogo delle ragici deve valere:
+\begin{equation}\label{eq:angoli04}
+arg(- \rho) = arg \left((\dfrac{D(s)}{N(s)}) \right)
+\end{equation}
+Supponendo $\rho > 0$
+\[
+arg(- \rho) = (2k + 1)\pi
+\]
+\[
+arg(D(s)) = arg\left( \prod\limits_{i = 1}^{n}(s + p_i) \right) =
+\sum\limits_{i = 1}^{n} arg(s + p_i) = arg(s + p_i) + \sum\limits_{i =
+2}^{n} arg(s + p_i)
+\]
+\[
+arg(N(s)) = arg\left( \prod\limits_{i = 1}^{m}(s + z_i) \right) = \sum\limits_{i =
+2}^{n} arg(s + z_i)
+\]
+Sfruttando l'uguaglianza
+\[
+arg \left( \dfrac{D(s)}{N(s)}\right) = arg(D(S)) - arg(N(s))
+\]
+sostituendo nell'equazione~\ref{eq:angoli03}, si ha:
+\begin{equation}\label{eq:angoli05}
+  arg(s + p_i) = - \sum\limits_{i = 2}^{n} arg(s + p_i) +
+  \sum\limits_{i = 1}^{m} arg(s + z_i) + (2k + 1)\pi
+\end{equation}
 
+L'angolo con cui il luogo delle radici parte da $-p_1$ \`e dato dalla
+fase del vettore $s + p_1$ quando $s$ tende a $-p_1$, come mostrato in
+figura~\ref{fig:regolaAngoli}.
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.3]{./images/regolaAngoli}
+    \caption{Regola degli angoli}\label{fig:regolaAngoli}
+  \end{center}
+\end{figure}
+Quindi nell'equazione~\ref{eq:angoli05} bisogna valutare il limite di
+entrambi i membri per $s \to -p_1$:
+\[
+\lim_{s \to -p_1} arg(s + p_i) = - \lim_{s \to -p_1}\sum\limits_{i = 2}^{n} arg(s + p_i) +
+  \lim_{s \to -p_1}\sum\limits_{i = 1}^{m} arg(s + z_i) + (2k + 1)\pi
+\]
+\[
+\lim_{s \to -p_1} arg(s + p_i) = - \sum\limits_{i = 2}^{n} arg(-p_1 + p_i) +
+  \sum\limits_{i = 1}^{m} arg(-p_1 + z_i) + (2k + 1)\pi
+\]
+che \`e l'espressione cercata.
 
+Analogamente si possono calcolare gli angoli di arrivi del luogo delle
+radici negli zeri e nel caso di poli o zeri con molteplicit\`a
+maggiore di uno.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Regolatori comuni}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regolatore proporzionale}
+\[
+R_P(s) = \mu_R \;\;o\;\; k_P
+\]
+\section{Regolatore integrale}
+\[
+R_I(s) = \dfrac{\mu_R}{s} \;\;o\;\; \dfrac{k_I}{s}
+\]
+\section{Regolatore proporzionale-integrale}
+\[
+R_{PI}(s) = k_P + \dfrac{k_I}{s}
+\]
+\begin{itemize}
+\item $k_P + \dfrac{s + \frac{k_I}{k_P}}{s}$
+\item $k_I + \dfrac{1 + s\frac{k_P}{k_I}}{s}$
+\end{itemize}
+Un polo nell'origine; uno zero dove scelgo; un guadagno che scelgo.
+\section{Regolatore PID}
+PID sta per proporzionale-integrale-derivativo. La struttura di un PID
+\`e introdotta secondo la considerazione empirica che la variabile di
+controllo $u$ sia generata come la somma di tre contributi:
+\begin{enumerate}
+\item Uno proporzionale all'errore $e$ tra $w$ e $y$;
+\item Uno proporzionale a $\int e$ (ovvero al suo valore medio) ed \`e
+  richiesto per imporre che l'errore si annulli asintoticamente a
+  fronte di segnali di riferimento o disturbi additivi costanti;
+\item Uno proporzionale a $de(t)$ e tenta di anticipare l'andamento
+  dell'errore negli istanti futuri: se $de(t) > 0$, cos\`i come il
+  guadagno del sistema, \`e opportuno aumentare $\mu$ per provocare un
+  aumento di $y$ e quindi una diminuzione di $e$.
+\end{enumerate}
+La legge di controllo tra $e$ ed $u$ \`e quindi:
+\[
+u(t) = k_P e(t) + k_I\int\limits_{t_0}^{t} e(\tau) d\tau + k_D
+\dfrac{de(t)}{dt}
+\]
+dove $k_P$ \`e il coefficiente dell'azione proporzionale, $k_I$ \`e il
+coefficiente dell'azione integrale e $k_D$ \`e il coefficiente
+dell'azione derivativa. I tre coefficiente sono costanti e maggiori di
+zero.
+\[
+R_{PID}(s) = k_P + \dfrac{k_I}{s} + k_Ds = \dfrac{k_D s^2 + k_P s +
+  k_I}{s} 
+\]
+Volendo esprimere $R_{PID}(s)$ in funzione del tempo, con
+\[
+\begin{array}{ll}
+  T_I = \dfrac{k_P}{k_I} & \textrm{tempo di reset o integrale}\\
+  T_D = \dfrac{k_D}{k_p} & \textrm{tempo derivativo}
+\end{array}
+\]
+si ha
+\[
+R_{PID}(s) = k_P + \dfrac{k_p}{T_I s} + k_P T_D s = k_P (1 +
+\dfrac{1}{T_I s} + T_D s)
+\]
+\begin{equation}
+  R_{PID}(s) = k_P \cdot \dfrac{T_I T_D s^2 + T_I s + 1}{T_I s}
+\end{equation}
+\section{Reti correttrici o stabilizzatrici}
+\subsection{Rete anticipatrice}
+Questa rete produce due effetti:
+\begin{itemize}
+\item un anticipo di fase: il margine di fase $\varphi_m$ aumenta
+\item un aumento della banda passante: $\omega_n$ aumenta
+\end{itemize}
+\begin{equation}
+  R(s) = \mu_R \dfrac{1 + \frac{s}{\overline{z}}}{1 +
+    \frac{s}{\overline{p}}} \;\; \textrm{ con }\; \overline{z} < \overline{p}
+\end{equation}
+oppure
+\begin{equation}
+  \begin{array}{l}
+    R(s) = \mu_R \dfrac{1 + Ts}{1 + \alpha Ts}\\
+    \mu_R > 0\\
+    T > 0\\
+    0 < \alpha < 1
+  \end{array}
+\end{equation}
+Questo tipo di regolatore produce un anticipo di fase. Questo anticipo
+\`e massimo per una pulsazione $\overline{\omega} = \dfrac{1}{T
+  \sqrt{\alpha}}$, il punto medio sul diagramma di Bode tra $\omega =
+\dfrac{1}{T}$ (zero) e $\omega = \dfrac{1}{\alpha T}$ (polo).
+La fase di questo controllore \`e quindi:
+\begin{equation}
+  arg R(j \overline{\omega}) = arctan \dfrac{1}{\sqrt{\alpha}} -
+  arctan \sqrt{\alpha}
+\end{equation}
+L'anticipo di fase introdotto da questo tipo di regolatore favorisce,
+come gi\`a detto, l'aumento del margine di fase $\varphi_m$, che vede
+il suo massimo in $\varphi_{max} = arcsin \dfrac{1 - \alpha}{a +
+  \alpha}$ in corrispondenza di $\omega_A = \sqrt{dfrac{1}{T}
+  \dfrac{1}{\alpha T}}$. L'aumento del margine di fase pu\`o essere
+reso ancora pi\`u efficace diminuendo $\alpha$ fino ad arrivare ad un
+contributo alla fase di circa $90^{\circ}$, anche se questo provoca
+una maggiore amplificazione ad alta frequenza con una conseguente
+diminuzione della robustezza e della moderazione del controllo.
+
+Di norma, lo zero e il polo sono ad una decade di distanza l'uno
+dall'altro, ponendo cio\`e $\alpha = 0.1$. Questo consente di ottenere
+un $\varphi_{max} \simeq 55^{\circ}$ in corrispondenza di
+$\overline{\omega}$.
+
+Con $\alpha = 0$ il controllore diventa un controllore
+proporzionale-derivativo.
+\subsection{Rete ritardatrice}
+Questa rete produce due effetti:
+\begin{itemize}
+\item un miglioramento della precisione statica
+\item una maggiore attenuazione del disturbo alle basse frequenze
+\end{itemize}
+\begin{equation}
+  \begin{array}{l}
+    R(s) = \mu_R \dfrac{1 + Ts}{1 + \alpha Ts}\\
+    \mu_r > 0\\
+    T > 0\\
+    \alpha > 1
+  \end{array}
+\end{equation}
+Questo tipo di regolatore consente di aumentare $|L(j \omega)|$ a
+bassa frequenza, a patto di introdurre uno sfasamento negativo che
+raggiunge il suo massimo in $\overline{\omega} =
+\dfrac{1}{T\sqrt{\alpha}}$. Per evitare che questo ritardo di fase
+introdotto influenzi eccessivamente $\varphi_m$ occorre scegliere $T >
+\dfrac{1}{\omega_c}$ ($T = \dfrac{10}{\omega_c}$ porta ad uno
+sfasamento minore di $6^{\circ}$).
+
+Per migliorare il margine di fase $\varphi_m$, si sceglie $\mu_R =
+1$. Questo comporta un abbassamento di $|L(j \omega)|$ tale da portare
+all'attraversamento dell'asse a $0_{dB}$ ad una pulsazione pi\`u
+favorevole.
+
+Per $\alpha \to \infty$, la rete assumer\`a la forma di un controllore
+proporzionale-integrale
+\[
+\varphi_m = - arcsin \dfrac{1 - \alpha}{1 + \alpha} \;\;\textrm{ con
+}\;\; \omega_A = \sqrt{\dfrac{1}{T}\dfrac{1}{\alpha T}}
+\]
+es. si sceglie un polo in modo che sia due decadi alla sinistra di
+$\omega_c$.
+\subsection{Rete a sella}
+\`E la combinazione della due reti precedenti. \`E usato per sfruttare
+contemporaneamente i vantaggi di entrambe le reti:
+\begin{equation}
+  \begin{array}{l}
+  R(s) = \mu_R \dfrac{(1 + \tau_1 s)(1 + \tau_2 s)}{(1 + T_1 s)(1 +
+    T_2 s)}\\
+  \mu_R > 0\\
+  T_1 > \tau_1 \geq \tau_2 > T_2 > 0\\
+  \end{array}
+\end{equation}
+\begin{equation}
+  \begin{array}{l}
+    \lim_{\omega \to \infty} |R(j \omega)| = \mu_R\\
+    \textrm{con } T_1T_2 = \tau_1 \tau_2
+  \end{array}
+\end{equation}
+Per otterenere prestazioni soddisfacenti dall'anticipo di fase
+introdotto da questa rete, si possono scegliere i poli e gli zeri
+affinch\`e risulti:
+\[
+\tau_2 > \dfrac{1}{\omega_c} > T_2
+\]
+con $\omega_c$ pulsazione critica desiderata.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metoto della tangente e delle aree
+% 14.4.2 pagina 383
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!h]
   \centering
@@ -7977,7 +8440,7 @@ Dai calcoli, ci accorgiamo che $\bar{\sigma} = 0$, ma $\dfrac{1}{s}$
   \mathfrak{L}\{\dot f (t)\}=sF(s)-f(0) \longrightarrow \textrm{derivata prima} \\
   \mathfrak{L}\{\ddot f (t)\}=s^2F(s)-sf(0)-\dot f(0) \longrightarrow \textrm{derivata seconda} \\
   \textsl{in generale} ~\mathfrak{L}\{\frac{d^nf(t)}{dt^n}\}=s^nF(s) -
-  \sum_{i=1}^n s^{n-i} \frac{d^{i-1}f(t)}{dt^{i-1}}\Bigg |_{t=0}
+  \sum\limits_{i=1}^n s^{n-i} \frac{d^{i-1}f(t)}{dt^{i-1}}\Bigg |_{t=0}
 \end{eqnarray}
 ovvero $s$ \`e l'\emph{operatore di derivazione}.
 }
