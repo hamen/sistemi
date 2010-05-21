@@ -7992,7 +7992,7 @@ sostituendo nell'equazione~\ref{eq:angoli03}, si ha:
 L'angolo con cui il luogo delle radici parte da $-p_1$ \`e dato dalla
 fase del vettore $s + p_1$ quando $s$ tende a $-p_1$, come mostrato in
 figura~\ref{fig:regolaAngoli}.
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{./images/regolaAngoli}
     \caption{Regola degli angoli}\label{fig:regolaAngoli}
@@ -8013,7 +8013,46 @@ che \`e l'espressione cercata.
 Analogamente si possono calcolare gli angoli di arrivi del luogo delle
 radici negli zeri e nel caso di poli o zeri con molteplicit\`a
 maggiore di uno.
-
+\section{Vincoli nell'uso del luogo delle radici}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/vincoliLuogo}
+    \caption{Vincoli nell'uso del luogo delle
+      radici}\label{fig:vincoliLuogo}
+  \end{center}
+\end{figure}
+\subsection{Vincoli sullo smorzamento}
+I vincoli di tipo
+\[
+\zeta \geq \overline{\zeta}
+\]
+relativi allo smorzamento dei poli dominanti, si possono tradurre
+nell'imporre che i poli in anello chiuso siano confinati nella parte
+del piano complesso individuata da due rette simmetriche rispetto
+all'asse reale che formano un angolo pari ad $arccos
+\overline{\zeta}$ come mostrato nella sottofigura $a$ della
+figura~\ref{fig:vincoliLuogo}.
+\subsection{Vincoli sulla pulsanzione}
+I vincoli sulla pulsanzione naturale dei poli dominanti del tipo
+\[
+\omega_n \geq \overline{\omega_n}
+\]
+si possono tradurre nell'imporre che tali poli giacciano nella regione
+esterna all'anello di raggio $\overline{\omega_n}$ e centro
+nell'origine, mostrato nella sottofigura $b$ della
+figura~\ref{fig:vincoliLuogo}.
+\subsection{Vincolo sul tempo di assestamento}
+Un eventuale vincolo sul tempo massimo di assestamento pu\`o essere
+visto come un vincolo sulla parte reale $-\theta$ dei poli ad anello
+chiuso $(p_i = - \theta \pm \beta j)$ che definisce il semipiano
+$- \overline{\theta} \geq - \theta$, mostrato nella sottofigura $c$ della
+figura~\ref{fig:vincoliLuogo}. Ricordiamo che
+\[
+\begin{array}{l}
+  \theta = - \zeta \omega_n\\
+  \beta = \omega_n \sqrt{1 - \zeta^2}
+\end{array}
+\]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Regolatori comuni}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
