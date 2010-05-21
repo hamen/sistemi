@@ -6165,7 +6165,7 @@ Infatti
 cio\`e l'equazione \ref{eq:modelliStrutturali07} coincide con
 l'equazione \ref{eq:modelliStrutturali06}.
 
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{./figures/modelliStrutturali04.png}
     \caption{Tempo di assestamento}
@@ -6187,7 +6187,40 @@ come mostrato in figura \ref{fig:modelliStrutturali04}.
 \Rightarrow e^{-\frac{t_a}{T}} = 0.01 \Rightarrow  - t_a = T \cdot ln
 0.01 \Rightarrow t_a \simeq 4.6 T
 \]
-
+\section{Metodo delle aree}
+Consideriamo
+\[
+G(s) = \dfrac{\mu}{1 + sT} e^{s \tau}
+\]
+con $\tau$ pari al ritardo, $\mu$ pari al guadagno statico, $T$ pari
+alla costante di tempo.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/metodoDelleAree}
+    \caption{Metodo delle aree}
+    \label{fig:metodoDelleAree}
+  \end{center}
+\end{figure}
+\[
+\overline{y} = \mu \overline{u}
+\]
+\[
+S_1 = \mu \overline{u} \tau + \int\limits_{0}^{+ \infty} \mu
+\overline{u}e^{-\frac{t}{T}} dt = \mu \overline{u}(\tau + T) =
+\overline{y}(\tau + T)
+\]
+quindi
+\[
+\tau + T = \dfrac{S_1}{\overline{y}} = \dfrac{S_1}{\mu \overline{u}}
+\]
+\[
+S_2 = \int\limits_{0}^{T} \mu \overline{u} (1 - e^{- \frac{t}{T}}) dt
+= \dfrac{\mu \overline{u} T}{e} = \dfrac{\overline{y} T}{e}
+\]
+quindi
+\[
+T = \dfrac{e S_2}{\overline{y}} = \dfrac{e S_2}{\mu \overline{u}}
+\]
 \chapter{Controllo ad anello aperto}
 Supponiamo di voler individuare un controllore $R(s)$ in modo che
 l'uscita $y$ insegua nel miglior modo possibile l'uscita desiderata
