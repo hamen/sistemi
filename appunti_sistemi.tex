@@ -6075,6 +6075,40 @@ e $T$, dobbiamo calcolare:
   T = \dfrac{y(N\Delta)}{dy_{max}}
   \]
 \end{enumerate}
+\section{Metodo delle aree}
+Consideriamo
+\[
+G(s) = \dfrac{\mu}{1 + sT} e^{s \tau}
+\]
+con $\tau$ pari al ritardo, $\mu$ pari al guadagno statico, $T$ pari
+alla costante di tempo.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/metodoDelleAree}
+    \caption{Metodo delle aree}
+    \label{fig:metodoDelleAree}
+  \end{center}
+\end{figure}
+\[
+\overline{y} = \mu \overline{u}
+\]
+\[
+S_1 = \mu \overline{u} \tau + \int\limits_{0}^{+ \infty} \mu
+\overline{u}e^{-\frac{t}{T}} dt = \mu \overline{u}(\tau + T) =
+\overline{y}(\tau + T)
+\]
+quindi
+\[
+\tau + T = \dfrac{S_1}{\overline{y}} = \dfrac{S_1}{\mu \overline{u}}
+\]
+\[
+S_2 = \int\limits_{0}^{T} \mu \overline{u} (1 - e^{- \frac{t}{T}}) dt
+= \dfrac{\mu \overline{u} T}{e} = \dfrac{\overline{y} T}{e}
+\]
+quindi
+\[
+T = \dfrac{e S_2}{\overline{y}} = \dfrac{e S_2}{\mu \overline{u}}
+\]
 \chapter{Modelli strutturali sistemi del primo ordine}
 \begin{figure}[!hbp]
   \begin{center}
@@ -6186,40 +6220,6 @@ come mostrato in figura \ref{fig:modelliStrutturali04}.
 \[
 \Rightarrow e^{-\frac{t_a}{T}} = 0.01 \Rightarrow  - t_a = T \cdot ln
 0.01 \Rightarrow t_a \simeq 4.6 T
-\]
-\section{Metodo delle aree}
-Consideriamo
-\[
-G(s) = \dfrac{\mu}{1 + sT} e^{s \tau}
-\]
-con $\tau$ pari al ritardo, $\mu$ pari al guadagno statico, $T$ pari
-alla costante di tempo.
-\begin{figure}[!h]
-  \begin{center}
-    \includegraphics[scale=0.4]{./images/metodoDelleAree}
-    \caption{Metodo delle aree}
-    \label{fig:metodoDelleAree}
-  \end{center}
-\end{figure}
-\[
-\overline{y} = \mu \overline{u}
-\]
-\[
-S_1 = \mu \overline{u} \tau + \int\limits_{0}^{+ \infty} \mu
-\overline{u}e^{-\frac{t}{T}} dt = \mu \overline{u}(\tau + T) =
-\overline{y}(\tau + T)
-\]
-quindi
-\[
-\tau + T = \dfrac{S_1}{\overline{y}} = \dfrac{S_1}{\mu \overline{u}}
-\]
-\[
-S_2 = \int\limits_{0}^{T} \mu \overline{u} (1 - e^{- \frac{t}{T}}) dt
-= \dfrac{\mu \overline{u} T}{e} = \dfrac{\overline{y} T}{e}
-\]
-quindi
-\[
-T = \dfrac{e S_2}{\overline{y}} = \dfrac{e S_2}{\mu \overline{u}}
 \]
 \chapter{Controllo ad anello aperto}
 Supponiamo di voler individuare un controllore $R(s)$ in modo che
@@ -6426,19 +6426,23 @@ x_2(s) = \dfrac{\tilde{L}(s)}{1 + \tilde{L}(s)} V(s)
 dove $\dfrac{\tilde{L}}{1 + \tilde{L}(s)} = \tilde{F}(s)$ \`e la
 funzione di trasferimento a ciclo chiuso o funzione di sensitivit\a`
 complementare\index{Funzione di sensitivit\a` complementare}.
+%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cruise control}
+%%%%%%%%%%%%%%%%%%%%%%%%
 Partendo dall'equazione di Newton
 \[
 m \cdot a = F
 \]
-ricaviamo il modello del cruise Controllore:
-\[
-m \dfrac{dv}{dt} = - \beta v + F_w - F_L
-\]
+ricaviamo il modello del cruise control, modellando la dinamica
+dell'auto come un sistema del primo ordine:
+\begin{equation}\label{eq:cruise01}
+  m \dfrac{dv}{dt} = - \beta v + F_w - F_L
+\end{equation}
 dove
 \begin{itemize}
-\item $- \beta v$ \`e l'attrito dell'aria
-\item $F_w$ \`e la forza sulle ruote
+\item $- \beta v$ \`e l'attrito viscoso dell'aria;
+\item $F_w$ \`e la forza sulle ruote, applicata attraverso il cambio
+  che ha un rapporto dei raggi pari a $\rho$;
 \item $F_L$ \`e la forza di carico. \`E contraria al moto se, per
   esempio, l'auto procede in salita. \`E additiva al moto se l'auto
   \`e in discesa
@@ -6452,12 +6456,17 @@ v = \omega_w \cdot R_w
 \[
 \omega_w = \dfrac{1}{R_w} v
 \]
-dove $\omega_w$ \`e la velocit\`a angolare della ruota ed $R_w$ \`e il
-raggio della ruota. Va ingnorata la deformazione del pneumatico che
-rende la ruota non perfettamente circolare. Possiamo introdurre ance
-le coppie:
+dove $\omega_w$ \`e la velocit\`a angolare della ruota $\left[
+  \frac{rad}{s}\right]$ ed $R_w$ \`e il raggio della ruota $[m]$. Il
+segnale di riferimento sar\`a la velocit\`a di crociera desiderata
+$v^{rif}$. Va ingnorata la deformazione del pneumatico che rende la
+ruota non perfettamente circolare.
+
+La forza $F_w$ applicata alle ruote arriva dal motore alle ruote
+attraverso il cambio, di rapporto $\rho$. Possiamo introdurre anche le
+coppie:
 \[
-T_w = F_w \cdot R_w
+T_w = F_w \cdot R_w = \rho T_e
 \]
 \[
 T_w \omega_w = T_e \omega_e
@@ -6469,7 +6478,97 @@ dove
 \item $\omega_e$ \`e la velocit\`a angolare del motore
 \end{itemize}
 
+Supponiamo che l'attuatore sia modellabile come un sistema dinamico
+LTI del primo ordine con guadagno $k_a$ e costante di tempo
+$\tau_a$. L'atttuato nell'esempio in analisi \`e rappresentato dal
+motore. 
+
+Consideriamo lo schema a blocchi associato
+all'equazione~\ref{eq:cruise01} a cui \`e applicata la trasformata di
+Laplace (con condizioni iniziali nulle):
+\[
+s m V(s) = - \beta V(s) + F_w(s) - F_L(s)
+\]
+\[
+V(s) = \dfrac{1}{ms + \beta} [ F_W(s) - F_L(s)]
+\]
+\begin{equation}\label{eq:cruise04}
+  V(s) = \dfrac{1}{ms + \beta} F_W(s) - \dfrac{1}{ms + \beta} F_L(s)
+\end{equation}
+Mettendo insieme le equazioni~\ref{eq:cruise01} e \ref{eq:cruise04} e
+tenendo conto delle considerazioni fatte in precedenza, si ottiene lo
+schema a blocchi in figura~\ref{fig:cruisecontrol01}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.25]{./images/cruisecontrol01}
+    \caption{Schema a blocchi del Cruise
+      Control}\label{fig:cruisecontrol01}
+  \end{center}
+\end{figure}
+Si noti che lo schema in figura~\ref{fig:cruisecontrol01} corrisponde
+al tipico schema di controllo a retroazione: \`e stato anche aggiunto
+il disturbo $d_T$ sul trasduttore di misura e l'attuatore \`e dato
+dalla serie del motore e del cambio. La funzione di trasferimento
+$R(s)$ rappresenta il controllore.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.25]{./images/cruisecontrol02}
+    \caption{Schema a blocchi del Cruise
+      Control}\label{fig:cruisecontrol02}
+  \end{center}
+\end{figure}
+Portando il blocco ``trasduttore di uscita'' a monte ed a valle del
+nodo sommatore della retroazione, si ha lo schema in
+figura~\ref{fig:cruisecontrol02}. Tenendo conto che:
+\[
+\dfrac{1}{R_w} \cdot R_w = 1
+\]
+e posto
+\begin{equation}\label{eq:cruise05}
+  G(s) = \dfrac{\dfrac{k_a \rho}{R_w^2}}{1 + s \tau_a} \cdot
+  \dfrac{1}{ms + \beta}
+\end{equation}
+dallo schema in figura~\ref{fig:cruisecontrol02} si evince
+immediatamente lo schema studiato per i sistemi di controllo mostrato
+in figura~\ref{fig:cruisecontrol03}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.25]{./images/cruisecontrol03}
+    \caption{Schema a blocchi del Cruise
+      Control}\label{fig:cruisecontrol03}
+  \end{center}
+\end{figure}
+
+Si noti che per il cambio, caratterizzato dalla relazione $T_w = \rho
+T_e$, si pu\`o ricavare la relazione considerando due dischi di raggi
+diversi, mostrati in figura~\ref{fig:cruisecontrol04}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.25]{./images/cruisecontrol04}
+    \caption{Dischi}\label{fig:cruisecontrol04}
+  \end{center}
+\end{figure}
+\[
+\overline{v} = \omega_1 R_1 = \omega_2 R_2 \Rightarrow
+\dfrac{\omega_1}{\omega_2} = \dfrac{R_2}{R_1}
+\]
+Assumento uguale potenza
+\[
+T_1 \omega_1 = T_2 \omega_2
+\]
+si ricava
+\begin{equation}\label{eq:cruise06}
+  T_2 = \dfrac{\omega_1}{\omega_2} T_1 = \dfrac{R_2}{R_1} T_1 = \rho T_1
+\end{equation}
+dove $\rho$ \`e il rapporto dei raggi. Il disco 1 ruota alla stessa
+velocit\`a angolare del motore $(T_1 = T_e)$ e il disco 2 a quella delle
+ruote $(T_2 = T_w)$ e quindi dall'equazione~\ref{eq:cruise06} si ha
+\[
+T_w = \rho \cdot T_e
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Margine di guadagno}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{./tex/schemaABlocchiLs}
 Si supponga che la funzione $L(s)$, mostrata in figura
 \ref{fig:schemaABlocchiLs}, abbia guadagno positivo e possieda solo

@@ -8,4 +8,8 @@
 *.idx
 *.ilg
 *.ind
+*.dvi
+*.idv
+*.lg
+appunti_sistemi/*
 devel.tex
