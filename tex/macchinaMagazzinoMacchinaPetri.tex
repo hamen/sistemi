@@ -26,28 +26,25 @@
   edge [pre, bend left] (pi1)
   edge [post] (pw1);
 
-  \node [transition,label=below:$t_{12}$] (t12) [below of=pi1,yshift=-15mm] {}
+  \node [transition,label=below:$t_{12}$] (t12) [below of=pi1,yshift=-15mm]{}
   edge [pre, bend left] (pw1)
   edge [post, bend right] (pb1);
 
-  \node [transition] (tm1) [below left of=pm1]{}
-  edge [post, bend left] (pm1)
-  edge [pre, bend right] (pm2);
-  
-  \node [transition,label=right:$t_{13}$] (t13) [below right of=pi1] {}
+  \node [transition,label=left:$t_{13}$] (t13) [below right of=pi1] {}
   edge [pre] (pb1)
+  edge [pre] (pm2)
+  edge [post] (pm1)
   edge [post, bend right] (pi1);
   \end{scope}
 
   \begin{scope}[xshift=3cm]
   % MACCHINA
-    \node [transition,label=left:$t_{21}$] (t21) [below left of=pi2]{}
+    \node [transition,label=right:$t_{21}$] (t21) [below left of=pi2]{}
+    edge [pre] (pm1)
     edge [pre, bend left] (pi2)
+    edge [post] (pm2)
     edge [post] (pw2);
     
-  \node [transition] (tm2) [below right of=pm1] {}
-  edge [post, bend left] (pm2)
-  edge [pre, bend right] (pm1);
   \end{scope}
   
   \begin{scope}[xshift=6cm]
@@ -55,7 +52,7 @@
     edge [pre, bend left] (pw2)
     edge [post, bend right] (pb2);
     
-    \node [transition,label=left:$t_{23}$] (t23) [below right of=pi2] {}
+    \node [transition,label=right:$t_{23}$] (t23) [below right of=pi2] {}
     edge [pre] (pb2)
     edge [post, bend right] (pi2);
   \end{scope}

@@ -4950,7 +4950,7 @@ P/T) \`e un grafo bipartito orientato e pesato di un sistema ad eventi
 discreti. Una rete di Petri ha dei {\bo nodi posti}, dei 
 {\bo nodi transizioni} e degli {\bo archi diretti} che connettono
 posti e transizioni. Possono esserci archi tra posti e transizioni, ma
-non tra posti e posti o transizioni e transizioni. 
+non tra posti e posti o tra transizioni e transizioni. 
 
 \section{Definizione formale}
 Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
@@ -4967,7 +4967,8 @@ Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
 \subsection{Posti}
 I posti possono contenere un certo numero di {\em
   token}\index{Token}\index{Gettone} o gettoni. Una distribuzione di
-token sull'insieme dei posti della rete \`e detta marcatura.
+token sull'insieme dei posti della rete \`e detta {\em
+  marcatura}\index{Marcatura}. 
 Il numero totale di token
 {\em non \`e conservativo}: una transizione $t_x$ pu\`o portare un generico
 posto $p_n$ a perdere $k$ token e un generico posto $p_m$ a guadagnare
@@ -5004,7 +5005,7 @@ le limitazioni imposte dai token:
 Pre(\cdot,t) = 0
 \]
 e l'equazione \ref{eq:transizioneAbilitata} \`e sempre verificata.
-Questo genere di transizioniportano la rete di Petri ad avere un
+Questo genere di transizioni portano la rete di Petri ad avere un
 vettore di marcatura potenzialmente sempre diverso: una rete di
 Petri di questo tipo ha, quindi, un numero illimitato di stati; 
 
@@ -5035,8 +5036,8 @@ transizioni.
 
 \subsection{Vettore marcatura}\index{Vettore marcatura}
 Il vettore marcatura \`e lo {\em stato} della rete di Petri. Indica
-quanti token sono contenuti in ogni posto. \`E un vettore colonna di
-interi non negativi:
+quanti token sono contenuti in ogni posto della rete. \`E un vettore
+colonna di interi non negativi:
 \[
 M = 
  \begin{bmatrix}
@@ -5051,15 +5052,14 @@ Una marcatura \`e una funzione $M : P \rightarrow N$ che assegna ad
 ogni posto un numero intero non negativo di gettoni.
 
 Una marcatura $M_0$ indica una rete $N$ detta rete marcata ed indicata
-come $(N,M_0)$.
+come $(N,M_0)$. Tipicamente, con $M_0$ si indica la marcatura iniziale
+della rete.
 
 \subsection{Matrice di Pre-incidenza}
 \`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
 pari al numero di transizioni. Indica il peso degli archi che
-collegano posti e transizioni. 
-
-Dal punto di vista grafico, la matrice di pre-incidenza ``muove''
-dal posto alla transizione.
+collegano posti e transizioni. Dal punto di vista grafico, la matrice
+di pre-incidenza ``muove'' dal posto alla transizione.
 
 \[
 Pre =
@@ -5085,10 +5085,9 @@ Pre =
 \subsection{Matrice di Post-incidenza}
 \`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
 pari al numero di transizioni. Indica la quantit\`a di token che il
-posto $p_n$ guadagna allo ``scattare'' della transizioni $t_m$.
-
-Dal punto di vista grafico, la matrice di post-incidenza ``muove''
-dalla transizione al posto.
+posto $p_n$ guadagna allo ``scattare'' della transizioni $t_m$. Dal
+punto di vista grafico, la matrice di post-incidenza ``muove'' dalla
+transizione al posto. 
 \[
 Post =
 \begin{array}{c}
@@ -5111,9 +5110,11 @@ Post =
 \]
 
 \subsection{Sequenza di scatto e vettore di scatto}
-La sequenza di scatto abilitata $\sigma$\`e una sequenza di
-transizioni $t_n$ tali che ad ogni scatto si giunga ad una marcatura
-che abilita la successiva transizione della sequenza. 
+\begin{definizione}
+  La sequenza di scatto abilitata $\sigma$ \`e una sequenza di
+  transizioni $t_n$ tali che ad ogni scatto si giunga ad una marcatura
+  che abilita la successiva transizione della sequenza.
+\end{definizione}
 L'esistenza di una sequenza di scatto che da $M_0$ ci porti ad una
 marcatura $M_r$ rende $M_r$ una {\em marcatura
   raggiungibile}\index{Marcatura raggiungibile}. L'insieme di
@@ -5127,8 +5128,8 @@ occorrenze di ogni transizione in una specifica sequenza di
 scatto $\sigma$. Tipicamente \`e un vettore colonna, di $m$ elementi
 quante sono le transizioni $t$. 
 
-Il vettore di scatto ci porta all'equazione di stato delle reti di
-Petri\index{Equazione dei stato dell reti di Petri}:
+Il vettore di scatto ci porta all'{\em equazione di stato delle reti
+  di Petri}\index{Equazione dei stato dell reti di Petri}:
 \begin{equation}
   M_r = M_0 + C \cdot \sigma
 \end{equation}
@@ -5140,11 +5141,11 @@ dove
 \item $\sigma$ \`e il vettore di scatto
 \item $C \cdot \sigma$ \`e il prodotto riga x colonna
 \end{itemize}
-Questa relazione vale se $M_r$ \`e raggiungibile da $M_0$ scattando la
-sequenza di transizioni $\sigma$.
+Questa relazione vale se $M_r$ \`e raggiungibile da $M_0$ allo
+scattare della la sequenza di transizioni $\sigma$.
 
 \section{Reti di Petri elementari}
-La figura \ref{fig:sequenzalitaPetri} mostra una rete di Petri in cui
+La figura \ref{fig:sequenzialitaPetri} mostra una rete di Petri in cui
 gli eventi si succedono in un ben determinato ordine.
 \input{./tex/sequenzialitaPetri}
 La figura \ref{fig:parallelismoSincronizzazionePetri} mostra un
@@ -5160,16 +5161,19 @@ verificarsi per proter proseguire.
 La figura \ref{fig:sceltaPetri} mostra una ``scelta'': un solo evento
 tra i tanti possibili pu\`o verificarsi, poich\`e lo scatto di una
 transizione disabilita le altre. Il posto iniziale a pi\`u transizioni
-determina il conflitto strutturale.
+in uscita determina il conflitto strutturale.
 
 \section{Reti di Petri comuni}
 \subsection{Magazzino multiclasse - Petri}\index{Magazzino
   multiclasse Petri}
 \input{./tex/magazzinoMulticlassePetri}
 La figura \ref{fig:magazzinoMulticlassePetri} mostra un magazzino
-multiclasse rappresentato con una rete di Petri. La rete \`e
-costituita da 3 posti e 4 transitioni.
-Le marcature nei posti sono le seguenti:
+multiclasse rappresentato con una rete di Petri. Questo tipo di
+magazzino gestisce due tipi diversi di pezzi; tiene traccia di quanti
+pezzi sono contenuti nel magazzino e di che tipo di pezzi si tratta;
+tiene traccia del numero di posti ancora disponibili nel magazzino. La
+rete \`e costituita da 3 posti e 4 transitioni. Le marcature nei posti
+sono le seguenti: 
 \begin{itemize}
 \item $M_{p_1}$ indica il numero di posti liberi nel magazzino
 \item $M_{p_2}$ indica il numero di pezzi di tipo 2
@@ -5226,12 +5230,29 @@ La figura \ref{fig:magazzinoPetri} un magazzino di capacit\`a finita:
 \subsection{Macchina - Magazzino - Macchina}
 \input{./tex/macchinaMagazzinoMacchinaPetri}
 La figura \ref{fig:macchinaMagazzinoMacchinaPetri} mostra una rete
-complessa, costituita da tre reti legate da due transizioni comuni.
+complessa, costituita da tre reti legate da due transizioni comuni. Un
+possibile scenario \`e il seguente:
+\begin{itemize}
+\item $P_{i_1}$ la macchina 1 \`e libera
+\item $P_{w_1}$ la macchina 1 passa in lavorazione
+\item $P_{b_1}$ la macchina 1 \`e occupata
+\item $t_{13}$ se la macchina 1 \`e occupata e c'\`e spazio in
+  magazzino, un pezzo viene depositato in magazzino e la macchina 1
+  torna libera
+\item $P_{m_1}$ sono i pezzi presenti in magazzino
+\item $P_{i_2}$ la macchina 2 \`e libera
+\item $t_{21}$ se la macchina 2 \`e libera e nel magazzino c'\`e
+  almeno un pezzo, la macchina 2 preleva un pezzo e passa in
+  lavorazione
+\item $P_{m_2}$ mostra i posti liberi nel magazzino: uno \`e stato
+  appena liberato dalla transizione $t_{21}$ e parteciper\`a
+  all'abilitazione della transizione $t_{13}$
+\end{itemize}
 
 \subsection{Macchina non affidabile}
 \input{./tex/macchinaNonAffidabilePetri}
 La figura \ref{fig:macchinaNonAffidabilePetri} mostra la rete di Petri
-una macchina non affidabile. La rete e` piu` complessa di una macchina
+una macchina non affidabile. La rete \`e pi\`u complessa di una macchina
 normale:
 \begin{itemize}
 \item $P_1$: macchina ferma
