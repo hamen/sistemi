@@ -12,15 +12,15 @@
   \node [place,label=left:$P_1$] (p1)      {};
   \node [place,label=right:$P_2$] (p2) [below of=p1,yshift=-1.3cm] {};
   \node [place,label=left:$P_3$] (p3) [below of=p2,yshift=-1.3cm] {};
-  \node [place,label=left:$P_4$] (p4) [left of=p2] {};
+  \node [place,label=left:$P_4$,tokens=2] (p4) [left of=p2] {};
 
-  \node [place,label=below:$P_9$] (p9) [right of=p2] {};
+  \node [place,label=below:$P_9$,tokens=1] (p9) [right of=p2] {};
   \node [place,label=below:$P_{10}$] (p10) [right of=p9,xshift=0.5cm] {};
 
   \node [place,label=right:$P_6$] (p6) [right of=p10] {};
   \node [place,label=right:$P_5$] (p5) [above of=p6,yshift=1.3cm] {};
   \node [place,label=right:$P_7$] (p7) [below of=p6,yshift=-1.3cm] {};
-  \node [place,label=right:$P_8$] (p8) [right of=p6] {};
+  \node [place,label=right:$P_8$,tokens=2] (p8) [right of=p6] {};
   
   \node [transition,label=above:$t_1$] (t1) [above of=p1] {}
   edge [post] (p1);
