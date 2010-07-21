@@ -4936,22 +4936,25 @@ evento comune.
 Dati $k$ automi da $N$ stati, l'automa composizione concorrente avr\`a
 $k^N$ stati. \`E palese la difficolt\`a di utilizzare questo genere di
 strumento per l'analisi di sistemi complessi.
-
+%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Reti di Petri}
+%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{./figures/petri.png}
     \caption{Esempio di una rete di Petri}\label{fig:petri01}
   \end{center}
 \end{figure} 
-
-Una rete di Petri (conosciuta anche come rete posto/transizione o rete
-P/T) \`e un grafo bipartito orientato e pesato di un sistema ad eventi
-discreti. Una rete di Petri ha dei {\bo nodi posti}, dei 
-{\bo nodi transizioni} e degli {\bo archi diretti} che connettono
-posti e transizioni. Possono esserci archi tra posti e transizioni, ma
-non tra posti e posti o tra transizioni e transizioni. 
-
+\begin{definizione}
+  Una rete di Petri, dal nome del matematico ed informatico tedesco Carl
+  Adam Petri (Lipsia, 12 luglio 1926 - 2 luglio 2010), conosciuta anche
+  come rete posto/transizione o rete P/T, \`e un grafo bipartito
+  orientato e pesato di un sistema ad eventi discreti. Una rete di Petri
+  ha dei {\bo nodi posti}, dei  {\bo nodi transizioni} e degli {\bo
+    archi diretti} che connettono posti e transizioni. Possono esserci
+  archi tra posti e transizioni, ma non tra posti e posti o tra
+  transizioni e transizioni.
+\end{definizione}
 \section{Definizione formale}
 Una rete di Petri pu\`o essere una tupla $\{ P, T, M, Post, Pre \}$ dove:
 \begin{itemize}
@@ -4975,11 +4978,13 @@ posto $p_n$ a perdere $k$ token e un generico posto $p_m$ a guadagnare
 $z$ token.
 \subsection{Transizioni}
 Le transizioni agiscono sui token in ingresso secondo una regola, detta
-regola di scatto (in inglese firing). Una transizione \`e {\em
-  abilitata} se pu\`o scattare, cio\`e se ci sono token in ogni posto
-di input, cio\`e se il vettore di marcatura \`e ``maggiore o uguale''
-della colonna associata alla transizione nella matrice di
-Pre-incidenza:
+{\bo regola di scatto}\index{Regola di scatto} (in inglese
+{\em firing}\index{Firing}). Una transizione \`e {\em 
+  abilitata} se pu\`o scattare, cio\`e se ci sono sufficienti token in
+ogni posto di input, cio\`e se il vettore di marcatura
+(\ref{vettoreDiMarcatura}) \`e ``maggiore o uguale'' della colonna
+associata alla transizione nella matrice di Pre-incidenza
+(\ref{matricePreincidenza}): 
 \begin{equation}\label{eq:transizioneAbilitata}
 M \geq Pre(\cdot,t)
 \end{equation}
@@ -4988,9 +4993,10 @@ posti di input, esegue dei task e posiziona un numero specificato di
 token in ognuno dei suoi posti di uscita. Pi\`u formalmente, lo scatto
 di $t$ rimuove $Pre(p_n,t)$ token da ogni posto $p_n$ ad essa connesso
 e aggiunge $Post(p_n,t)$ in ogni posto $p_n$ ad essa connesso. Si
-arriva, quindi, ad una nuova marcatura $M'$:
+arriva, quindi, ad una nuova marcatura $M_r$, detta ``marcatura
+raggiunta'':
 \begin{equation}\label{eq:marcaturaPostScatto}
-  M' = M - Pre(\cdot,t) + Post(\cdot,t) = M + C(\cdot,t)
+  M_r = M - Pre(\cdot,t) + Post(\cdot,t) = M + C(\cdot,t)
 \end{equation}
 dove $C$ \`e la matrice di incidenza\index{Matrice di incidenza}:
 \[
@@ -5005,27 +5011,32 @@ le limitazioni imposte dai token:
 Pre(\cdot,t) = 0
 \]
 e l'equazione \ref{eq:transizioneAbilitata} \`e sempre verificata.
-Questo genere di transizioni portano la rete di Petri ad avere un
-vettore di marcatura potenzialmente sempre diverso: una rete di
-Petri di questo tipo ha, quindi, un numero illimitato di stati; 
+Questo genere di transizioni porta la rete di Petri ad avere un
+vettore di marcatura potenzialmente sempre diverso:
+\begin{definizione}
+  Una rete di Petri che contiene una transizione sorgente ha un numero
+  potenzialmente illimitato di stati.
+\end{definizione}
 
 \subsubsection{Transizioni in conflitto}
 Le transizioni in conflitto sono transizioni abilitate che in caso di
-``scatto'' si disabilitano l'un l'altra. Per definizione, due
-transizioni si dicono in conflitto se sono verificate tutte e tre
-queste condizioni:
-\[
-\left \{
-\begin{array}{l}
-  M \geq Pre(\cdot, t_i)\\
-  M \geq Pre(\cdot, t_j)\\
-  M \ngeq Pre(\cdot, t_i) + Pre(\cdot, t_j)
-\end{array}
-\right .
-\]
+``scatto'' si disabilitano l'un l'altra.
+\begin{definizione}
+ Due transizioni si dicono in conflitto se sono verificate
+ contemporaneamente le seguenti tre condizioni: 
+ \[
+ \left \{
+ \begin{array}{l}
+   M \geq Pre(\cdot, t_i)\\
+   M \geq Pre(\cdot, t_j)\\
+   M \ngeq Pre(\cdot, t_i) + Pre(\cdot, t_j)
+ \end{array}
+ \right .
+ \]
 cio\`e il vettore di marcatura \`e maggiore del numero di token nella
-colonna $t_i$ (o $t_j$) della matrice di pre-incidenza. Per
-``maggiore'' si intende un confronto elemento per
+colonna $t_i$ (o $t_j$) della matrice di pre-incidenza.
+\end{definizione}
+Per ``maggiore'' si intende un confronto elemento per
 elemento, tra il vettore marcatura (una colonna) e la colonna $t_i$ (o
 $t_j$) della matrice di pre-incidenza. Il vettore
 marcatura \`e maggiore solo se tutti i suoi elementi confrontati sono
@@ -5034,10 +5045,11 @@ abilita entrambe le transizioni, ma tale marcatura non contiene un
 numero sufficiente di token per consentire lo scatto di entrambe le
 transizioni. 
 
-\subsection{Vettore marcatura}\index{Vettore marcatura}
-Il vettore marcatura \`e lo {\em stato} della rete di Petri. Indica
-quanti token sono contenuti in ogni posto della rete. \`E un vettore
-colonna di interi non negativi:
+\subsection{Vettore marcatura}\index{Vettore
+  marcatura}\label{vettoreDiMarcatura} 
+Il vettore marcatura definisce lo {\em stato} della rete di
+Petri. Indica quanti token sono contenuti in ogni posto della
+rete. \`E un vettore colonna di interi non negativi:
 \[
 M = 
  \begin{bmatrix}
@@ -5049,13 +5061,10 @@ M =
  M = [ k \; ... \; n]^T
 \]
 Una marcatura \`e una funzione $M : P \rightarrow N$ che assegna ad
-ogni posto un numero intero non negativo di gettoni.
+ogni posto un numero intero non negativo di gettoni. Una marcatura
+$M_0$ indica tipicamente la marcatura iniziale della rete. 
 
-Una marcatura $M_0$ indica una rete $N$ detta rete marcata ed indicata
-come $(N,M_0)$. Tipicamente, con $M_0$ si indica la marcatura iniziale
-della rete.
-
-\subsection{Matrice di Pre-incidenza}
+\subsection{Matrice di Pre-incidenza}\label{matricePreincidenza}
 \`E una matrice $n \times m$, con $n$ pari al numero di posti ed $m$
 pari al numero di transizioni. Indica il peso degli archi che
 collegano posti e transizioni. Dal punto di vista grafico, la matrice
@@ -5112,8 +5121,9 @@ Post =
 \subsection{Sequenza di scatto e vettore di scatto}
 \begin{definizione}
   La sequenza di scatto abilitata $\sigma$ \`e una sequenza di
-  transizioni $t_n$ tali che ad ogni scatto si giunga ad una marcatura
-  che abilita la successiva transizione della sequenza.
+  transizioni $t_l, t_m, t_n, ..., t_z$ tali che ad ogni scatto si
+  giunga ad una marcatura che abilita la successiva transizione della
+  sequenza. 
 \end{definizione}
 L'esistenza di una sequenza di scatto che da $M_0$ ci porti ad una
 marcatura $M_r$ rende $M_r$ una {\em marcatura
@@ -5123,26 +5133,26 @@ possono raggiungere, partendo da $M_0$. L'insieme delle sequenze di
 scatto abilitate da $M_0$ \`e detto {\em
   comportamento}\index{Comportamento} (o linguaggio). 
 
-Il vettore di scatto associato a $\sigma$ rappresenta il numero di
-occorrenze di ogni transizione in una specifica sequenza di
-scatto $\sigma$. Tipicamente \`e un vettore colonna, di $m$ elementi
-quante sono le transizioni $t$. 
+Il vettore di scatto $\bar{\sigma}$ associato a $\sigma$ rappresenta
+il numero di occorrenze di ogni transizione in una specifica sequenza
+di scatto $\sigma$. Tipicamente \`e un vettore colonna, di $m$
+elementi quante sono le transizioni $t$. 
 
 Il vettore di scatto ci porta all'{\em equazione di stato delle reti
   di Petri}\index{Equazione dei stato dell reti di Petri}:
 \begin{equation}
-  M_r = M_0 + C \cdot \sigma
+  M_r = M_0 + C \cdot \bar{\sigma}
 \end{equation}
 dove
 \begin{itemize}
 \item $M_r$ \`e la marcatura che si vuole raggiungere
 \item $M_0$ \`e la marcatura iniziale
 \item $C$ \`e la matrice di incidenza
-\item $\sigma$ \`e il vettore di scatto
-\item $C \cdot \sigma$ \`e il prodotto riga x colonna
+\item $\bar{\sigma}$ \`e il vettore di scatto
+\item $C \cdot \bar{\sigma}$ \`e il prodotto riga x colonna
 \end{itemize}
 Questa relazione vale se $M_r$ \`e raggiungibile da $M_0$ allo
-scattare della la sequenza di transizioni $\sigma$.
+scattare della sequenza di transizioni $\sigma$.
 
 \section{Reti di Petri elementari}
 La figura \ref{fig:sequenzialitaPetri} mostra una rete di Petri in cui
@@ -5284,7 +5294,38 @@ una citt\`a reale e da una situazione concreta.
 Ci si pone la questione se sia possibile con una passeggiata seguire
 un percorso che attraversa ogni ponte una e una volta sola e tornare
 al punto di partenza.
-  
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/pontiKonigsberg00}
+    \caption{Ponti di Konigsberg}\label{fig:konigsberg_bridges00}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/pontiKonigsberg01}
+    \caption{Ponti di Konigsberg}\label{fig:pontiKonigsberg01}
+  \end{center}
+\end{figure}
+Quindi, partendo da una qualsiasi delle quattro sezioni (quartieri)
+$A$, $B$, $C$ e $D$ \`e possibile ritornarvi passando una e una sola
+volta per ciascuno dei 7 ponti che collegano i diversi quartieri?
+
+La figura~\ref{fig:pontiKonigsberg01} mostra la rete di Petri del
+problema: ogni quartiere \`e indicato con un posto; se scatta la
+transizione $t_{AB}$ significa che ho percorso uno dei due ponti che
+collegano $A$ e $B$, nel verso che va da $A$ a $B$. I posti $P_{AB}$,
+$P_{BC}$, $P_{AD}$, $P_{BD}$ e $P_{CD}$ sono posti monitor che servono
+a limitare, con le rispettive marcature, il numero di ponti che
+collegano le diverse sezioni.
+
+La marcatura iniziale, assunto di essere in $A$, \`e:
+\[
+M_0^T = [ 1 0 0 0 2 2 1 1 1 ]
+\]
+
+
+
+
 \subsection{Mutua esclusione}
 Una risorsa \`e disponibile solo ad una operazione delle $n$ presenti
 nella rete.
@@ -5335,7 +5376,7 @@ scatto seguente \`e possibile:
   \underbrace{t_{21} \; t_{22}}_\text{$op_2$}\; &
   \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; &
   \underbrace{t_{11} \; t_{12}}_\text{$op_1$}\; \\
-  M(p_N) &
+  M(P_N) &
   1 &
   2 &
   3 &
@@ -5346,7 +5387,7 @@ scatto seguente \`e possibile:
   2
 \end{array}
 \]
-Si noti che essendo $N = 3$, quando $M(p_N) < 3$ (cio\`e non si sono
+Si noti che essendo $N = 3$, quando $M(P_N) < 3$ (cio\`e non si sono
 avute almeno 3 $op_1$ consecutive) la $t_{21}$ (cio\`e l'inizio di
 $op_2$) non \`e abilitata.
 
@@ -5355,13 +5396,13 @@ abilitare le $op_1$ solo dopo aver avuto almeno $M$ volte $op_2$. La
 figura \ref{fig:sequenzeRipetutePetri1} ne mostra la realizzazione.
 \input{./tex/sequenzeRipetuteAbilitantiPetri02}
 
-La transizione $t_{11}$ non \`e abilitata se $M(p_M) < M$.
+La transizione $t_{11}$ non \`e abilitata se $M(P_M) < M$.
 Il ruolo dei posti $P_N$ e $P_M$ \`e di contatore da zero ad $N$ ed
 $M$, rispettivamente. Per sequenze di $op_1$ (o $op_2$) superiori ad
-$N$ (o $M$) si ha comunque $M(p_N) = N$ e $M(p_M) = M$, facendo
+$N$ (o $M$) si ha comunque $M(P_N) = N$ e $M(P_M) = M$, facendo
 scattare $t_N$ e $t_M$.
 
-\subsection{Rete di Petri di un ciclo for}
+\subsection{Ciclo for}
 Vogliamo costruire una RP che descriva la ripetizione di una azione
 $n$ volte consecutive prima di svolgere una successiva operazione. Una
 possibile implementazione \`e mostrata in figura
@@ -5383,8 +5424,12 @@ possibile implementazione \`e mostrata in figura
 Si noti che l'arco da $P_1$ a $t_4$ serve ad eliminare il token da
 $P_1$ (disabilitare una nuova iterazione) quando il ciclo finisce.
 
+La marcatura iniziale della RP \`e:
+\[
+M_0 = [ 0\; 0\; 0\; n\; 1]
+\]
 \subsection{Incrocio semaforico}
-Si consideri un incrocio costituito da fue flussi di attraversamento:
+Si consideri un incrocio costituito da due flussi di attraversamento:
 Nord-Sud ed Est-Ovest. Il semaforo consente un flusso per volta e un
 numero massimo di due vetture che possono occupuare l'incrocio.
 \input{./tex/incrocioPetri}
@@ -5488,10 +5533,16 @@ Per la fase di discesa, la rete \`e praticamente la stessa, ma ordinata
 in maniera inversa.
 
 \subsection{Carroponte di Petri}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/carropontepetri02}
+    \caption{Carroponte}\label{fig:carropontePetri02}
+  \end{center}
+\end{figure} 
 \input{./tex/carropontePetri}
 La figura \ref{fig:carropontePetri} mostra la rete di Petri di un
 carroponte. Il carroponte ha 4 postazioni $P_1$, $P_2$, $P_3$ e
-$P_4$; pu\`o scendere, salire, muovere a sinistra e destra.  Il
+$P_4$; pu\`o scendere, salire, muovere a sinistra e destra. Il
 sensore $P_s$ \`e alto quando il carroponte \`e vicino alla 
 sinistra di una postazione; il sensore $P_d$ \`e alto quando \`e
 vicino alla destra.
@@ -5514,10 +5565,55 @@ vicino alla destra.
 \item $t_9$: $c = p$
 \end{itemize}
 
+\subsection{Attraversamento di un fiume}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/attraversamentoFiume01}
+    \caption{Attraversamento fiume}\label{fig:attraversamentoFiume01}
+  \end{center}
+\end{figure} 
+I due bambini, indicati con lo ``sticky man'' e le tre guardie,
+indicate con i rettangoli, devono attraversare il fiume dalla sponda
+$S_A$ a quella $S_B$, figura~\ref{fig:attraversamentoFiume01}, usando
+una sola barca. La barca pu\`o portare per ogni viaggio ``uno o due
+bambini'' o ``una sola guardia''. Qual \`e la giusta sequenza di
+viaggio per raggiungere l'obiettivo?
+
+\begin{itemize}
+\item $M(P_1)$ Numero di bambini sulla sponda $S_A$
+\item $M(P_2)$ Numero di guardie sulla sponda $S_A$
+\item $M(P_3)$ Numero di bambini sulla sponda $S_B$
+\item $M(P_4)$ Numero di guardie sulla sponda $S_B$
+\item $M(P_5)$ Barca sulla sponda $S_A$
+\item $M(P_6)$ Barca sulla sponda $S_B$
+\end{itemize}
+
+\begin{itemize}
+\item $t_1$ 2 bambini si muovono dalla sponda $S_A$ alla $S_B$ 
+\item $t_2$ 1 bambino si muove dalla sponda $S_A$ alla $S_B$ 
+\item $t_3$ 1 guardia si muove dalla sponda $S_A$ alla $S_B$ 
+\item $t_4$ 2 bambini si muovono dalla sponda $S_B$ alla $S_A$
+\item $t_5$ 1 bambino si muove dalla sponda $S_B$ alla $S_A$
+\item $t_6$ 1 guardia si muove dalla sponda $S_B$ alla $S_A$
+\end{itemize}
+
+La sequenza di scatto si basa sull'idea di utilizzare i bambini come
+``autisti'' della barca, per consentire alle guardie di attraversare
+il fiume:
+\[
+\sigma = 1 \; 5\; 3\; 5\; 1 \; 5\; 3\; 5\; 1 \; 5\; 3\; 5\; 1
+\]
+Il vettore di scatto \`e:
+\[
+\overline{\sigma^T} = [4\; 0\; 3\; 0\; 6\; 0]
+\]
+
 \section{Grafo di raggiungibilit\`a}
-Il grafo di raggiungibilit\`a di una rete marcata $\langle N, M_0
-\rangle$ \`e grafo in cui ogni nodo corrisponde a una marcatura
-raggiungibile e ogni arco corrisponde ad una transizione.
+\begin{definizione}
+  Il grafo di raggiungibilit\`a di una rete marcata $\langle N, M_0
+  \rangle$ \`e un grafo in cui ogni nodo corrisponde ad una marcatura
+  raggiungibile ed ogni arco corrisponde ad una transizione.
+\end{definizione}
 
 Se la rete ha infiniti stati, il grafo di raggiungibilit\`a \`e
 infinito. Si avr\`a un grafo di copertura che compatta le marcature
@@ -5553,25 +5649,27 @@ tutte (e sole) le sequenze di transizioni che possono scattare in una
 rete.
 
 \subsection{Albero e grafo di copertura}
+Da integrare.
 
 \section{GMEC}
 Le {\em Generalized Mutual Exclusion Constraints}\index{GMEC},
-vincoli di mutua esclusione generalizzate, consentono di descrivere
-in modo naturale una classe importante di specifiche statiche, tipiche
-del controllo di processi composti da pi\`u sottosistemi concorrenti
-che accedono in parallelo a un numero limitato di risorse.
+o ``vincoli di mutua esclusione generalizzata'', consentono di
+descrivere in modo naturale una classe importante di specifiche
+statiche, tipiche del controllo di processi composti da pi\`u
+sottosistemi concorrenti che accedono in parallelo a un numero
+limitato di risorse. 
 
 \subsection{Mutua esclusione e GMEC}
 Supponiamo di avere due condizioni logiche $A_1$ e $A_2$. Esse sono in
 mutua esclusione se non possono verificarsi entrambe
 contemporaneamente.
 \[
-M(p_1) = 1
+M(P_1) = 1
 \]
 \[
-M(p_2) = 1
+M(P_2) = 1
 \]
-sono le marcature che indicano le condizioni logiche vere
+sono le marcature che indicano le condizioni logiche vere,
 rispettivamente di $A_1$ e $A_2$. Il vincolo
 \begin{equation}\label{eq:mutuaEsclusioneGMEC}
 M(p_1) + M(p_2) \leq 1
@@ -5579,37 +5677,38 @@ M(p_1) + M(p_2) \leq 1
 rappresenta la specifica che le due condizioni non debbano mai essere
 contemporaneamente vere, quindi \`e vietata la marcatura
 \[
-M(p_1) = M(p_2) = 1
+M(P_1) = M(P_2) = 1
 \]
-Se la rete ha $m$ posti e
+Se la rete ha $m$ posti,
 \[
 \begin{array}{cccccccc}
-  w = & [ & 1 & 1 & 0 & ... & 0 & ]^T\\
-  M = & [ & M(p_1) & M(p_2) & M(p_3) & ... & M(p_m) & ]^T
+  \omega = & [ & 1 & 1 & 0 & ... & 0 & ]^T\\
+  M = & [ & M(P_1) & M(P_2) & M(P_3) & ... & M(P_m) & ]^T
 \end{array}
 \]
-dove $w_i$ indica il numero di token del posto $i$-simo per cui la
-condizione \`e vera. La condizione diventa, quindi,
+dove $\omega_i$ indica il numero di token del posto $i$-simo per cui la
+condizione \`e vera, cio\`e ci sar\`a un 1 per ogni posto $P_n$
+coivolto nella GMEC. La condizione diventa, quindi,
 \[
-M(p_1) + M(p_2) = \omega^T M
+M(P_1) + M(P_2) = \omega^T M
 \]
-e posto $k = 1$, la \ref{eq:mutuaEsclusioneGMEC} pu\`o anche
+e considerato che $k = 1$, la \ref{eq:mutuaEsclusioneGMEC} pu\`o anche
 scriversi
-\[
-\omega^T M \leq k
-\]
+\begin{equation}
+  \omega^T M \leq k
+\end{equation}
 In generale
 \[
 \begin{array}{cccccccc}
   w = & [ & w_1 & w_2 & w_3 & ... & w_m & ]^T\\
-  w^T M = & [ & w_1\;M(p_1) & w_2\;M(p_2) & w_3\;M(p_3) & ... & w_m\;(p_m) & ]^T
+  w^T M = & [ & w_1\;M(P_1) & w_2\;M(P_2) & w_3\;M(P_3) & ... & w_m\;(P_m) & ]^T
 \end{array}
 \]
-dove $(w,k) \in \mathbb{Z}$. In questo modo \`e possibile pesare in
+dove $(\omega,k) \in \mathbb{Z}$. In questo modo \`e possibile pesare in
 maniera diversa le marcature di posti diversi.
 
 Sia $\langle N, M_0 \rangle$ una rete marcata con $m$ posti. La GMEC
-$(w,k)$ definisce un insieme di {\em marcature legali}
+$(\omega,k)$ definisce un insieme di {\em marcature legali}
 \[
 \mathcal{L}(w,k) = \{ M \in \mathbb{N}^m | w^T M \leq k \}
 \]
@@ -5648,7 +5747,7 @@ Si conclude con
 \begin{itemize}
 \item $t_7$: prelievo coppia di parti da $d$
 \end{itemize}
-Lo scenario di arricchisce di alcuni vincoli che guidano la rete di
+Lo scenario si arricchisce di alcuni vincoli che guidano la rete di
 Petri:
 \begin{itemize}
 \item il robot $r$ \`e unico e quindi pu\`o caricare una sola macchina
@@ -5659,7 +5758,7 @@ Petri:
   e la GMEC $(w_1, k_1)$ \`e:
   \[
   \begin{array}{ccccccccc}
-    w_1 = & [ & 1 & 0 & 0 & 1 & 0 & 0 & ]^T\\
+    \omega_1 = & [ & 1 & 0 & 0 & 1 & 0 & 0 & ]^T\\
     k_1 = 1
   \end{array}
   \]
@@ -5670,10 +5769,10 @@ Petri:
   \[
   M(p_5) \leq 1
   \]
-  e le GMEC $(w_{2a}, k_{2a})$ e $(w_{2b}, k_{2b})$ sono:
+  e le GMEC $(\omega_{2a}, k_{2a})$ e $(\omega_{2b}, k_{2b})$ sono:
   \[
   \begin{array}{ccccccccc}
-    w_{2a} = & [ & 0 & 1 & 0 & 0 & 0 & 0 & ]^T\\
+    \omega_{2a} = & [ & 0 & 1 & 0 & 0 & 0 & 0 & ]^T\\
     k_{2a} = 1\\
     w_{2b} = & [ & 0 & 0 & 0 & 0 & 1 & 0 & ]^T\\
     k_{2b} = 1
@@ -5685,7 +5784,7 @@ Petri:
   \[
   2M(p_3) + M(p_6) \leq x
   \]
-  e la GMEC $(w_3, k_3)$ \`e:
+  e la GMEC $(\omega_3, k_3)$ \`e:
   \[
   \begin{array}{ccccccccc}
     w_1 = & [ & 0 & 0 & 2 & 0 & 0 & 1 & ]^T\\
@@ -5707,7 +5806,7 @@ Petri:
   \end{array}
   \right .
   \]
-  e le GMEC $(w_{4a}, k_{4a})$ e $(w_{4b}, k_{4b})$ sono:
+  e le GMEC $(\omega_{4a}, k_{4a})$ e $(\omega_{4b}, k_{4b})$ sono:
   \[
   \begin{array}{ccccccccc}
     w_{4a} = & [ & 0 & 0 & 1 & 0 & 0 & -1 & ]^T\\
@@ -5725,12 +5824,12 @@ Petri:
 
 \subsection{GMEC multipla}
 Nell'esempio del job-shop, si desiderava imporre ad un processo pi\`u
-GMEC $(w_i, k_i)$ con $i = 1,\;...,\;q$. \`E possibile raccogliere
-queste GMEC in una unica GMEC multipla $(W, k)$ dove 
+GMEC $(\omega_i, k_i)$ con $i = 1,\;...,\;q$. \`E possibile raccogliere
+queste GMEC in una unica GMEC multipla $(\Omega, k)$ dove 
 
 \[
 \begin{array}{cccccccc}
-  W = & [ & w_1 & w_2 & w_3 & ... & w_q & ]^T\\
+  W = & [ & w_1 & w_2 & w_3 & ... & w_q & ]\\
 \end{array}
 \]
 dove $W$ \`e una matrice $[m \times q]$ le cui colonne sono i vettori
@@ -5756,23 +5855,23 @@ Una marcatura \`e legame per la GMEC multipla $(W,k)$ se \`e legale per ogni
 singola GMEC $(w_i, k_i)$.
 
 \section{Posti monitor}
-I posti monitor controllano che che le specifiche non vengano
+I posti monitor controllano che le specifiche non vengano
 violate. La rete in esempio si trova in una marcatura legale $M$ e lo
 scatto della transizioni $t$ porta in una marcatura $M' = M + C(\cdot,
-t)$. Il supervisore (posto monitor) dovra` permettere lo scatto di $t$
+t)$. Il supervisore (posto monitor) dovr\`a permettere lo scatto di $t$
 se $M'$ \`e legale o impedire lo scatto di $t$ se $M'$ \`e illegale.
 
-Considerata una GMEC $(w,k)$, si definisce {\em monitor}
-corrispondente a $(w,k)$ il nuovo posto $p_s$ che ha per matrice di
+Considerata una GMEC $(\omega,k)$, si definisce {\em monitor}
+corrispondente a $(\omega,k)$ il nuovo posto $p_s$ che ha per matrice di
 incidenza il vettore riga $[1 \times n]$:
 \[
 \begin{array}{cccccc}
-  C_s = & [ & C_s(t_1) & ... & C_s(t_n) & ]^T = -w^T C\\
+  C_s = & [ & C_s(t_1) & ... & C_s(t_n) & ]^T = -\omega^T C\\
 \end{array}
 \]
 e marcatura iniziale
 \[
-M_0(p_s) = k - w^T M_0
+M_0(p_s) = k - \omega^T M_0
 \]
 
 Con riferimento al job-shop, realizziamo i posti monitor. Per
@@ -5811,7 +5910,7 @@ la marcatura iniziale $M_0$:
 ed il vettore della GMEC:
 \[
 \begin{array}{ccccccccc}
-  w_1 = & [ & 1 & 0 & 0 & 1 & 0 & 0 & ]^T\\
+  \omega_1 = & [ & 1 & 0 & 0 & 1 & 0 & 0 & ]^T\\
 \end{array}
 \]
 A questo punto sfruttiamo la definizione di ``monitor'' e la sua
@@ -5829,20 +5928,20 @@ della matrice di incidenza $C$, produce un vettore riga $C_{s1}$ pari
 a:
 \[
 \begin{array}{cccccccccc}
-  C_{s1} = -w_1^T C= & [ & -1 & 1 & 0 & -1 & 1 & 0 & 0 &]\\
+  C_{s1} = -\omega_1^T C= & [ & -1 & 1 & 0 & -1 & 1 & 0 & 0 &]\\
 \end{array}
 \]
 cio\`e tale monitor ha due archi pre (verso $t_1$ e $t_4$) e due archi
 post (da $t_2$ e da $t_5$). La marcatura inizale del posto monitor
 \`e calcolata come:
 \begin{equation}\label{eq:marcaturaInizialeMonitor}
-M_0(p_s) = k - w^TM_0
+M_0(p_s) = k -\omega^TM_0
 \end{equation}
 Nel nostro caso
 \[
-M_0(p_{s1}) = k_1 - w_1^T M_0 = 1 - 0 = 1
+M_0(p_{s1}) = k_1 - \omega_1^T M_0 = 1 - 0 = 1
 \]
-Bisogner\`a iterare il procedimento e calcolare gli altri sposti
+Bisogner\`a iterare il procedimento e calcolare gli altri posti
 monitor per le rispettive GMEC.
 
 \chapter{Reti di Petri temporizzate}
@@ -5875,6 +5974,17 @@ transizione $t_i$ ha memoria solo dell'attuale abilitazione e potr\`a
 scattare solo dopo un ritardo pari a $\theta_i$ dall'istante della sua
 abilitazione.
 \end{definizione}
+Lo scatto \`e atomico, viene cio\`e considetato un'operazione
+indivisibile e ad ogni transizione viene associato un ritardo che
+corrisponde al tempo che deve trascorrere tra la sua abilitazione e il
+conseguente scatto. Se al termine del ritardo la condizione di
+abilitazione continuare a sussistere, la transizione scatta
+effettivamente.
+
+Secondo lo schema dello scatto atomico, due transitioni abilitate
+contemporaneamente e in conflitto tra loro, possono risolvere il
+conflitto grazie al ritardo: la transizione col ritardo minore scatta
+per prima.
 \begin{definizione}
   Una rete di Petri temporizzata deterministica \`e caratterizzata
   dalla struttura algebrica
@@ -5895,17 +6005,21 @@ abilitazione.
   \end{itemize}
 \end{definizione}
 $\Theta$ \`e una struttura di orologio (o di temporizzazione)
-deterministica. Nel caso di ritardi costanti, $\theta_{i,k}$ \`e
+deterministica: affinch\`e la transizione possa scattare, deve
+trascorrere un tempo $\Theta_i$ dall'istante in cui $t_i$ viene
+abilitata. Per le RPT deterministiche, ricordiamo che, $\Theta_i$ \`e
+costante. Nel caso di ritardi costanti, $\theta_{i,k}$ \`e
 semplificato in $\theta_i, \forall k \in \mathbb{N_+}$.
 
-Una RPTD $N_d$ con una marcatura $M_0$ all'istante di tempo iniziale
-$\tau_0$ \`e detta RPTD marcata $\langle N_d, M_0 \rangle$.
+Una Rete di Petri Temporizzata Deterministica (RPTD) $N_d$, con una
+marcatura $M_0$ all'istante di tempo iniziale $\tau_0$, \`e detta RPTD
+marcata $\langle N_d, M_0 \rangle$.
 \subsection{Evoluzione dinamica}
 Lo stato di una RPTD \`e determinato dalla marcatura e dal valore
 degli orologi associati alle transitioni.
 \begin{definizione}
   Una transizione $t_i$ \`e detta abilitata da una marcatura $M_j$ se
-  ogni posto $p \in P$ della rete contiene un numero di marche pari o
+  ogni posto $p \in P$ della rete contiene un numero di token pari o
   superiore a $Pre(p,t_i)$, cio\`e se $M_j \geq Pre(\cdot, t_i)$.
 \end{definizione}
 \begin{definizione}\index{Grado di
@@ -5913,7 +6027,9 @@ degli orologi associati alle transitioni.
   Il grado di abilitazione di una transizione $t_i$ abilitata da una
   marcatura $M_j$ \`e il pi\`u grande numero intero $k$ tale che $M_j
   \geq Pre(\cdot, t_i)$. Il grado di abilitazione di $t_i$ da $M_j$
-  viene indicato con $\alpha_i(j)$.
+  viene indicato con $\alpha_i(j)$. In ogni istante di tempo ogni
+  transizione $t_i$ ha associato un numero di orologi pari al suo
+  grado di abilitazione corrente.
 \end{definizione}
 \input{./tex/rptdEsempi}
 La figura \ref{fig:retiPetriTemporizzate} mostra due esempi elementari
@@ -5942,12 +6058,128 @@ scatter\`a $n$ volte quanti sono gli orologi associati a $t_i$.
 La figura \ref{fig:petriEsempio01} mostra l'evoluzione della rete
 \ref{fig:gradoAbilitazione2}. All'istante $\tau_0 = 0$, alla
 transizione $t_1$ \`e associata una coppia di orologi $\vartheta_{1,1}
-= 2$ e $\vartheta_{1,2} = 2$ dato il grado di abilitazione
+= 2$ e $\vartheta_{1,2} = 2$, dato il grado di abilitazione
 $\alpha_1(0) = 2$.
 
 All'istante $\tau_1 = \tau_0 + \vartheta_1$, dopo cio\`e un ritardo 2,
 entrambi gli orologi si annullano, la transizione scatta due volte e i
 due orologi si resettano nuovamente a $\vartheta_1 = 2$.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/rptd-serventiinfiniti.png}
+    \caption{Esempio RPTD serventi infiniti}
+    \label{fig:rptd-serventiinfiniti}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:rptd-serventiinfiniti} mostra un esempio di
+serventi infiniti. Questo particolare tipo di {\em semantica di
+  servente} associata alla RPTD si basa sul concetto che ogni
+transizione rappresenti un'operazione che pu\`o essere eseguita da un
+numero infinito di unit\`a operative che lavorano in
+parallelo. Nell'esempio, la transizione $t_1$ scatter\`a tre volte
+all'istante $\theta_1$ perch\`e le unit\`a operative possono
+utilizzare (servire) tutti i token contemporaneamente.
+
+\subsection{Evoluzione temporale di un RPTD}
+Consideriamo la RPTD all'istante $\tau_j$ con la marcatura $M_j$ e i
+valori degli orologi associati alle transitioni. La rete evolve nel
+seguente modo:
+\begin{enumerate}
+\item Individuare il minimo orologio $o^*$ associato ad una delle
+  transizioni abilitate nella marcatura $M_j$. Nel caso di orologi
+  uguali associati a transizioni diverse, l'ordine di scatto delle
+  transizioni deve essere stabilito a priori. Se in una marcatura
+  $M_j$ il valore minimo di orologio $o_i$ di una transizione $t_i$
+  corrisponde a pi\`u orologi, esempio $k$ orologi, ci\`o significa
+  che se la transizione sar\`a la prossima a scattare, essa scatter\`a
+  $k$ volte contemporaneamente. 
+\item Il tempo avanza fino all'istante $\tau_j + o^*$ e la transizione
+  $t^*$ scatta, portando la marcatura $M_j$ a $M_j + 1 = M_J +
+  C(\cdot, t)$;
+\item Raggiunta $M_j + 1$, $o^*$ viene scartato.
+  \begin{itemize}
+  \item Se il grado di abilitazione $\alpha(j + 1)$ nella marcatura
+    raggiunta $M_j + 1$ \`e inferiore al grado di abilitazione
+    $\alpha_i(j)$ che $t_i$ aveva nella marcatura precedente $M_j$, allora
+    devono essere scartati $[\alpha_i(j) - \alpha(j + 1)]$ orologi
+    associati alla transizione  $t_i$, che risultano evidentemente in
+    esubero: vengono selezionati ed eliminati dall'insieme degli
+    orologi gli $[\alpha_i(j) - \alpha(j + 1)]$ che hanno i valori
+    pi\`u valori pi\`u alti;
+  \item Se $\alpha_i(j + 1) > \alpha_i(j)$, $[\alpha_i(j + 1) -
+    \alpha_i(j)]$ orologi devono essere associati a $t_i$ ed impostati
+    ai valori specificati dalla struttura di temporizzazione $\Theta$
+  \end{itemize}
+\item Ripetere dal passo 1 ponendo $j + 1 \rightarrow j$.
+\end{enumerate}
+\subsubsection{Esempi}
+La figura~\ref{fig:rptd-evoluzione01} mosta l'evoluzione temporale
+della rete in figura~\ref{fig:rptd-evoluzione00}. La transizione $t_1$ (con
+ritardo $\theta_1 = 2$) ha nell'istante iniziale $\tau_0 = 0$ grado di
+abilitazione $\alpha_1(0)$ pari a 2; ci sono, quindi, inizialmente due
+orologi attivi, $\theta_1$ e $\theta_2$, associati alla
+transizione. Dopo un ritardo pari a 2, cio\`e all'istante $\tau_1 =
+\tau_0 + \theta_1$, entrambi gli orologi si annullano, la transizione
+scatta due volte e i due orologi vengono impostati nuovamente al
+valore $\theta_1 = 2$. L'evoluzione della rete procede in base
+all'algoritmo mostrato in precedenza.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/rptd-evoluzione00.png}
+    \caption{Esempio RPTD}
+    \label{fig:rptd-evoluzione00}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/rptd-evoluzione01.png}
+    \caption{Esempio evoluzione temporale RPTD}
+    \label{fig:rptd-evoluzione01}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/rptd-evoluzione04.png}
+    \caption{Esempio evoluzione temporale RPTD}
+    \label{fig:rptd-evoluzione04}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/rptd-evoluzione05.png}
+    \caption{Descrizione RPTD}
+    \label{fig:rptd-evoluzione05}
+  \end{center}
+\end{figure}
+Una linea di produzione \`e `composta da due macchine $m_1$ e $m_2$,
+due bracci robotici $r_1$ e $r_2$ e due nastri trasportatori. Ogni
+macchina usa in esclusiva un braccio robotico che esegue le operazioni
+di carico e scarico dei pezzi che la macchina deve lavorare. Uno dei
+nastri trasportatori \`e impiegato per trasportare al massimo due
+pezzi alla volta, mentre l'altro nastro trasporta pallet vuoti, cio\`e
+pronti per caricare un nuovo pezzo. I pallet che circolano nel sistema
+sono 3.
+
+Ogni pezzo viene lavorato secondo la stessa sequenza prima da $m_1$ e
+poi da $m_2$, con rispettivi tempi di lavorazione di 10 e 20
+unit\`a. Le operazioni di carico e scarico richiedono 1 unit\`a di
+tempo, mentre il tempo di trasporto sui nastri \`e da considerarsi
+trascurabile.
+
+Il modello via RPTD del sistema produttivo \`e descritto in
+figura~\ref{fig:rptd-evoluzione04} e nella
+tabella~\ref{fig:rptd-evoluzione05}. Nella marcatura iniziale $M_0 = [3
+\; 0 \; 0 \; 0 \; 0 \; 0\; 1 \; 2\; 1\; 1\; 1]^T$ la transizione $t_1$
+\`e abilitata e comincia il suo scatto, che termina dopo un ritardo di
+un'unit\`a di tempo; le rete ha raggiunto cos\`i la marcatura $M_1 = [2
+  \;1 \;0 \;0 \;0 \;0 \;0 \;2 \;1 \;0 \;1]^T$, in cui la transizione
+$t_2$ \`e abilitata e comincia a scattare. Lo scatto di $t_2$ termina
+dopo un ritardo di 10 unit\`a di tempo, portando la rete alla nuova
+marcatura $M_2 = [2 \;0 \;1 \;0 \;0 \;0 \;0 \;2 \;1 \;0
+  \;1]^T$. L'evoluzione della rete va avanti seguendo la procedura
+illustratra.
+
 
 % MODELLI RICAVATI DALLA RISPOSTA AL GRADINO
 \chapter{Modelli ricavati dalla risposta al gradino}
@@ -6355,11 +6587,28 @@ L(s) = R(s) A(s) P(s) = R(s) G(s)
 \]
 
 \section{Convertitore elettronico DC/DC}
-La figura ``da disegnare'' mostra il circuito RLC che compone un
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.25]{./images/convertitore-dcdc}
+    \caption{Circuito Convertitore DC-DC}\label{fig:convertitore-dcdc}
+  \end{center}
+\end{figure}
+La figura \ref{fig:convertitore-dcdc} mostra il circuito RLC che compone un
 convertitore elettronico DC/DC. Un convertitore DC-DC \`e un circuito
 che converte una sorgente di corrente continua da una tensione a
-un'altra. Il convertitore in figura \`e un convertitore a switch di
-tipo buck.
+un'altra. Costituisce una classe di convertitori di potenza. Il
+convertitore in figura \`e un convertitore a switch di tipo buck.
+
+I convertitori elettronici a switch DC-DC sono disponibili per
+convertire un livello di tensione in un altro. Questi circuiti
+tipicamente compiono la conversione applicando tensione continua DC su
+un induttore per un periodo di tempo nel quale scorre una corrente
+elettrica cos\`i da immagazzinare energia magnetica. Quando viene
+tolta la tensione, si trasferisce l'energia immagazzinata come tensione
+d'uscita del convertitore in maniera controllata.
+
+Agendo sul rapporto di on/off time, detto anche duty cycle, la
+tensione d'uscita rimane regolata anche se la corrente d'uscita cambia.
 
 La presenza dei due interruttori, $S_1$ ed $S_2$, permette di avere un
 comportamento periodico della tensione $v$ ai capi dell'interruttore
@@ -6371,11 +6620,18 @@ Se $S_1$ \`e chiuso, $S_2$ \`e aperto e la tensione $v$ sar\`a pari
 alla tensione di alimentazione $V_{dc}$. Viceversa, se $S_1$ \`e aperto, $S_2$
 \`e chiuso e la tensione $v$ \`e nulla. Questo comportamento ci
 consente di avere in ingresso un'onda quadra di ampiezza massima
-$V_{dc}$ e di periodo $T$, come mostrato in figura ``da disegnare''.
-
+$V_{dc}$ e di periodo $T$, come mostrato in
+figura~\ref{fig:convertitore-dcdc02}. 
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/convertitore-dcdc02}
+    \caption{Tensione in ingresso al Convertitore
+      DC-DC}\label{fig:convertitore-dcdc02} 
+  \end{center}
+\end{figure}
 L'ingresso periodo, nonostante non sia sinusoidale, \`e sufficiente
 per poter sfruttare le propriet\`a della serie di
-Fourier(\ref{apx:sdf}): un segnale periodo pu\`o essere rappresentato
+Fourier (\ref{apx:sdf}): un segnale periodo pu\`o essere rappresentato
 come la somma di infiniti segnali sinusoidali.
 \[
 v = \bar{v} + \sum_{n=1}^{\infty} V_n sin(n \omega t + \varphi_n)
@@ -6395,22 +6651,29 @@ y_m = R_s y \;\;\; y = \dfrac{1}{R_s} y_m
     \right] = V_{dc} \cdot \dfrac{\tau}{T}
 \end{array}
 \]
-con $\dfrac{\tau}{T} = D$: duty cicle\index{Duty cicle}, il cui valore
-varia tra $0$ e $1$.
+con $\dfrac{\tau}{T} = D$: {\em duty cicle}\index{Duty cicle}, che
+rappresenta la variabile di controllo e il cui valore varia tra $0$ e
+$1$. 
 \[
 v = D V_{dc} + d_A
 \]
 con $d_A$ pari al disturbo.
 \input{./tex/convertitoreDCDC01}
+Valutiamo la funzione di trasferimento tra $v$ ed $y$. Applicando i
+principi di Kirchhoff si ha:
 \[
 \left\{
 \begin{array}{l}
   L \dfrac{dx_1}{dt} = - R_1 x_1 - x_2 + v\\
   C \dfrac{dx_2}{dt} = x_1 - \dfrac{1}{R_s + R_2}x_2\\
-  y = \dfrac{1}{R_s + R_2}x_2
+  y = \dfrac{1}{R_s + R_2}x_2\\
+  y_m = R_s y
 \end{array}
 \right .
 \]
+La corrente $y$ \`e misurata attraverso una resistenza di {\em
+  sensing} $R_s$ e quindi la tensione \`e una possibile misura
+indiretta di $y$ (essendo nota $R_s$).
 \[
 \left\{
 \begin{array}{l}
@@ -6432,21 +6695,42 @@ con $d_A$ pari al disturbo.
 La figura \ref{fig:convertitoreDCDC02} pu\`o essere ripensata
 raggruppando i due blocchi in serie
 \[
-\dfrac{1}{R_1 + sL}
+G_1(s) = \dfrac{1}{R_1 + sL}
 \]
 \[
-\dfrac{1}{sC + \dfrac{1}{R_s + R_2}}
+G_2(s) = \dfrac{1}{sC + \dfrac{1}{R_s + R_2}}
 \]
-ed ottenere cos\`i un'unica funzione di trasferimento $\tilde{L}(s)$:
+per ottenere cos\`i un'unica funzione di trasferimento
+\[
+\tilde{L}(s) = G_1(s) G_2(s)
+\]
 \[
 x_2 = \tilde{L}(V - x_2) = (1 + \tilde{L}) x_2 = \tilde{L}V
 \]
 \[
 x_2(s) = \dfrac{\tilde{L}(s)}{1 + \tilde{L}(s)} V(s)
 \]
-dove $\dfrac{\tilde{L}}{1 + \tilde{L}(s)} = \tilde{F}(s)$ \`e la
-funzione di trasferimento a ciclo chiuso o funzione di sensitivit\a`
-complementare\index{Funzione di sensitivit\a` complementare}.
+dove
+\[
+\dfrac{\tilde{L}}{1 + \tilde{L}(s)} = \tilde{F}(s)
+\]
+\`e la funzione di trasferimento a ciclo chiuso o funzione di
+sensitivit\`a complementare\index{Funzione di sensitivit\a`
+  complementare}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./images/convertitore-dcdc04}
+    \caption{$\tilde{L}(s)$}\label{fig:convertitore-dcdc04} 
+  \end{center}
+\end{figure}
+Il sistema tra $v$ e $x_2$ pu\`o essere visto come un sistema {\em
+  intrinsecamente retroazionato}, cio\`e con una retroazione
+strutturale e non indotta da un controllo a ciclo chiuso.
+
+In generale, in un sistema retroazionato, $L(s)$ si dice
+funzione di trasferimento ad anello aperto ed $F(s)$ funzione di
+trasferimento a ciclo chiuso o funzione di sensitivit\`a
+complementare.
 %%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cruise control}
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -6508,7 +6792,7 @@ Consideriamo lo schema a blocchi associato
 all'equazione~\ref{eq:cruise01} a cui \`e applicata la trasformata di
 Laplace (con condizioni iniziali nulle):
 \[
-s m V(s) = - \beta V(s) + F_w(s) - F_L(s)
+m\; sV(s) = - \beta V(s) + F_w(s) - F_L(s)
 \]
 \[
 V(s) = \dfrac{1}{ms + \beta} [ F_W(s) - F_L(s)]
@@ -6598,7 +6882,7 @@ sistema retroazionato, il valore
 \[
 k_m = \dfrac{1}{|L(j \omega_\pi)|}
 \]
-Indica di quando pu\`o aumentare il guadagno d'anello aperto del sistema
+Indica di quanto possa aumentare il guadagno d'anello aperto del sistema
 prima che il sistema a ciclo chiuso diventi instabile.
 $\omega_{\pi}$ \`e il punto in cui il diagramma delle fasi della funzione
 $L(s)$ attraversa il valore $-\pi$, come mostrato dalla figura {\bo DA
@@ -6606,27 +6890,29 @@ $L(s)$ attraversa il valore $-\pi$, come mostrato dalla figura {\bo DA
 guadagno del sistema di un parametro $k$. $k_m$ \`e il massimo valore
 che pu\`o assumere $k$ senza trasformare il sistema asintoticamente
 stabile in un sistema instabile.
+%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Margine di fase}
-Indica di quando pu\`o aumentare la fase d'anello aperto del sistema
+%%%%%%%%%%%%%%%%%%%%%%%%%
+Indica di quanto possa aumentare la fase d'anello aperto del sistema
 prima che il sistema a ciclo chiuso diventi instabile.
 Se consideriamo il sistema \ref{fig:schemaABlocchiLs} con un guadagno
 positivo, la figura {\bo DA SCANSIONARE 9.24} ne mostra i diagrammi di
 Bode con una particolare attenzione al margine di fase $\varphi_m$. Il
 diagramma dei moduli interseca l'asse delle $\omega$ in un punto
-$\omega_c$ noto come ``pulsazione critica''\index{Pulsazione
+$\omega_c$, noto come ``pulsazione critica''\index{Pulsazione
   critica} o ``pulsazione di attraversamento''\index{Pulsazione di
   attraversamento} e rappresenta la pulsazione alla quale il modulo di
-$L(j \omega)$ vale $1$. Il margine di fase $\varphi$ pu\`o essere
-calcolato con:
+$L(j \omega)$ vale $1$ (che in decibel vale 0). Il margine di fase
+$\varphi$ pu\`o essere calcolato con:
 \[
 \begin{array}{l}
-  \varphi_m = \pi - |arg L(j \omega_c)|
+  \varphi_m = \pi - |arg L(j \omega_c)|\\
   \varphi_c = arg L(j \omega_c)\\
   |L(j \omega_c)| = 1
 \end{array}
 \]
 Con un $\varphi_m > 0$ il sistema \`e asintoticamente stabile, secondo
-il criterio di Bode(\ref{criterioDiBode}). Per ottenere questa
+il criterio di Bode (\ref{criterioDiBode}). Per ottenere questa
 condizione: 
 \begin{itemize}
 \item I poli devono essere a parte reale negativa
@@ -6635,7 +6921,7 @@ condizione:
 \end{itemize}
 \subsection{Sistema retroazionato con ritardo}
 \input{./tex/sistemaRetrazionatoConRitardo}
-La figura \ref{fig:sistemaRetrazionatoConRitardo} mostra il sistema
+La figura \ref{fig:sistemaRetroazionatoConRitardo} mostra il sistema
 $L(s)$, preso gi\`a in esame, ritardato. La variabile $\tau$
 rappresenta un arbitrario ritardo di tempo. La presenza del ritardo
 non altera il valore del modulo, ma induce uno sfasamento.
@@ -6651,7 +6937,7 @@ e calcoliamo il modulo:
 \begin{array}{l}
   |L_1(j \omega)| = |e^{-j \omega \tau}| \cdot |L(j \omega)| = 1 \cdot
   |L(j \omega)|\\
-  \textrm{dato che}\\
+  \textrm{dato che, per la formula di Eulero:}\\
   |e^{j \alpha}| = |cos \alpha + j sin \alpha| = 1 \;\;\; \forall \alpha \in
   \mathfrak{R}\\
   \textrm{quindi}\\
@@ -6664,9 +6950,8 @@ Calcoliamo la fase:
 \begin{array}{l}
   arg L_1(j \omega) = arg e^{-j \omega \tau} + arg L(j \omega) =
   -\omega \tau + arg L(j \omega)\\
-  \varphi_{n1} = \pi - |arg L_1(j \omega_{c_{1}})| = \pi - |L_1(j
-  \omega_c)|\\
-  = \pi - | - \omega \tau + arg L(j \omega) = \pi - | - (\omega_c \tau
+  \varphi_{m1} = \pi - |arg L_1(j \omega_{c_{1}})| = \\
+  = \pi - | - \omega \tau + arg L(j \omega)| = \pi - | - (\omega_c \tau
   - arg L(j \omega_c))|\\
   \pi - \omega_c \tau - |arg L(j \omega_c)| =
 \end{array}
@@ -6694,10 +6979,10 @@ Calcoliamo il modulo:
 Calcoliamo la fase:
 \[
 \begin{array}{l}
-  arg L(j \omega) = arg 10 - 2 arg (j \omega + 1) = 2 tan^{-1}
+  arg L(j \omega) = arg 10 - 2 arg (j \omega + 1) = 0 - 2\cdot \tan^{-1}
   \omega\\
-  arg L(j \omega_c) = -2 \cdot tan^{-1} \cdot 3
-  \varphi_m = \pi - 2 \cdot tan^{-1} \cdot 3 = 0.64
+  arg L(j \omega_c) = -2 \cdot tan^{-1} 3\\
+  \varphi_m = 180^{\circ} - 2 \cdot tan^{-1} 3 = 36.87^{\circ}
 \end{array}
 \]
 Dovendo rispettare il vincolo
@@ -6706,8 +6991,8 @@ Dovendo rispettare il vincolo
 \]
 si capisce che
 \[
-\varphi_m \cdot \dfrac{\pi}{180}= \omega_c \tau_{max} \Rightarrow
-\tau_{max} = \dfrac{\varphi_m}{\omega_c} = 0.2 secondi
+\varphi_m \cdot \dfrac{\pi}{180} [rad] = \omega_c \cdot \tau_{max}
+\Rightarrow \tau_{max} = \dfrac{\varphi_m}{\omega_c} = 0.2\; secondi
 \]
 Il fattore di conversione \`e necessario perch\`e la pulsazione
 $\omega_c$ \`e espressa in radianti al secondo, mentre il margine di
@@ -6715,8 +7000,10 @@ fase $\varphi_m$ \`e espresso in gradi. In definitiva, il sistema \`e
 asintoticamente stabile per tutti valori
 \[
 \textrm{di } \tau \textrm{ inferiori a }
-\dfrac{\dfrac{\varphi_m}{\omega_c}\pi}{180}
-\]
+\dfrac{\dfrac{\varphi_m}{\omega_c}\pi}{180} \Rightarrow \left(
+\dfrac{\dfrac{gradi}{\frac{radianti}{secondo}}radianti}{gradi} =
+      [secondi]\right)
+      \]
 \section{Criterio di Bode}\label{criterioDiBode}
 \`E un utile metodo per determinare i criteri di stabilit\`a di un
 sistema sfruttando i diagrammi di Bode, i margini di fase e i margini
@@ -6745,15 +7032,15 @@ Inoltre notiamo che:
 \begin{itemize}
 \item funzione di sensitivit\`a
   \begin{equation}\label{eq:funzioneDiSensitivita}
-  S(s) = \dfrac{1}{1 + R(s)G(s)}
+  S(s) = \dfrac{1}{1 + R(s)G(s)} = \dfrac{1}{1 + L(s)}
   \end{equation}
 \item funzione di sensitivit\`a complementare
   \begin{equation}\label{eq:funzioneDiSensitivitaComplementare}
   F(s) = \dfrac{R(s) G(s)}{1 + R(s) G(s)} = \dfrac{L(s)}{1 + L(s)}
   \end{equation}
-\item funzione di sensitivit\`a di Controllore
+\item funzione di sensitivit\`a del controllo
   \begin{equation}\label{eq:funzioneDiSensitivitaDiControllore}
-  Q(s) = \dfrac{R(s)}{1 + R(s) G(s)} = F(s)G(s)^{-1} = R(s)S(s)
+  Q(s) = \dfrac{R(s)}{1 + R(s) G(s)} = \dfrac{F(s)}{G(s)} = R(s)S(s)
   \end{equation}
 \end{itemize}
 Analizzando lo schema a blocchi, riusciamo ad isolare $Y(s)$, $U(s)$ e
@@ -6762,8 +7049,8 @@ $E(s)$ ed otteniamo le equazioni del sistema di controllo:
 \left \{
 \begin{array}{l}
   Y(s) = W(s)F(s) + D(s)S(s) - N(s)F(s)\\
-  U(s) = W(s)F(Q(s)) - D(s)Q(s) - N(s)Q(s)\\
-  E(s) = W(s)S() - D(s)S(s) + N(s)F(s)
+  U(s) = W(s)Q(s) - D(s)Q(s) - N(s)Q(s)\\
+  E(s) = W(s)S(s) - D(s)S(s) + N(s)F(s)
 \end{array}
 \right .
 \end{equation}
@@ -6776,7 +7063,7 @@ In forma matriciale:
   \end{bmatrix}\\
   =
   \begin{bmatrix}
-    F(S) & S(s) & -F(s)\\
+    F(s) & S(s) & -F(s)\\
     Q(s) & -Q(s) & -Q(s)\\
     S(s) & -S(s) & F(s)
   \end{bmatrix}
@@ -6797,23 +7084,23 @@ siano nulli i disturbi $d$ su $y$, basterebbe imporre
 ma questo comporterebbe un ripercuotersi totale, senza attenuazione,
 del disturbo $n$ sull'uscita $y$ e sull'errore $e$:
 \[
-Y(s) = W(s) - N(s)\\
-E(s) = N(s)
+\begin{array}{l}
+  Y(s) = W(s) - N(s)\\
+  E(s) = N(s)
+\end{array}
 \]
 Si nota la necessit\`a di un approccio flessibile al problema del
-controllo e ad un invevitabile compromesso. Si punter\`a ad avere
+controllo e ad un inevitabile compromesso. Si punter\`a ad avere
 \[
 |F(j \omega)| \simeq 1
 \]
 nella banda di pulsazioni in cui prevale l'esigenza di un inseguimento
-del riferimento $w$;
+del riferimento $w$ e
 \[
 |F(j \omega)| \simeq 0
 \]
-alle alte frequenze, dove \`e tipicamente contentrata l'energia del
-disturbo $n$.
-
-Nota:
+alle alte frequenze, dove \`e tipicamente concentrata l'energia del
+disturbo $n$. In definitiva, ricordiamo che
 \begin{itemize}
 \item $G(s)$ \`e la funzione di trasferimento in anello aperto del
   sistema, da $u$ ad $y$;
@@ -6831,7 +7118,7 @@ F(s) = \dfrac{L(s)}{1 + L(s)}
 \`e la funzione di trasferimento a ciclo chiuso del sistema
 controllato. Questa funzione $F(s)$ \`e anche:
 \begin{itemize}
-\item la funzione di trasferimento tra il riferimento $\omega$ e
+\item la funzione di trasferimento tra il riferimento $w$ e
   l'uscita $y$
   \[
   F(s) = \dfrac{Y(s)}{W(s)}
@@ -6850,7 +7137,7 @@ controllato. Questa funzione $F(s)$ \`e anche:
 \subsection{Precisione statica a regime}
 Consideriamo la $L(s)$ in forma di Bode:
 \[
-\L(s) = \dfrac{\mu}{s^g} \cdot \dfrac{\prod (1 + s\tau_i) \cdot \prod
+L(s) = \dfrac{\mu}{s^g} \cdot \dfrac{\prod (1 + s\tau_i) \cdot \prod
   (1 + \dfrac{2 \xi}{\alpha_{ni}}s + \dfrac{1}{\alpha_{ni}^2}
   s^2)}{\prod (1 + sT_i) \cdot \prod \left(1 + \dfrac{2
     \zeta}{\omega_{ni}}s + \dfrac{1}{\omega_{ni}^2}s^2\right)}
@@ -6864,34 +7151,34 @@ un gradino di ampiezza $A$.
 \begin{array}{l}
   y_{\infty} = \lim_{s \to 0} sF(s) W(s)\\
   \textrm{con le opportune sostituzioni}\\
-  \lim_{s \to 0} F(s) = \lim_{s \to 0}\dfrac{\dfrac{\mu}{s^g}}{1 +
-    \dfrac{\mu}{s^g}} = \lim_{s \to 0} \dfrac{\mu}{s^g + \mu}
+  \bar{A}\lim_{s \to 0} F(s) = \bar{A}\lim_{s \to 0}\dfrac{\dfrac{\mu}{s^g}}{1 +
+    \dfrac{\mu}{s^g}} = \bar{A}\lim_{s \to 0} \dfrac{\mu}{s^g + \mu}
 \end{array}
 \]
 Al variare dei valori di $g$ avremo limiti differenti:
 \[
 \left\{
 \begin{array}{ll}
-  \dfrac{\mu}{1 + \mu} & \textrm{per } g = 0\\
+  \dfrac{\bar{A}\mu}{1 + \mu} & \textrm{per } g = 0\\
   0 & \textrm{per } g < 0\\
-  1 & \textrm{per } g > 0\\
+  \bar{A} & \textrm{per } g > 0\\
 \end{array}
 \right.
 \]
 \begin{itemize}
 \item Caso $g > 0$\\
-  $y_{\infty} = A = W_{\infty}$ ovvero se la funzione d'anello
+  $y_{\infty} = \bar{A} = W_{\infty}$ ovvero se la funzione d'anello
   possiede almeno un polo nell'origine, il sistema in feedback
   fornisce migliori prestazioni statiche, in quanto il guadagno di
-  $F(S)$ \`e unitario ed $y$ segue fedelmente $w$;
+  $F(s)$ \`e unitario ed $y$ segue fedelmente $w$;
 \item Caso $g = 0$\\
-  Il guadagno di $F(s)$ \`e $\mu = \dfrac{\mu}{1 + \mu}$ ed \`e
-  prossimo ad $1$ solo per valori di $\mu$ elevati ed in generale
+  Il guadagno di $F(s)$ \`e $\mu_F = \dfrac{\mu}{1 + \mu}$ ed \`e
+  prossimo ad $1$ solo per valori di $|\mu|$ elevati ed in generale
   risulta $0 < \mu_F < 1$ quando $\mu > 0$. Inoltre se $g = 0, \; \mu
-  = -1$ $F(s)$ ha almeno un polo nell'origine e non \`e
+  = -1$,\; $F(s)$ ha almeno un polo nell'origine e non \`e
   asintoticamente stabile.
 \item Caso $g < 0$\\
-  C'e` almeno un polo nell'origine ed $F(s)$ contiene almeno una
+  C'\`e almeno un polo nell'origine ed $F(s)$ contiene almeno una
   azione derivativa (cio\`e un prodotto per $s$). Quindi il sistema di
   controllo non offre buone prestazioni statiche in quanto $y_{\infty}
   = 0 \;\; \forall \;W$ 
@@ -6902,7 +7189,7 @@ Calcoliamo i poli e gli zeri di $F(s)$ per analizzare il comportamento
 dinamico.
 \[
 \begin{array}{l}
-  L(s) = \dfrac{N_(s)}{D_L(s)} = \dfrac{numeratore}{denominatore}\\
+  L(s) = \dfrac{N_L(s)}{D_L(s)} = \dfrac{numeratore}{denominatore}\\
   \\
   F(s) = \dfrac{\dfrac{N_L(s)}{D_L(s)}}{1 + \dfrac{N_L(s)}{D_L(s)}} = 
   \dfrac{\dfrac{N_L(s)}{D_L(s)}}{\dfrac{N_L(s) + D_L(s)}{D_L(s)}}\\
@@ -6911,7 +7198,7 @@ dinamico.
 \end{array}
 \]
 Quindi gli zeri di $F(s)$ sono gli zeri di $L(s)$ e i poli di $F(s)$
-sono le radici del polonimio $D_Ls) + N_L(s)$ che \`e il polinomio
+sono le radici del polonimio $D_L(s) + N_L(s)$, che \`e il polinomio
 caratteristico del sistema retroazionato.
 
 \subsection{Risposta in frequenza}
@@ -6945,12 +7232,13 @@ A questo punto abbiamo due possibili scenari:\begin{enumerate}
   \end{array}
   \]
   Questo \`e lo scenario ideale per quanto riguarda l'obbiettivo di far
-  coincidere l'uscita $y$ con il riferimento $\omega$, ma non consente
-  di di attenuare in alcun modo l'effetto del disturbo $n$ sull'uscita
+  coincidere l'uscita $y$ con il riferimento $w$, ma non consente
+  di attenuare in alcun modo l'effetto del disturbo $n$ sull'uscita
   stessa e sull'errore $e$.
 \item $\omega \gg \omega_c$
   \[
   \begin{array}{l}
+    |L(j \omega)| \ll 1\\
     |1 + L(j \omega)| \simeq 1\\
     F(j \omega) = L(j \omega)
   \end{array}
@@ -6964,58 +7252,56 @@ quello di un filtro passa-basso ideale (nell'intervallo $[0,
 \omega)$ attenua il segnale in ingresso. Quindi, tutte le componenti
 di $\omega$ a pulsazione minore di $\omega_c$ vengo riprodotte
 fedelmente in uscita. Vengono per\`o riprodotte anche tutte le
-componenti di $n$ di frequenza minore di $\omega_c$. Fortunatamente
+componenti di $n$ di frequenza minore di $\omega_c$. Fortunatamente,
 $n$ \`e tipicamente una sinusoide a frequenza molto elevata e viene,
 quindi, attenuanta naturalmente dal sistema.
 
-Dato che nel diagramma di $|F(j \omega))|_{dB}$ non ci sono variazioni
+Dato che nel diagramma di $|F(j \omega)|_{dB}$ non ci sono variazioni
 di pendenza prima di $\omega_c$, possiamo affermare che in
-prossimit\`a di $\omega_c$ di sono i poli dominanti della
+prossimit\`a di $\omega_c$ ci sono i poli dominanti della
 $F(s)$. Bisogna considerare che al fine di non provovare eccessive
-distorsioni di fase, \`e necessario che $arg F(j ]omega) \simeq 0$
+distorsioni di fase, \`e necessario che $arg F(j \omega) \simeq 0$
 all'interno della banda passante (supposto che $W(j \omega)$ non
 abbia componenti significative al di fuori di tale banda).
   
 In definitiva, conviene sempre aumentare $\omega_c$ per incrementare
 la capacit\`a del sistema di inseguire le veloci variazioni del
-riferimento $\omega$, ma senza raggiungere le frequenze in cui il
-disturbo $n$ sul trasduttore diventerebbe rilevante.
+riferimento $w$, ma senza raggiungere le frequenze in cui il
+disturbo $n$ sul trasduttore diventi rilevante.
 
 \subsection{Legame tra il margine di fase $\varphi_m$ e il picco di
   risonanza $\zeta$} 
-Scriviamo F(s) nella forma di Bode:
+Scriviamo $F(s)$ nella forma di Bode:
 \[
 F(s) \simeq \dfrac{1}{\dfrac{1}{\omega_c^2}s^2 + \dfrac{2
     \zeta}{\omega_c}s + 1}
 \]
-dove $\omega_c$ \`e una approssimazione della pulsazione di naturale
+dove $\omega_c$ \`e una approssimazione della pulsazione naturale
 $\omega_n$ dei poli dominanti, considerati complessi coniugati.
 \[
 \begin{array}{l}
-  |L(j \omega)| = 1\\
-  |F(j \omega_c)| = \dfrac{|L(j \omega_L)|}{|1 + L(j \omega_c)|} =
-  |\dfrac{1}{|1 + L(j \omega_c)|}\\
+  |L(j \omega_c)| = 1\\
+  |F(j \omega_c)| = \dfrac{|L(j \omega_c)|}{|1 + L(j \omega_c)|} =
+  \dfrac{1}{|1 + L(j \omega_c)|}\\
 \end{array}
 \]
-Tenendo conto che
+Tenendo conto che $L(j\omega)$ \`e un numero complesso di modulo
+unitario e fase $\varphi_c$
 \[
 L(j \omega_c) = e^{j \varphi_c}
 \]
-ha modulo unitario e che
-\[
-\varphi_m = \pi - |\varphi_c|
-\]
 \[
 \begin{array}{l}
-  |F(j \omega_c)| = \dfrac{|L(j \omega_L)|}{|1 + L(j \omega_c)|} =
-  \dfrac{1}{|1 + L(j \omega_c)|} = \\
-  = \dfrac{1}{1 + e^{- j \varphi_c}} = \dfrac{1}{|1 + cos \varphi_c -
+  |F(j \omega_c)| = \dfrac{1}{|1 + e^{j \varphi_c}|} = \dfrac{1}{|1 + cos \varphi_c -
     j sin \varphi_c|} =\\
   = \dfrac{1}{\sqrt{1 + cos^2 \varphi_c + 2 cos \varphi_c + sin^2
       \varphi_c}} = \\
-  = \dfrac{1}{\sqrt{2 \cdot (1 + cos \varphi_c)}} = \dfrac{1}{\sqrt{2
-      \cdot (1 - cos \varphi_m)}}\\
-  \textrm{ con } - \varphi_c = \varphi_m - \pi\\
+  = \dfrac{1}{\sqrt{2 \cdot (1 + cos \varphi_c)}}\\
+  \textrm{Considerato che}\\
+  \varphi_m = \pi - |\varphi_c|\\
+  \varphi_c = -\varphi_m + \pi\\
+  \textrm{otteniamo che}\\
+  |F(j \omega_c)| = \dfrac{1}{\sqrt{2\cdot (1 - cos \varphi_m)}}\\
   \textrm{Considerata la formula di bisezione }\\
   cos \varphi_m = cos \left( \dfrac{\varphi_m}{2} +
   \dfrac{\varphi_m}{2} \right) = cos^2 \dfrac{\varphi_m}{2} - sin^2
@@ -7112,8 +7398,8 @@ che rappresenta
   S(s) = - \dfrac{E(s)}{D(s)}
   \]
 \end{itemize}
-Teoricamente dovremmo puntare ad avere $S(s) = 0$ che ci consentirebbe
-di non avere effetti sull'errore degli ingressi~$\omega$ e $d$. Si
+Teoricamente dovremmo puntare ad avere $S(s) = 0$, che ci consentirebbe
+di non avere effetti sull'errore degli ingressi~$w$ e $d$. Si
 nota, per\`o, che dall'equazione~\ref{eq:funzioneDiSensitivitaLs}
 \[
 \lim_{s \to \infty} S(s) = 1
@@ -7152,7 +7438,7 @@ Pertanto si ha che
   \right.
   \]
 \end{itemize}
-Se condideriamo un ingresso $W$ a gradino, $W(t) = A \delta_1(t)$,
+Se consideriamo un ingresso $W$ a gradino, $W(t) = A \delta_1(t)$,
 l'errore a transitorio esautito sar\`a per il teorema del valore
 finale:
 \[
@@ -7240,7 +7526,7 @@ $S(s)$ non ha zeri a $\mathfrak{R} > 0$.
 \end{array}
 \right.
 \]
-Il diagramma di Bode di $S(s)$ \`e mostrato in figura SCANSIONARE LA
+Il diagramma di Bode di $S(j\omega)$ \`e mostrato in figura SCANSIONARE LA
 FIGURA 10.11 e si nota la natura passa-alto di $S(s)$. Se si guarda ad
 $S$ come una funzione di trasferimento tra $d$ ed $y$ si deduce che,
 in condizioni di asintoticamente stabilit\`a, il sistema in feedback
@@ -7872,7 +8158,7 @@ Notiamo anche che
 Nota: il baricentro\index{Baricentro} \`e la somma dei poli in anello
 chiuso diviso per $n$.
 
-Ponendo $n$ ed $m$ i gradi del numeratore e del denominatore di
+Ponendo $n$ ed $m$ i gradi del denominatore e del numeratore di
 $L(s)$, strettamente proprie, e $\nu = n - m > 0$ il grado relativo,
 il tracciamento del luogo delle radici avviene come segue:
 \begin{enumerate}
