@@ -4818,13 +4818,6 @@ I DES (Discrete Events Systems) Logici sono anche detti {\em
 modellare ed analizzare a causa della natura asincrona delle
 transizioni di stato.
 
-\begin{definizione}\label{def:DES}
-  Un sistema ad eventi discreti (DES) \`e un sistema con un numero di
-  stati finiti e transizioni di stato generate da specifici eventi,
-  cio\`e la sua evoluzione nel tempo dipende esclusivamente dal
-  verificarsi di eventi asincroni nel tempo.
-\end{definizione}
-
 \section{Gli automi a stati finiti}
 Un automa a stati finiti (ASF) \`e un sistema dinamico, tempo invariante,
 discreto nell'avanzamento e nelle interazioni nel quale gli insiemi
@@ -4933,9 +4926,15 @@ pi\`u complesso, detto tipicamente ``automa composizione
 concorrente''. I due automi originali vengono ``collegati'' tramite un
 evento comune. 
 
-Dati $k$ automi da $N$ stati, l'automa composizione concorrente avr\`a
+Dati $k$ automi da $N$ stati, l'automa a composizione concorrente avr\`a
 $k^N$ stati. \`E palese la difficolt\`a di utilizzare questo genere di
 strumento per l'analisi di sistemi complessi.
+
+Supponendo due automi a composizione concorrente $G'$ e $G''$ e i loro
+insiemi di eventi $E'$ ed $E''$, gli eventi appartenenti ad $E' \cap
+E''$ si definiscono ``eventi sincronizzati''\index{Eventi
+  sincronizzati}. Tali eventi possono verificarsi solo se attivi negli
+stati di entrambi gli automi.
 %%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Reti di Petri}
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -5943,22 +5942,28 @@ M_0(p_{s1}) = k_1 - \omega_1^T M_0 = 1 - 0 = 1
 \]
 Bisogner\`a iterare il procedimento e calcolare gli altri posti
 monitor per le rispettive GMEC.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Reti di Petri temporizzate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduzione}
-Sono nate per rendere le reti di Petri uno strumento utile anche per
-la valutazione delle prestazioni. Le reti di Petri temporizzate sono
-un ambiente omogeneo per la modellazione, il progetto e l'analisi
-delle prestazioni dei DES.
+Le reti di Petri temporizzate sono un ambiente omogeneo per la
+modellazione, il progetto e l'analisi delle prestazioni dei DES.
 
 Il concetto principale delle reti di Petri temporizzate \`e la
 possibilit\`a di associare delle variabili temporali (tempi di
-ritardo) ai posti, alle transitioni, agli archi ed alle marcature che
+ritardo) ai posti, alle transizioni, agli archi ed alle marcature che
 costituiscono una rete di Petri.
 
+Nel caso si voglia associare la temporizzazione alle transizioni,
+abbiamo due tipi di approcci: atomico e ``a tre fasi''.
 \section{Reti di Petri temporizzate deterministiche}
 Nel nostro studio, ci concentreremo sulle reti di Petri temporizzate
 di tipo deterministico.
+
+Vanno comunque accennate le reti di Petri Temporizzate Stocastiche: ad
+una transizione \`e associato un ritardo specificato da una variabile
+aleatoria con funzione di distribuzione di probabilit\`a nota.
+
 \begin{definizione}\label{def:reteDiPetriTemporizzataDeterministica}
 Una rete di Petri temporizzata \`e deterministica se ad essa \`e
 associato un ritardo deterministico $\theta_i$; tale tempo viene
@@ -5966,8 +5971,9 @@ scelto {\em costante}, talvolta {\em variabile} secondo una sequenza
 $\{ \theta_{i,1},\theta_{i,2},\theta_{i,3}, ... \}$ di tempi di ritardo noti
 a priori, raramente funzione della marcatura.
 \end{definizione}
-Queste reti di Petri si basano sul concetto di {\em memoria di
-  abilitazione}\index{Memoria di abilitazione}.
+
+Le reti di Petri Temporizzate Deterministiche si basano sul concetto
+di {\em memoria di abilitazione}\index{Memoria di abilitazione}.
 \begin{definizione}
 Una transizione $t_i$ si dice a ``memoria di abilitazione'' se la
 transizione $t_i$ ha memoria solo dell'attuale abilitazione e potr\`a
@@ -5978,13 +5984,18 @@ Lo scatto \`e atomico, viene cio\`e considetato un'operazione
 indivisibile e ad ogni transizione viene associato un ritardo che
 corrisponde al tempo che deve trascorrere tra la sua abilitazione e il
 conseguente scatto. Se al termine del ritardo la condizione di
-abilitazione continuare a sussistere, la transizione scatta
-effettivamente.
+abilitazione continua a sussistere, la transizione scatta
+effettivamente. 
 
-Secondo lo schema dello scatto atomico, due transitioni abilitate
+Secondo lo schema dello scatto atomico, due transizioni abilitate
 contemporaneamente e in conflitto tra loro, possono risolvere il
 conflitto grazie al ritardo: la transizione col ritardo minore scatta
 per prima.
+
+Nello scatto in tre fasi, i token vengono prelevati dai posti di
+ingresso, scorre il tempo e, infine, i token vengono depositati nei
+posti d'uscita. 
+
 \begin{definizione}
   Una rete di Petri temporizzata deterministica \`e caratterizzata
   dalla struttura algebrica
@@ -6006,8 +6017,8 @@ per prima.
 \end{definizione}
 $\Theta$ \`e una struttura di orologio (o di temporizzazione)
 deterministica: affinch\`e la transizione possa scattare, deve
-trascorrere un tempo $\Theta_i$ dall'istante in cui $t_i$ viene
-abilitata. Per le RPT deterministiche, ricordiamo che, $\Theta_i$ \`e
+trascorrere un tempo $\theta_i$ dall'istante in cui $t_i$ viene
+abilitata. Per le RPT deterministiche, ricordiamo che, $\theta_i$ \`e
 costante. Nel caso di ritardi costanti, $\theta_{i,k}$ \`e
 semplificato in $\theta_i, \forall k \in \mathbb{N_+}$.
 
@@ -6089,13 +6100,21 @@ seguente modo:
 \item Individuare il minimo orologio $o^*$ associato ad una delle
   transizioni abilitate nella marcatura $M_j$. Nel caso di orologi
   uguali associati a transizioni diverse, l'ordine di scatto delle
-  transizioni deve essere stabilito a priori. Se in una marcatura
+  transizioni pu\`o essere stabilito secondo due politiche:
+  \begin{itemize}
+  \item Deterministica, cio\`e si assegna una priorit\`a di scatto
+    alle transizioni; 
+  \item Non-deterministica, cio\`e si assegna una probabilit\`a di
+    scatto alle transizioni.
+  \end{itemize}
+  
+  Se in una marcatura
   $M_j$ il valore minimo di orologio $o_i$ di una transizione $t_i$
   corrisponde a pi\`u orologi, esempio $k$ orologi, ci\`o significa
   che se la transizione sar\`a la prossima a scattare, essa scatter\`a
   $k$ volte contemporaneamente. 
 \item Il tempo avanza fino all'istante $\tau_j + o^*$ e la transizione
-  $t^*$ scatta, portando la marcatura $M_j$ a $M_j + 1 = M_J +
+  $t^*$ scatta, portando la marcatura $M_j$ a $M_j + 1 = M_j +
   C(\cdot, t)$;
 \item Raggiunta $M_j + 1$, $o^*$ viene scartato.
   \begin{itemize}
@@ -6105,8 +6124,8 @@ seguente modo:
     devono essere scartati $[\alpha_i(j) - \alpha(j + 1)]$ orologi
     associati alla transizione  $t_i$, che risultano evidentemente in
     esubero: vengono selezionati ed eliminati dall'insieme degli
-    orologi gli $[\alpha_i(j) - \alpha(j + 1)]$ che hanno i valori
-    pi\`u valori pi\`u alti;
+    orologi gli $[\alpha_i(j)~-~\alpha(j + 1)]$ che hanno i valori
+    pi\`u alti; 
   \item Se $\alpha_i(j + 1) > \alpha_i(j)$, $[\alpha_i(j + 1) -
     \alpha_i(j)]$ orologi devono essere associati a $t_i$ ed impostati
     ai valori specificati dalla struttura di temporizzazione $\Theta$
@@ -6152,7 +6171,9 @@ all'algoritmo mostrato in precedenza.
     \label{fig:rptd-evoluzione05}
   \end{center}
 \end{figure}
-Una linea di produzione \`e `composta da due macchine $m_1$ e $m_2$,
+
+
+Una linea di produzione \`e composta da due macchine $m_1$ e $m_2$,
 due bracci robotici $r_1$ e $r_2$ e due nastri trasportatori. Ogni
 macchina usa in esclusiva un braccio robotico che esegue le operazioni
 di carico e scarico dei pezzi che la macchina deve lavorare. Uno dei
@@ -6221,7 +6242,7 @@ Bisogna determinare i parametri della funzione di trasferimento:
 \item $T$ la costante di tempo
 \item $\tau$ il ritardo
 \end{itemize}
-Vene considerata la risposta sperimentale (reale) del sistema con
+Viene considerata la risposta sperimentale (reale) del sistema con
 ingresso a scalino:
 \[
 u(t) = \bar{u} \cdot 1(t)
@@ -6230,31 +6251,30 @@ u(t) = \bar{u} \cdot 1(t)
 Supponiamo che i campioni dell'uscita siano determinati con un periodo
 di campionamento $\Delta$, cio\`e un campione ogni $\Delta$
 secondi. Il periodo di campionamento va scelto abbastanza piccolo
-rispetto alla costante di tempo; diversamente, pero`, un periodo di
+rispetto alla costante di tempo; diversamente, per\`o, un periodo di
 campionamento troppo piccolo porterebbe ad un inutile sovraccarico dei
-dati da memorizzare.\\
-Gli istanti di tempo di campionamento saranno:
+dati da memorizzare: sovracampionamento. Gli istanti di tempo di
+campionamento saranno: 
 \[
 t_1 = \Delta \;\; t_2 = 2\Delta \;\; t_3 = 3\Delta \;\; ... \;\; t_k =
 k\Delta \;\; ... \;\; t_N = N\Delta
 \]
 Il numero di campionamento $N$ va scelto in modo da ``raccogliere''
 l'evoluzione dinamica del sistema, ma senza memorizzare campioni
-``inutili'', una volta esautito il transitorio e si e` a regime. Ad
+``inutili'', una volta esautito il transitorio e si \`e a regime. Ad
 esempio, si pu\`o scegliere:
 \[
 N : |t_N - 2 t_a| < \Delta
 \]
 cio\`e scegliere $N$ tale che $t_N$ sia circa pari al doppio del tempo
-di assestamento $t_a$.\\
-I campioni dell'uscita saranno:
+di assestamento $t_a$. I campioni dell'uscita saranno:
 \[
 y_1 = y(t_1) = y (\Delta) \;\; ... \;\; y_k = y(t_k) = y(k\Delta) \;\;
 ... \;\; y_N = y(t_N) = y(N\Delta)
 \]
-Per trovare il guadagno statico si pu\`o assumere:
+Per trovare il guadagno statico, si pu\`o assumere:
 \[
-y_{infty} = \lim_{t \to \infty} y(t) \simeq y(N\Delta)
+y_{\infty} = \lim_{t \to \infty} y(t) \simeq y(N\Delta)
 \]
 e quindi fissare
 \[
@@ -6309,7 +6329,7 @@ e $T$, dobbiamo calcolare:
   \]
 \item Per trovare $\tau$ basta imporre
   \[
-  y_r(\tau) = 0 \Rightarrow \alpha + \beta \tau = 0 \Rightarrow \tau = -\dfrac{\alpha}{beta}
+  y_r(\tau) = 0 \Rightarrow \alpha + \beta \tau = 0 \Rightarrow \tau = -\dfrac{\alpha}{\beta}
   \]
   da cui sostituendo i valori di $\alpha$ e $\beta$ si ha
   \[
@@ -6326,12 +6346,12 @@ e $T$, dobbiamo calcolare:
   e considerato che $\tau = - \dfrac{\alpha}{\beta}$ si ha:
   \[
   T = \dfrac{y(N\Delta)}{dy_{max}}
-  \]
+\  \]
 \end{enumerate}
 \section{Metodo delle aree}
 Consideriamo
 \[
-G(s) = \dfrac{\mu}{1 + sT} e^{s \tau}
+G(s) = \dfrac{\mu}{1 + sT}\cdot e^{-s \tau}
 \]
 con $\tau$ pari al ritardo, $\mu$ pari al guadagno statico, $T$ pari
 alla costante di tempo.
@@ -6347,8 +6367,12 @@ alla costante di tempo.
 \]
 \[
 S_1 = \mu \overline{u} \tau + \int\limits_{0}^{+ \infty} \mu
-\overline{u}e^{-\frac{t}{T}} dt = \mu \overline{u}(\tau + T) =
-\overline{y}(\tau + T)
+\overline{u}\cdot e^{-\frac{t}{T}} dt =
+\]
+\[
+= \mu\overline{u}\tau - \mu
+\overline{u} T \cdot \left[e^{-\frac{t}{T}}\right]^{\infty}_0 =  \mu
+\overline{u}\cdot(\tau + T) = \overline{y}\cdot(\tau + T)
 \]
 quindi
 \[
@@ -6356,7 +6380,9 @@ quindi
 \]
 \[
 S_2 = \int\limits_{0}^{T} \mu \overline{u} (1 - e^{- \frac{t}{T}}) dt
-= \dfrac{\mu \overline{u} T}{e} = \dfrac{\overline{y} T}{e}
+= \mu \overline{u} T + \mu \overline{u} T \cdot
+\left[e^{-\frac{t}{T}}\right]^{T}_0 = \dfrac{\mu \overline{u} T}{e} =
+\dfrac{\overline{y} T}{e} 
 \]
 quindi
 \[
@@ -7250,7 +7276,7 @@ quello di un filtro passa-basso ideale (nell'intervallo $[0,
 \omega_c]$). Finch\`e $\omega \leq \omega_c$, $F(j
 \omega)$ insegue correttamente. Quando $\omega > \omega_c$, $F(j
 \omega)$ attenua il segnale in ingresso. Quindi, tutte le componenti
-di $\omega$ a pulsazione minore di $\omega_c$ vengo riprodotte
+di $w$ a pulsazione minore di $\omega_c$ vengo riprodotte
 fedelmente in uscita. Vengono per\`o riprodotte anche tutte le
 componenti di $n$ di frequenza minore di $\omega_c$. Fortunatamente,
 $n$ \`e tipicamente una sinusoide a frequenza molto elevata e viene,
@@ -7259,7 +7285,7 @@ quindi, attenuanta naturalmente dal sistema.
 Dato che nel diagramma di $|F(j \omega)|_{dB}$ non ci sono variazioni
 di pendenza prima di $\omega_c$, possiamo affermare che in
 prossimit\`a di $\omega_c$ ci sono i poli dominanti della
-$F(s)$. Bisogna considerare che al fine di non provovare eccessive
+$F(s)$. Bisogna considerare che al fine di non provocare eccessive
 distorsioni di fase, \`e necessario che $arg F(j \omega) \simeq 0$
 all'interno della banda passante (supposto che $W(j \omega)$ non
 abbia componenti significative al di fuori di tale banda).
@@ -7364,7 +7390,7 @@ filtro passa-basso, ha una dinamica con smorzamento $\zeta$ minore. In
 definitiva, il margine di fase per effetto del ritardo di tempo
 sar\`a
 \[
-\varphi_{m_{\tau}} = \varphi_m - \omega_c \tau - \dfrac{180}{\pi}
+\varphi_{m_{\tau}} = \varphi_m - \omega_c \tau \cdot \dfrac{180}{\pi}
 \]
 
 % ANALISI DELLA FUNZIONE DI SENSITIVITA`
@@ -7374,7 +7400,7 @@ Consideriamo la classica
 \begin{array}{l}
   Y(s) = D(s) + L(s)(W(s) - Y(s))\\
   \textrm{e scegliamo } W(s) = 0\\
-  Y(s) = \dfrac{1}{1 + L(s)} + D(s)
+  Y(s) = \dfrac{1}{1 + L(s)} \cdot D(s)
 \end{array}
 \]
 A questo punto abbiamo ottenuto la funzione di sensitivit\`a $S(s)$
@@ -7439,7 +7465,7 @@ Pertanto si ha che
   \]
 \end{itemize}
 Se consideriamo un ingresso $W$ a gradino, $W(t) = A \delta_1(t)$,
-l'errore a transitorio esautito sar\`a per il teorema del valore
+l'errore a transitorio esautito sar\`a, per il teorema del valore
 finale:
 \[
 e_{\infty} = \lim_{s \to 0} s S(s) \dfrac{A}{s} = A \lim_{s \to 0}
@@ -7464,7 +7490,7 @@ In generale, nel caso in cui ci sia un ingresso $W$, dinamico, con
 $\mathfrak{L}\{ W(t)\} = \dfrac{A}{s^i}$ con $i > 0$ e intero, si ha
 che
 \[
-W(s) = \dfrac{A}{s^i} \;\;,\;\; i \leq 2
+W(s) = \dfrac{A}{s^i} \;\;,\;\; i \geq 2
 \]
 dall'applicazione del teorema del valore finale si ha
 \[
@@ -7489,7 +7515,7 @@ di segno valgono anche per l'errore in risposta ad un disturbo $d$
 canonico.
 \begin{equation}\label{tab:errorig}
   \begin{array}{cccc}
-    & A\delta_{-1}(t) & Aramp(t) & Apar(t)\\
+    & Asca(t) & Aramp(t) & Apar(t)\\
     g = 0 & \dfrac{A}{1 + \mu} & \infty & \infty\\
     g = 1 & 0 & \dfrac{A}{\mu} & \infty \\
     g = 2 & 0 & 0 & \dfrac{A}{\mu}\\
@@ -7529,7 +7555,7 @@ $S(s)$ non ha zeri a $\mathfrak{R} > 0$.
 Il diagramma di Bode di $S(j\omega)$ \`e mostrato in figura SCANSIONARE LA
 FIGURA 10.11 e si nota la natura passa-alto di $S(s)$. Se si guarda ad
 $S$ come una funzione di trasferimento tra $d$ ed $y$ si deduce che,
-in condizioni di asintoticamente stabilit\`a, il sistema in feedback
+in condizioni di asintotica stabilit\`a, il sistema in retroazione
 ha un effetto attenuante, sulla variabile controllata per tutte le
 componenti del disturbo a pulsazione $\omega < \omega_c$; effetto
 tanto pi\`u consistente quanto maggiore \`e il $|L(j \omega)|$ in
@@ -7539,7 +7565,7 @@ valore di $|S(j \omega)|$ piccolo scegliendo un valore elevato della
 pulsazione $\omega_c$. 
 \subsection{Altri limiti prestazionali}
 Nel caso in cui la differenza tra il grado del denominatore e il grado
-del numeratore (grado relativo del della funzione d'anello) sia
+del numeratore (grado relativo della funzione d'anello) sia
 maggiore o uguale a 2 si pu\`o applicare il seguente teorema:
 \begin{teorema}
   In condizioni di asintotica stabilit\`a, la $L(s)$ non ha poli a
@@ -7557,11 +7583,11 @@ stesso asse.
 Ricordando che $S(s)$ \`e la funzione di trasferimento, cambiata di
 segno, tra $d$ ed $e$, si pu\`o concludere che un'attenuzione in una
 certa banda di pulsazioni \`e inevitabilmente compensata da una
-significativa Amplificazione in un'altra banda.
+significativa amplificazione in un'altra banda.
 
 \section{Analisi della funzione di sensitivit\`a del controllo}
 \begin{equation}\label{eq:sensitivitaControllo}
-  Q(s) = \dfrac{R(s)}{1 + L(s)} = R(s) S(s) = F(s) G(s)^{-1}
+  Q(s) = \dfrac{R(s)}{1 + L(s)} = R(s) S(s) = \dfrac{F(s)}{G(s)}
 \end{equation}
 L'equazione \ref{eq:sensitivitaControllo} rappresenta la funzione di
 trasferimento tra $W$ ed $n$ e la variabile di controllo
@@ -7570,9 +7596,9 @@ variabile di controllo. Per ridurre le sollecitazioni a cui $u$ \`e
 sottoposta, sarebbe desiderabile che la $Q(j \omega)$ sia quanto pi\`u
 piccola possibile nell'intervallo di pulsazioni in cui gli ingressi
 presentano componenti significative. Purtroppo nella maggior parte dei
-casi reali, lo spettro del disturbo $\mu$ \`e prevalentemente
-concentrato verso le alte frequenze, mentre $W$ e $d$ verso le basse
-frequenze.
+casi reali, lo spettro del disturbo di misura $n$ \`e prevalentemente
+concentrato verso le alte frequenze, mentre quelli dei segnali $w$ e
+$d$ verso le basse frequenze.
 
 \subsection{Analisi statica}
 Considerando una $L(s)$ con $g = 0$, cio\`e senza alcuna azione
@@ -7632,7 +7658,7 @@ Mediante le consuete approssimazioni si pu\`o scrivere:
 \right .
 \]
 In corrispondenza di $\omega_c$, i diagrammi $\dfrac{1}{|G(j
-  \omega)|}$ e $|R(j \omega)|$ si ingersecano e
+  \omega)|}$ e $|R(j \omega)|$ si intersecano e
 \[
 |L(j \omega_c)| = |R(j \omega_c)| |G(j \omega_c)| = 1
 \]
@@ -7668,11 +7694,11 @@ importante garantire quanto pi\`u possibile, che le prestazioni del
 sistema di controllo rimangano inalterate anche in presenza di
 incertezze in $G(s)$. In particolare, si indica con $G_a(s)$ la
 funzione di trasferimento effettiva e $G(s)$ quella nominale.
-\subsection{Regolazione ... a zero dell'errore}
+\subsection{Regolazione robusta a zero dell'errore}
 Tale propriet\`a \`e gi\`a stata discussa in precedenza ed indica che
-\[
-\lim_{s \to 0} e_{\infty} = 0 \;\; se \;\; g_L(s) > 0
-\]
+l'errore a regime \`e nullo (se il tipo $g$ della funzione d'anello
+\`e maggiore di zero) quando il sistema \`e sottoposto
+all'azione di un riferimento $w$ o di un disturbo $d$ a scalino,
 indipendentemente dalla presenza di incertezze su $G(s)$, purch\`e
 queste non pregiudichino l'asintotica stabilit\`a in anello chiuso.
 \subsection{Reiezione robusta di disturbi sinusoidali}
@@ -7887,7 +7913,7 @@ oscillazioni della risposta al gradino, bisogna imporre uno
 smorzamento $\zeta$ minimo ai poli dominanti di $F(s)$, cio\`e
 richiedere un margine di fase $\varphi_m$ elevato.
 
-Le specifiche del dominio del tempo relative al tempo di assistamento
+Le specifiche del dominio del tempo relative al tempo di assestamento
 $T_{a\varepsilon}$ e alla sovraelongazione $S\%$ possono essere
 tradotte in limiti inferiori, sui valori di $\omega_c$ e $\varphi_m$.
 
@@ -7907,7 +7933,7 @@ questo requisito implica un vincolo sul massimo valore di $\omega_c$.
 
 \subsubsection{Moderazione della varibile di controllo}
 Dalla $Q(s)$ si evince che la propriet\`a di moderazione \`e legata al
-valore di $|R(j \omega)$ a pulsazioni maggiori di $\omega_c$. \`E
+valore di $|R(j \omega)|$ a pulsazioni maggiori di $\omega_c$. \`E
 opportuno mantenere limitato $|R(j \omega)|$ per $\omega > \omega_c$ o
 evitare che nello stesso insieme di pulsazioni risulti $|L(j \omega)|
 \gg |G(j \omega)|$.
@@ -7947,7 +7973,7 @@ Tale approccio per\`o, se da una parte rispetta per costruzione tutti
 i requisiti posti inizialmente, dall'altra non permette di tener
 facilmente conto di vincoli aggiuntivi relativi alla struttura del
 regolatore, in quanto nelle applicazioni reali non tutti gli
-obbiettibi sono noti a priori in maniera chiara, precisa ed
+obbiettivi sono noti a priori in maniera chiara, precisa ed
 esauriente.
 
 Si preferisce, quindi, un approccio noto come {\em sintesi per
@@ -7991,7 +8017,7 @@ Il progetto allora si articola in due fasi:
 \chapter{Luogo delle radici}
 Un'altra tecnica di analisi e sintesi dei sistemi di controllo in
 retroazione per sistemi SISO \`e la tecnica del Luogo delle
-radici. Attraverso una particolare rappresentazione grafica, consente
+Radici. Attraverso una particolare rappresentazione grafica, consente
 di ottenere informazioni circa l'esatta collocazione dei poli del
 sistema a ciclo chiuso a partire dalla funzione a ciclo aperto $L(s)$.
 
@@ -8010,7 +8036,7 @@ dove $\rho$ \`e la costante di trasferimento. Lo schema di riferimento
 \`e quello mostrato in figura \ref{fig:schemaABlocchiLs}. Lo schema
 non presenta riferimenti ai disturbi perch\`e l'attenuazione \`e
 concentrata esclusivamente nei poli del sistema a ciclo chiuso ovvero
-nelle della seguente equazione caratteristica:
+nella seguente equazione caratteristica:
 \begin{equation}
   1 + L(s) = 0
 \end{equation}
@@ -8058,7 +8084,7 @@ destra e avremo una banda passante sempre maggiore.
 
 Consideriamo un ulteriore esempio:
 \[
-L(s) = R(s)G(s) = \mu_R \dfrac{s + }{2S + 1} = \rho \dfrac{s + 1}{s + \frac{1}{2}}
+L(s) = R(s)G(s) = \mu_R \dfrac{s + 1}{2s + 1} = \rho \dfrac{s + 1}{s + \frac{1}{2}}
 \]
 con $\rho = \dfrac{\mu_R}{2}$
 \[
@@ -8106,10 +8132,12 @@ espresse in termini di modulo e fase:
   \dfrac{|N(s)|}{|D(s)|} = \dfrac{1}{|\rho|} \Rightarrow
   \dfrac{|D(s)|}{|N(s)|} = |\rho|
 \end{equation}
-che caratterizza completamente l'aspetto geometrico del luogo;
+che caratterizza completamente l'aspetto geometrico del
+luogo. Ricordando che la fase di un numero negativo \`e $180^{\circ}$
+e la fase di un rapporto \`e la differenza delle fasi:
 \begin{equation}\label{eq:luogoRadiciFasi}
   \begin{array}{l}
-    arg N(s) - arg D(s) = 18^{\circ} - arg \rho = \\
+    arg N(s) - arg D(s) = 180^{\circ} - arg \rho = \\
     \left \{
     \begin{array}{lcl}
       (2k + 1)\cdot 180^{\circ} &,& \rho > 0 \;\;,\; k \textrm{
@@ -8139,7 +8167,7 @@ Un punto $s$ del piano appartiene al luogo diretto semiasse
 \[
 \sum_i \theta_i - \sum_i \varphi_i = (2k + 1) \pi
 \]
-cio\`e ad un multiplo dispari di $pi$:
+cio\`e ad un multiplo dispari di $\pi$:
 \[
 \sum_{i = 1}^{m} arg (s + z_i) - \sum_{i = 1}^{n} arg (s + p_i) = (2k
 + 1) \pi \;\;\; k = 0,1,2,...,(n - m -1)
@@ -8174,7 +8202,7 @@ il tracciamento del luogo delle radici avviene come segue:
   poli della funzione d'anello $L(s)$;
 \item Sia nel luogo diretto che nel luogo inverso, per $|\rho| \to
   \infty$, $m$ rami arrivano negli zeri di $L(s)$ e i restanti $\nu
-  \to infty$. Quando $|\rho| \to \infty$ l'equazione
+  \to \infty$. Quando $|\rho| \to \infty$ l'equazione
   \ref{eq:polinomioCaratteristicoFs} diventa
   \[
   N(s) = 0
@@ -8250,7 +8278,7 @@ il tracciamento del luogo delle radici avviene come segue:
   \end{array}
   \right .
   \]
-  dove gli angoli $\varphi_i$ e $\theta_i$ son oquelli calcolati in
+  dove gli angoli $\varphi_i$ e $\theta_i$ sono quelli calcolati in
   base alla F3, considerando i vettori congiungenti il punto $s =
   -p_j$ agli altri poli e agli zeri. Se il polo \`e semplice, la
   tangente del ramo uscente presenta un angolo pari a:
@@ -8304,11 +8332,11 @@ il tracciamento del luogo delle radici avviene come segue:
   \gamma(x) = -\dfrac{D(x)}{N(x)}
   \]
   con $x$ reale. Se $\overline{x}$ \`e un punto di minimo e $s =
-  \overline{x}$ appartine al luogo diretto, esistono 2 rami complessi
+  \overline{x}$ appartiene al luogo diretto, esistono 2 rami complessi
   che intersecano l'asse reale in $\overline{x}$; se $\overline{x}$
   \`e un punto di massimo e $s = \overline{x}$ appartiene al luogo
   diretto, esistono 2 rami reali che si incontrano in $\overline{x}$ e
-  si separano diventendo complessi. La situazione \`e inversa nel caso
+  si separano diventando complessi. La situazione \`e inversa nel caso
   del luogo inverso.
 \item Per ogni punto del luogo, il valore di $|\rho|$ \`e dato dato
   \[
@@ -8403,7 +8431,7 @@ radici dal generico polo $-p_1$. Calcolando la fase del primo e del
 secondo membro dell'equazione~\ref{eq:angoli03}, per ogni valore di
 $s$ corrispondente ad un punto del luogo delle ragici deve valere:
 \begin{equation}\label{eq:angoli04}
-arg(- \rho) = arg \left((\dfrac{D(s)}{N(s)}) \right)
+arg(- \rho) = arg \left(\dfrac{D(s)}{N(s)} \right)
 \end{equation}
 Supponendo $\rho > 0$
 \[
@@ -8449,7 +8477,7 @@ entrambi i membri per $s \to -p_1$:
 \]
 che \`e l'espressione cercata.
 
-Analogamente si possono calcolare gli angoli di arrivi del luogo delle
+Analogamente si possono calcolare gli angoli di arrivo del luogo delle
 radici negli zeri e nel caso di poli o zeri con molteplicit\`a
 maggiore di uno.
 \section{Vincoli nell'uso del luogo delle radici}
