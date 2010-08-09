@@ -8448,7 +8448,7 @@ arg(N(s)) = arg\left( \prod\limits_{i = 1}^{m}(s + z_i) \right) = \sum\limits_{i
 \]
 Sfruttando l'uguaglianza
 \[
-arg \left( \dfrac{D(s)}{N(s)}\right) = arg(D(S)) - arg(N(s))
+arg \left( \dfrac{D(s)}{N(s)}\right) = arg(D(s)) - arg(N(s))
 \]
 sostituendo nell'equazione~\ref{eq:angoli03}, si ha:
 \begin{equation}\label{eq:angoli05}
@@ -8540,7 +8540,9 @@ R_{PI}(s) = k_P + \dfrac{k_I}{s}
 \item $k_I + \dfrac{1 + s\frac{k_P}{k_I}}{s}$
 \end{itemize}
 Un polo nell'origine; uno zero dove scelgo; un guadagno che scelgo.
+%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Regolatore PID}
+%%%%%%%%%%%%%%%%%%%%%%%%
 PID sta per proporzionale-integrale-derivativo. La struttura di un PID
 \`e introdotta secondo la considerazione empirica che la variabile di
 controllo $u$ sia generata come la somma di tre contributi:
@@ -8583,7 +8585,9 @@ R_{PID}(s) = k_P + \dfrac{k_p}{T_I s} + k_P T_D s = k_P (1 +
   R_{PID}(s) = k_P \cdot \dfrac{T_I T_D s^2 + T_I s + 1}{T_I s}
 \end{equation}
 \section{Reti correttrici o stabilizzatrici}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rete anticipatrice}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Questa rete produce due effetti:
 \begin{itemize}
 \item un anticipo di fase: il margine di fase $\varphi_m$ aumenta
@@ -8613,12 +8617,18 @@ La fase di questo controllore \`e quindi:
 \end{equation}
 L'anticipo di fase introdotto da questo tipo di regolatore favorisce,
 come gi\`a detto, l'aumento del margine di fase $\varphi_m$, che vede
-il suo massimo in $\varphi_{max} = arcsin \dfrac{1 - \alpha}{a +
-  \alpha}$ in corrispondenza di $\omega_A = \sqrt{dfrac{1}{T}
-  \dfrac{1}{\alpha T}}$. L'aumento del margine di fase pu\`o essere
+il suo massimo in
+\[
+\varphi_{max} = arcsin \dfrac{1 - \alpha}{a + \alpha}
+\]
+in corrispondenza di
+\[
+\omega_A = \sqrt{\dfrac{1}{T} \dfrac{1}{\alpha T}}
+\]
+L'aumento del margine di fase pu\`o essere
 reso ancora pi\`u efficace diminuendo $\alpha$ fino ad arrivare ad un
 contributo alla fase di circa $90^{\circ}$, anche se questo provoca
-una maggiore amplificazione ad alta frequenza con una conseguente
+una maggiore amplificazione ad alta frequenza, con una conseguente
 diminuzione della robustezza e della moderazione del controllo.
 
 Di norma, lo zero e il polo sono ad una decade di distanza l'uno
@@ -8644,7 +8654,7 @@ Questa rete produce due effetti:
 \end{equation}
 Questo tipo di regolatore consente di aumentare $|L(j \omega)|$ a
 bassa frequenza, a patto di introdurre uno sfasamento negativo che
-raggiunge il suo massimo in $\overline{\omega} =
+raggiunge il suo minimo $\overline{\omega} =
 \dfrac{1}{T\sqrt{\alpha}}$. Per evitare che questo ritardo di fase
 introdotto influenzi eccessivamente $\varphi_m$ occorre scegliere $T >
 \dfrac{1}{\omega_c}$ ($T = \dfrac{10}{\omega_c}$ porta ad uno
