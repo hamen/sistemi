@@ -8706,7 +8706,263 @@ con $\omega_c$ pulsazione critica desiderata.
 %%%%%%%%%%%%%%%%%%%%
 % CONTROLLI DIGITALI
 %%%%%%%%%%%%%%%%%%%%
-\chapter{Introduzione al controllo digitale}
+\chapter{Controllo digitale}
+\section{Introduzione}
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./images/controlloDigitale00}
+    \caption{Schema a blocchi di un controllo digitale}\label{fig:controlloDigitale00}
+  \end{center}
+\end{figure} 
+La figura~\ref{fig:controlloDigitale00} mostra lo schema a blocchi di
+un controllo in retroazione effettuato con un controllore digitale. Lo
+schema mostra come nel mondo del controllo digitale coesistano segnali
+nel dominio del tempo continuo $t$, i segnali da controllare, e
+segnali nel dominio del tempo discreto $k$, i segnali manipolati dal
+controllore digitale.
+
+\subsection{Analogie col controllo analogico}
+Come per il controllo analogico, anche il controllo digitale prevede
+un processo $P(s)$ e una conseguente uscita $y(t)$. Dal confronto tra
+la misura dell'uscita $y(t)$ e il segnale di riferimento $Rif(t)$,
+otteniamo il segnale analogico di errore $e(t)$.
+
+La misura di $y(t)$ viene effettuata con {\bo sensore
+  ideale}\index{Sensore ideale}: questo sensore \`e caratterizzato da
+dinamiche talmente veloci rispetto a quelle di $P(s)$ da poterlo
+considerare istantaneo, cio\`e assenza di errore. Se il nostro sensore
+fosse un sistema lineare, il luogo delle radici vedrebbe i poli della
+sua funzione di trasferimento molto a sinistra dell'asse immaginario,
+cosicch\`e le costanti di tempo associate siano trascurabili.
+
+\subsection{Elementi esclusivi del controllo digitale}
+Un controllore digitale \`e indicato con $R^{*}(z)$ e $T$ \`e il suo
+tempo di campionamento\index{Tempo di campionamento} o tempo di
+attivazione del controllore\index{Tempo di attivazione}.
+
+L'ingresso del controllore digitale \`e un segnale discreto o sequenza
+di campioni $e(kT)$, ottenuta campionando il segnale analogico di
+errore $e(t)$, sfruttando un convertitore analogico/digitale ADC.
+
+L'uscita prodotta dal controllo digitale \`e il segnale discreto
+$u(kT)$, che, per essere applicato in ingresso ad un processo
+analogico, va convertito con un convertitore digitale/analogico DAC.
+
+Purtroppo questi convertitori hanno delle dinamiche complesse che
+introducono dei ritardi di tempo. Questi ritardi vanno adeguatamente
+gestiti per realizzare un controllore digitale $R^*(z)$ efficace.
+
+\section{Strumenti matematici per l'analisi dei sistemi discreti}
+\begin{quote}
+  {\em ``Come descrivere il legame tra la sequenza di campioni $u(kT)$
+    prodotta dal controllore digitale $R^*(z)$ e la sequenza di campioni
+    $e(kT)$ generata dal convertitore analogico/digitale (ADC)?''
+  }
+\end{quote}
+\begin{figure}[!hbp]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/controlloDigitaleSchemaReale}
+    \caption{Schema controllo
+      digitale}\label{fig:controlloDigitaleSchemaReale} 
+  \end{center}
+\end{figure}
+Dovendo individuare una relazione ingresso-uscita, affermiamo che
+esiste una {\bo certa sequenza di campioni $u(kT)$} che \`e funzione
+lineare o non lineare dei campioni della {\bo sequenza di campioni $e(kT)$}
+a partire dall'istante $kT$ fino all'istante $(k - m)T$ e degli stessi
+campioni della {\bo sequenza di campioni $u(kT)$} a partire dall'istante $(k
+- 1)T$ fino all'istante $(k - n)T$:
+\begin{equation}\label{eq:lineareDifferenzeDiscreto01}
+  \begin{array}{l}
+    u(kT) = f(e(kT), e((k -1)T), ... , e((k - m)T);\\
+    u((k - 1)T), u((k - 2)T), ..., u((k - n )T))
+  \end{array}
+\end{equation}
+Quindi, la sequenza di campioni $u(kT)$ \`e funzione lineare o non
+lineare dell'ingresso corrente e dello stato attuale del processo
+discreto. Assumendo che la funzione $f$ sia lineare e dipendente da un
+numero finito di valori passati delle sequenze di campioni $e(kT)$ e
+$u(kT)$, possiamo riscrivere
+l'equazione~\ref{eq:lineareDifferenzeDiscreto01} come:
+\begin{equation}\label{eq:lineareDifferenzeDiscreto02}
+  u(k) = - a_1 u (k - 1) - \;...\; - a_n u (k - n) + b_0 e [k - (n -
+    m)] + \;...\; + b_m e (k - m)
+\end{equation}
+che \`e {\bo l'equazione lineare alle differenze di ordine
+  $n$}\index{Equazione lineare alle differenze di ordine $n$} del caso
+discreto. 
+\subsubsection{Esempio: Serie di Fibonacci}
+\subsubsection{Esempio: Serie assegnata}
+
+\section{Rappresentazione di stato}
+Una rappresentazione alternativa alla equazione lienare alle
+differenze di ordine $n$ \`e la coppia di equazioni:
+\[
+\begin{array}{l}
+  x(k + 1) = f(x(k), u(k), k)\\
+  y(k) = g(x(k), u(k), k)
+\end{array}
+\]
+$f$ e $g$ sono due funzioni vettoriali tali che:
+\begin{itemize}
+\item la prima equazione \`e un sistema di $n$ equazioni alle
+  differenze di primo ordine che consente di definire l'andamento
+  dello stato del sistema ed \`e detta {\bo equazione di stato};
+\item la seconda \`e la {\bo trasformazione dell'uscita} e consente di
+  determinare l'uscita del sistema discreto ad un certo istante di
+  tempo $k$ noti lo stato e l'ingresso allo stesso istante.
+\end{itemize}
+
+\section{Equilibrio di un sistema discreto}
+Un punto di equilibrio \`e un particolare punto in cui il sistema non
+presenta dinamica. Nel dominio del tempo discreto $k$, ci\`o equivale
+a dire che lo stato del sistema discreto non varia all'aumentare del
+tempo, cio\`e:
+\[
+x(k + 1) = x(k) = \overline{x}
+\]
+Come per il caso continuo, si fissa un ingresso costante $u(k) =
+\overline{u}$ e la rappresentazione di stato diventa:
+\[
+\begin{array}{l}
+  \overline{x} = f (\overline{x},\overline{u})\\
+  \overline{y} = g (\overline{x}, \overline{u})
+\end{array}
+\]
+Le soluzioni di questa equazione di stato rappresentano i punti di
+equilibrio.
+
+\section{Linearizzazione}
+Dato il sistema discreto SISO non-lineare e tempo invariante
+\begin{equation}\label{eq:sisoDiscretoStato}
+  \begin{array}{l}
+    x (k + 1) = f(x(k), u(k))\\
+    y(k) = g(x(k), u(k))
+  \end{array}
+\end{equation}
+e un punto di equilibrio $P = (\overline{u}, \overline{x},
+\overline{y})$, possiamo ottenere un'approssimazione linearizzata del
+nostro sistema intorno al punto di equilibrio $P$.
+
+Le variazioni dello stato, dell'ingresso e dell'uscita sono definite
+come: 
+\[
+\begin{array}{l}
+  \delta x(k) = x (k) - \overline{x}\\
+  \delta u(k) = u (k) - \overline{u}\\
+  \delta y(k) = y (k) - \overline{y}\\
+\end{array}
+\]
+Possiamo riscrivere le equazioni~\ref{eq:sisoDiscretoStato} come:
+\begin{equation}
+  \begin{array}{l}
+    \delta x (k + 1) + \overline{x} = f ( \delta x(k) + \overline{x},
+    \delta u (k) + \overline{u})\\
+    \delta y (k + 1) + \overline{y} = g (\delta x (k) + \overline{x},
+    \delta u(k) + \overline{u})
+  \end{array}
+\end{equation}
+Sviluppando in serie di Taylor le funzioni $f$ e $g$ intorno a $P$
+avremo:
+\[
+\begin{array}{l}
+  f (\delta x (k) + \overline{x}, \overline{u}(k) + \overline{u}) =\\
+  = f(\overline{x}, \overline{u}) + \left. \dfrac{\partial f(x,
+   u)}{\partial x}\right|_{x = \overline{x} \;,\; u = \overline{u}}
+ \cdot \delta x(k) +  \left.\dfrac{\partial f(x,
+   u)}{\partial u}\right|_{x = \overline{x} \;,\; u = \overline{u}}
+ \cdot \delta u(k) + o (\delta x(k), \delta u(k))\\
+ 
+  g (\delta x (k) + \overline{x}, \overline{u}(k) + \overline{u}) =\\
+  = g(\overline{x}, \overline{u}) + \left. \dfrac{\partial g(x,
+   u)}{\partial x}\right|_{x = \overline{x} \;,\; u = \overline{u}}
+ \cdot \delta x(k) + \left. \dfrac{\partial g(x,
+   u)}{\partial u}\right|_{x = \overline{x} \;,\; u = \overline{u}}
+ \cdot \delta u(k) + o (\delta x(k), \delta u(k))
+\end{array}
+\]
+Poich\`e le funzioni $f$ e $g$ non dipendono dal tempo continuo $k$,
+possiamo dire che:
+\[
+\begin{array}{l}
+  \dfrac{\partial f(x,u)}{\partial x} = A \in R^{n \times m}\\
+  \dfrac{\partial f(x,u)}{\partial u} = B \in R^{n \times 1}\\
+  \dfrac{\partial g(x,u)}{\partial x} = C \in R^{1 \times n}\\
+  \dfrac{\partial g(x,u)}{\partial u} = C \in R^{1 \times 1}\\
+\end{array}
+\]
+$o(\delta x(k), \delta u(k))$ tende a zero per $\delta x(k)$ e $\delta
+u(k)$ che tendono a zero.
+
+Possiamo riscrivere:
+\[
+\begin{array}{l}
+  f (\delta x (k) + \overline{x}, \overline{u}(k) + \overline{u})
+  \cong f(\overline{x}, \overline{u}) + A \cdot \delta x(k) + B\cdot
+  \delta u(k)\\
+ 
+  g (\delta x (k) + \overline{x}, \overline{u}(k) + \overline{u})
+  \cong g(\overline{x}, \overline{u}) + C \cdot \delta x(k) + D\cdot
+  \delta u(k)
+\end{array}
+\]
+Riconsiderando
+\begin{equation}
+  \begin{array}{l}
+    \delta x(k + 1) + \overline{x} = f ( \delta x(k) + \overline{x},
+    \delta u (k) + \overline{u})\\
+    \delta y (k + 1) + \overline{y} = g (\delta x (k) + \overline{x},
+    \delta u(k) + \overline{u})
+  \end{array}
+\end{equation}
+\begin{equation}
+  \begin{array}{l}
+    \delta x(k + 1) + \overline{x} = f(\overline{x}, \overline{u}) + A
+    \cdot \delta x(k) + B\cdot \delta u(k) \\
+    \delta y (k + 1) + \overline{y} = \cong g(\overline{x},
+    \overline{u}) + C \cdot \delta x(k) + D\cdot \delta u(k)
+  \end{array}
+\end{equation}
+e ricordando che $\overline{x} = f(\overline{x}, \overline{u})$ e
+$\overline{y} = g(\overline{x}, \overline{u})$, otteniamo
+l'espressione del sistema linearizzato intorno al punto di equilibrio:
+\begin{equation}
+  \begin{array}{l}
+    \delta x(k + 1)= A \cdot \delta x(k) + B\cdot \delta u(k) \\
+    \delta y (k + 1) = C \cdot \delta x(k) + D\cdot \delta u(k)
+  \end{array}
+\end{equation}
+
+\section{Z-trasformata}
+La Z-trasformata della sequenza di campioni $x(kT)$ \`e l'equivalente
+del caso continuo della trasformata di Laplace del segnale analogico
+$x(t)$. Essa consente di passare dal dominio del tempo discreto $k$ al
+dominio della variabile complessa $z$, un dominio che offre una
+maggiore semplicit\`a di calcolo e garantisce la possibilit\`a di
+ritornare al dominio discreto grazie all'anti-trasformata.
+
+Nell'ipotesi di avere una sequenza di campioni $x(kT)$, si definisce
+Z-trasformata unilatera $( \Rightarrow k \in [0, + \infty))$:
+\begin{equation}\label{eq:Z-trasformata01}
+  Z[x(kT)] = \sum\limits_{k=0}^{\infty} x(kT) z^{-k}
+\end{equation}
+Si pu\`o, per comodit\`a trascurare il tempo di campionamento e
+riscrivere l'equazione~\ref{eq:Z-trasformata01} come:
+\begin{equation}\label{eq:Z-trasformata02}
+  Z[x(k)] = \sum\limits_{k=0}^{\infty} x(k) z^{-k}
+\end{equation}
+
+La Z-trasformata $Z[x(k)]$ esiste solo se il termine $z^{-k}$
+converge. \`E dimostrabile che esso converge all'esterno di un cerchio
+di raggio $R$, detto {\em raggio di convergenza}\index{Raggio di
+  convergenza}. L'esterno di tale circonferenza \`e detto {\em dominio
+di convergenza}\index{Dominio di convergenza}.
+
+
+
+
+
+
 
 
 
