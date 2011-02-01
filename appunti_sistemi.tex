@@ -8729,11 +8729,14 @@ otteniamo il segnale analogico di errore $e(t)$.
 
 La misura di $y(t)$ viene effettuata con {\bo sensore
   ideale}\index{Sensore ideale}: questo sensore \`e caratterizzato da
-dinamiche talmente veloci rispetto a quelle di $P(s)$ da poterlo
-considerare istantaneo, cio\`e assenza di errore. Se il nostro sensore
-fosse un sistema lineare, il luogo delle radici vedrebbe i poli della
-sua funzione di trasferimento molto a sinistra dell'asse immaginario,
-cosicch\`e le costanti di tempo associate siano trascurabili.
+dinamiche talmente veloci rispetto a quelle del processo $P(s)$ da poterlo
+considerare istantaneo e commettendo, cos\`i, un errore
+trascurabile. Se il nostro sensore fosse un sistema lineare, il luogo
+delle radici vedrebbe i poli della sua funzione di trasferimento molto
+a sinistra dell'asse immaginario, cosicch\`e le costanti di tempo
+associate siano trascurabili. Nell'analisi in frequenza, questo si
+traduce con l'avere un sensore avente una banda passante pi\`u ampia
+rispetto a quella del sistema a ciclo chiuso.
 
 \subsection{Elementi esclusivi del controllo digitale}
 Un controllore digitale \`e indicato con $R^{*}(z)$ e $T$ \`e il suo
@@ -8744,13 +8747,19 @@ L'ingresso del controllore digitale \`e un segnale discreto o sequenza
 di campioni $e(kT)$, ottenuta campionando il segnale analogico di
 errore $e(t)$, sfruttando un convertitore analogico/digitale ADC.
 
-L'uscita prodotta dal controllo digitale \`e il segnale discreto
+L'uscita prodotta dal controllore digitale \`e il segnale discreto
 $u(kT)$, che, per essere applicato in ingresso ad un processo
 analogico, va convertito con un convertitore digitale/analogico DAC.
 
-Purtroppo questi convertitori hanno delle dinamiche complesse che
-introducono dei ritardi di tempo. Questi ritardi vanno adeguatamente
-gestiti per realizzare un controllore digitale $R^*(z)$ efficace.
+Purtroppo questi convertitori, o dispositivi di interfaccia, hanno
+delle dinamiche non trascurabili, non lineari, che introducono dei
+ritardi di tempo nell'anello di controllo digitale. Questi ritardi,
+pericolosi per la stabilit\`a del sistema, vanno adeguatamente gestiti
+per realizzare un controllore digitale $R^*(z)$ efficace.
+
+\`E comprensibile, quindi, che $R^*(z)$ dovr\`a essere progettata in
+modo diverso rispetto al controllore analogico $R(s)$, al fine di
+considerare le sopracitate dinamiche non trascurabili.
 
 \section{Strumenti matematici per l'analisi dei sistemi discreti}
 \begin{quote}
@@ -8767,20 +8776,24 @@ gestiti per realizzare un controllore digitale $R^*(z)$ efficace.
   \end{center}
 \end{figure}
 Dovendo individuare una relazione ingresso-uscita, affermiamo che
-esiste una {\bo certa sequenza di campioni $u(kT)$} che \`e funzione
-lineare o non lineare dei campioni della {\bo sequenza di campioni $e(kT)$}
+esiste una {\bo certa sequenza $u(kT)$} che \`e funzione
+lineare o non lineare dei campioni della {\bo sequenza $e(kT)$}
 a partire dall'istante $kT$ fino all'istante $(k - m)T$ e degli stessi
 campioni della {\bo sequenza di campioni $u(kT)$} a partire dall'istante $(k
 - 1)T$ fino all'istante $(k - n)T$:
 \begin{equation}\label{eq:lineareDifferenzeDiscreto01}
   \begin{array}{l}
-    u(kT) = f(e(kT), e((k -1)T), ... , e((k - m)T);\\
-    u((k - 1)T), u((k - 2)T), ..., u((k - n )T))
+    u(kT) = f(e(kT), e((k -1)T), ... , e((k - m)T); ...\\
+    ... u((k - 1)T), u((k - 2)T), ..., u((k - n )T), k)
   \end{array}
 \end{equation}
-Quindi, la sequenza di campioni $u(kT)$ \`e funzione lineare o non
-lineare dell'ingresso corrente e dello stato attuale del processo
-discreto. Assumendo che la funzione $f$ sia lineare e dipendente da un
+Ovviamente, se $n = m = 0$ si elimina la dinamica e il sistema,
+continuo o discreto, diventa statico: l'uscita \`e funzione del solo
+ingresso correntemente applicato.
+\[
+u(kT) = f(e(kT), k)
+\]
+Assumendo che la funzione $f$ sia lineare e dipendente da un
 numero finito di valori passati delle sequenze di campioni $e(kT)$ e
 $u(kT)$, possiamo riscrivere
 l'equazione~\ref{eq:lineareDifferenzeDiscreto01} come:
@@ -8790,12 +8803,12 @@ l'equazione~\ref{eq:lineareDifferenzeDiscreto01} come:
 \end{equation}
 che \`e {\bo l'equazione lineare alle differenze di ordine
   $n$}\index{Equazione lineare alle differenze di ordine $n$} del caso
-discreto. 
+discreto, avendo trascurato solo per comodit\`a $T$.
 \subsubsection{Esempio: Serie di Fibonacci}
 \subsubsection{Esempio: Serie assegnata}
 
 \section{Rappresentazione di stato}
-Una rappresentazione alternativa alla equazione lienare alle
+Una rappresentazione alternativa alla equazione lineare alle
 differenze di ordine $n$ \`e la coppia di equazioni:
 \[
 \begin{array}{l}
@@ -8810,7 +8823,7 @@ $f$ e $g$ sono due funzioni vettoriali tali che:
   dello stato del sistema ed \`e detta {\bo equazione di stato};
 \item la seconda \`e la {\bo trasformazione dell'uscita} e consente di
   determinare l'uscita del sistema discreto ad un certo istante di
-  tempo $k$ noti lo stato e l'ingresso allo stesso istante.
+  tempo $k$, noti lo stato e l'ingresso allo stesso istante.
 \end{itemize}
 
 \section{Equilibrio di un sistema discreto}
@@ -8937,7 +8950,7 @@ l'espressione del sistema linearizzato intorno al punto di equilibrio:
 La Z-trasformata della sequenza di campioni $x(kT)$ \`e l'equivalente
 del caso continuo della trasformata di Laplace del segnale analogico
 $x(t)$. Essa consente di passare dal dominio del tempo discreto $k$ al
-dominio della variabile complessa $z$, un dominio che offre una
+dominio della variabile complessa $z$. Questo dominio offre una
 maggiore semplicit\`a di calcolo e garantisce la possibilit\`a di
 ritornare al dominio discreto grazie all'anti-trasformata.
 
@@ -8958,13 +8971,349 @@ di raggio $R$, detto {\em raggio di convergenza}\index{Raggio di
   convergenza}. L'esterno di tale circonferenza \`e detto {\em dominio
 di convergenza}\index{Dominio di convergenza}.
 
+\subsection{Propriet\`a della Z-trasformata}
+\subsubsection{Linearit\`a}
+La Z-trasformata \`e un operatore lineare:
+  \[
+   x(k) = af(k) + bg(k) \Rightarrow X(z) = aF(z) + bG(z)
+  \]
+
+  {\bo Dimostrazione}
+\subsubsection{Moltiplicazione per $a^k$}
+Considerata la sequenza $a^k$, con $a$ costante diversa da $0$
+\[
+Z[a^k x(k)] = \sum\limits_{k = 0}^{\infty} a^k x(k) z^{-k}
+\]
+Se riscriviamo $a^k = (a^{-1})^{-k}$, otteniamo
+\[
+= \sum\limits_{k=0}^{\infty} x(k)(a^{-1})^{-k}z^{-k}
+= \sum\limits_{k=0}^{\infty} x(k)(a^{-1}z)^{-k} = X(a^{-1} z)
+\]
+\subsubsection{Traslazione nel tempo}
+\begin{description}
+\item[Ritardo]
+  La Z-trasformata della sequenza $x(k)$ ritardata nel tempo
+  discreto $k$ di $n$ passi \`e
+  \[
+  Z[x(k -n)] = \sum\limits_{k=0}^{\infty} x(k -n)z^{-k}
+  \]
+  Moltiplichiamo e dividiamo per $z^n$
+  \[
+  \sum\limits_{k=0}^{\infty} x(k -n) z^{-k} z^n z^{-n} =
+  \sum\limits_{k=0}^{\infty} x(k -n) z^{(k - n)} z^{-n}
+  \]
+  Portiamo $z^{-n}$, indipendente da $k$, fuori dalla sommatoria;
+  sostituiamo $m = k - n$ e consideriamo nulla la sequenza $x(m)$
+  per $m < 0$
+  \[
+  = z^{-n} \sum\limits_{m = 0}^{\infty} x(m) z^{-m} = 
+  \]
+  A questo punto, imponendo $m = k$
+  \[
+  z^{-n} \sum\limits_{m = 0}^{\infty} x(m) z^{-m} = z^{-n}
+  \sum\limits_{k = 0}^{\infty} x(k) z^{-k} \triangleq Z[x(k)]
+  \triangleq X(z) = z^{-n}X(z)
+  \]
+  \begin{figure}[!hbp]
+    \begin{center}
+      \includegraphics[scale=0.3]{./figures/discretoRitardo.png}
+      \caption{Z-trasformata
+        ritardata}\label{fig:Z-trasformataRitardo} 
+    \end{center}
+  \end{figure}
+  
+  \item[Anticipo]
+    \[
+    Z[x(k +n)] = \sum\limits_{k=0}^{\infty} x(k + n)z^{-k} = z^n
+    \left[ X(z) - \sum\limits_{m=0}^{n-1} x(m)z^{-m} \right]
+    \]
+    La Z-trasformata di $Z[x(k + n)]$ \`e semplicemente la z-trasformata
+    di $Z[x(k)]$ moltiplicata per il fattore $z^n$, che tiene traccia
+    di quanto si stia anticipando la sequenza $x(k)$, meno una certa
+    quantit\`a che compensa gli $n - 1$ campioni persi durante la
+    traslazione o attraversamento dell'origine degli assi.
+    \begin{figure}[!hbp]
+      \begin{center}
+        \includegraphics[scale=0.3]{./figures/discretoAnticipo.png}
+        \caption{Z-trasformata
+          anticipata}\label{fig:Z-trasformataAnticipo} 
+      \end{center}
+    \end{figure}
+  \end{description}
+\subsubsection{Teorema del valore iniziale}
+  Il teorema del valore iniziale consente di determinare il valore
+  iniziale della sequenza $x(k)$, nel dominio del tempo discreto $k$,
+  senza praticare la Z-trasformata. Il teorema del valore inizale \`e
+  sempre applicabile perch\`e la sequenza $x(k)$ avr\`a sempre ``punto
+  al finito''\index{Punto al finito} o campione iniziale da cui parte.
+  \begin{equation}\label{eq:teoremaInizialeDiscreto}
+    \lim\limits_{k \to 0} x(k) = x(0) = \lim\limits_{z \to \infty}
+    X(z) = X(\infty)
+  \end{equation}
+
+  {\bo Dimostrazione}
+
+\subsubsection{Teorema del valore finale}
+Il teorema del valore finale consente di conoscere il valore finale o
+di regime della sequenza $x(k)$ nel dominio del tempo discreto $k$,
+senza praticare la Z-trasformata. Questo teorema \`e applicabile solo
+se la sequenza $x(k)$ \`e convergente, cio\`e se i modi di evoluzione
+sono asintoticamente stabili ovvero se la Z-trasformata $X(z)$ ha
+tutti i poli all'interno del cerchio di raggio unitario e al pi\`u un
+polo semplice per $z = 1$.
+\begin{equation}
+  \lim\limits_{k \to \infty} x(k) = x(\infty) = \lim\limits_{z \to
+    1}[(1 - z^{-1})X(z)]
+\end{equation}
+
+{\bo Descrizione}
+
+\subsubsection{Derivazione complessa}
+\[
+Z[k^m x(k)] = \left ( -z \dfrac{d}{dz} \right )^m X(z)
+\]
+Notiamo quindi che
+\begin{itemize}
+\item se nel dominio del tempo discreto $k$ moltiplichiamo per $k$ la
+  sequenza $x(k)$, nel dominio della $Z$ stiamo derivando la
+  Z-trasformata $Z[x(k)]$
+\item possiamo calcolare la Z-trasformata di funzioni a partire da
+  Z-trasformate note.
+\end{itemize}
+\[
+\left ( -z \dfrac{d}{dz} \right )^m 
+\]
+indica l'applicazione per $m$ volte dell'operatore $\left ( -z
+\dfrac{d}{dz} \right )$, ovvero la derivata m-sima rispetto alla
+varibile $z$; non equivale a fare $m$ volte la derivata rispetto alla
+variabile complessa $z$ per poi moltiplicare per $z^m$.
+
+\subsubsection{Integrazione complessa}
+\[
+X(z) = Z[x(k)]
+\]
+\[
+g(k) = \dfrac{x(k)}{k}
+\]
+\[
+G(z) = \int\limits_{z}^{\infty} \dfrac{X(\zeta)}{\zeta} - \lim_{k \to
+  0} x(k)
+\]
+Se nel dominio del tempo discreto $k$ dividiamo per $k$ la sequenza
+$x(k)$ allora nel dominio della variabile complessa $z$ stiamo
+integrando opportunamente la Z-trasformata $z[x(k)]$.
+
+\subsubsection{Trasformazione di una sequenza periodica}
+
+\subsection{Z-trasformate di funzioni elementari}
+\subsubsection{Impulso discreto unitario}
+\subsubsection{Gradino discreto unitario}
+\subsubsection{Rampa discreta unitaria}
+\subsubsection{Funzione potenza}
+\subsubsection{Funzione esponenziale}
+\subsubsection{Funzione sinusoidale non smorzata - costante}
+\subsubsection{Funzione cosinusoidale non smorzata - costante}
+
+\subsection{Come capire se la funzione \`e non smorzata - costante,
+  non smorzata - divergente o smorzata - convergente}
+
+\section{La Z-antitrasformata}
+
+\section{Sistemi lineari tempo invarianti}
+\begin{equation}
+  \left\{
+  \begin{array}{l}
+    x(k + 1) = Ax(k) + Bu(k)\\
+    y(k) = C^T x(k) + Du(k)
+  \end{array}
+  \right.
+\end{equation}
+Il vettore $x$ \`e il vettore degli stati di dimensione $N$, con $N$
+ordine del sistema dinamico. Il sistema \`e SISO: $u$ e $y$ sono due
+scalari o funzioni di scalari. $A$, di dimensione $(N \times N)$, $B$,
+$(N \times 1)$, $C^T$, $(1 \times N)$, e $D$, $(1 \times 1)$, sono
+matrici costanti, perch\`e il sistema \`e tempo invariante.
+
+Applichiamo la Z-trasformata:
+\[
+\begin{array}{l}
+  X(z) = Z[x(k)]\\
+  U(z) = Z[u(k)]\\
+  Y(z) = Z[y(k)]
+\end{array}
+\]
+Ovviamente anche $X(z)$ \`e un vettore di dimensione $N$. La prima
+equazione \`e:
+\[
+Z[x(k + 1)] = Z[Ax(k) + Bu(k)]
+\]
+\[
+z(X(z) - x(0)) = AX(z) + BU(z)
+\]
+Sono necessarie le condizioni iniziali, altrimenti si avrebbero
+infinite soluzioni.
+\[
+zX(z) - AX(z) = zx(0) + BU(z)
+\]
+\[
+(zI - A)X(z) = zx(0) + BU(z)
+\]
+Abbiamo ottenuto un sistema puramente algebrico in $z$. Sapendo che
+$(zI - A)$ \`e $N \times N$ e quindi invertibile, $z$ \`e uno scalare
+e $x(0)$ \`e un vettore, ricaviamo $X(z)$: 
+\[
+X(z) = z(zI - A)^{-1}x(0) + (zI - A)^{-1}BU(z)
+\]
+La seconda equazione \`e:
+\[
+Y(z) = C^T X(z) + DU(z)
+\]
+Sostituendo, otteniamo:
+\[
+\begin{array}{l}
+  X(z) = z(zI - A)^{-1}x(0) + (zI - A)^{-1}BU(z)\\
+  Y(z) = \underbrace{zC^{T} (zI - A)^{-1} x(0)}_\text{Evoluzione
+    libera} + \underbrace{[C^T (zI - A)^{-1} B +
+      D]U(z)}_\text{Evoluzione forzata}
+\end{array}
+\]
+L'evoluzione libera esprime l'andamento delle $N$ componenti dello
+stato del sistema che parte da una condizione iniziale $0$ ed evolve
+senza forzamenti. Diversamente, l'evoluzione forzata parte da
+condizioni iniziali nulle e descrive l'andamento delle $N$ componenti
+dello stato del sistema sotto un forzamento, cio\`e l'ingresso
+$U(z)$. 
+\begin{equation}
+  [C^T (zI - A)^{-1} B + D]
+\end{equation}
+\`e detta {\bo funzione di trasferimento} e lega l'uscita di un
+sistema al suo ingresso in evoluzione forzata, cio\`e a condizioni
+iniziali $x(0)$ nulle.
+
+In entrambi i termini della $Y(z)$ \`e presente termine
+\[
+(zI - A)^{-1}
+\]
+che \`e l'inverso di una matrice, cio\`e il rapporto tra la matrice
+dei cofattori trasposta e il determinante di $(zI - A)^{-1}$. Il
+determinante \`e il polinomio caratteristico le cui soluzioni sono gli
+autovalori della matrice $A$. Dai valori della matrice $A$ dipendono i
+modi di evoluzione del sistema.
+\subsection{Modi di evoluzione in funzione degli autovalori}
+Effettuiamo una catalogazione delle combinazioni degli $N$ modi di
+evoluzione di un sistema in funzione degli autovalori della matrice
+$A$ e di come vengono collocati in relazione alla circonferenza
+unitaria.
+
+Consideriamo il piano $z$ e la circonferenza di raggio unitaria,
+mostrata in figura~\ref{fig:circonferenzaUnitaria}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/circonferenzaUnitaria}
+    \caption{Circonferenza unitaria}\label{fig:circonferenzaUnitaria} 
+  \end{center}
+\end{figure}
+La circonferenza individua tre regioni:
+\begin{itemize}
+\item una interna
+\item una esterna
+\item una esattamente sulla circonferenza
+\end{itemize}
+
+Come gi\`a detto i modi di evoluzione sono gli stessi sia che si parli
+di evoluzione libera che di evoluzione forzata. Tuttavia per esaltare
+un modo di evoluzione, si parte da una condizione iniziale unitaria in
+evoluzione libera, il che equivale a considerare una condizione
+iniziale di ampiezza pari a 1 posizionata sull'autovettore
+corrispondente all'autovalore considerato. In questo modo si isola una
+particolare dinamica del sistema rispetto alle altre.
+
+\subsubsection{Modi di evoluzione asintoticamente stabili}
+\begin{enumerate}
+\item Autovalore reale positivo\\
+  In questo caso si ha un autovalore reale positivo, $\rho$, con
+  modulo minore di 1:
+  \[
+  |\rho| < 1
+  \]
+  la cui evoluzione sar\`a:
+  \[
+  \rho^k
+  \]
+   che corrisponde ad un modo di evoluzione convergente dovuto al
+   modulo minore di 1.
+   \begin{figure}[!h]
+     \begin{center}
+       \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo00.png}
+       \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo00}
+     \end{center}
+   \end{figure}
+      \begin{figure}[!h]
+     \begin{center}
+       \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo01.png}
+       \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo01}
+     \end{center}
+   \end{figure}
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo02.png}
+          \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo02}
+        \end{center}
+      \end{figure}
+         La costante di tempo \`e la velocit\`a con cui il sistema
+         converge:
+         \[
+         \begin{array}{l}
+           e^{\alpha t} \to \tau = - \dfrac{1}{\alpha} \;\;\textrm{Tempo
+             continuo}\\
+           \rho^k = e^{\ln \rho} \to \tau = - \dfrac{1}{\ln \rho}
+           \;\;\textrm{Tempo discreto}
+         \end{array}
+         \]
+         Per dinamiche convergenti si ha $|\rho| < 1$ e quindi $\ln
+         \rho < 0$ e $\tau > 0$.
+       \item Autovalore nell'origine\\
+         \begin{figure}[!h]
+           \begin{center}
+             \includegraphics[scale=0.4]{./figures/autovaloreNellOrigine00.png}
+             \caption{Autovalore nell'origine}\label{fig:autovaloreNellOrigine00}
+           \end{center}
+         \end{figure}
+         \begin{figure}[!h]
+           \begin{center}
+             \includegraphics[scale=0.4]{./figures/autovaloreNellOrigine01.png}
+             \caption{Autovalore nell'origine}\label{fig:autovaloreNellOrigine01}
+           \end{center}
+         \end{figure}
+\end{enumerate}
+
+\section{Campionamento e ricostruzione del segnale}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/campionamentoRicostruizioneSegnale.png}
+    \caption{Cascata ADC-DAC}\label{fig:campionamentoRicostruizioneSegnale}
+  \end{center}
+\end{figure}
+Consideriamo un generico segnale di $x(t)$ in ingresso alla cascata
+ADC e DAC, figura~\ref{fig:campionamentoRicostruizioneSegnale}. In
+teoria, dovremmo ottenere
+\[
+x(t) = x_r(t)
+\]
+In realt\`a riusciamo ad ottenere la stessa quantit\`a di informazione
+del segnale originario $x(t)$. Si \`e disposti a perdere alcune
+informazioni, purch\`e il segnale ricostruito $x_r(t)$ contenga le
+informazioni necessarie ad approssimare il segnale di ingresso $x(t)$
+in maniera sufficientemente accurata da controllare il sistema.
 
 
 
-
-
-
-
+\begin{figure}[!h]
+  \begin{center}
+%    \includegraphics[scale=0.5]{./figures/}
+    \caption{}\label{fig:}
+  \end{center}
+\end{figure}
 
 % APPENDICI
 \appendix
