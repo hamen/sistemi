@@ -8973,12 +8973,27 @@ di convergenza}\index{Dominio di convergenza}.
 
 \subsection{Propriet\`a della Z-trasformata}
 \subsubsection{Linearit\`a}
-La Z-trasformata \`e un operatore lineare:
+La Z-trasformata \`e un operatore lineare: una sequenza $x(k)$,
+combinazione lineare delle sequenze $f(k)$ e $g(k)$, avr\`a una
+Z-trasformata $X(z)$ combinazione lineare delle Z-trasformate $F(z)$ e
+$G(z)$. Formalmente:
   \[
    x(k) = af(k) + bg(k) \Rightarrow X(z) = aF(z) + bG(z)
   \]
-
+  
   {\bo Dimostrazione}
+  \[
+  X(z) = Z[x(k)] = Z[af(k) + bg(k)] = \sum_{k=0}^{\infty} [af(k) + bg(k)]z^{-k}
+  \]
+  Per la propriet\`a di linearit\`a della sommatoria, possiamo
+  scrivere
+  \[
+  = a\sum_{k=0}^{\infty} [f(k)]z^{-k} + b\sum_{k=0}^{\infty} [g(k)]z^{-k}
+  \]
+  che per definizione, ci porta a
+  \[
+  = aZ[f(k)] + bZ[g(k)] = aF(z) + bG(z)
+  \]
 \subsubsection{Moltiplicazione per $a^k$}
 Considerata la sequenza $a^k$, con $a$ costante diversa da $0$
 \[
