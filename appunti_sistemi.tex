@@ -8739,17 +8739,54 @@ traduce con l'avere un sensore avente una banda passante pi\`u ampia
 rispetto a quella del sistema a ciclo chiuso.
 
 \subsection{Elementi esclusivi del controllo digitale}
-Un controllore digitale \`e indicato con $R^{*}(z)$ e $T$ \`e il suo
-tempo di campionamento\index{Tempo di campionamento} o tempo di
-attivazione del controllore\index{Tempo di attivazione}.
+Il controllore digitale \`e indicato tipicamente con $R^{*}(z)$ e $T$
+\`e il suo tempo di campionamento\index{Tempo di campionamento} o
+tempo di attivazione del controllore\index{Tempo di attivazione}.
 
+\subsubsection{Convertitori ADC/DAC}
 L'ingresso del controllore digitale \`e un segnale discreto o sequenza
 di campioni $e(kT)$, ottenuta campionando il segnale analogico di
-errore $e(t)$, sfruttando un convertitore analogico/digitale ADC.
+errore $e(t)$.
+
+Il campionatore ideale\index{Campionatore ideale} \`e un convertitore
+che, quindi, dato in ingresso un segnale $e(t)$ produce in uscita un
+segnale a tempo discreto:
+\[
+e^{*}(k) = e (kT_s + \tau_s)
+\]
+Ricordiamo che $T$ o $T_s$ \`e il periodo di campionamento\index{Periodo di
+  campionamento}, cio\`e l'intervallo di tempo continuo tra i due
+istanti in cui vengono prelevati due campioni successivi. Nel nostro
+studio avremo sempre $\tau_s = 0$ perch\`e faremo riferimento a
+sistemi stazionari.
+
+Il periodo di campionamento ci consente di definire anche la
+pulsazione di campionamento\index{Pulsazione di campionamento}
+$\omega_s$ e la frequenza di campionamento\index{Frequenza di
+  campionamento} $f_s$:
+\[
+\omega_s = 2 \pi
+\]
+\[
+f_s = \dfrac{2 \pi}{T_s}
+\]
 
 L'uscita prodotta dal controllore digitale \`e il segnale discreto
 $u(kT)$, che, per essere applicato in ingresso ad un processo
 analogico, va convertito con un convertitore digitale/analogico DAC.
+\[
+u(t) = u^{*}(k), \;\;\; kT_m \leq t \leq (k + 1)T_m
+\]
+\`e il caso pi\`u semplice di conversione D/A. $T_m$ \`e il periodo di
+mantenimento\index{Periodo di mantenimento}. Nuovamente, da $T_m$
+otteniamo la frequenza di mantenimento\index{Frequenza di mantenimento}
+\[
+f_m = \dfrac{1}{T}
+\]
+e la pulsazione di mantenimento\index{Pulsazione di mantenimento}
+\[
+\omega_m = \dfrac{2 \pi}{T_m}
+\]
 
 Purtroppo questi convertitori, o dispositivi di interfaccia, hanno
 delle dinamiche non trascurabili, non lineari, che introducono dei
@@ -8757,7 +8794,7 @@ ritardi di tempo nell'anello di controllo digitale. Questi ritardi,
 pericolosi per la stabilit\`a del sistema, vanno adeguatamente gestiti
 per realizzare un controllore digitale $R^*(z)$ efficace.
 
-\`E comprensibile, quindi, che $R^*(z)$ dovr\`a essere progettata in
+\`E comprensibile, quindi, che $R^*(z)$ dovr\`a essere progettato in
 modo diverso rispetto al controllore analogico $R(s)$, al fine di
 considerare le sopracitate dinamiche non trascurabili.
 
@@ -8776,16 +8813,13 @@ considerare le sopracitate dinamiche non trascurabili.
   \end{center}
 \end{figure}
 Dovendo individuare una relazione ingresso-uscita, affermiamo che
-esiste una {\bo certa sequenza $u(kT)$} che \`e funzione
-lineare o non lineare dei campioni della {\bo sequenza $e(kT)$}
+esiste una {\bo certa sequenza $u(kT)$} (o $u_k$) che \`e funzione
+lineare o non lineare dei campioni della {\bo sequenza $e(kT)$} (o $e_k$)
 a partire dall'istante $kT$ fino all'istante $(k - m)T$ e degli stessi
 campioni della {\bo sequenza di campioni $u(kT)$} a partire dall'istante $(k
 - 1)T$ fino all'istante $(k - n)T$:
 \begin{equation}\label{eq:lineareDifferenzeDiscreto01}
-  \begin{array}{l}
-    u(kT) = f(e(kT), e((k -1)T), ... , e((k - m)T); ...\\
-    ... u((k - 1)T), u((k - 2)T), ..., u((k - n )T), k)
-  \end{array}
+  u_k = f(e_k, e_{k-1}, ... , e_{k-m};u_{k-1}, u_{k-2}, ..., u_{k-n}, k)
 \end{equation}
 Ovviamente, se $n = m = 0$ si elimina la dinamica e il sistema,
 continuo o discreto, diventa statico: l'uscita \`e funzione del solo
@@ -8805,7 +8839,79 @@ che \`e {\bo l'equazione lineare alle differenze di ordine
   $n$}\index{Equazione lineare alle differenze di ordine $n$} del caso
 discreto, avendo trascurato solo per comodit\`a $T$.
 \subsubsection{Esempio: Serie di Fibonacci}
-\subsubsection{Esempio: Serie assegnata}
+La serie di Fibonacci \`e un comodo esempio introduttivo ai sistemi
+tempo discreto. Come \`e noto, la serie si basa sul concetto che
+l'n-esimo valore \`e la somma dei due valori precedenti. Formalizzando
+\begin{equation}\label{eq:fibonacci}
+u_k = u_{k-1} + u_{k-2}
+\end{equation}
+Per risolvere questa equazione abbiamo bisogno solo di conoscere i
+valori iniziali e l'istante iniziale di tempo:
+\[
+\begin{array}{l}
+  k = 2\\
+  u(0) = u_0 = 1\\
+  u(1) = u_1 = 1
+\end{array}
+\]
+Considerata l'assenza di un ingresso, la sequenza \`e
+\[
+1,1,2,3,5,8,13,...
+\]
+\`E palese la natura ``divergente'' della serie: il sistema \`e
+instabile.
+
+Per riuscire a valurare la stabilit\`a di un sistema senza calcolarne
+i valori esplicitamente, assumiamo che la soluzione dell'equazione
+abbia una struttura con costanti da determinare in base alle
+condizioni iniziali. Nel caso continuo, si utilizzavano soluzioni di
+tipo esponenziale $e^{st}$. Analogamente, per i sistemi discreti
+utilizzeremo soluzioni di tipo $z^k$, con $z$ variabile complessa che
+sostituisce $s$ e $k$ \`e la variabile discreta indipendente che
+sostituisce $t$. Quindi l'equazione~\ref{eq:fibonacci} ha soluzione:
+\begin{equation}\label{eq:fibonacci02}
+  cz^k = cz^{k-1} + cz^{k-2}
+\end{equation}
+Divideno per $cz^k$, otteniamo
+\[
+z^2 - z -1 = 0
+\]
+di soluzioni
+\[
+z_{1,2} = \dfrac{1 \pm \sqrt{5}}{2}
+\]
+$u_k$ \`e una equazione lineare, quindi la somma delle sue soluzioni
+\`e ancora una soluzione:
+\[
+u_k = c_1 z_1^k + c_2z_2^k
+\]
+con $c_1$ e $c_2$ costanti, calcolabili a partire dalle condizioni
+iniziali:
+\[
+\begin{array}{l}
+  c_1 + c_2 = u_0 = 1\\
+  c_1z_1 + c_2z_2 = u_1 = 1\\
+  c_{1,2} = \dfrac{\pm 1 + \sqrt{5}}{2 \sqrt{5}}
+\end{array}
+\]
+\[
+u_k = \dfrac{1 + \sqrt{5}}{2 \sqrt{5}}\dfrac{1 + \sqrt{5}}{2} +
+\dfrac{-1 + \sqrt{5}}{2 \sqrt{5}}\dfrac{1 - \sqrt{5}}{2} 
+\]
+Per valutare la stabilit\`a del sistema, valutiamo $z_1$ e $z_2$:
+\[
+z_1 = \dfrac{(1 + \sqrt{5})}{2} > 1
+\]
+quindi $c_1z_1^k$ cresce illimitatamente al crescere di $k$ e conferma
+l'instabilit\`a del sistema.
+
+La precedente analisi si basa sul concetto che se una delle soluzioni
+dell'equazione caratteristica $u_k = z^k$ ha modulo maggiore di 1
+(quindi \`e esterna alla circonferenza di raggio 1 centrata
+nell'origine del piano complesso $z$), l'equazione alle differenze \`e
+instabile. Se tutte le radici sono interne alla circonferenza,
+l'equazione alle differenze \`e stabile, cio\`e la sua soluzione
+converger\`a a zero al crescere di $k$ per ogni condizione iniziale.
 
 \section{Rappresentazione di stato}
 Una rappresentazione alternativa alla equazione lineare alle
@@ -8871,12 +8977,12 @@ Possiamo riscrivere le equazioni~\ref{eq:sisoDiscretoStato} come:
   \begin{array}{l}
     \delta x (k + 1) + \overline{x} = f ( \delta x(k) + \overline{x},
     \delta u (k) + \overline{u})\\
-    \delta y (k + 1) + \overline{y} = g (\delta x (k) + \overline{x},
+    \delta y (k) + \overline{y} = g (\delta x (k) + \overline{x},
     \delta u(k) + \overline{u})
   \end{array}
 \end{equation}
-Sviluppando in serie di Taylor le funzioni $f$ e $g$ intorno a $P$
-avremo:
+Sviluppando in serie di Taylor le funzioni $f$ e $g$ intorno al punto
+di equilibrio $P$ avremo:
 \[
 \begin{array}{l}
   f (\delta x (k) + \overline{x}, \overline{u}(k) + \overline{u}) =\\
@@ -8904,8 +9010,10 @@ possiamo dire che:
   \dfrac{\partial g(x,u)}{\partial u} = C \in R^{1 \times 1}\\
 \end{array}
 \]
-$o(\delta x(k), \delta u(k))$ tende a zero per $\delta x(k)$ e $\delta
-u(k)$ che tendono a zero.
+Ricordiamo che l'infinitesimo di ordine superiore al primo $o(\delta
+x(k), \delta u(k))$ tende a zero per $\delta x(k)$ e $\delta 
+u(k)$ che tendono a zero, cio\`e nelle vicinanze del punto di
+equilibrio $P$.
 
 Possiamo riscrivere:
 \[
@@ -8920,19 +9028,19 @@ Possiamo riscrivere:
 \end{array}
 \]
 Riconsiderando
-\begin{equation}
+\begin{equation*}
   \begin{array}{l}
     \delta x(k + 1) + \overline{x} = f ( \delta x(k) + \overline{x},
     \delta u (k) + \overline{u})\\
-    \delta y (k + 1) + \overline{y} = g (\delta x (k) + \overline{x},
+    \delta y (k) + \overline{y} = g (\delta x (k) + \overline{x},
     \delta u(k) + \overline{u})
   \end{array}
-\end{equation}
+\end{equation*}
 \begin{equation}
   \begin{array}{l}
     \delta x(k + 1) + \overline{x} = f(\overline{x}, \overline{u}) + A
     \cdot \delta x(k) + B\cdot \delta u(k) \\
-    \delta y (k + 1) + \overline{y} = \cong g(\overline{x},
+    \delta y (k) + \overline{y} = \cong g(\overline{x},
     \overline{u}) + C \cdot \delta x(k) + D\cdot \delta u(k)
   \end{array}
 \end{equation}
@@ -8942,11 +9050,11 @@ l'espressione del sistema linearizzato intorno al punto di equilibrio:
 \begin{equation}
   \begin{array}{l}
     \delta x(k + 1)= A \cdot \delta x(k) + B\cdot \delta u(k) \\
-    \delta y (k + 1) = C \cdot \delta x(k) + D\cdot \delta u(k)
+    \delta y (k) = C \cdot \delta x(k) + D\cdot \delta u(k)
   \end{array}
 \end{equation}
 
-\section{Z-trasformata}
+\chapter{Z-trasformata}
 La Z-trasformata della sequenza di campioni $x(kT)$ \`e l'equivalente
 del caso continuo della trasformata di Laplace del segnale analogico
 $x(t)$. Essa consente di passare dal dominio del tempo discreto $k$ al
@@ -8954,7 +9062,8 @@ dominio della variabile complessa $z$. Questo dominio offre una
 maggiore semplicit\`a di calcolo e garantisce la possibilit\`a di
 ritornare al dominio discreto grazie all'anti-trasformata.
 
-Nell'ipotesi di avere una sequenza di campioni $x(kT)$, si definisce
+Nell'ipotesi di avere una sequenza di campioni $x(kT) \in R$, definita
+per $k = 0, 1, 2, ...$ e nulla per $k < 0$, si definisce
 Z-trasformata unilatera $( \Rightarrow k \in [0, + \infty))$:
 \begin{equation}\label{eq:Z-trasformata01}
   Z[x(kT)] = \sum\limits_{k=0}^{\infty} x(kT) z^{-k}
@@ -8964,15 +9073,21 @@ riscrivere l'equazione~\ref{eq:Z-trasformata01} come:
 \begin{equation}\label{eq:Z-trasformata02}
   Z[x(k)] = \sum\limits_{k=0}^{\infty} x(k) z^{-k}
 \end{equation}
+\[
+Z[x(k)] = X(z) = x_0 + x_1z^{-1} + x_2 z^{-2} + ... =
+\sum\limits_{k=0}^{\infty} x(k) z^{-k} 
+\]
 
-La Z-trasformata $Z[x(k)]$ esiste solo se il termine $z^{-k}$
-converge. \`E dimostrabile che esso converge all'esterno di un cerchio
-di raggio $R$, detto {\em raggio di convergenza}\index{Raggio di
-  convergenza}. L'esterno di tale circonferenza \`e detto {\em dominio
-di convergenza}\index{Dominio di convergenza}.
+La Z-trasformata $Z[x(k)]$ esiste nella regione di spazio detta {\em
+  dominio di convergenza}\index{Dominio di convergenza}, cio\`e
+nell'insieme dei punti $z$ per cio la serie~\ref{eq:Z-trasformata02}
+converge. Poich\`e la $X(z)$ \`e una serie in $z^{-1}$, il dominio di
+convergenza \`e la zona del piano $z$ esterna ad un cerchio di raggio
+$R$ (raggio di convergenza\index{Raggio di convergenza}) centrato
+nell'origine. 
 
-\subsection{Propriet\`a della Z-trasformata}
-\subsubsection{Linearit\`a}
+\section{Propriet\`a della Z-trasformata}
+\subsection{Linearit\`a}
 La Z-trasformata \`e un operatore lineare: una sequenza $x(k)$,
 combinazione lineare delle sequenze $f(k)$ e $g(k)$, avr\`a una
 Z-trasformata $X(z)$ combinazione lineare delle Z-trasformate $F(z)$ e
@@ -8994,7 +9109,7 @@ $G(z)$. Formalmente:
   \[
   = aZ[f(k)] + bZ[g(k)] = aF(z) + bG(z)
   \]
-\subsubsection{Moltiplicazione per $a^k$}
+\subsection{Moltiplicazione per $a^k$}
 Considerata la sequenza $a^k$, con $a$ costante diversa da $0$
 \[
 Z[a^k x(k)] = \sum\limits_{k = 0}^{\infty} a^k x(k) z^{-k}
@@ -9004,7 +9119,9 @@ Se riscriviamo $a^k = (a^{-1})^{-k}$, otteniamo
 = \sum\limits_{k=0}^{\infty} x(k)(a^{-1})^{-k}z^{-k}
 = \sum\limits_{k=0}^{\infty} x(k)(a^{-1}z)^{-k} = X(a^{-1} z)
 \]
-\subsubsection{Traslazione nel tempo}
+Notiamo che in questo caso, la Z-trasformata \`e funzione di $z$ e
+$a^{-1}$.
+\subsection{Traslazione nel tempo}
 \begin{description}
 \item[Ritardo]
   La Z-trasformata della sequenza $x(k)$ ritardata nel tempo
@@ -9014,8 +9131,8 @@ Se riscriviamo $a^k = (a^{-1})^{-k}$, otteniamo
   \]
   Moltiplichiamo e dividiamo per $z^n$
   \[
-  \sum\limits_{k=0}^{\infty} x(k -n) z^{-k} z^n z^{-n} =
-  \sum\limits_{k=0}^{\infty} x(k -n) z^{(k - n)} z^{-n}
+  \sum\limits_{k=0}^{\infty} x(k - n) z^{-k} z^n z^{-n} =
+  \sum\limits_{k=0}^{\infty} x(k - n) z^{-(k - n)} z^{-n}
   \]
   Portiamo $z^{-n}$, indipendente da $k$, fuori dalla sommatoria;
   sostituiamo $m = k - n$ e consideriamo nulla la sequenza $x(m)$
@@ -9029,7 +9146,10 @@ Se riscriviamo $a^k = (a^{-1})^{-k}$, otteniamo
   \sum\limits_{k = 0}^{\infty} x(k) z^{-k} \triangleq Z[x(k)]
   \triangleq X(z) = z^{-n}X(z)
   \]
-  \begin{figure}[!hbp]
+  Quindi, la Z-trasformata della sequenza $x(k)$ ritardata nel tempo
+  discreto $k$ di $n$ passi \`e pari al prodotto della Z-trasformata
+  di $x(k)$ e del fattore di ritardo $z^{-n}$.
+  \begin{figure}[!h]
     \begin{center}
       \includegraphics[scale=0.3]{./figures/discretoRitardo.png}
       \caption{Z-trasformata
@@ -9038,16 +9158,41 @@ Se riscriviamo $a^k = (a^{-1})^{-k}$, otteniamo
   \end{figure}
   
   \item[Anticipo]
+    La Z-trasformata di $Z[x(k + n)]$ \`e semplicemente la z-trasformata
+    di $Z[x(k)]$ moltiplicata per il fattore di anticipo $z^n$, che
+    tiene traccia di quanto si stia anticipando la sequenza $x(k)$, meno una certa
+    quantit\`a che compensa gli $n - 1$ campioni persi durante la
+    traslazione o attraversamento dell'origine degli assi.
+    \[
+    Z[x(k + n)] = \sum\limits_{k=0}^{\infty} x(k + n)z^{-k}
+    \]
+    Moltiplichiamo e dividiamo per $z^n$
+    \[
+    \sum\limits_{k=0}^{\infty} x(k + n) z^{-k} z^n z^{-n} =
+    \sum\limits_{k=0}^{\infty} x(k + n) z^{-(k + n)} z^{n}
+    \]
+    Col cambio di variabile
+    \[
+    m = k + n
+    \]
+    la sommatoria cambier\`a in
+    \[
+    \sum_{m = n}^{m = \infty} x(m)z^{-m}
+    \]
+    rispettivamente se $k = 0$ o $k = \infty$.
+    La precedente sommatoria \`e la sommatoria della Z-trasformata di
+    x(m), privata dei campioni da $0$ ad $n -1$. A questo punto,
+    sommiamo e sottraiamo i ``campioni mancanti'':
+    \[
+    z^n \left[ \sum_{m=n}^{\infty} x(m)z^{-m} + \sum_{m=0}^{n-1} x(m)z^{-m}
+    - \sum_{m=0}^{n-1} x(m)z^{-m}\right] = 
+    \]
+    ponendo $m = k$, concludiamo dicendo che:
     \[
     Z[x(k +n)] = \sum\limits_{k=0}^{\infty} x(k + n)z^{-k} = z^n
     \left[ X(z) - \sum\limits_{m=0}^{n-1} x(m)z^{-m} \right]
     \]
-    La Z-trasformata di $Z[x(k + n)]$ \`e semplicemente la z-trasformata
-    di $Z[x(k)]$ moltiplicata per il fattore $z^n$, che tiene traccia
-    di quanto si stia anticipando la sequenza $x(k)$, meno una certa
-    quantit\`a che compensa gli $n - 1$ campioni persi durante la
-    traslazione o attraversamento dell'origine degli assi.
-    \begin{figure}[!hbp]
+    \begin{figure}[!h]
       \begin{center}
         \includegraphics[scale=0.3]{./figures/discretoAnticipo.png}
         \caption{Z-trasformata
@@ -9055,20 +9200,40 @@ Se riscriviamo $a^k = (a^{-1})^{-k}$, otteniamo
       \end{center}
     \end{figure}
   \end{description}
-\subsubsection{Teorema del valore iniziale}
+\subsection{Teorema del valore iniziale}
   Il teorema del valore iniziale consente di determinare il valore
   iniziale della sequenza $x(k)$, nel dominio del tempo discreto $k$,
   senza praticare la Z-trasformata. Il teorema del valore inizale \`e
-  sempre applicabile perch\`e la sequenza $x(k)$ avr\`a sempre ``punto
+  sempre applicabile perch\`e la sequenza $x(k)$ avr\`a sempre ``un punto
   al finito''\index{Punto al finito} o campione iniziale da cui parte.
   \begin{equation}\label{eq:teoremaInizialeDiscreto}
     \lim\limits_{k \to 0} x(k) = x(0) = \lim\limits_{z \to \infty}
     X(z) = X(\infty)
   \end{equation}
 
-  {\bo Dimostrazione}
-
-\subsubsection{Teorema del valore finale}
+\subsubsection{Dimostrazione}
+\[
+X(z) = \sum_{k = 0}^{\infty} x(k)z^{-k} = x_0z^0 + x_1z^{-1} +
+ x_2z^{-2} + ... = 
+\]
+Applichiamo ad entrambi i membri il $\lim\limits_{z \to \infty}$
+\[
+\lim\limits_{z \to \infty} X(z) = \lim\limits_{z \to \infty} [x_0z^0 + x_1z^{-1} +
+ x_2z^{-2} + ...]
+\]
+Per la propriet\`a di linearit\`a, il limite della somma \`e pari alla
+somma dei limiti:
+\[
+\lim\limits_{z \to \infty} X(z) = \lim\limits_{z \to \infty} x_0 +
+\lim\limits_{z \to \infty} x_1z^{-1} + \lim\limits_{z \to \infty}
+x_2z^{-2} + ...
+\]
+Il $\lim\limits_{z \to \infty}$ fa s\`i che i termini
+$z^{-esponente}$ convergano a 0, giungendo a:
+\[
+\lim\limits_{z \to \infty} X(z) = \lim\limits_{k \to 0} x(k) = x(0)
+\]
+\subsection{Teorema del valore finale}
 Il teorema del valore finale consente di conoscere il valore finale o
 di regime della sequenza $x(k)$ nel dominio del tempo discreto $k$,
 senza praticare la Z-trasformata. Questo teorema \`e applicabile solo
@@ -9081,12 +9246,86 @@ polo semplice per $z = 1$.
     1}[(1 - z^{-1})X(z)]
 \end{equation}
 
-{\bo Descrizione}
-
-\subsubsection{Derivazione complessa}
+\subsubsection{Descrizione}
+\[
+X(z) = \sum_{k=0}^{\infty} x(kT) z^{-k}
+\]
+\[
+Z[x(k-1)] = z^{-1}X(z) = \sum_{k=0}^{\infty} x(k -1) z^{-k}
+\]
+Per la propriet\`a di linearit\`a, sottraendo le due quantit\`a membro
+a membro otteniamo:
+\[
+X(z) - z^{-1}X(z) = \sum_{k=0}^{\infty} x(kT) z^{-k} -
+\sum_{k=0}^{\infty} x(k -1) z^{-k} 
+\]
+\[
+X(z)(1 - z^{-1}) = \sum_{k=0}^{\infty} x(kT)z^{-k} - x(k - 1)z^{-k}
+\]
+Applichiamo ad entrambi i membri il $\lim_{z \to 1}$:
+\[
+\lim\limits_{z \to 1}X(z)(1 - z^{-1}) = \lim\limits_{z \to
+  1}\left[\sum_{k=0}^{\infty} \left[ x(kT)z^{-k} - x(k -
+    1)z^{-k}\right]\right] 
+\]
+Al sedondo membro, tutti i termini $z^{-k}$ tenderanno ad 1 per
+qualsiasi valore di $k$. 
+\[
+\lim\limits_{z \to 1}X(z)(1 - z^{-1}) = \lim\limits_{z \to
+  1}\left[\sum_{k=0}^{\infty} \left[x(kT) - x(k - 1) \right]\right]
+\]
+La commatoria al secondo membro pu\`o essere ``esplosa'' come:
+\[
+\lim\limits_{z \to 1}X(z)(1 - z^{-1}) = [x(0) - x(-1)] + [x(1) - x(0)]
++ [x(2) - x(1)] + ... + [x(\infty) - x(\infty - 1)]
+\]
+Al secondo membro, quindi, avremo solo $x(\infty)$ perch\`e i campioni
+tendono ad annullarsi ``a coppie'' oppure sono nulli. In conclusione:
+\[
+\lim\limits_{z \to 1}X(z)(1 - z^{-1}) = x(\infty)
+\]
+\subsection{Differenziazione complessa}\label{DifferenziazioneComplessa}
+Possiamo differenziare rispetto a $z$ una serie di potenze $X(z)$
+nella propria regione di convergenza. La derivata di $X(z)$ che ne
+deriva \`e una serie convergente nella stessa regione di convergenza
+di $X(z)$. Si consideri
+\[
+X(z) = \sum_{k=0}^{\infty}x(k)z^{-k}
+\]
+Differenziando otteniamo
+\[
+\dfrac{d}{dz}X(z) = \sum_{k=0}^{\infty} (-k) x(k) z^{-k-1}
+\]
+\[
+\dfrac{d}{dz}X(z) = -\sum_{k=0}^{\infty} k \cdot x(k) z^{-k-1}
+\]
+\[
+\dfrac{d}{dz}X(z) = -z^{-1}\sum_{k=0}^{\infty} k \cdot x(k) z^{-k}
+\]
+\[
+-z\dfrac{d}{dz}X(z) = \sum_{k=0}^{\infty} k \cdot x(k) z^{-k}
+\]
+Dalla propriet\`a di moltiplicazione si ha che:
+\[
+Z[kx(k)] = -z\dfrac{d}{dz} X(z)
+\]
+Derivando ulteriormente:
+\[
+\dfrac{d}{dz}\left[-z\dfrac{d}{dz}X(z)\right]=
+\dfrac{d}{dz}\left[\sum_{k=0}^{\infty} k \cdot x(k) z^{-k}\right] 
+\]
+\[
+\dfrac{d}{dz}\left[-z\dfrac{d}{dz}X(z)\right]=
+\dfrac{d}{dz}\left[\sum_{k=0}^{\infty} (-k^2) \cdot x(k) z^{-k}\right] 
+\]
+\[
+Z[k^2 x(k)] = \dfrac{d}{dz}\left[-z\dfrac{d}{dz}X(z)\right]
+\]
+Generalizzando, abbiamo:
 \[
 Z[k^m x(k)] = \left ( -z \dfrac{d}{dz} \right )^m X(z)
 \]
+
 Notiamo quindi che
 \begin{itemize}
 \item se nel dominio del tempo discreto $k$ moltiplichiamo per $k$ la
@@ -9099,11 +9338,11 @@ Notiamo quindi che
 \left ( -z \dfrac{d}{dz} \right )^m 
 \]
 indica l'applicazione per $m$ volte dell'operatore $\left ( -z
-\dfrac{d}{dz} \right )$, ovvero la derivata m-sima rispetto alla
+\dfrac{d}{dz} \right )$, ovvero la derivata \mbox{m-sima} rispetto alla
 varibile $z$; non equivale a fare $m$ volte la derivata rispetto alla
 variabile complessa $z$ per poi moltiplicare per $z^m$.
 
-\subsubsection{Integrazione complessa}
+\subsection{Integrazione complessa}
 \[
 X(z) = Z[x(k)]
 \]
@@ -9111,26 +9350,446 @@ X(z) = Z[x(k)]
 g(k) = \dfrac{x(k)}{k}
 \]
 \[
+G(z) = \sum_{k = 0}^{\infty} \dfrac{x(k)}{k}z^{-k}
+\]
+Applichiamo la propriet\`a di derivazione complessa:
+\[
+\dfrac{d}{dz}G(z) = \dfrac{d}{dz}\left[\sum_{k = 0}^{\infty}
+  \dfrac{x(k)}{k}z^{-k}\right] 
+\]
+\[
+\dfrac{d}{dz}G(z) = \dfrac{d}{dz}\left[\sum_{k = 0}^{\infty}
+  (-k)\dfrac{x(k)}{k}z^{-k-1}\right] 
+\]
+\[
+\dfrac{d}{dz}G(z) = \dfrac{d}{dz}\left[\sum_{k = 0}^{\infty}
+  -z^{-1}\dfrac{x(k)}{k}z^{-k}\right] 
+\]
+\[
+\dfrac{d}{dz}G(z) = -z^{-1}X(z)
+\]
+\[
+\dfrac{d}{dz}G(z) = -\dfrac{X(z)}{z}
+\]
+Possiamo integrare ambo i membri rispetto a $z$ tra $z$ a $\infty$ a
+patto di effettuare un cambio di variabile al secondo membro:
+\[
+\int_{z}^{\infty}\dfrac{d}{dz}G(z) = \int\limits_{z}^{\infty}
+-\dfrac{X(\zeta)}{\zeta}
+\]
+\[
+G(\infty) - G(z) = \int\limits_{z}^{\infty}
+-\dfrac{X(\zeta)}{\zeta}
+\]
+Dal teorema del valore iniziale
+\[
+G(\infty) = \lim\limits_{k \to 0} x(k) = x(0)
+\]
+Quindi:
+\[
 G(z) = \int\limits_{z}^{\infty} \dfrac{X(\zeta)}{\zeta} - \lim_{k \to
   0} x(k)
 \]
 Se nel dominio del tempo discreto $k$ dividiamo per $k$ la sequenza
-$x(k)$ allora nel dominio della variabile complessa $z$ stiamo
+$x(k)$ nel dominio della variabile complessa $z$ stiamo
 integrando opportunamente la Z-trasformata $z[x(k)]$.
 
-\subsubsection{Trasformazione di una sequenza periodica}
+\subsection{Trasformazione di una sequenza periodica}
+Sia la sequenza $x_p(k)$ periodica id periodo $p$. Sia $x(k)$ la
+seguente successione di campioni:
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  x_p(k) & \textrm{per} & 0 \leq k \leq p\\
+  0 & \textrm{per} & k > p
+\end{array}
+\right.
+\]
+A questo punto, possiamo sfruttare questa propriet\`a per descrivere
+la sequenza $x_p(k)$ come sequenza di campioni $x(k)$ opportunamente
+traslati di un periodo $p$:
+\[
+x_p(k) = x(k) + x(k - p) + x(k -2p) + ... = \sum_{i = 0}^{\infty} x(k
+- ip)
+\]
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/trasformazioneSequenzaPeriodica}
+    \caption{Trasformazione Sequenza
+      Periodica}\label{fig:circonferenzaUnitaria} 
+  \end{center}
+\end{figure}
+\[
+Z[x_p(k)] = \sum_{k=0}^{\infty} \sum_{i = 0}^{\infty} x(k- ip) z^{-k}
+\]
+\[
+Z[x_p(k)] = \sum_{i=0}^{\infty} \sum_{k = 0}^{\infty} x(k- ip) z^{-k}
+\]
+\[
+Z[x_p(k)] = \sum_{i=0}^{\infty} Z[x(k - ip)]
+\]
+Per la propriet\`a di traslazione nel tempo:
+\[
+Z[x_p(k)] = \sum_{i=0}^{\infty} z^{-ip}X(z)
+\]
+\[
+Z[x_p(k)] = X(z)\sum_{i=0}^{\infty} z^{-ip}
+\]
+Se $|z| > 1$ 
+\[
+\sum_{i=0}^{\infty} z^{ip}
+\]
+\`e una serie geometrica di ragione $z^{-p}$, cio\`e una successione
+di potenze convergente ad $\dfrac{1}{1 - z^{-p}}$. Quindi
+\[
+Z[x_p(k)] = X(z) \dfrac{1}{1 - z^{-p}}
+\]
 
-\subsection{Z-trasformate di funzioni elementari}
-\subsubsection{Impulso discreto unitario}
-\subsubsection{Gradino discreto unitario}
-\subsubsection{Rampa discreta unitaria}
-\subsubsection{Funzione potenza}
-\subsubsection{Funzione esponenziale}
-\subsubsection{Funzione sinusoidale non smorzata - costante}
-\subsubsection{Funzione cosinusoidale non smorzata - costante}
+\subsubsection{Serie geometrica convergente}
+Ricordiamo che se $|x| < 1$ la serie esiste e vale:
+\[
+\sum_{k=0}^{\infty} x^{1 \cdot k} = \lim\limits_{n \to \infty} \sum_{k=0}^{n}
+x^k = \lim\limits_{n \to \infty} \dfrac{1 - n^{n + 1}}{1 - x} =
+\dfrac{1}{1 - x^{1}}
+\]
+Ne caso preso in esame
+\[
+\sum_{i=0}^{\infty} z^{-p \cdot i}
+\]
+considerato l'esponente negativo, la serie converger\`a a
+\[
+\dfrac{1}{1 - z^{-p}}
+\]
+per $|z| > 1$.
+
+\section{Z-trasformate di funzioni elementari}
+\subsection{Impulso discreto unitario}
+Sia data la funzione
+\[
+\delta(k) =
+\left\{
+\begin{array}{lll}
+  1 & \textrm{per} & k = 0\\
+  0 & \textrm{per} & k \neq 0
+\end{array}
+\right.
+\]
+Applichiamo la definizione di Z-trasformata:
+\[
+Z[\delta(k)] = \sum_{k=0}^{\infty} \delta(k) z^{-k}
+\]
+Per definizione, la funzione $\delta(k)$ \`e valida solo per
+$k=0$. Applicando questa considerazione alla Z-trasformata in esame,
+abbiamo che:
+\[
+Z[\delta(k)] = 1z^{0} + 0z^{-1} + ... = 1
+\]
+
+\subsection{Gradino discreto unitario}
+Sia data la funzione
+\[
+h(k) =
+\left\{
+\begin{array}{lll}
+  1 & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+\[
+Z[h(k)] = H(z) = \sum_{k=0}^{\infty} h(k) z^{-k}
+\]
+che, per definizione di $h(k)$, possiamo riscrivere
+\[
+H(z) = \sum_{k=0}^{\infty} z^{-k}
+\]
+$H(z)$ \`e una serie geometrica di ragione $z^{-1}$, convergente a
+\[
+\dfrac{1}{1 - z^{-1}} = \dfrac{z}{z - 1}
+\]
+per $|z| > 1$.
+
+\subsection{Rampa discreta unitaria}
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  kT & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+\[
+X(z) = \sum_{k=0}^{\infty} x(kT) z^{-k} = \sum_{k=0}^{\infty} kT
+z^{-k} = T \sum_{k=0}^{\infty} k z^{-k}
+\]
+Esplodendo la sommatoria:
+\[
+T \sum_{k=0}^{\infty} k z^{-k} = T (z^{-1} + 2 z^{-2} + 3z^{-3} + ...)
+\]
+Mettendo in evidenza $z^{-1}$, abbiamo ottenuto una serie geometrica:
+\[
+T z^{-1}(1 + 2z^{-1} + 3z^{-2} + ...)
+\]
+\[
+T z^{-1} \dfrac{1}{(1 - z^{-1})^{2}}
+\]
+convergente per $|z| > 1$.
+
+Alternativamente, possiamo sfruttare il fatto che
+\[
+x(k) = kT \cdot h(k)
+\]
+\[
+X(z) = T\sum_{k=0}^{\infty} k \cdot h(k) z^{-k}
+\]
+La propriet\`a di derivazione(\ref{DifferenziazioneComplessa}) dice
+che se nel dominio del tempo discreto moltiplichiamo per $k$ la
+sequenza $h(k)$, nel dominio della variabile complessa $z$ stiamo
+derivando la Z-trasformata:
+\[
+X(z) = -T \cdot z \dfrac{d}{dz} H(z) = -T \cdot z \dfrac{d}{dz} \left[
+ \dfrac{1}{1 - z^{-1}}\right]
+\]
+Effettuando la derivata, otteniamo
+\[
+X(z) = T \dfrac{z}{(z - 1)^2}
+\]
+
+\subsection{Funzione potenza}
+La funzione potenza $x(k)$ \`e cos\`i definita:
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  a^k & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+con $a$ costante reale o complessa.
+\[
+X(z) = \sum_{k=0}^{\infty} a^k z^{-k}
+\]
+Esplodendo la sommatoria, abbiamo
+\[
+X(z) = 1 + az^{-1} + a^2 z^{-2} + a^3 z^{-3} + ...
+\]
+\`E ancora una serie geometrica di ragione $az^{1}$, convergente a
+\[
+X(z) = \dfrac{1}{1 - az^{-1}}
+\]
+per $|z| > |a|$, cio\`e per punti del piano complesso $z$ esterni al
+cerchio di raggio $|a|$ centrato nell'origine.
+
+Alternativamente possiamo dire che
+\[
+x(k) = a^k h(k)
+\]
+\[
+X(z) = \sum_{k=0}^{\infty} a^k h(k)z^{-k}
+\]
+Ricordando la propriet\`a di moltiplazione per $a^k$ e la trasformata
+del gradino $H(z)$, possiamo riscrivere
+\[
+X(z) = H(az^{-1}) = \dfrac{1}{1 - az^{-1}}
+\]
+Nota: se $a = 1$, $X(z) = H(z)$.
+
+\subsection{Funzione esponenziale}
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  e^{-akT} & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+con $a$ costante reale o complessa. Possiamo riscrivere $x(k)$ come
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  (e^{-aT})^k = \rho^k & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+Se nel dominio del tempo continuo $t$, campioniamo una funzione
+esponenziale $x(t) = e^{-at}$ con un tempo di campionamento $T$, nel
+dominio del tempo discreto $k$ avremo una funzione potenza $x(k) =
+\rho^{-k}$ la cui Z-trasformata si ottiene dalla gi\`a nota
+Z-trasformata della funzione potenza $a^k$:
+\[
+X(z) = \dfrac{1}{1 - e^{-aT}z^{-1}}
+\]
+serie geometrica convergente per $|z| > e^{-Re(a)T}$. Si noti che per
+$a = 0$ $X(z)~=~H(z)$.
+
+Questa importante propriet\`a della Z-trasformata della funzione
+potenza ci consente di trattare agevolmente le funzioni $sin$ e $cos$,
+riconducibilii a funzioni esponenziali grazie alla formula di Eulero.
+
+\subsection{Funzione sinusoidale non smorzata - costante}
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  sin \omega Tk & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+Sostituiamo $\omega T = \theta$
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  sin \theta k & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+La formula di Eulero ci mostra che
+\[
+sin \theta k = \dfrac{e^{j\theta k} - e^{-j \theta k}}{2j}
+\]
+\[
+X(z) = Z[sin \theta k] = Z \left[ \dfrac{e^{j\theta k} - e^{-j \theta
+      k}}{2j} \right] = \dfrac{1}{2j} Z \left[ e^{j\theta k} - e^{-j
+    \theta k} \right]
+\]
+Per la propriet\`a di linearit\` della Z-trasformata
+\[
+X(z) = \dfrac{1}{2j} Z [e^{j\theta k}] - Z [e^{-j\theta k}]
+\]
+Noto che
+\[
+Z[e^{-akT}] = \dfrac{1}{1 - e^{-aT}z^{-1}}
+\]
+\[
+X(z) = \dfrac{1}{2j} \left[ \dfrac{1}{1 - e^{j\theta}
+    z^{-1}}\dfrac{1}{1 - e^{-j\theta} z^{-1}}\right] 
+\]
+\[
+X(z) = \dfrac{1}{2j} \left[ \dfrac{1 - e^{-j \theta}z^{-1} -1 + e^{j
+      \theta}z^{-1} }{(1 - e^{j\theta}z^{-1}) (1 - e^{-j\theta}
+    z^{-1})}\right]
+\]
+Con la messa in evidenza di $z^{-1}$ al numeratore, otteniamo
+\[
+X(z) = \dfrac{1}{2j} \left[ \dfrac{z^{-1}(e^{j\theta} - e^{-j
+      \theta})}{(1 - e^{j\theta}z^{-1}) (1 - e^{-j\theta}
+    z^{-1})}\right]
+\]
+Dalla formula di Eulero del $sin$ e del $cos$ e dall'esplosione della
+moltiplazione al denominatore, otteniamo:
+\[
+X(z) = \dfrac{z^{-1} sin \theta}{1 - z^{-1} 2 cos \theta + z^{-2}} =
+\dfrac{z sin \theta}{z^2 - 2 z cos \theta + 1}
+\]
+
+\subsection{Funzione cosinusoidale non smorzata - costante}
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  cos \omega Tk & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+Sostituiamo $\omega T = \theta$
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  cos \theta k & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+Con un ragionameno analogo al caso della $Z[sin \theta k]$, otteniamo
+\[
+Z[cos \theta k] = \dfrac{1 - z^{-1} cos \theta}{1 - z^{-1} 2 cos
+  \theta + z^{-2}} = z \dfrac{z - cos \theta}{z^2 - 2z cos \theta + 1}
+\]
+
+\subsection{Funzioni $sin$ e $cos$ in rappresentazione cartesiana}
+Per ottenere una forma della Z-trasformata del $sin \theta k$ e $cos
+\theta k$ pi\`u facile da ricordare, possiamo sfruttare la
+rappresentazione cartesiana ``parte reale $\alpha$ e parte immaginaria
+$\omega$'' piuttosto che la rappresentazione polare, o ``modulo $\rho$
+e fase $\theta$''.
+
+Dobbiamo per\`o attenderci ad alcune uguaglianze:
+\[
+\begin{array}{l}
+  \alpha = cos \theta\\
+  \omega = sin \theta\\
+  \alpha^2 + \omega^2 = 1
+\end{array}
+\]
+A questo punto
+\[
+Z[sin \theta k ] = \dfrac{z \omega}{z^2 - 2 \alpha z + \alpha^2 +
+  \omega^2} = z \dfrac{\omega}{(z - a)^2 + \omega^2}
+\]
+\[
+Z[cos \theta k] = z \dfrac{z - a}{z^2 - 2 \alpha z + \alpha^ +
+  \omega^2} = z \dfrac{z - \alpha}{(z - \alpha)^2 + \omega^2}
+\]
 
 \subsection{Come capire se la funzione \`e non smorzata - costante,
   non smorzata - divergente o smorzata - convergente}
+
+\subsection{Funzione sinusoidale smorzata - convergente}
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  e^{\alpha k T}sin \omega Tk & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+Ponendo $\rho = e^{\alpha T}$ e $\theta = \omega T$
+\[
+x(k) = \rho^{k} sin (\theta k)
+\]
+funzione smorzata se $\rho < 1$. Considerando che $e^{\alpha T} =
+\rho$, quando $\alpha < 0$, $0 < \rho < 1$ il moto di evoluzione \`e
+convergente sia in $t$ che in $k$.
+\[
+Z[\rho^k sin(\theta k)] = \dfrac{\rho z sin(\theta)}{z^2 - 2 \rho
+  cos(\theta) + \rho^2}
+\]
+
+\subsection{Funzione cosinusoidale smorzata - convergente}
+\[
+x(k) =
+\left\{
+\begin{array}{lll}
+  e^{\alpha k T} cos \omega Tk & \textrm{per} & k \geq 0\\
+  0 & \textrm{per} & k < 0
+\end{array}
+\right.
+\]
+Ponendo $\rho = e^{\alpha T}$ e $\theta = \omega T$
+\[
+x(k) = \rho^{k} cos (\theta k)
+\]
+funzione smorzata se $\rho < 1$. Considerando che $e^{\alpha T} =
+\rho$, quando $\alpha < 0$, $0 < \rho < 1$ il moto di evoluzione \`e
+convergente sia in $t$ che in $k$.
+\[
+Z[\rho^k cos(\theta k)] = z\dfrac{z - \rho cos(\theta)}{z^2 - 2 \rho
+  cos(\theta) + \rho^2}
+\]
+
+
 
 \section{La Z-antitrasformata}
 
