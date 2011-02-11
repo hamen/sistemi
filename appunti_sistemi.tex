@@ -1492,8 +1492,9 @@ del tempo di ritardo e del tempo di assestamento.
 \begin{equation}\label{eq:secordfdt_c1}
   G(s) = \dfrac{\mu}{(1+sT_1)(1+sT_2)} \qquad, \qquad T_1>T_2
 \end{equation}
-Appicando la teoria dei fratti semplici, abbiamo che la risposta al
-gradino \`e:
+Appicando la teoria dei fratti semplici\index{Fratti
+  semplici}\label{FrattiSemplici}, abbiamo che la risposta al gradino
+\`e:
 \[
   \dfrac{A}{s} + \dfrac{B}{(1 + sT_1)} + \dfrac{C}{(1 + sT_2)} =
   \dfrac{\mu}{(1 + sT_1)(1 + sT_2)s}
@@ -9233,7 +9234,8 @@ $z^{-esponente}$ convergano a 0, giungendo a:
 \[
 \lim\limits_{z \to \infty} X(z) = \lim\limits_{k \to 0} x(k) = x(0)
 \]
-\subsection{Teorema del valore finale}
+
+\subsection{Teorema del valore finale}\label{teoremaFinaleDiscreto}
 Il teorema del valore finale consente di conoscere il valore finale o
 di regime della sequenza $x(k)$ nel dominio del tempo discreto $k$,
 senza praticare la Z-trasformata. Questo teorema \`e applicabile solo
@@ -9789,11 +9791,84 @@ Z[\rho^k cos(\theta k)] = z\dfrac{z - \rho cos(\theta)}{z^2 - 2 \rho
   cos(\theta) + \rho^2}
 \]
 
-
-
 \section{La Z-antitrasformata}
+L'antitrasformata \`e uno strumento per ottenere in modo univoco la
+sequenza $x_k$ a partire dalla sua Z-antitrasformata
+$X(z)$. L'antitrasformata non fornisce per\`o una univoca $x(t)$: si
+pu\`o sapere il valore di $x(t)$ in ogni istante di tempo $t/T = 0, 1,
+2, ...$, ma non si pu\`o conoscere l'andamento di $x(t)$ negli istanti
+intermedi. Esistono infinite funzioni $x(t)$ che campionate negli
+istanti $t = kT$ forniscono la stessa $x(k)$.
 
-\section{Sistemi lineari tempo invarianti}
+\subsection{Metodo della lunga divisione}
+Questo metodo consiste nell'espandere la $X(z)$ in una serie di
+potenze di $z^{-1}$. \`E un buon metodo quando si vuole ottenere solo
+un piccolo numero di termini di $x(k)$, tipicamente i primi 3 o 4
+termini.
+
+Se consideriamo la $X(z)$ come funzione razionale fratta, possiamo
+ottenere la versione come serie di potenze di $z^{-1}$ semplicemente
+dividendo il numeratore per il denominatore. Otteniamo cos\`i la forma
+di un unico polinomio i cui termini sono genericamente $c_k z^{-k}$
+con $k = 0, 1, 2, ...$
+\[
+X(z) = \dfrac{b_0 + b_1 z^{-1} + ... + b_m z^{m}}{a_0 + a_1 z + ... +
+  a_n z^{-n}} = c_0 + c_1z^{-1} + c_zz^{-1}
+\]
+\[
+\begin{array}{l}
+  x(0) = c_0\\
+  x(T) = c_1\\
+  x(2T) = c_2\\
+  ...
+\end{array}
+\]
+
+\subsection{Metodo computazionale}
+Il metodo computazionale \`e un metodo di calcolo dei coefficienti che
+pu\`o essere eseguito da un calcolatore, mediante un opportuno
+algoritmo ricorsivo. Istante per istante, il calcolatore memorizza i
+valori dei campioni e pu\`o calcolare il valore del campione
+all'istante $k$.
+
+Considerando per esempio la
+\[
+X(z) = \dfrac{3}{(1 - z^{-1})^2 (1 - 0.5z^{-1})} = \dfrac{3}{-0.5
+  z^{-3} + 2 z^{-2} - 2.5 z^{-1} + 1} U(z)
+\]
+con $U(z) = Z[\delta(k)] = 1$, Z-trasformata dell'impulso unitario
+discreto:
+\[
+u(0) = 1, \;\;\; u(k) = 0, \;\;\; k = 1, 2, 3, ...
+\]
+Se consideriamo $z^{-1}$ come un ritardo unitario, possiamo riscrivere
+la $X(z)$ come
+\[
+X(z)(1 - 2.5z^{-1} + 2 z^{-2} - 0.5z^{-3}) = 3 U(z)
+\]
+Sotto forma di equazione alle differenze:
+\[
+x(k) - 2.5x(k -1) + 2x(k -2) - 0.5x(k - 3) = 3u(k)
+\]
+Le condizioni iniziali $k = 0$ sono:
+\[
+\begin{array}{l}
+  u(0) = 1\\
+  x(-1) = x(-2) = x(-3) = 0\\
+  x(0) = 3\\
+  x(1) = 2.5x(0) = 7.5\\
+  x(2) = 2.5x(1) - 2x(0) = 12.75\\
+  x(3) = 2.5x(2) - 2x(1) + 0.5x(0) = 18.375\\
+  ...
+\end{array}
+\]
+Ricorsivamente, sar\`a quindi possibile calcolare tutti i valori a cui
+siamo interessati.
+
+\subsection{Metodo della scomposizione in fratti semplici}
+Fare riferimento a \ref{FrattiSemplici}.
+
+\chapter{Sistemi discreti lineari tempo invarianti}
 \begin{equation}
   \left\{
   \begin{array}{l}
@@ -9804,9 +9879,10 @@ Z[\rho^k cos(\theta k)] = z\dfrac{z - \rho cos(\theta)}{z^2 - 2 \rho
 \end{equation}
 Il vettore $x$ \`e il vettore degli stati di dimensione $N$, con $N$
 ordine del sistema dinamico. Il sistema \`e SISO: $u$ e $y$ sono due
-scalari o funzioni di scalari. $A$, di dimensione $(N \times N)$, $B$,
-$(N \times 1)$, $C^T$, $(1 \times N)$, e $D$, $(1 \times 1)$, sono
-matrici costanti, perch\`e il sistema \`e tempo invariante.
+scalari o funzioni di scalari. $A$ ha dimensioni $(N \times N)$, $B$
+ha dimensioni $(N \times 1)$, $C^T$ ha dimensioni $(1 \times N)$ e $D$
+ha dimensioni $(1 \times 1)$. Sono matrici costanti, perch\`e il
+sistema \`e tempo invariante.
 
 Applichiamo la Z-trasformata:
 \[
@@ -9833,30 +9909,30 @@ zX(z) - AX(z) = zx(0) + BU(z)
 (zI - A)X(z) = zx(0) + BU(z)
 \]
 Abbiamo ottenuto un sistema puramente algebrico in $z$. Sapendo che
-$(zI - A)$ \`e $N \times N$ e quindi invertibile, $z$ \`e uno scalare
-e $x(0)$ \`e un vettore, ricaviamo $X(z)$: 
-\[
+$(zI - A)$ ha dimensioni $N \times N$ e quindi invertibile, $z$ \`e
+uno scalare e $x(0)$ \`e un vettore, ricaviamo $X(z)$: 
+\begin{equation}
 X(z) = z(zI - A)^{-1}x(0) + (zI - A)^{-1}BU(z)
-\]
+\end{equation}
 La seconda equazione \`e:
 \[
 Y(z) = C^T X(z) + DU(z)
 \]
 Sostituendo, otteniamo:
-\[
+\begin{equation}
 \begin{array}{l}
   X(z) = z(zI - A)^{-1}x(0) + (zI - A)^{-1}BU(z)\\
   Y(z) = \underbrace{zC^{T} (zI - A)^{-1} x(0)}_\text{Evoluzione
     libera} + \underbrace{[C^T (zI - A)^{-1} B +
       D]U(z)}_\text{Evoluzione forzata}
 \end{array}
-\]
+\end{equation}
 L'evoluzione libera esprime l'andamento delle $N$ componenti dello
-stato del sistema che parte da una condizione iniziale $0$ ed evolve
+stato del sistema, che parte da una condizione iniziale $0$ ed evolve
 senza forzamenti. Diversamente, l'evoluzione forzata parte da
 condizioni iniziali nulle e descrive l'andamento delle $N$ componenti
-dello stato del sistema sotto un forzamento, cio\`e l'ingresso
-$U(z)$. 
+dello stato del sistema sottoposte ad un forzamento, cio\`e
+l'ingresso $U(z)$.
 \begin{equation}
   [C^T (zI - A)^{-1} B + D]
 \end{equation}
@@ -9864,7 +9940,7 @@ $U(z)$.
 sistema al suo ingresso in evoluzione forzata, cio\`e a condizioni
 iniziali $x(0)$ nulle.
 
-In entrambi i termini della $Y(z)$ \`e presente termine
+In entrambi i termini della $Y(z)$ \`e presente il termine
 \[
 (zI - A)^{-1}
 \]
@@ -9873,7 +9949,8 @@ dei cofattori trasposta e il determinante di $(zI - A)^{-1}$. Il
 determinante \`e il polinomio caratteristico le cui soluzioni sono gli
 autovalori della matrice $A$. Dai valori della matrice $A$ dipendono i
 modi di evoluzione del sistema.
-\subsection{Modi di evoluzione in funzione degli autovalori}
+
+\section{Modi di evoluzione in funzione degli autovalori}
 Effettuiamo una catalogazione delle combinazioni degli $N$ modi di
 evoluzione di un sistema in funzione degli autovalori della matrice
 $A$ e di come vengono collocati in relazione alla circonferenza
@@ -9894,74 +9971,409 @@ La circonferenza individua tre regioni:
 \item una esattamente sulla circonferenza
 \end{itemize}
 
-Come gi\`a detto i modi di evoluzione sono gli stessi sia che si parli
-di evoluzione libera che di evoluzione forzata. Tuttavia per esaltare
+Cardine del nostro studio \`e il calcolo del $|\rho|$ che ci
+consentir\`a di capire di che modo di evoluzione si tratti.
+
+DA CONTROLLARE
+-------------------------------------------------
+
+Come gi\`a detto, i modi di evoluzione sono gli stessi sia che si parli
+di evoluzione libera che di evoluzione forzata. Tuttavia, per esaltare
 un modo di evoluzione, si parte da una condizione iniziale unitaria in
 evoluzione libera, il che equivale a considerare una condizione
 iniziale di ampiezza pari a 1 posizionata sull'autovettore
 corrispondente all'autovalore considerato. In questo modo si isola una
 particolare dinamica del sistema rispetto alle altre.
+-------------------------------------------------
 
-\subsubsection{Modi di evoluzione asintoticamente stabili}
-\begin{enumerate}
-\item Autovalore reale positivo\\
-  In questo caso si ha un autovalore reale positivo, $\rho$, con
-  modulo minore di 1:
-  \[
-  |\rho| < 1
-  \]
-  la cui evoluzione sar\`a:
-  \[
-  \rho^k
-  \]
-   che corrisponde ad un modo di evoluzione convergente dovuto al
-   modulo minore di 1.
-   \begin{figure}[!h]
-     \begin{center}
-       \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo00.png}
-       \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo00}
-     \end{center}
-   \end{figure}
-      \begin{figure}[!h]
-     \begin{center}
-       \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo01.png}
-       \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo01}
-     \end{center}
-   \end{figure}
-      \begin{figure}[!h]
-        \begin{center}
-          \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo02.png}
-          \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo02}
-        \end{center}
-      \end{figure}
-         La costante di tempo \`e la velocit\`a con cui il sistema
-         converge:
-         \[
-         \begin{array}{l}
-           e^{\alpha t} \to \tau = - \dfrac{1}{\alpha} \;\;\textrm{Tempo
-             continuo}\\
-           \rho^k = e^{\ln \rho} \to \tau = - \dfrac{1}{\ln \rho}
-           \;\;\textrm{Tempo discreto}
-         \end{array}
-         \]
-         Per dinamiche convergenti si ha $|\rho| < 1$ e quindi $\ln
-         \rho < 0$ e $\tau > 0$.
-       \item Autovalore nell'origine\\
-         \begin{figure}[!h]
-           \begin{center}
-             \includegraphics[scale=0.4]{./figures/autovaloreNellOrigine00.png}
-             \caption{Autovalore nell'origine}\label{fig:autovaloreNellOrigine00}
-           \end{center}
-         \end{figure}
-         \begin{figure}[!h]
-           \begin{center}
-             \includegraphics[scale=0.4]{./figures/autovaloreNellOrigine01.png}
-             \caption{Autovalore nell'origine}\label{fig:autovaloreNellOrigine01}
-           \end{center}
-         \end{figure}
-\end{enumerate}
+\subsection{Modi di evoluzione asintoticamente stabili}
+\subsubsection{Autovalore reale positivo}
+In questo caso si ha un autovalore reale positivo, $\rho$, con
+modulo minore di~1:
+\[
+|\rho| < 1
+\]
+la cui evoluzione sar\`a:
+\[
+\rho^k
+\]
+che corrisponde ad un modo di evoluzione convergente dovuto al
+modulo minore di 1.
 
-\section{Campionamento e ricostruzione del segnale}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo00.png}
+    \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo00}
+  \end{center}
+\end{figure}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo01.png}
+    \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo01}
+  \end{center}
+\end{figure}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreRealePositivo02.png}
+    \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivo02}
+  \end{center}
+\end{figure}
+La costante di tempo \`e la velocit\`a con cui il sistema
+converge:
+\[\left\{
+\begin{array}{l}
+  e^{\alpha t} \to \tau = - \dfrac{1}{\alpha} \;\;\textrm{Tempo
+    continuo}\\
+  \rho^k = e^{\ln \rho} \to \tau = - \dfrac{1}{\ln \rho}
+  \;\;\textrm{Tempo discreto}
+\end{array}
+\right.
+\]
+Se desideriamo una dinamica veloce, dobbiamo assicurarci che la
+costante di tempo $\tau$ si piccola. Ci\`o corrisponde in
+evoluzione tempo continuo ad allontanarsi dall'asse
+immaginario. Per dinamiche convergenti si ha
+\[
+\begin{array}{l}
+  |\rho| < 1\\
+  \ln \rho < 0\\
+  \tau > 0
+\end{array}
+\]
+Per avere un valore piccolo di $\tau$, quindi, si dovr\`a avere
+un valore grande di $\ln \rho$, ottenibile per $\rho \to
+0$. Ricapitolando: quando $\rho \to 0$, tanto pi\`u l'autovalore
+si allontana dalla circonferenza di raggio unitario, tanto pi\`u
+sar\`a piccola la costante di tempo $\tau$ e tanto pi\`u veloce
+sar\`a il modo di evoluzione.
+
+\subsubsection{Autovalore reale negativo}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreRealeNegativo00.png}
+    \caption{Autovalore reale
+      negativo}\label{fig:autovaloreRealeNegativo00.png} 
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreRealeNegativo01.png}
+    \caption{Autovalore reale
+      negativo}\label{fig:autovaloreRealeNegativo01.png} 
+  \end{center}
+\end{figure}
+Simile al caso precedente, con la differenza che l'autovalore \`e
+negativo:
+\[
+(- \rho)^k = (-1)^k \rho^k
+\]
+Riconosciamo il modo di evoluzione a parte reale positiva, ma se $k$
+\`e pari si ottiene un campione positivo, se, invece, $k$ \`e
+dispari si ottiene un campione negativo.
+
+Questo modo, vista l'assenza di una componente immaginaria, non \`e
+oscillatorio. \`E, per\`o, detto {\em alternato} perch\`e alterna un
+campione positivo ad uno negativo.
+
+\subsubsection{Autovalore nell'origine}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreNellOrigine00.png}
+    \caption{Autovalore nell'origine}\label{fig:autovaloreNellOrigine00}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreNellOrigine01.png}
+    \caption{Autovalore nell'origine}\label{fig:autovaloreNellOrigine01}
+  \end{center}
+\end{figure}
+Al decrescere di $\rho$ si avr\`a il caso limite, cio\`e un polo
+nel centro della circonferenza unitaria. Nel continuo, invece, \`e
+impossibile posizionare un polo all'infinito.
+
+In questo caso, avremo $\tau = 0$: il fenomeno si estinguer\`a
+istantaneamente. L'evoluzione partir\`a da 1 e raggiunger\`a 0
+istantaneamente.
+  
+\subsubsection{Autovalore complesso e coniugato a parte reale positiva}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealePositivo00.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      positiva}\label{fig:autovaloreComplessoConiugatoRealePositivo00.png} 
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealePositivo01.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      positiva}\label{fig:autovaloreComplessoConiugatoRealePositivo01.png} 
+  \end{center}
+\end{figure}
+Per descrivere questo modo di evoluzione sfrutteremo la
+rappresentazione ``modulo e fase'' $\rho^k (A_1 cos \theta k +
+A_2 sin \theta k)$. La convergenza e la velocit\`a sono date
+dalla funzione potenza $\rho^k$. La costante di tempo \`e $\tau
+= - \dfrac{1}{\ln \rho}$, quindi quanto pi\`u l'autovalore \`e
+vicino al centro della circonferenza unitaria, tanto pi\`u il
+fenomeno sar\`a veloce.
+
+\subsubsection{Autovalore complesso e coniugato a parte reale nulla}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealeNulla00.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      nulla}\label{fig:autovaloreComplessoConiugatoRealeNulla00.png}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealeNulla01.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      nulla}\label{fig:autovaloreComplessoConiugatoRealeNulla01.png}
+  \end{center}
+\end{figure}
+L'autovalore in questione \`e immaginrio puro. Nel continuo
+ci\`o equivale a modi costanti. Nel discreto, invece, avremo
+modi con fase pari a $90^{\circ}$. Comparando le figure
+\ref{fig:autovaloreComplessoConiugatoRealePositivo01.png} e
+\ref{fig:autovaloreComplessoConiugatoRealeNulla01.png} notiamo
+delle similitudini. Esaminando con attenzione la
+\ref{fig:autovaloreComplessoConiugatoRealeNulla01.png}, ci
+accorgiamo che i campioni avranno valore positivo, nullo,
+negativo, nullo e cos\`i via.
+
+\subsection{Modi di evoluzione instabili}
+I modi di evoluzione instabili hanno la stessa forma matematica dei
+modi stabili con la differenza che $|\rho| > 1$.
+
+\subsubsection{Autovalore reale positivo}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreRealePositivoInstabile00.png}
+    \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivoInstabile00}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreRealePositivoInstabile01.png}
+    \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivoInstabile01}
+  \end{center}
+\end{figure}
+Come nel caso stabile, il modo di evoluzione sar\`a sempre
+$\rho^k$. In questo caso, per\`o, a causa del $|\rho| > 1$, il modo di
+evoluzione sar\`a divergente.
+
+La velocit\`a del modo sar\`a sempre influenzata dalla distanza
+dell'autovalore dalla circonferenza unitaria: minore \`e la distanza
+dalla circonferenza unitaria, minore sar\`a la velocit\`a; maggiore
+\`e la distanza, maggiore sar\`a la velocit\`a.
+
+La costante di tempo \`e adesso negativa, $\tau = - \dfrac{}{\ln
+  \rho}$, a causa del $|\rho| > 1$. Dal punto di vista sistemistico
+\`e una informazione insiglificante: un tempo non pu\`o essere
+negativo. Dal punto di vista matematico, lo si pu\`o considerare
+$|\tau|$ ed avere un'idea di quanto il sistema sia veloce a
+divergere. Informazione comunque ``inutile'', poich\`e se un sistema
+diverge, \`e insiglificante sapere quanto velocemente.
+
+\subsubsection{Autovalore complesso e coniugato a parte reale positiva}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealePositivoInstabile00.png} 
+    \caption{Autovalore complesso e coniugato a parte reale
+      positiva}\label{fig:autovaloreComplessoConiugatoRealePositivoInstabile00.png} 
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealePositivoInstabile01.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      positiva}\label{fig:autovaloreComplessoConiugatoRealePositivoInstabile01.png} 
+  \end{center}
+\end{figure}
+Similmente al caso stabile, anche in questa situazione il modo di
+evoluzione \`e:
+\[
+\rho^k (A_1 cos \theta k + A_2 sin \theta k)
+\]
+L'andamento \`e detto {\em pseudoperiodico}.
+
+\subsubsection{Autovalore complesso e coniugato a parte reale nulla}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealeNullaInstabile00.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      nulla}\label{fig:autovaloreComplessoConiugatoRealeNullaInstabile00.png}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealeNullaInstabile01.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      nulla}\label{fig:autovaloreComplessoConiugatoRealeNullaInstabile01.png}
+  \end{center}
+\end{figure}
+Come nel caso stabile, anche in questo caso si avr\`a un campione
+positivo, uno nullo, uno negativo, uno nullo e uno positivo. La fase
+di $90^{\circ}$ fa in modo che il campionamento sia sincrono rispetto
+al passaggio sull'asse dei tempi.
+
+\subsubsection{Autovalore reale negativo}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreRealeNegativoInstabile00.png}
+    \caption{Autovalore reale
+      negativo}\label{fig:autovaloreRealeNegativoInstabile00.png} 
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreRealeNegativoInstabile01.png}
+    \caption{Autovalore reale
+      negativo}\label{fig:autovaloreRealeNegativoInstabile01.png} 
+  \end{center}
+\end{figure}
+Del tutto simile all'andamento alternato del caso stabile. Il modo di
+evoluzione \`e:
+\[
+(-1)^k \rho^k
+\]
+con un'alternanza di campioni positivi e negativi in base al valore di
+$k$.
+
+\subsection{Autovalori sulla circonferenza unitaria}
+
+\subsubsection{Autovalore reale positivo}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreRealePositivoCirconferenza00.png}
+    \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivoCirconferenza00}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/autovaloreRealePositivoCirconferenza01.png}
+    \caption{Autovalore reale positivo}\label{fig:autovaloreRealePositivoCirconferenza01}
+  \end{center}
+\end{figure}
+Il modo di evoluzione \`e sempre $\rho^k$, ma $|\rho| = 1$. Questo
+modo nel continuo \`e il gradino unitario.
+
+\subsubsection{Autovalore complesso e coniugato a parte reale positiva}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealePositivoCirconferenza00.png} 
+    \caption{Autovalore complesso e coniugato a parte reale
+      positiva}\label{fig:autovaloreComplessoConiugatoRealePositivoCirconferenza00.png} 
+  \end{center}
+\end{figure}
+Anche in questo caso l'andamento \`e
+\[
+\rho^k (A_1 cos \theta k + A_2 sin \theta k)
+\]
+e il modulo unitario generer\`a un andamento costante, simile ad una sinusoide.
+
+\subsubsection{Autovalore complesso e coniugato a parte reale nulla}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealeNullaCirconferenza00.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      nulla}\label{fig:autovaloreComplessoConiugatoRealeNullaCirconferenza00.png}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreComplessoConiugatoRealeNullaCirconferenza01.png}
+    \caption{Autovalore complesso e coniugato a parte reale
+      nulla}\label{fig:autovaloreComplessoConiugatoRealeNullaCirconferenza01.png}
+  \end{center}
+\end{figure}
+Anche in questo caso, la fase di $90^{\circ}$ far\`a s\`i che i
+campioni si alternino: positivo, nullo, negativo, nullo, positivo, ...
+
+\subsubsection{Autovalore reale negativo}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreRealeNegativoCirconferenza00.png}
+    \caption{Autovalore reale
+      negativo}\label{fig:autovaloreRealeNegativoCirconferenza00.png} 
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/autovaloreRealeNegativoCirconferenza01.png}
+    \caption{Autovalore reale
+      negativo}\label{fig:autovaloreRealeNegativoCirconferenza01.png} 
+  \end{center}
+\end{figure}
+Nuovamente abbiamo un modo alternato al variare di $k$: positivo,
+nullo, positivo, nullo, ...
+
+\section{Stabilit\`a e guadagno statico}
+Per definizione, un punto di equilibrio $\bar{x}$ appartenente ad un
+segnale $x(k)$ \`e stabile se
+\begin{equation}
+  \forall \varepsilon > 0 \; \exists \;\delta > 0 \;\;t.c. \;\; \parallel x(0) -
+  \bar{x} \parallel \leq \varepsilon \;\; \textrm{allora} \;\;
+  \parallel x(k) - \bar{x} \parallel \leq \delta
+\end{equation}
+Se si parte da una condizione iniziale $x(0)$ prossima al punto di
+equilibrio $\bar{x}$ e l'evoluzione rimane in un intorno del punto
+di equilibrio, il punto di equilibrio $\bar{x}$ si dice {\em stabile}.
+
+Il sistema \`e asintoticamente stabile se
+\[
+\lim_{k \to \infty} \parallel x(k) - \bar{x} \parallel = 0
+\]
+cio\`e se all'infinito la distanza tra l'evoluzione e il punto di
+equilibrio si annulla. In questo caso, considerato il sistema dinamico,
+tempo discreto, lineare e tempo invariante, tutti gli autovalori della
+matrice A hanno modulo minore di 1.
+
+Il sistema pu\`o essere anche marginalmente stabile se ha un polo o un
+modo di evoluzione sulla circonferenza unitaria. Se la molteplicit\`a
+di questo polo \`e maggiore di 1, il sistema \`e instabile e diverge
+con andamento ``a rampa'' (2 poli), ``a parabola'' (3 poli).
+
+\begin{definizione}
+  Dato un sistema discreto, tempo invariante e asintoticamente stabile,
+  si definisce {\em guadagno statico}\index{Guadagno statico} il
+  rapporto tra l'uscita a regime e l'ingresso costante con cui si eccita
+  il sistema.
+\end{definizione}
+$G(z)$ \`e una generica funzione di trasferimento. Il sistema in esame
+\`e in evoluzione forzata. Sollecitiamo il sistema con un ingresso
+costante $u(k) = \overline{U}$, che nel dominio della $z$ diventa
+\[
+U(z) = \overline{U}\dfrac{z}{z - 1}
+\]
+\[
+Y(z) = G(z) U(z)
+\]
+Applicando il teorema del valore finale(\ref{teoremaFinaleDiscreto})
+otteniamo il valore a regime:
+\[
+Y_{\infty} = \lim_{z \to 1} (z - 1)Y(z) = \lim_{z \to 1} (z - 1) G(z)
+\overline{U}\dfrac{z}{(z - 1)} = G(1)\overline{U}
+\]
+Il guadagno statico \`e il rapporto tra l'uscita a regime e l'ingresso
+costante:
+\[
+k = \dfrac{G(1) \overline{U}}{\overline{U}} = G(1)
+\]
+Il guadagno statico, nel dominio del tempo discreto, \`e, quindi, pari
+alla funzione di trasferimento valutata in 1, come nel dominio del
+tempo continuo era pari alla funzione di trasferimento valutata in
+$s~=~0$
+\[
+z \to 1 \;\;\; s \to 0
+\]
+
+\chapter{Campionamento e ricostruzione del segnale}
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{./figures/campionamentoRicostruizioneSegnale.png}
