@@ -10392,6 +10392,322 @@ informazioni, purch\`e il segnale ricostruito $x_r(t)$ contenga le
 informazioni necessarie ad approssimare il segnale di ingresso $x(t)$
 in maniera sufficientemente accurata da controllare il sistema.
 
+\section{Campionatore o convertitore analogico/digitale ADC}
+Il campionatore converte un segnale a tempo continuo in una sequenza
+di campioni prelevati negli istanti $t = 0, T, 2T, ...$, dove $T$ \`e
+il periodo di campionamento. I parametri fondamentali di un
+campionatore sono quindi
+\begin{itemize}
+\item $T$ o $T_s$ il tempo di campionamento, che indica quanto sia
+  distanziato nel tempo un campione dal campione successivo;
+\item $f_s = \dfrac{1}{T_s}$ la frequenza di campionamento, che indica il numero di
+  volte al secondo in cui il segnale analogico viene misurato e
+  memorizzato in forma digitale;
+\item $\omega_s = 2 \pi f_s = \dfrac{2 \pi}{T_s}$ la pulsazione di campionamento
+\end{itemize}
+
+\section{Mantenitore o convertitore digitale/analogico DAC}
+Il convertitore digitale/analogico \`e tipicamente chiamato
+ricostruttore ed ha il compito di trasformare il segnale a tempo
+discreto ($u(kT)$) nel segnale tempo continuo ($u(t)$). I parametri
+fondamentali di un mantenitore sono quindi
+\begin{itemize}
+\item $T$ o $T_m$ il tempo di mantenimento
+\item $f_m = \dfrac{1}{T_m}$ la frequenza di mantenimento
+\item $\omega_m = 2 \pi f_m = \dfrac{2 \pi}{T_m}$ la pulsazione di
+  mantenimento
+\end{itemize}
+
+\subsection{Mantenitore di ordine zero o ZOH}
+Il ricostruttore di ordine zero \`e il ricostruttore pi\`u
+semplice. \`E detto di ordine zero perch\`e approssima l'andamento del
+segnale tra un campione e l'altro con una funzione lineare di ordine
+zero, cio\`e una costante.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/zoh00.png}
+    \caption{Ricostruttore ZOH - Segnale di partenza}\label{fig:zoh00}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/zoh01.png}
+    \caption{Ricostruttore ZOH - Segnale ricostruito}\label{fig:zoh01}
+  \end{center}
+\end{figure}
+
+La figura~\ref{fig:zoh00} mostra una sequenza generica di campioni
+$x(kT)$. Dalla sola sequenza di campioni non possiamo sapere cosa ci
+sia tra un campione, all'istante $t = kT$, e l'altro, all'istante $t =
+(k + 1)T$. Potrebbero esserci infinite funzioni $x(t)$ associate alla
+stessa sequenza $x(kT)$. Il ricostruttore ZOH mantiene quindi l'uscita
+per $kT < t < (k + 1)T$ al valore del campione ricevuto all'istante
+$t~=~kT$. 
+
+La figura~\ref{fig:zoh01} mostra il risultato della ricostruzione: una
+sommatoria di gradini tali che il segnale ricostruito $x_r(t)$ possa
+essere scritto come: 
+\begin{equation}\label{eq:zoh00}
+  x_r(t) = \sum_{k = 0}^{\infty} x(kT) [h(t - kT) - h(t - (k + 1)T)]
+\end{equation}
+dove
+\begin{itemize}
+\item $h(t - kT)$ \`e la funzione gradino ritardata di $kT$;
+\item $h(t - (k + 1)T)$ \`e la successiva funzione gradino ritardata di
+  $(k + 1)T$;
+\item $[h(t - kT) - h(t - (k + 1)T)]$ \`e la finestra unitaria
+  descritta come differenza di due gradini o anche come gradino che si
+  attiva nell'istante $kT$ e termina nell'istante $(k + 1)T$;
+\item $x(kT)$ \`e l'ampiezza di ciascuna finestra appena definita.
+\end{itemize}
+
+Con la trasformata di Laplace $X_r(s)$ si ottiene una combinazione
+lineare di trasformate di Laplace del gradino traslato:
+\[
+X_r(s) = \sum_{k=0}^{\infty} x(kT) \left[ \dfrac{1}{s}e^{-kTs} -
+  \dfrac{1}{s}e^{-(k+1)T}\right] 
+\]
+Mettendo in evidenza $e^{-kTs}$
+\[
+X_r(s) = \sum_{k=0}^{\infty} x(kT) e^{-kTs}\left[ \dfrac{1 -
+    e^{-Ts}}{s}\right]  
+\]
+\[
+X_r(s) = \left[ \dfrac{1 - e^{-Ts}}{s}\right]  \sum_{k=0}^{\infty}
+x(kT) e^{-kTs}
+\]
+Notiamo che $\left[ \dfrac{1 - e^{-Ts}}{s}\right]$ \`e la trasformata
+di Laplace della prima finestra unitaria, tra 0 e $T$: $L[h(t) - h(t -
+  T)]$
+
+A questo punto, cominciamo a considerare la trasformata di Laplace
+di $x_r(t)$ come
+\[
+X_r(s) = H_0(s) X^{*}(s)
+\]
+\begin{itemize}
+\item $H_0(s) = \dfrac{1 - e^{-Ts}}{s}$ \`e la trasformata di Laplace
+  della prima finestra:\\$L[h(t)~-~h(t~-~T)]$;
+\item $X^{*}(s) = \sum_{k=0}^{\infty} x(kT) e^{-kTs}$ cio\`e una
+  combinazione lineare di infiniti termini esponenziali in funzione di
+  $s$, pari alla trasformata di un segnale $x^{*}(t)$ a sua volta
+  funzione della sequenza di campioni $x(kT)$.
+\end{itemize}
+Quindi, si nota la comodit\`a di lavorare nel dominio della $s$ e
+poter comunque ritornare al segnale $x(kT)$ antitrasformando $X_r(s)$,
+ottenendo $x_r(t)$ e infine $x(kT)$.
+
+La funzione di trasferimento di ZOH presenta quindi anche una
+componente di {\em ritardo} che incide sulla catena di andata. Ci
+potremmo ritrovare nella situazione di riuscire a ricostruire con
+soddisfazione il segnale $x(t)$, ma avremo inserito un ritarto tanto
+pi\`u grande quanto grande \`e il tempo di campionamento $T$. Questo
+ritardo influisce sul margine di fase $\varphi_m$ e potrebbe portare
+all'instabilit\`a del sistema a ciclo chiuso.
+
+Dall'antitrasformata di $X^{*}(s)$ cerchiamo di ottenere $x^{*}(t)$:
+\[
+X^{*}(s) = \sum_{k=0}^{\infty} x(kT) e^{-kTs}
+\]
+\[
+x^{*}(t) = \sum_{k=0}^{\infty} x(kT) \delta (t - kT)
+\]
+con $\delta(t - kT)$ impulso di Dirac di area unitaria applicato
+all'istante $t = kT$. Quindi l'antitrasformata di $X^{*}(s)$ \`e
+combinazione lineare delle singole antitrasformate dei termini
+esponenziali, la cui antitrasformata \`e proprio l'impulso di Dirac
+traslato $\delta(t - kT)$.
+
+Dalla propriet\`a del campionamento impulsivo del segnale $x(t)$,
+cio\`e l'operazione di moltiplazione di un segnale $x(t)$ per una
+sequenza di impulsi $\delta_T(t)$, possiamo scrivere:
+\[
+x^{*}(t) = \sum_{k=0}^{\infty} x(kT) \delta (t - kT) =
+\sum_{k=0}^{\infty} x(t) \delta (t - kT) = x(t)\sum_{k=0}^{\infty}
+\delta (t - kT) 
+\]
+Per comodit\`a riscriviamo $x^{*}(t)$ come:
+\begin{equation}
+  x^{*}(t) = x(t) \delta_T(t)
+\end{equation}
+con
+\[
+\delta_T(t) = \sum_{k=0}^{\infty} \delta(t - kT)
+\]
+cio\`e la sequenza di impulsi di Dirac di area unitaria, e avendo
+l'accortezza di considerare $x(t) = 0$ per $t < 0$. In definitiva, il
+segnale $x^{*}(t)$ rappresenta una sequenza di impulsi di Dirac
+modulati in ampiezza dai campioni $x(kT)$ e, quindi, nell'ipotesi che
+il DAC sia descritto da una funzione di trasferimento $H_0(s)$
+possiamo considerare $x^{*}(t)$ nel tempo continuo $t$ equivalente
+alla sequenza di campioni $x(kT)$ nel tempo discreto $k$.
+
+Se consideriamo la trasformata di Laplace del segnale impulsivo
+\[
+X^{*}(s) = \sum_{k=0}^{\infty} x(kT) e^{-kTs}
+\]
+e introduciamo la variabile complezza $z$
+\[
+z = e^{sT} \;\;\; s = \dfrac{1}{T}\ln z
+\]
+\[
+X^{*}(s)\left|_{s = \dfrac{1}{T}\ln z}\right. = \sum_{k=0}^{\infty} x(kT) z^{-k}
+\]
+\[
+X^{*}(s)\left|_{s = \dfrac{1}{T}\ln z}\right. = X^{*}\left(
+\dfrac{1}{T} \ln z \right) = X(z) = \sum_{k=0}^{\infty} x(kT) z^{-k}
+\]
+Risulta chiara la corrispondenza tra la trasformata di Laplace
+$X^{*}(s)$ del segnale campionato ad impulsi di Dirac e la
+Z-trasformata $X(z)$ della sequenza di valori $x(kT)$. L'uso della
+Z-antitrasformata di $x(kT)$ piuttosto che quello della trasformata di
+Laplace del segnale $x^{*}(t)$ \`e motivato dal fatto di voler operare
+con funzioni razionali fratte piuttosto che con funzioni trascendenti
+di variabile complezza.
+
+\section{Spettro del segnale campionato}
+Se consideriamo $t < 0$, possiamo riscrivere $x^{*}(t)$ come
+\[
+x^{*}(t) = x(t) \delta_T(t) = x(t) \sum_{n = -\infty}^{\infty} \delta
+(t - nT)
+\]
+e considerare $\delta_T(t)$ estesa a tutto l'asse del tempo. Il nuovo
+segnale $\delta_T(t)$ \`e periodo di periodo $T$ e pu\`o essere
+sviluppato in serie di Fourier, usando la formula a coefficienti
+complessi:
+\[
+\delta_T(t) = \sum_{n = -\infty}^{\infty} c_n e^{j n \omega_s t}, \;\;\;
+c_n = \dfrac{1}{T} \int_{0}^{T} \delta_T(t) e^{-j n \omega_s t } dt =
+\dfrac{1}{T} 
+\]
+\[
+x^{*}(t) = x(t) \dfrac{1}{T} \sum_{n = -\infty}^{\infty} e^{j n
+  \omega_s t} = \dfrac{1}{T} \sum_{n = -\infty}^{\infty} x(t) e^{j n
+  \omega_s t} 
+\]
+A questo punto calcoliamo la trasformata di Laplace e sfruttiamo le
+propriet\`a di linearit\`a e traslazione:
+\begin{equation}
+X^{*}(s) = \dfrac{1}{T} \sum_{n = - \infty}^{\infty} X(s - j n
+\omega_s)
+\end{equation}
+Si nota che la trasformata di Laplace di $X^{*}{s}$ del segnale
+campionato \`e data dalla somma degli infiniti termini $X(s - j n
+\omega_s)$, ottenuto mediante traslazione di $j n \omega_s$. Va
+comunque tenuta in considerazione la costante moltiplicativa
+$\dfrac{1}{T}$. 
+
+Possiamo passare nel dominio della frequenza sostituendo $s = j
+\omega$
+\begin{equation}
+  X^{*}(j \omega) = \dfrac{1}{T} \sum_{n = - \infty}^{\infty} X(j\omega - j n
+\omega_s)
+\end{equation}
+L'andamento spettrale $X^{*}(j \omega$ del segnale campionato
+$x^{*}(t)$ si ottiene a partire dallo spettro del segnale $x(t)$ pi\`u
+una sommatoria di infinite repliche dello stesso spettro, ma traslato
+di $j n \omega_s$ con $n \in (-\infty, +\infty)$:
+\begin{equation}
+  |X^{*}(j \omega)| = \dfrac{1}{T} \sum_{n = - \infty}^{\infty} |X(j\omega - j n
+  \omega_s)|
+\end{equation}
+
+\subsection{Segnale originario $x(t)$ avente uno spettro $|X(j
+  \omega|)$ ``a banda limitata''}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/spettroSegnaleCampionatoBandaLimitata.png}
+    \caption{Spettro del segnale campionato a banda
+      limitata - scala naturale}\label{fig:spettroSegnaleCampionatoBandaLimitata} 
+  \end{center}
+\end{figure}
+$\omega_c$ \`e la pulsazione oltre la quale il generico segnale $x(t)$
+non ha pi\`u componenti frequenziali. $\omega_c$ \`e un indicatore della
+banda passente del segnale $x(t)$. $\omega_c$ non \`e la pulsazione di
+attraversamento della funzione $L(s)$.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/spettroSegnaleCampionatoBandaLimitata01.png}
+    \caption{Spettro del segnale campionato
+      $x^{*}(t)$}\label{fig:spettroSegnaleCampionatoBandaLimitata01}    
+  \end{center}
+\end{figure}
+Abbiamo supposto che il segnale $x(t)$ sia a banda limitata, cio\`e
+che vada a zero. Questa \`e esattamente una supposizione. Nella
+realt\`a la banda non va mai a zero, ma avr\`a inevitabilmente delle
+code. Possiamo solo considerare ``nulle'' le componenti attenuate di 
+$20dB$ o $40dB$. Abbiamo indicato la pulsazione massima di interesse
+con $\omega_c$. La
+figura~\ref{fig:spettroSegnaleCampionatoBandaLimitata01} mostra
+l'andamento spettrale del segnale campionato $x^{*}(t)$ nel caso in
+cui $\omega_s > 2 \omega_c$, in scala naturale.
+
+Per $n = 0$ abbiamo la replica primaria\index{Replica primaria} o
+fondamentale\index{Replica fondamentale} $\dfrac{|X(j \omega)|}{T}$
+che coincide, a meno della costante $\dfrac{1}{T}$, con lo spettro
+frequenziale $|X(j \omega)|$ del segnale originario $x(t)$. Per $n
+\neq 0$ abbiamo le componenti complementari $\dfrac{|X(j \omega + j n
+  \omega_s)}{T}$.
+
+Ricordiamo ancora una volta, che se la pulsazione di campionamento
+$\omega_s > 2 \omega_c$, cio\`e la distanza tra una replica e la
+successiva \`e maggiore del doppio della banda passante del segnale
+originario $x(t)$ le repliche non si sovrapporranno.
+
+\subsection{Teorema di Shannon}\index{Teorema di Shannon}
+\begin{definizione}
+  Sia $\omega_s = \dfrac{2 \pi}{T}$ la pulsazione di campionamento e
+  $\omega_c$ (o $\omega_b$) la pi\`u alta componente spettrale del
+  segnale a tempo continuo $x(t)$, il segnale originario $x(t)$ \`e
+  completamente ricostruibile a partire dal segnale campionato
+  $x^{*}(t)$ se e solo se la pulsazione di campionamento $\omega_s$
+  \`e maggiore del doppio della pulsazione $\omega_c$ (o $\omega_b$)
+  \[
+  \omega_s = 2\cdot \omega_c
+  \]
+\end{definizione}
+
+Se il Teorema di Shannon non \`e soddisfatto le repliche saranno
+parzialmente sovrapposte, dando vita al fenomeno
+dell'aliasing\index{Aliasing}. Ulteriore problema sar\`a la
+sovrapposizione delle repliche complementari sulla replica
+fondamentale, che sar\`a difficilmente isolabile tramite un filtro
+ideale, vanificando ogni possibilit\`a di ricostruire il segnale
+$x(t)$ a partire da $x^{*}(t)$. 
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/aliasing.png}
+    \caption{Aliasing - sovrapposizione delle
+      repliche}\label{fig:aliasing} 
+  \end{center}
+\end{figure}
+
+\subsection{Segnale originario $x(t)$ avente uno spettro $|X(j
+  \omega)|$ ``a banda illimitata''}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/spettro_banda_illimitata.png}
+    \caption{Spettro $|X(j \omega)|$ a banda
+      illimitata}\label{fig:spettroBandaIllimitata} 
+  \end{center}
+\end{figure}
+La figura~\ref{fig:spettroBandaIllimitata} mostra il confronto tra il
+caso ideale che abbiamo trattato finora, cio\`e un segnale a banda
+rigorosamente limitata e il caso reale in cui un segnale ha
+tipicamente delle componenti ad alta frequenza che non possono essere
+semplicemente ignorate.
+
+I segnali reali vanno, quindi, valutati singolarmente e bisogna
+scegliere fino a quele pulsazione si vogliono considerare
+significative le componenti del segnale. Bisogna, in sostanza,
+scegliere la banda passante $\omega_c$ (o $\omega_b$) del segnale.
+
+Tipicamente possiamo considerare trascurabili le componenti armoniche
+del segnale attenuate di $20dB$ o $40dB$. 
+
+
+
 
 
 \begin{figure}[!h]
