@@ -11403,6 +11403,255 @@ digitale comporta per $\omega \ll \omega_s$ un ritardo maggiore che
 coincide con quello dovuto alla presenza del ricostruttore di ordine
 uno e dunque all'esponenziale $e^{-j T}$.
 
+\chapter{Corrispondenza tra piano $s$ e piano $z$}
+A seguito del processo di campionamento impulsivo del segnale $x(t)$,
+la trasformata da Laplace $X^{*}(s)$ del segnale campionato $x^{*}(t)$
+\`e legata alla Z-trasformata $X(z)$ della sequenza di campioni
+$x(kT)$ dalla relazione:
+\[
+X^{*}(s) = X(z)_{s = e^{sT}}
+\]
+Le variabil complesse $s$ e $x$ sono legate tra loro dalla relazione
+fondamentale
+\begin{equation}
+  z = e^{sT} \;\;\; s = \dfrac{1}{T} \ln z
+\end{equation}
+Se consideriamo $s = \sigma + j \omega$, parte reale e parte
+immaginaria, abbiamo che
+\[
+z = e^{(\sigma + j \omega)T} = e^{\sigma T} e^{j \omega T}
+\]
+Pe ogni punto nel piano $s$, identificato da parte reale e parte
+immaginaria, abbiamo un punto nel piano $z$ identificato da un certo
+modulo $\rho$ e una certa fase $\theta$:
+\[
+\rho = e^{\sigma T} \;\;\; \theta = \omega T
+\]
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/pianoSpianoZ.png}
+    \caption{Corrispondenza tra piano $s$ e piano
+      $z$}\label{fig:pianoSpianoZ} 
+  \end{center}
+\end{figure}
+Purtroppo, per\`o, riportare i punti del piano $s$ sul piano $z$ ci
+svela una caratteristica del piano $z$: la circonferenza unitaria. I
+punti sul piano $s$ si dispongono in ogni posizione, in base alla
+parte reale e a quella immaginaria. Nel piano $z$ si dispongono in
+funzione della circonferenza.
+
+Per esempio, una serie di punti nel piano $s$ con parte reale costante
+e parte immaginaria crescente si posizioner\`a sul piano $s$ con un
+andamento ``verticale'': aumenta solo $\omega$. Sul piano $z$ questa
+serie di punti si posizioner\`a su una circonferenza: $\rho =
+e^{\sigma T}$ \`e costante, mentre la fase $\theta = \omega T$ aumenta
+costantemente fino a completare la circonferenza. A questo punto, un
+ulteriore aumento della fase $\theta$ ci porta ad avere un valore
+della fase $\theta = \omega T + 2k \pi$. A questo punto, possiamo
+riscrivere la relazione fondamentale come
+\[
+z = e^{(\sigma + j \omega)T} = e^{\sigma T} e^{j \omega T} = e^{\sigma
+  T}e^{j(\omega T + 2k \pi)}
+\]
+Mettendo in evidenza $T$ nel secono esponenziale abbiamo
+\[
+z = e^{\sigma T}e^{j(\omega T + 2k \pi)} = e^{\sigma T} e^{j(\omega +
+  \frac{2 k \pi}{T})T} = e^{\sigma T} e^{j(\omega + k \omega_s)T}
+\]
+con $\omega_s = 2 \pi f_s = \dfrac{2 \pi}{T}$.
+
+Abbiamo finalmente definito il concetto di fascia
+primaria\index{Fascia primaria}, mostrato nella
+figura~\ref{fig:pianoSpianoZ}. La fascia primaria \`e la zona 
+verticale del piano $s$ di ampiezza $\omega_s$ centrata in zero. La 
+fascia primaria corriponde esattamente alla circonferenza primaria in
+$z$. Le fascie esterne alla fascia primaria sono dette complementari e
+nel piano $z$ sono le circonferenze multimple della circonferenze
+primaria.
+
+Le informazioni che abbiamo fino a questo momento ci consentono di
+affermare che per ogni punto nel piano $s$ abbiamo un unico punto nel
+piano $z$, ma per ogni punto nel piano $z$ abbiamo infiniti punti nel
+piano $z$. Tutti questi punti sono posti su una immaginaria retta
+verticale che ne mostra stessa parte reale $\sigma$ e parte
+immaginaria $\omega$ traslata di $\pm k \omega_s$:
+\begin{equation}
+  z = e^{\sigma T} e^{j(\omega + k \omega_s)T}
+\end{equation}
+
+\subsubsection{Fascia primaria, tempo di campionamento e aliasing}
+Supponiamo di essere nel piano $s$ ed aver scelto un particolare tempo
+di campionamento $T$ e relativa pulsazione di campionamento
+$\omega_s$, che identifica la fascia primaria. Notiamo che alcuni
+punti sono esterni alla fascia primaria. Abbiamo evidentemente scelto
+un tempo di campionamento errato e stiamo subendo l'effetto aliasing.
+
+Scegliere correttamente il tempo di campionamento $T$, ci consente di
+avere una fascia primaria che contenga senza difficolt\`a tutti i
+nostri punti del piano $s$. Formalizzando, se tutti i poli della
+funzione di trasferimento si trovano correttamente nella fascia
+primaria, possiamo mappare biunivocamente il segnale dal piano $s$ al
+piano $z$.
+
+Quando qualche dinamica compare nella fascie complementari, a causa di
+un errato tempo di campionamento $T$, il passaggio dal piano $s$ al
+piano $z$ (il campionamento) mappa ugualmente la dinamica che si trova
+nella fascia complementare (piano $s$) nella circonferenza primaria
+(piano $z$). \`E evidente che quando si ritorner\`a al piano $s$, la
+dinamica che inizialmente si trovava nella fascia complementare,
+passando nel piano $z$, ritorna nel piano $s$ nella fascia primaria:
+una componente ad alta frequenza viene riportata a bassa frequenza per
+un errore di conversione ``piano $s$ - piano $z$'' causato da un
+errore nella scelta del tempo di campionamento $T$. Questo ci porta
+all'alising.
+
+\section{Dal piano $s$ al piano $z$: variazioni della parte reale}
+Vediamo come si rappresentano i punti nel piano $z$ in relazione alla
+variazione della parte reale del punto nel piano $s$.
+\begin{itemize}
+\item $\sigma < 0$\\
+  \`E la regione di piano $s$ che contiene i modi di evoluzione
+  convergenti. Ognuno di questi punti \`e in corrispondenza con un
+  punto interno alla circonferenza di raggio unitario. Nel piano $z$,
+  la circonferenza unitaria \`e proprio la regione che contiene i modi
+  di evoluzione convergenti:
+  \[
+  \sigma < 0 \Rightarrow |z| = e^{\sigma T} < 1
+  \]
+\item $\sigma = 0$\\
+  Sono i punti che giacciano sull'asse immaginario. Sono i modi
+  costanti, n\`e convergenti n\`e divergenti. Corrispondono ai punti
+  che giacciano sulla circonferenza unitaria:
+  \[
+  \sigma = 0 \Rightarrow |z| = e^{\sigma T} = 1
+  \]
+\item $\sigma > 0$\\
+  \`E la regione di piano $s$ che contiene i modi di evoluzione
+  divergenti. Ognuno di questi punti \`e in corrispondenza con un
+  punto esterno alla circonferenza di raggio unitario:
+  \[
+  \sigma > 0 \Rightarrow |z| = e^{\sigma T} > 1
+  \]
+\end{itemize}
+
+\section{Parte reale $\sigma$ costante $\rightarrow z =
+  e^{\overline{\sigma} T} e^{j \omega T}$ - Specifica sul tempo di
+  assestamento $t_{a_{\varepsilon\%}}$}
+Supponiamo di voler imporre una specifica sul tempo di assestamento
+$t_{a_{\varepsilon\%}}$:
+\begin{itemize}
+\item Nel piano $s$, questa specifica corrisponde ad imporre che la
+  parte reale $\sigma$ sia alla sinistra dell'asse $\overline{\sigma}$;
+\item Nel piano $z$, equivale ad imporre un modulo $\rho$ costante,
+cio\`e percorrere una circonferenza di raggio $|z| = e^{\sigma T}$.
+\end{itemize}
+Naturalmente in base al segno di $\sigma$, la circonferenza sar\`a
+esterna o interna alla circonferenza unitaria, come mostrato in
+figura~\ref{fig:pianoSsigmaCostante} 
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/pianoSsigmaCostante.png}
+    \caption{Piano $s$ Piano $z$ - $\sigma$
+      costante}\label{fig:pianoSsigmaCostante} 
+  \end{center}
+\end{figure}
+
+\section{Pulsazione $\omega$ costante $\rightarrow z = e^{\sigma T}
+  e^{j \overline{\omega} T}$}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/pianoSomegaCostante.png}
+    \caption{Piano $s$ Piano $z$ - $\omega$
+      costante}\label{fig:pianoSomegaCostante}
+  \end{center}
+\end{figure}
+Nel caso volessimo imporre una pulsazione costante, la
+figura~\ref{fig:pianoSomegaCostante} ci mostra l'andamento sia nel
+piano $s$ che nel piano $z$. Nel piano $s$ avermo una variazione della
+sola parte reale dei punti, mentre nel piano $z$ avermo una fase
+$\theta = \omega T$ costante e un modulo $\rho = e^{\sigma T}$ che
+varier\`a. I colori mostrano con chiarezza come l'attraversamente
+dell'asse immaginario in $s$ corrisponda all'attraversamento della
+circonferenza unitaria in $z$: il passaggio da modi stabili
+convergenti a modi instabili divergenti.
+
+\section{Coefficiente di smorzamento costante $\overline{\zeta}$}
+Una specifica sul coefficiente di smorzamento, si traduce nel piano
+$s$ con una limitazione nella posizione dei punti nel piano. Il piano
+viene limitato grazie a due semirette che partono dall'origine, come
+mostrato in precedenza nella figura~\ref{fig:vincoliLuogo}, con un
+angolo pari a $arcocos \zeta$.
+
+Se consideriamo le due seguenti espressioni:
+\begin{equation}\label{eq:zetaSigmaOmega}
+\begin{array}{l}
+  \sigma = - \zeta \omega_n\\
+  \omega = \omega_n \sqrt{1 - \zeta^2}
+\end{array}
+\end{equation}
+ci rendiamo conto anche dal punto di vista matematico che lo
+smorzamento influenza sia la parte reale che la parte immaginaria dei
+punti. Nel piano $z$ questo si traduce nell'influenzare sia il modulo
+$\rho$ che la fase $\theta$:
+\[
+\begin{array}{l}
+  \rho = e^{\sigma T}\\
+  \theta = \omega T
+\end{array}
+\]
+Se sostituiamo i valori dell'equazione~\ref{eq:zetaSigmaOmega}, otteniamo
+\begin{equation}
+  \begin{array}{l}
+    \rho = e^{- \zeta \omega_n T}\\
+    \theta = \omega_n \sqrt{1 - \zeta^2} T\\
+    z = e^{sT} = e^{\sigma T}e^{j \omega T} = e^{[- \zeta \omega_n T]}
+    e^{[\omega_n \sqrt{1 - \zeta^2}T]}
+  \end{array}
+\end{equation}
+Notiamo subito che il modulo $\rho$ \`e un esponenziale negativo
+convergente, poich\`e la pulsazione natura, il tempo di campionamento
+e lo smorzamento sono valori positivi, mentre la fase \`e un valore
+positivo. L'andamente nel piano $z$ sar\`a quindi un prodotto di un
+esponenziale positivo e uno negativo: l'andamento a spirale mostrato
+in figura~\ref{fig:pianoSsmorzamentoCostante}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/pianoSsmorzamentoCostante.png}
+    \caption{Piano $s$ Piano $z$ - $\zeta$
+      costante}\label{fig:pianoSsmorzamentoCostante}
+  \end{center}
+\end{figure}
+
+\subsection{Smorzamento costante limitato alla fascia primaria}
+Ipotizziamo di trovarci nel piano $s$ con $\omega \in \left(
+-\dfrac{\omega_s}{2}, \dfrac{\omega_s}{2} \right)$ e $0 < \zeta < 1$.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/pianoSsmorzamentoCostanteCardioide.png}
+    \caption{Piano $s$ Piano $z$ - $\zeta$
+      costante in fascia primaria}\label{fig:pianoSsmorzamentoCostanteCardioide}
+  \end{center}
+\end{figure}
+La figura\ref{fig:pianoSsmorzamentoCostanteCardioide} mostra come le
+spirali varino all'avvicinarsi di $\zeta$ ad 1.
+
+\section{Pulsazione $\omega_n$ costante}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/pianoSpulsazioneNaturaleCostante.png}
+    \caption{Piano $s$ Piano $z$ - $\omega_n$
+      costante}\label{fig:pianoSpulsazioneNaturaleCostantee}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:pianoSpulsazioneNaturaleCostantee} mostra
+l'andamento dei punti nel piano $z$ per una pulsazione naturale
+$\omega_n$ costante. Nel piano $s$, al crescere di $\omega_n$ cresce
+il raggio della semicirconferenza centrata in zero. Nel piano $z$, la
+semicirconferenza muove da destra a sinistra sempre pi\`u curva, fino
+a diventare una curva che parte dalla circonferenza unitaria e
+attraversa l'asse reale a destra dell'asse immaginario.
+
+
 
 
 \begin{figure}[!h]
@@ -11411,6 +11660,7 @@ uno e dunque all'esponenziale $e^{-j T}$.
     \caption{}\label{fig:}
   \end{center}
 \end{figure}
+
 
 % APPENDICI
 \appendix
