@@ -10418,7 +10418,8 @@ fondamentali di un mantenitore sono quindi
   mantenimento
 \end{itemize}
 
-\subsection{Mantenitore di ordine zero o ZOH}
+\subsection{Mantenitore di ordine zero o
+  ZOH}\label{ricostruttoreOrdineZeroAccenni} 
 Il ricostruttore di ordine zero \`e il ricostruttore pi\`u
 semplice. \`E detto di ordine zero perch\`e approssima l'andamento del
 segnale tra un campione e l'altro con una funzione lineare di ordine
@@ -10670,11 +10671,14 @@ originario $x(t)$ le repliche non si sovrapporranno.
 
 Se il Teorema di Shannon non \`e soddisfatto le repliche saranno
 parzialmente sovrapposte, dando vita al fenomeno
-dell'aliasing\index{Aliasing}. Ulteriore problema sar\`a la
-sovrapposizione delle repliche complementari sulla replica
-fondamentale, che sar\`a difficilmente isolabile tramite un filtro
-ideale, vanificando ogni possibilit\`a di ricostruire il segnale
-$x(t)$ a partire da $x^{*}(t)$. 
+dell'aliasing\index{Aliasing}, cio\`e mediante il campionamento si
+generano componenti spettrali alla stessa frequenza della componente
+spettrale di partenza che impediscono la corretta ricostruzione del
+segnale di partenza. Ulteriore problema sar\`a la sovrapposizione
+delle repliche complementari sulla replica fondamentale, che sar\`a
+difficilmente isolabile tramite un filtro ideale, vanificando ogni
+possibilit\`a di ricostruire il segnale $x(t)$ a partire da
+$x^{*}(t)$. 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{./figures/aliasing.png}
@@ -10687,7 +10691,7 @@ $x(t)$ a partire da $x^{*}(t)$.
   \omega)|$ ``a banda illimitata''}
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics[scale=0.5]{./figures/spettro_banda_illimitata.png}
+    \includegraphics[scale=0.3]{./figures/spettro_banda_illimitata.png}
     \caption{Spettro $|X(j \omega)|$ a banda
       illimitata}\label{fig:spettroBandaIllimitata} 
   \end{center}
@@ -10706,13 +10710,704 @@ scegliere la banda passante $\omega_c$ (o $\omega_b$) del segnale.
 Tipicamente possiamo considerare trascurabili le componenti armoniche
 del segnale attenuate di $20dB$ o $40dB$. 
 
+\section{Filtro ideale}\index{Filtro ideale}\label{filtroIdeale}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/filtroIdeale.png}
+    \caption{Spettro del filtro ideale}\label{fig:filtroIdeale}
+  \end{center}
+\end{figure}
+Cardine della teoria della ricostruzione del segnale \`e la
+possibilit\`a di ottenere la replica primaria, filtrando lo spettro
+$|X(j \omega)|$ del segnale campionato $x^{*}(t)$ con un filtro
+ideale. La figura\ref{fig:filtroIdeale} mostra lo spettro del filtro
+ideale $G_I(j \omega)$. Dal punto di vista matematico, possiamo
+formalizzarlo come
+\begin{equation}
+  G_I(j \omega) = 
+  \left\{
+  \begin{array}{ll}
+    T & -\dfrac{\omega_s}{2} \leq \omega \leq \dfrac{\omega_s}{2}\\
+    0 & \textrm{altrove}
+  \end{array}
+  \right.
+\end{equation}
 
+\subsubsection{Fisica realizzabilit\`a del filtro ideale}
+Vogliamo assicurarci che il filtro ideale sia ``fisicamente
+realizzabile''. Ne calcoliamo la risposta all'impulso.
+
+La $G_I(j \omega)$ \`e la risposta impulsiva nel dominio della
+frequenza $\omega$. Possiamo calcolare la risposta impulsiva nel
+dominio della $t$ antitrasformando $G_I(j \omega)$.
+\[
+g_I(t) = \dfrac{1}{2 \pi} \int_{- \infty}^{\infty} G_I(j \omega) e^{j
+  \omega t} d\omega
+\]
+Dalla definizione di $G_I(j \omega)$ possiamo restringere l'intervallo
+di integrazione e sostituire i valori di $G_I(j \omega)$:
+\[
+g_I(t) = \dfrac{T}{2 \pi} \int_{-\dfrac{\omega_s}{2}}^{\dfrac{\omega_s}{2}}e^{j
+  \omega t} d\omega
+\]
+\[
+g_I(t) = \dfrac{T}{2 \pi} \left.\left[ \dfrac{e^{j \omega t}}{j \omega
+    t}\right]\right|_{-\frac{\omega_s}{2}}^{\frac{\omega_s}{2}}
+\]
+\[
+g_I(t) = \dfrac{T}{2 \pi} \left( e^{j \frac{\omega_2}{2}t} - e^{-j
+  \frac{\omega_2}{2}t}\right) = \dfrac{T}{\pi
+  t}sin\dfrac{\omega_s}{2}t
+\]
+con $sin \dfrac{\omega_s}{2}t = \dfrac{e^{j \frac{\omega_2}{2}t} - e^{-j
+  \frac{\omega_2}{2}t}}{2j}$
+
+A questo punto, con delle opportune manipolazioni matematiche, $T =
+\dfrac{2 \pi}{\omega_s}$, possiamo riscrivere:
+\[
+g_I(t) = \dfrac{T}{\pi t}sin\dfrac{\omega_s}{2}t = \dfrac{sin
+  \frac{\omega_s}{2}t}{\frac{\omega_s}{2}t} 
+\]
+Considerando che $\dfrac{sin xt}{x} = sinc (xt)$
+\[
+g_I(t) = sinc \dfrac{\omega_s}{2}t
+\]
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/filtroIdealesinc.png}
+    \caption{$sinc(\dfrac{\omega_s}{2}t)$}\label{fig:filtroIdealesinc}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:filtroIdealesinc} mostra l'andamento nel tempo
+della risposta impulsiva di $g_I(t)$. Si nota con facilit\`a che
+applicando un impulso di Dirac all'istante zero, il sistema risponde
+con un segnale che non \`e nullo per $t < 0$. Il sistema $G_I(j
+\omega)$ per $t < 0$ {\em prevede} l'arrivo dell'impulso a $t = 0$. Un
+sistema di questo tipo \`e detto {\em anticipativo}\index{Anticipativo
+- Sistema} o {\em anticausale}\index{Anticausale - Sistema} e,
+purtroppo, \`e fisicamente irrealizzabile.
+
+\section{Tipici ricostruttori di segnale}
+Ricordiamo che i ricostruttori di segnale sono dei dispositivi che
+ricevono in ingresso una sequenza $x(kT)$ di valori campionati e
+forniscono in uscita un segnale continuo che approssima il segnale
+$x(t)$ da cui \`e stata ricavata la sequenza $x()k$.
+
+I ricostruttori di uso comune sono quelli ottenuti dallo sviluppo in
+serie di Taylor del segnale $x(t)$ nell'intorno del punto $t = kT$:
+\begin{equation}\label{eq:taylorRicostruttori}
+  x(t) = x(kT) + \left. \dfrac{dx(t)}{dt}\right|_{t = kT} (t - kT) +
+  \left. \dfrac{d^2x(t)}{dt^2}\right|_{t = kT} \dfrac{(t - kT)^2}{2!}
+  + ...
+\end{equation}
+Se invece di considerare solo l'intorno $t = kT$ considerassimo tutti
+i termini della serie, avremmo un'espressione molto complessa, ma
+estremamente precisa: non avremmo una approssimazione, ma una vera
+uguaglianza.
+
+Avendo a disposizione solamente i valori campionati a $x(kT)$, le
+derivate del segnale $x(t)$ nel punto $t = kT$ vengono calcolare
+secondo le seguenti espressioni:
+\[
+\begin{array}{l}
+\left. \dfrac{dx(t)}{dt}\right|_{t = kt} \simeq \dfrac{x(kT) - x((k -
+  1)T)}{T}\\
+
+\left. \dfrac{d^2x(t)}{dt^2}\right|_{t = kt} \simeq
+\dfrac{\left. \dfrac{dx(t)}{dt}\right|_{t = kt} -
+  \left. \dfrac{dx(t)}{dt}\right|_{t = (k - 1)t}}{T} \simeq
+\dfrac{x(kT) - 2x((k - 1)T) + x((k - 2)T)}{T^2}
+\end{array}
+\]
+Il numero di termini derivativi che vengono presi in considerazione
+nell'equazione~\ref{eq:taylorRicostruttori} identifica {\em l'ordine
+  del ricostruttore}. Maggiore \`e l'ordine del ricostruttore
+maggiore \`e la precisione, maggiore \`e la complessit\`a, maggiore
+\`e il pericolo che deriva dall'introduzione dei ritardi nell'anello
+di controllo. 
+
+Per rappresentare con una funzione di trasferimento continua $H_r(s)$
+i ricostruttori, dobbiamo assumere che la sequenza $x(kT)$ di valori
+in ingresso sia interpretata come una sequenza di impulsi di Dirac
+aventi area pari ai valori $x(kT)$. In questo modo potremo ottenere
+$H_r(s)$ semplicemente effettuando la trasformata di Laplace della
+risposta impulsiva del ricostruttore.
+
+\subsubsection{Astrazione matematica}\label{astrazioneMatematica}
+Se consideriamo che il ricostruttore \`e un sistema ibrido, formato da
+una parte tempo-continua e da una parte tempo-discreta capiamo che \`e
+impossibile descrivere il ricostruttore con una funzione di
+trasferimento.
+
+Se si rimane nell'ipotesi che si effettui un campionamento ideale ad
+opera di impulsi di Dirac, il segnale campionato $x^{*}(t)$ \`e un
+segnale tempo-continuo e il ricostruttore pu\`o essere descritto con
+una funzione di trasferimento.
+
+Dobbiamo quindi rimanere nell'ipotesi che si lavori non sulla sequenza
+di campioni $x(kT)$, ma sul segnale campionato $x^{*}(t)$, ottenuto
+moltiplicando il segnale originario $x(t)$ col treno campionatore
+$\delta_T(t)$.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/astrazioneMatematica.png}
+    \caption{Ricostruttore - Funzione di
+      trasferimento}\label{fig:astrazioneMatematica} 
+  \end{center}
+\end{figure}
+
+\subsection{Ricostruttore di ordine zero - ZOH}
+Aggiungiamo qualche altra informazione alla teoria del ricostruttore
+di ordine zero accennata nella
+sezione~\ref{ricostruttoreOrdineZeroAccenni}. Come accennato in
+precedenza, questo ricostruttore prende il nome dal termine
+dell'espansione di Taylor che prendiamo in considerazione. Il legame
+ingresso-uscita \`e definito come:
+\begin{equation}\label{eq:ricostruttoreOrdineZero00} 
+  x_0(t) = x(kT) \;\;\; kT \leq t \leq (k + 1)T
+\end{equation}
+
+Possiamo ottenere la funzione di trasferimento del ricostruttore di
+ordine zero $H_0(s)$ effettuando la trasformata di Laplace della
+risposta all'impulso $g_0(t)$. Il ricostruttore di ordine zero manterr\`a,
+quindi, costante il valore nell'origine fino al campione successivo e
+quindi la riposta $g_0(t)$ varr\`a 1 fino all'istante $T$, dopodich\`e
+fino all'istante successivo $2T$ avr\`a valore pari a quello
+nell'istante $T$, ovvero 0.
+
+La risposta impulsiva \`e una funzione costante di ampiezza unitaria
+non nulla solo all'interno dell'intervallo $[0, T]$, cio\`e la
+finestra rettangolare mostrata in
+figura~\ref{fig:ricostruttoreOrdineZeroRispostaImpulsiva}
+\begin{equation}\label{eq:ricostruttoreOrdineZero}
+  H_0(s) = L[g_0(t)] = L[h(t) - h(t - T)] = \dfrac{1}{s} - \dfrac{e^{-sT}}{s} =
+  \dfrac{1 - e^{-sT}}{s}
+\end{equation}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreOrdineZeroRispostaImpulsiva.png}
+    \caption{Risposta impulsiva -
+      ZOH}\label{fig:ricostruttoreOrdineZeroRispostaImpulsiva}
+  \end{center}
+\end{figure}
+
+\subsection{Ricostruttore di ordine uno}
+In riferimento alla serie di Taylor trattata in precedenza, arrestata
+al secondo termine, il ricostruttore di ordine uno approssima il
+segnale originario $x(t)$ nell'intorno del punto $t = kT$.
+
+Nell'intervallo di tempo $kT \leq t \leq (k + 1)T$, il ricostruttore
+di ordine uno fornisce un segnale $x(t)$ funzione del campione $x(kT)$
+e del campione precedente $x((k - 1)T)$
+\begin{equation}\label{eq:ricostruttoreOrdineUno}
+  x_1(t) = x(kT) + \dfrac{x(kT) - x((k - 1)T)}{T}(t - kT)
+\end{equation}
+con $kT \leq t \leq (k + 1)T$
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreOrdineUno00.png}
+    \caption{Ricostruttore di ordine uno}\label{fig:ricostruttoreOrdineUno00}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:ricostruttoreOrdineUno} mostra un esempio di
+ricostruzione effettuata con un ricostruttore di ordine
+uno. Considerando l'intervallo di interesse  $kT \leq t \leq (k + 1)T$
+abbiamo la necessit\`a di rappresentare il segnale $x(t)$ di cui non
+conosciamo ancora il valore per $x((k + 1)T)$ nell'istante $t = (k +
+1)T$. Essendo un ricostruttore di ordine uno, tra due campioni
+successivi ci sar\`a una funzione del primo ordine: una retta. La
+pendenza della retta \`e data dal rapporto incrementale dei valori dei
+due campioni a $x(kT)$ e $x((k - 1)T)$.
+
+La figura~\ref{fig:ricostruttoreOrdineUno} mostra anche il punto
+debole del ricostruttore di ordine uno: reagisce lentamente alle brusche
+variazioni di pendenza del segnale (inversioni di pendenza). Questa
+debolezza \`e comunque ``ben assorbita'' da un efficace campionamento:
+se si rispetta il Teorema di Shannon \`e improbabile assistere a
+ripetute inversioni di pendeza del segnale.
+
+Continuando a lavorare nell'ipotesi dell'astrazione
+matematica~\ref{astrazioneMatematica}, possiamo calcolare la funzione
+di trasferimento $H_1(s)$ facendo la trasformata di Laplace della sua
+risposta impulsiva $g_1(t)$.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreOrdineUno01.png}
+    \caption{Ricostruttore di ordine uno - riposta
+      impulsiva}\label{fig:ricostruttoreOrdineUno01} 
+  \end{center}
+\end{figure}
+La figura~\ref{fig:ricostruttoreOrdineUno01} mostra la risposta
+impulsiva $g_1(t)$ del ricostruttore di ordine uno.
+
+Nell'intervallo $0 \leq t \leq T$ sappiamo che nell'istante $t = 0$
+($kT$ con $k = 0$) $\delta(0)$ vale 1, mentre $\delta(-T)$ vale
+0 all'istante precedente $t = -T$ ($(k - 1)T$ con $k = 0$). Sfruttando
+l'equazione~\ref{eq:ricostruttoreOrdineUno}, calcoliamo
+\[
+g_1(t) = 1 + \dfrac{1 - 0}{T} = 1 + \dfrac{1}{T}t
+\]
+che \`e esattamente la rampa di pendenza $\dfrac{1}{T}$ mostra nella
+figura~\ref{fig:ricostruttoreOrdineUno01}. Iterando lo stesso
+ragionamento per per l'intervallo $T \leq t \leq 2T$:
+\[
+g_1(t) = 0 + \dfrac{0 - 1}{T} (t - T) = - \dfrac{t - T}{T} = 1 -
+\dfrac{1}{T}t
+\]
+Nell'ultimo intervallo $2T \leq t \leq 3T$ sappiamo solo che
+nell'istante $t = 2T$, $\delta(2T) = 0$ e che per $t = T$, $\delta(T)
+= 0$. Quindi
+\[
+g_1(t) = 0 + \dfrac{0 - 0}{T} (t - 2T) = 0
+\]
+Abbiamo ottenuto cos\`i la risposta impulsiva $g_1(t)$ complessiva
+come combinazione di gradini e rampe:
+\[
+g_1(t) = x_1(t)h(t) + x_2(t)h(t - T) + x_3(t)h(t - 2T)
+\]
+Calcoliamo adesso la trasformata di Laplace $L[g_1(t)]$, considerando
+intervallo per intervallo:
+\begin{itemize}
+\item $0 \leq t \leq T$
+  \[
+  \left\{
+  \begin{array}{l}
+    g_1(t) = x_1(t) \;\;,\;\;h(t) = 1 \;\;\textrm{Gli altri termini sono
+      nulli}\\
+    g_1(t) = 1 + \dfrac{1}{T}t
+  \end{array}
+  \right.
+  \]
+  \[
+  \begin{array}{l}
+    x_1(t) = 1 + \dfrac{1}{T}t\\
+    x_1(t) = h(t) + \dfrac{r(t)}{T}
+  \end{array}
+  \]
+
+\item $T \leq t \leq 2T$
+  \[
+   \left\{
+   \begin{array}{l}
+     g_1(t) = x_1(t) + x_2(t)  \;\;,\;\;h(t) = h(t - T) = 1, \;\;h(t -
+     2T) = 0\\
+     g_1(t) = 1 - \dfrac{1}{T}t\\
+     x_1(t) = 1 + \dfrac{1}{T}t
+   \end{array}
+   \right.
+   \]
+   \[
+   \begin{array}{l}
+     x_1(t) + x_2(t) = 1 - \dfrac{1}{T}t\\
+     x_2(t) = 1 - \dfrac{1}{T}t - 1 - \dfrac{1}{T}t\\
+     x_2(t) = -\dfrac{2}{T}t\\
+     x_2(t) =  -\dfrac{2}{T}t(t - T + T)\\
+     x_2(t) = -2 - \dfrac{2}{T}(t - T)\\
+     x_2(t) = -2h(t - T) - \dfrac{2}{T}r(t - T)
+   \end{array}
+   \]
+ \item $t > 2T$
+   \[
+   \left\{
+   \begin{array}{l}
+     g_1(t) = x_1(t) + x_2(t) + x_3(t) \;\;h(t) = h(t - T) = h(t - 2T)
+     = 1\\
+     g_1(t) = 0\\
+     x_1(t) = 1 + \dfrac{1}{T}t\\
+     x_2(t) = - \dfrac{2}{T}t
+   \end{array}
+   \right.
+   \]
+   \[
+   \begin{array}{l}
+     x_1(t) + x_2(t) + x_3(t) = 0\\
+     x_3(t) = - 1 - \dfrac{1}{T}t + \dfrac{2}{T}t\\
+     x_3(t) = - 1 + \dfrac{1}{T}t\\
+     x_3(t) =  - 1 + \dfrac{1}{T}(t - 2T + 2T)\\
+     x_3(t) = 1 + \dfrac{1}{T}(t - 2T)\\
+     x_3(t) = h(t - 2T) + \dfrac{1}{T}r(t - 2T)
+   \end{array}
+   \]
+\end{itemize}
+A questo punto possiamo ricomporre
+\[
+g_1(t) = h(t) + \dfrac{r(t)}{T} - 2h(t - T) - \dfrac{2}{T}r(t - T) +
+h(t - 2T) + \dfrac{1}{T}r(t - 2T) 
+\]
+La trasformata di Laplace a questo punto \`e
+\[
+H_1(s) = \dfrac{1}{s} + \dfrac{1}{T s^2} - 2\dfrac{e^{-sT}}{s} -
+2\dfrac{e^{-sT}}{T s^2} + \dfrac{e^{-2sT}}{s} + \dfrac{e^{-2sT}}{T
+  s^2}
+\]
+Mettendo in evidenza $\dfrac{1}{s} + \dfrac{1}{T s^2}$ e ricordando
+che $1 - 2 e^{-sT} + e^{-2sT} = (1 - e^{-sT})^2$ abbiamo
+\begin{equation}\label{eq:ricostruttoreOrdineUno}
+  H_1(s) = \dfrac{1 + Ts}{T} \left( \dfrac{1 - e^{-sT}}{s}\right)^2 =
+  \dfrac{1 + Ts}{T} H_0^2(s)
+\end{equation}
+Pi\`u preciso dello ZOH, ma notevolmente pi\`u complicato.
+
+\subsection{Ricostruttore frazionario}
+Il ricostruttore frazionario \`e una variante del ricostruttore di
+ordine uno. Il funzionamente \`e relativamente simile. L'unica
+differenza sta nella pendenza della retta che collega due campioni
+successivi: si considera una frazione $\alpha$ della pendenza della
+retta del caso di ordine uno.
+\begin{equation}
+  \begin{array}{l}
+    x_f(t) = x(kT) + \alpha \dfrac{x(kT) - x((k - 1)T)}{T}(t - kT)\\
+    kT \leq t \leq (k + 1)T\\
+    \alpha \in [0, 1]
+  \end{array}
+\end{equation}
+\`E immediato notare che con
+\begin{itemize}
+\item $\alpha = 0$ otteniamo il ricostruttore di ordine zero;
+\item $\alpha = 1$ otteniamo il ricostruttore di ordine uno.
+\end{itemize}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/ricostruttoreFrazionario00.png}
+    \caption{Ricostruttore frazionario}\label{fig:ricostruttoreFrazionario00}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreFrazionario01.png}
+    \caption{Ricostruttore frazionario - risposta
+      impulsiva}\label{fig:ricostruttoreFrazionario01} 
+  \end{center}
+\end{figure}
+\begin{equation}
+\left\{
+\begin{array}{ll}
+  1 + \dfrac{\alpha}{T}t & 0 \leq t \leq T\\
+  \alpha - \dfrac{\alpha}{T}t & T \leq t \leq 2T\\
+  0 & t \geq 2T
+\end{array}
+\right.
+\end{equation}
+Applicando il procedimento mostrato per il ricostruttore di ordine
+uno, otteniamo
+\begin{equation}
+  H_f(s) = \dfrac{\alpha + sT}{T}\left( \dfrac{1 -
+    e^{-sT}}{s}\right)^2 + (1 - \alpha)\left( \dfrac{1 -
+    e^{-sT}}{s}\right)^2 e^{-sT}
+\end{equation}
+
+\subsection{Ricostruttore ad uscita continua}
+Tutti i ricostruttori visti finora presentano una discontinuit\`a  del
+segnale di controllo $u(t)$ in uscita all'istante $T$ di commutazione
+da un periodo all'altro. Questa discontinuit\`a pu\`o sollecitare
+eccessivamente l'attuatore e provocare un'usura irregolare.
+
+Il legame ingresso-uscita \`e
+\begin{equation}
+  x_c(t) = x((k - 1)T) + \dfrac{x(kT) - x((k - 1)T)}{T}(t - kT) \;\;\;
+  kT \leq t \leq (k + 1)T
+\end{equation}
+\begin{itemize}
+\item \`E un ricostruttore del primo ordine: una retta collega due
+  campioni successivi;
+\item La pendenza \`e pari al rapporto incrementale tra il campione e
+  quello precedente;
+\item Il punto di partenza coincide con il valore del campione $x((k -
+  1)T)$ dell'istante precedente $t = (k -1)T$.
+\end{itemize}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/ricostruttoreContinuo00.png}
+    \caption{Ricostruttore continuo}\label{fig:ricostruttoreContinuo00}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:ricostruttoreContinuo00} mostra un esempio di
+ricostruttore continuo.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreContinuo01.png}
+    \caption{Ricostruttore continuo - riposta
+      impulsiva}\label{fig:ricostruttoreContinuo01} 
+  \end{center}
+\end{figure}
+La figura\ref{fig:ricostruttoreContinuo01} mostra la risposta
+impulsiva con
+\begin{equation}
+  g_1(t) = 
+  \left\{
+  \begin{array}{ll}
+    \dfrac{1}{T}t & 0 \leq t \leq T\\
+    - \dfrac{1}{T}t + 2 & T \leq t \leq 2T\\
+    0 & t \geq 2 T
+  \end{array}
+  \right.
+\end{equation}
+Calcolando la risposta impulsiva complessiva $g_c(t)$, possiamo
+calcolare la funzione di trasferimento $H_c(s)$:
+\begin{equation}
+  g_c(t) = \dfrac{1}{T} r(t) - \dfrac{2}{T}r(t - T) + \dfrac{1}{T}r(t
+  - 2T)
+\end{equation}
+\begin{equation}
+  H_c(s) = \dfrac{1}{T s^2}(1 - e^{-sT}) = \dfrac{1}{T}\left( \dfrac{1
+  - e^{-sT}}{s}\right)^2
+\end{equation}
+
+\section{Risposta in frequenza dei ricostruttori}
+Analizzando in frequenza i ricostruttori di ordine zero ed uno,
+cerchiamo di capire quale possa approssimare meglio il filtro ideale
+(\ref{filtroIdeale}).
+
+\subsection{Risposta in frequenza del ricostruttore di ordine zero}
+Ricordiamo la funzione di trasferimento
+\[
+H_0(s) = \dfrac{1 - e^{-sT}}{s}
+\]
+e lo spettro
+\[
+H_0(j \omega) = \dfrac{1 - e^{-j \omega T}}{j \omega}
+\]
+Mettiamo in evidenza il termine $e^{-j \omega \frac{T}{2}}$,
+moltiplichiamo e dividiamo per 2 ed otteniamo
+\[
+H_0(j \omega) = \dfrac{2e^{-j \omega \frac{T}{2}}}{j \omega} \left(
+\dfrac{e^{j \omega \frac{T}{2}} - e^{-j \omega \frac{T}{2}}}{2j}\right)
+\]
+Il termine tra parentesi \`e la forma di Eulero di un seno:
+\[
+H_0(j \omega) = \dfrac{2e^{-j \omega \frac{T}{2}}}{\omega} sin
+\left(\omega \dfrac{T}{2} \right)
+\]
+Moltiplicando e dividendo per $T$, potremo riscrivere tutto come
+\[
+H_0(j \omega) = T \dfrac{sin \left(\omega \frac{T}{2} \right)}{\omega
+\frac{T}{2}} e^{-j \omega \frac{T}{2}} = T\;sinc \left(\omega
+\dfrac{T}{2} \right) e^{-j \omega \frac{T}{2}}
+\]
+
+\subsubsection{Analisi del modulo dello spettro $H_0(j \omega)$}
+\[
+|H_0(j \omega)| = \left| T\;sinc \left(\omega \dfrac{T}{2} \right)
+e^{-j \omega \frac{T}{2}} \right|
+\]
+Se consideriamo che $|e^{-j \omega \frac{T}{2}} = 1$ e che $T$ \`e
+costante:
+\begin{equation}\label{eq:ricostruttoreOrdineZeroSpettro}
+  |H_0(j \omega)| = T \left|sinc \left(\omega \dfrac{T}{2} \right)
+  \right| 
+\end{equation}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/sincPositiva.png}
+    \caption{Sinc positiva}\label{fig:sincPositiva}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:sincPositiva} mostra il grafico in scala lineare
+dell'equazione~\ref{eq:ricostruttoreOrdineZeroSpettro} per le
+sole~$\omega$~positive. 
+
+Notiamo che la $sinc \left(\omega \dfrac{T}{2} \right)$ per $\omega =
+0$ vale $T$, che va a compensare l'attenuazione di $\dfrac{1}{T}$
+causata dal campionamento impulsivo. Pi\`u precisamente, per $\omega
+\ll \omega_s$, nelle vicinanze dell'origine, possiamo approssimare
+\begin{equation}
+  \textrm{Per}\;\;\omega \ll \omega_s \Rightarrow
+  \begin{array}{l}
+    sin \left( \dfrac{\omega T}{2}\right) \approx \dfrac{\omega T}{2}\\
+    sinc \left( \dfrac{\omega T}{2}\right) = 1\\
+    |H_0(j \omega)| = T
+  \end{array}
+\end{equation}
+e affermare con soddisfazione che il ricostruttore di ordine zero
+approssima con efficacia il filtro ideale.
+
+Al crescere di $\omega$, $sinc \left( \dfrac{\omega T}{2}\right)$
+decresce fino ad annullarsi quando il $sin \left( \dfrac{\omega
+  T}{2}\right)$ si annulla, cio\`e quando
+\begin{equation}
+  \begin{array}{l}
+    \dfrac{\omega T}{2} = k \pi\\
+    \omega = k \dfrac{2 \pi}{T}\\
+    \omega = k \omega_s
+  \end{array}
+\end{equation}
+L'approssimazione del filtro ideale non \`e pi\`u efficace come
+nell'intorno dell'origine, ma pu\`o comunque bastare poich\`e, in fase
+di campionamento impulsivo del segnale originario $x(t)$, abbiamo
+scelto tempo di campionamento $T$ e pulsazione di campionamento
+$\omega_s > 2 \omega_b$ tali da non riscontrare aliasing. Quindi,
+tutte le informazioni di cui abbiamo bisogno per ricostruire il
+segnale originario $x(t)$ di banda passante $\omega_b$ a partire dal
+segnale $x_r(t)$ si trovano a pulsazione $\omega =
+\dfrac{\omega_s}{2}$. In definitiva, non andremo mai oltre la
+pulsazione $\dfrac{\omega_s}{2}$ e, scegliendo opportunamente $T$,
+saremo sempre a basse frequenze, ottenendo una buona approssimazione
+del filtro ideale.
+
+\subsubsection{Analisi della fase dello spettro di $H_0(s)$}
+\[
+\begin{array}{l}
+  Arg[H_0(j \omega)] = Arg \left[ T sinc \left(\omega \dfrac{T}{2}
+    \right) e^{-j \omega \frac{T}{2}} \right] \\
+  = Arg \left[ T \dfrac{sin\left( \omega \frac{T}{2}\right)}{\omega
+      \frac{T}{2}} e^{-j \omega \frac{T}{2}} \right]\\
+\end{array}
+\]
+I termini $T$ e $\omega \dfrac{T}{2}$ con $\omega > 0$ non hanno
+contributo in fase perch\`e sono entrambi positivi.
+\[
+\begin{array}{l}
+  = Arg \left[ sin\left( \omega \frac{T}{2}\right) e^{-j \omega
+      \frac{T}{2}} \right]\\
+  = Arg \left[ sin\left( \omega \frac{T}{2}\right) \right] Arg
+  \left[e^{-j \omega \frac{T}{2}} \right]\\
+  Arg[H_0(j \omega)] = Arg \left[ sin\left( \omega \frac{T}{2}\right)
+    \right] - \omega \dfrac{T}{2} 
+\end{array}
+\]
+Se consideriamo $Arg[H_0(j \omega)] = Arg \left[ T sinc \left(\omega
+  \dfrac{T}{2} \right) e^{-j \omega \frac{T}{2}} \right]$
+\begin{itemize}
+\item il termine $T$ \`e un reale positivo che non d\`a contributo;
+\item $sinc \left(\omega \dfrac{T}{2} \right)$ al variare di
+  $\omega$ d\`a un contributo in fase di 0 o $2 \pi$;
+\item $- sinc \left(\omega \dfrac{T}{2} \right)$ al variare di
+  $\omega$ d\`a un contributo in fase di $\pi$ o $- \pi$;
+\item $e^{-j \omega \frac{T}{2}}$ d\`a un contributo in fase di $-
+  \omega \dfrac{T}{2}$, cio\`e una retta di pendenza $\dfrac{T}{2}$
+\end{itemize}
+come mostra la figura\ref{fig:ricostruttoreOrdineZeroSpettroFase}.
+
+Nei punti di transizione, per $\dfrac{\omega T}{2} = k \pi \rightarrow
+\omega = k \dfrac{2 \pi}{T} \rightarrow \omega = k \omega_s$, la
+funzione $sin \left( \omega \dfrac{T}{2}\right)$ si annulla per poi
+cambiare di segno aggiungendo $\pi$ a $Arg[H_0(j \omega)]$, che di
+conseguenza si riporta a 0: per $\omega = k \omega_s$ compare una
+discontinuit\`a di ampiezza $\pi$, visibile in
+figura~\ref{fig:ricostruttoreOrdineZeroSpettroFase}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreOrdineZeroSpettroFase.png}
+    \caption{Ricostruttore ordine zero -
+      Fase}\label{fig:ricostruttoreOrdineZeroSpettroFase} 
+  \end{center}
+\end{figure}
+
+Ricapitolando, nelle strette vicinanze dell'origine, cio\`e per
+$\omega \ll \omega_s$
+\begin{itemize}
+\item \`e possibile approssimare $sin \left( \dfrac{\omega
+  T}{2}\right) \approx \dfrac{\omega T}{s} \rightarrow sinc \left(
+  \dfrac{\omega T}{2}\right) = 1$ e quindi $|H_0(j \omega)| = T$
+\item l'unico contributo in fase lo d\`a l'esponenziale $e^{-j \omega
+  \frac{T}{2}}$ da cui $Arg[H_0(j \omega)] = - \omega \dfrac{T}{2}$
+\end{itemize}
+
+In conclusione
+\begin{equation}
+  H_0(j \omega) \approx T e^{-j \omega \frac{T}{2}}
+  \;\;\textrm{per}\;\; \omega \ll \omega_s
+\end{equation}
+Scelto opportunamente il tempo di campionamento $T$, si riesce a
+lavorare in una banda di frequenza $\omega$ in cui la presenza del
+ricostruttore di ordine zero \`e modellata come un ritardo
+$\dfrac{T}{2}$.
+
+Il controllore digitale, quindi, \`e influenzato anche da un ritardo
+pari a $\dfrac{T}{2}$ introdotto proprio dal ricostruttore ZOH sulla
+catena di andata.
+
+\subsection{Risposta in frequenza del ricostruttore di ordine uno}
+\[
+H_1(s) = \dfrac{1 + Ts}{T} \left( \dfrac{1 - e^{-sT}}{s}\right)^2
+\]
+\[
+H_1(j \omega) = \dfrac{1 + j \omega T}{T} \left( \dfrac{1 - e^{-j
+    \omega T}}{j \omega}\right)^2
+\]
+L'equazione~\ref{eq:ricostruttoreOrdineUno} ci ricorda che la funzione
+di trasferimento del ricostruttore di ordine uno contiene la funzione
+di trasferimento $H_0(s)$ del ricostruttore di ordine zero:
+\[
+H_1(j \omega) = \dfrac{1 + j \omega T}{T} \left[ T sinc\left( \omega
+  \frac{T}{2}\right) e^{-j \omega \frac{T}{2}}\right]^2
+\]
+Sviluppando il quadrato e ordinando i termini, otteniamo:
+\[
+H_1(j \omega) = T sinc^2 \left( \dfrac{\omega T}{2}\right)(1 + j
+\omega T)e^{-j \omega T}
+\]
+
+\subsubsection{Analisi del modulo dello spettro $H_1(j \omega)$}
+\[
+|H_1(j \omega)| = \left| T sinc^2 \left( \dfrac{\omega T}{2}\right)(1 + j
+\omega T)e^{-j \omega T}\right|
+\]
+Considerando che l'esponenziale non d\`a contributo e $T$ pu\`o essere
+portato fuori dal modulo, abbiamo
+\[
+|H_1(j \omega)| = T \left|sinc^2 \left( \dfrac{\omega T}{2}\right)\right| \sqrt{1 + \omega^2 T^2}
+\]
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/ricostruttoreOrdineUnoSpettro00.png}
+    \caption{Modulo spettro $H_1(j
+      \omega)$}\label{fig:ricostruttoreOrdineUnoSpettro00} 
+  \end{center}
+\end{figure}
+La figura\ref{fig:ricostruttoreOrdineUnoSpettro00} mostra il grafico
+in scala lineare per le sole $\omega$ positive. All'aumentare di
+$\omega$ il termine sotto radice fa aumentare il $|H_1(j \omega)|$,
+che comincer\`a a diminuire dop ouna specifica pulsazione $\omega$, in
+modo simile a quanto faceva $|H_0(j \omega)|$. Per valori di $\omega
+\ll \omega_s$ possiamo approssimare $|H_1(j \omega) \approx T$.
+
+\subsubsection{Analisi della fase dello spettro di $|H_1(j \omega)$}
+\[
+Arg \left[H_1(j \omega)|\right] = Arg \left[T \left|sinc^2 \left(
+  \dfrac{\omega T}{2}\right)\right| \sqrt{1 + \omega^2 T^2}\right] 
+\]
+Per $\omega > 0$, $T$, $\omega \dfrac{T}{2}$ e $sinc^2 \left(
+\dfrac{\omega T}{2}\right)$ non danno contributo in fase perch\`e sono
+tutti reali positivi.
+\[
+Arg \left[H_1(j \omega)\right] = Arg \left[ (1 + j \omega T) e^{-j
+    \omega T}\right] = Arg \left[1 + j \omega T \right] + Arg
+\left[ e^{-j  \omega T} \right] = arctan(\omega T) - \omega T
+\]
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreOrdineUnoSpettroFase.png}
+    \caption{}\label{fig:}
+  \end{center}
+\end{figure}
+Notiamo che
+\[
+\lim_{\omega \to \infty} arctan(\omega T) = \dfrac{\pi}{2}
+\]
+e rimane costante a tale valore. Quando $\omega \in [0, \omega_s]$, la
+funzione $arctan(\omega T)$ d\`a un certo contributo positivo in fase,
+mentre l'esponenziale $e^{-jT}$ contribuisce con una retta $-\omega T$
+di pendeza $-T$ che in $\omega_s$ varr\`a proprio $-2 \pi$. Di
+conseguenza la fase di $H_1(s)$ assumer\`a un valore pari a $-2 \pi$
+solo per pulsazioni $\omega > \omega_s$.
+
+In analogia con quanto visto in precedenza, anche in questo caso ci
+sar\`a una discontinuit\`a di ampiezza $-2 \pi$ e l'andamento si
+ripeter\`a anche negli intervalli successivi proprio perch\`e per una
+pulsazione $\omega > k\omega_s$ il contributo dovuto alla funzione
+arcotangente si compenser\`a con quello dovuto all'esponenziale
+$e^{-jT}$. In generale, quindi, l'introduzione del controllore
+digitale comporta per $\omega \ll \omega_s$ un ritardo maggiore che
+coincide con quello dovuto alla presenza del ricostruttore di ordine
+uno e dunque all'esponenziale $e^{-j T}$.
 
 
 
 \begin{figure}[!h]
   \begin{center}
-%    \includegraphics[scale=0.5]{./figures/}
+%    \includegraphics[scale=0.5]{./figures/ricostruttoreOrdineUnoSpettro00.png}
     \caption{}\label{fig:}
   \end{center}
 \end{figure}
