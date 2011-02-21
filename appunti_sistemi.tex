@@ -11154,6 +11154,193 @@ calcolare la funzione di trasferimento $H_c(s)$:
   - e^{-sT}}{s}\right)^2
 \end{equation}
 
+\section{Scelta del tempo di campionamento $T$}
+Per scegliere efficacemente il tempo di campionamento $T$ e garantire
+che non vadano perse informazioni relativa al segnale $x(t)$ da
+campionare, si devono tener conto alcune esigenze, spesso contrastanti
+tra loro.
+
+\begin{itemize}
+
+\item Il soddisfacimento del Teorema di Shannon\\
+  \`E una condizione fondamentale
+  \[
+  \omega_s = \dfrac{2 \pi}{T} > 2\cdot \omega_b
+  \]
+  \begin{definizione}
+    la pulsazione di campionamento deve essere almeno due volte maggiore
+    della banda passante del segnale $x(t)$
+  \end{definizione}
+  La banda passante $\omega_b$ \`e la pulsazione oltre la quale
+  consideriamo trascurabili le armoniche del sistema.
+
+\item Effetto del filtro anti-aliasing\\
+  Un tipico segnale $x(t)$ \`e a ``banda non limitata'', non si estingue
+  completamente dopo $\omega_b$. Il suo diagramma dello spettro $|X(j
+  \omega)|$ sar\`a caratterizzato dalla presenza di code che indicano
+  proprio un residuo di armoniche.
+
+  Ricordiamo che l'andamento spettrale $|X^{*}(j \omega)$ del segnale
+  campionato $x^{*}(t)$ si ottiene a partire dallo spettro $X(j \omega)$
+  del segnale originario $x(t)$ pi\`u una sommatoria di infinite
+  repliche dello stesso spettro traslato di $j n \omega_s $. In questa
+  situazione, le code si sommano e generano un contributo non
+  trascurabile, che porta all'impossibilit\`a di ricostruire
+  correttamente il segnale originario $x(t)$.
+
+  Per ridurre l'aliasing si filtra il segnale originario $x(t)$ con un
+  filtro anti-aliasing\index{Filtro anti-aliasing}: un filtro
+  passa-basso a banda passante $\left[ 0,
+    \dfrac{\omega_s}{2}\right]$. Questo ci consente di filtrare le
+  componenti del segnale $x(t)$ a pulsazione superiore a
+  $\dfrac{\omega_s}{2}$, senza, per\`o, introdurre un eccessivo ritardo
+  nella catena di controllo.
+
+\item Approssimazione della funzione di trasferimento $H_0(s)$
+  del ricostruttore di ordine zero\\
+  Ricordando che per $\omega \ll \omega_s$ abbiamo approssimato il
+  ricostruttore di ordine zero come
+  \[
+  H_0(j \omega) \simeq T e^{-j \omega \frac{T}{2}}
+  \]
+  \[
+  H_0(s) \simeq \dfrac{T}{1 + s \frac{T}{2}}
+  \]
+  Questo ci garantisce di poter pensare il ricostruttore ZOH come un
+  filtro ideale per frequenze basse. Questa approssimazione \`e tanto
+  migliore quanto pi\`u la pulsazione di campionamento $\omega_s$ \`e
+  alta. Grande pulsazione di campionamento equivale ad avere un
+  piccolo tempo di campionamento e un'alta frequenza di
+  campionamento. Questa condizione si ripercuote sui costi delle
+  apparecchiature coinvolte nell'implementazione del controllore.
+\end{itemize}
+
+\subsection{Dedurre il tempo di campionamento dalla banda passante del
+  sistema a ciclo chiuso}
+Lavorando con un sistema a ciclo chiuso avremo la necessit\`a di
+campionare l'errore $e(t)$ ignorando, purtroppo, la sua banda passante
+e il suo spettro $E(\j \omega)$. Le uniche informazioni note
+riguardano proprio il sistema a ciclo chiuso ed in particolare della
+sua banda passante, definita dalla sua pulsazione di attraversamento
+$\omega_c$.
+
+In buona approssimazione, il sistema a ciclo chiuso di comporta come
+un filtro passa-basso del secondo ordine, ovvero caratterizzato da una
+funzione di trasferimento $F(s)$ a pulsazione naturale $\omega_n$
+circa pari alla pulsazione di attraversamento $\omega_c$ del sistema a
+ciclo aperto $L(s)$:
+\[
+\omega_n(F(s)) \simeq \omega_c(L(s))
+\]
+Di conseguenza, gi\`a ad una decade dopo la pulsazione di
+attraversamento $\omega_c$ \`e presente una attenuazione di $40dB$ del
+segnale in ingresso $x(t)$ e ci\`o basta a garantire il
+soddisfacimento del Teorema di Shannon.
+
+In questa condizione, sar\`a sufficiente scegliere la pulsazione di
+campionamento pari a
+\begin{equation}
+  \omega_s = 10 \cdot \omega_c
+\end{equation}
+
+Per avere un'idea anche dell'impatto sui costi, possiamo tenere
+considerare che:
+\begin{equation}\label{eq:omegaSomegaC}
+  \begin{array}{l}
+    \fbox{bassi costi}\; \alpha \omega_c \leq \omega_s \leq 10 \alpha
+    \omega_c \;\fbox{alte prestazioni}\\
+    \textrm{con}\;\;5 \leq \alpha \leq 10
+  \end{array}
+\end{equation}
+
+\subsection{Dedurre il tempo di campionamento dal tempo di
+  assestamento}
+Supponiamo di voler scegliere il tempo di campionamento $T$ in base al
+numero di campioni da ottenere nel tempo di assestamento all'$1\%$.
+Se ipotizziamo uno smorzamento tipico pari a $\zeta \simeq 0.7$, il 
+tempo di assestamento all'$1\%$ sar\`a:
+\[
+T_{a 1\%} \simeq \dfrac{4.6}{\zeta \omega_n}\;\;\;\zeta \simeq 0.7
+\]
+Basandoci sulla approssimazione precendente $\omega_n \simeq
+\omega_c$, abbiamo
+\[
+T_{a 1\%} \simeq \dfrac{4.6}{\zeta \omega_c}
+\]
+\[
+\omega_c \simeq \dfrac{4.6}{\zeta T_{a 1\%}}
+\]
+Se consideriamo l'equazione~\ref{eq:omegaSomegaC}, $\omega_s = \dfrac{2
+  \pi}{T}$ e $\omega_c \simeq \dfrac{4.6}{\zeta T_{a 1\%}}$, abbiamo
+\[
+\alpha \dfrac{4.6}{\zeta T_{a 1\%}} \leq \dfrac{2 \pi}{T} \leq 10
+\alpha \dfrac{4.6}{\zeta T_{a 1\%}} 
+\]
+Dividendo per $2 \pi$ e sostituendo $\zeta \simeq 0.7$, abbiamo
+\[
+\dfrac{\alpha}{T_{a 1\%}} \leq \dfrac{1}{T} \leq \dfrac{10
+  \alpha}{T_{a 1\%}} 
+\]
+Invertendo il risultato, otteniamo un'espressione del tempo di
+campionamento in funzione del tempo di assestamento:
+\begin{equation}
+  \begin{array}{l}
+    \dfrac{T_{a 1\%}}{10 \alpha} \leq T \leq \dfrac{T_{a
+        1\%}}{\alpha}\\
+    \textrm{con}\;\;5 \leq \alpha \leq 10
+  \end{array}
+\end{equation}
+
+\subsection{Come il tempo di campionamento degrada il margine di fase} 
+Nell'ipotesi che $\omega \ll \omega_s$
+\[
+H_0(j \omega) \simeq T e^{-j \omega \frac{T}{2}}
+\]
+\[
+H_0(s) \simeq \dfrac{T}{1 + s \frac{T}{2}}
+\]
+Lo ZOH introduce un termine di ritardo pari a $e^{-s\frac{T}{2}}$ che
+contribuisce alla risposta in frequenza alterando la fase. ZOH
+aggiunge alla generica pulsazione $\omega$ uno sfasamento pari a $-
+\omega \frac{T}{2}$ radianti.
+
+Il contributo sulla fase critica $Arg[L(j \omega_c)]$ sar\`a
+\[
+\varphi_0 = - \omega_c \dfrac{T}{2} = - \omega_c \dfrac{\frac{2
+    \pi}{\omega_s}}{2} = - \dfrac{\omega_c}{\omega_s}\cdot \pi
+\;\;[rad]
+\]
+Ricordiamo l'equazione~\ref{eq:omegaSomegaC} e dividiamo per la
+pulsazione di attraversamento $\omega_c$:
+\[
+\alpha \leq \dfrac{\omega_s}{\omega_c} \leq 10 \alpha
+\]
+\[
+\dfrac{1}{10 \alpha} \leq \dfrac{\omega_c}{\omega_s} \leq
+\dfrac{1}{\alpha} 
+\]
+Ricordando che $\varphi_0 = - \dfrac{\omega_c}{\omega_s}\cdot \pi$,
+possiamo sostituire:
+\[
+\dfrac{1}{10 \alpha} \leq -\dfrac{\varphi_0}{\pi} \leq
+\dfrac{1}{\alpha}
+\]
+\begin{equation}\label{Tdegradaphi}
+  - \dfrac{\pi}{\alpha} \leq \varphi_0 \leq -\dfrac{\pi}{10\alpha}
+\end{equation}
+Se consideriamo la definizione di margine di fase del sistema ciclo
+chiuso
+\[
+\varphi_m = \pi + Arg[L(j \omega_c)]
+\]
+con l'equazione~\ref{eq:Tdegradaphi} possiamo calcolare di quanto $T$
+riduca il margine di fase $\varphi_m$.
+
+In conclusion possiamo dire che scegliendo un tempo di campionamento
+$T$ elevato riusciremmo a contenere i costi, ma potremmo introdurre un
+ritardo tale da influenzare considerevolmente il margine di fase
+$\varphi_m$ fino a rendere il sistema a ciclo chiuso instabile.
+
 \section{Risposta in frequenza dei ricostruttori}
 Analizzando in frequenza i ricostruttori di ordine zero ed uno,
 cerchiamo di capire quale possa approssimare meglio il filtro ideale
@@ -11651,6 +11838,689 @@ semicirconferenza muove da destra a sinistra sempre pi\`u curva, fino
 a diventare una curva che parte dalla circonferenza unitaria e
 attraversa l'asse reale a destra dell'asse immaginario.
 
+\chapter{Progettazione di un sistema di controllo digitale}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/controlloreEquivalente.png}
+    \caption{Schea di un controllore
+      discreto}\label{fig:controlloreEquivalente}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:controlloreEquivalente} ci ricorda che un
+controllore digitale \`e un sistema ibrido in cui coesistono segnali
+tempo-continuo e segnali tempo-discreto.
+
+L'errore $e(t)$ \`e un segnale appartenente al dominio del
+tempo-continuo $t$ e deve essere campionato per poter ottenere una
+sequenza di campioni $e^{*}(kT)$, appartenente al dominio del
+tempo-discreto, da poter inviare al controllore discreto $R^{*}(z)$.
+
+Il controllore discreto $R^{*}(z)$ genera in uscita una sequenza di
+campioni $u^{*}(kT)$, appartenente al dominio del tempo-discreto. La
+sequenza $u^{*}(kT)$ deve essere convertita, attraverso un
+mantenitore, in un segnale tempo-continuo $u(t)$. La
+figura~\ref{fig:controlloreEquivalente} mostra un mantenitore di tipo
+ZOH (\ref{ricostruttoreOrdineZeroAccenni}).
+
+Il segnale tempo-continuo $u(t)$ pu\`o essere inviato in ingresso al
+processo tempo-continuo $P(s)$.
+
+\section{Progettare il controllore equivalente $R(s)$}
+Per ottenere il controllore discreto $R^{*}(z)$ sfrutteremo la tecnica
+della progettazione indiretta:
+\begin{itemize}
+\item progettazione del controllore equivalente $R(s)$
+\item discretizzazione del controllore equivalente $R(s)$ per poi
+  ottenere il controllore discreto $R^{*}(z)$
+\end{itemize}
+
+Il metodo indiretto \`e semplicemente una comodit\`a per il
+progettista: il processo $P(s)$ \`e tempo-continuo e potrebbe esistere
+gi\`a un efficace controllore tempo-continuo $R(s)$ a disposizione del
+progettista o che il progettista pu\`o facilmente ottenere con
+tecniche familiari e consolidate.
+
+Questo tipo di approccio, ci obbliga a tenere in considerazione le
+ulteriori variabili che la discretizzazione introduce: scelta del
+tempo di campionamento e tecnica di discretizzazione su tutte.
+
+\subsection{Ottenere il controllore equivalente $R(s)$}
+Poich\`e il controllore digitale $R^{*}(z)$ \`e un sistema ibrido, per
+analizzarlo dobbiamo portare tutti i segnali in un dominio di
+convergenza. Convertiamo sia i segnali tempo-continuo che quelli
+tempo-discreto nelle loro versioni equivalenti nel dominio della
+frequenza:
+\begin{itemize}
+\item dalla trasformata di Laplace passiamo in frequenza con $s =
+  j\omega$
+\item dalla Z-trasformata passiamo in frequenza con $z = e^{j \omega
+  T}$
+\end{itemize}
+Avremo che lo spettro $E^{*}(e^{j \omega T})$ del segnale campionato
+ad impulsi di Dirac $e^{*}(t)$ diventa:
+\begin{equation}\label{eq:Estar}
+  E^{*}(z)|_{z = e^{j \omega T}} = E^{*}(e^{j \omega T}) = \dfrac{1}{T}
+  \sum_{h = -\infty}^{\infty} E(j \omega - j k \omega_s)
+\end{equation}
+cio\`e una sommatoria di infinite repliche dello spettro $E(j \omega)$
+del segnale originario $e(t)$ traslate di $k\omega_s$, pi\`u una
+attenuazione di $\dfrac{1}{T}$. Con riferimento alla
+figura~\ref{fig:controlloreEquivalente} possiamo scrivere che:
+\begin{equation}\label{eq:RstarEstar}
+  U^{*}(e^{j \omega T}) = R^{*}(e^{j \omega T}) E^{*}(e^{j \omega T})
+\end{equation}
+
+Considerata l'ipotesi del campionamento ideale ad opera di impulsi di
+Dirac, possiamo considerare il ricostruttore di ordine zero ZOH
+descritto da una funzione di trasferimento $H_0(s) = H_0(j \omega)|_{s
+= j \omega}$. A questo punto, l'uscita $U(j \omega)$ pu\`o essere
+riscritta come
+\begin{equation}\label{eq:HzeroUstar}
+U(j\omega) = H_0(j \omega) U^{*}(e^{j \omega T})
+\end{equation}
+Se sostituiamo l'equazione~\ref{eq:Estar}
+nell'equazione~\ref{eq:RstarEstar} e poi tutto
+nell'equazione~\ref{eq:HzeroUstar} abbiamo:  
+\begin{equation}
+  U(j\omega) = \dfrac{1}{T} H_0(j \omega) R^{*}(e^{j \omega T})
+  \sum_{h = -\infty}^{\infty} E(j \omega - j k \omega_s) 
+\end{equation}
+
+Se ipotizziamo di soddisfare il Teorema di Shannon, $\omega_s >
+2\omega_b$, e di limitare l'analisi alle solo pulsazioni $\omega \in
+\left[ 0, \dfrac{\omega_s}{2}\right]$, cio\`e considerare solo la
+banda di interesse del controllore, che corrisponde alla fascia
+primaria, possiamo affermare che lo spettro $E^{*}(e^{j \omega T})$
+del segnale campionato ad impulsi di Dirac $e^{*}(t)$ coincide
+esattamente con lo spettro $E(j \omega)$ del segnale originario
+$e(t)$. Questa affermazione \`e ulteriormente avvalorata dal fatto che
+lo spettro del ricostruttore di ordine zero $H_0(j \omega)$ \`e un
+filtro passa-basso cio\`e lascia passare solo i segnali a frequenze
+comprese tra $\left[ 0, \dfrac{\omega_s}{2}\right]$. Questo ulteriore
+filtraggio ci \`e utile proprio perch\`e nella realt\`a i segnali
+hanno delle code che prontamente vengono ridotte dalla presenza di
+$H_0(j \omega)$. 
+
+In definitiva, possiamo affermare che
+\begin{equation}\label{eq:HzeroRstarE}
+  U(j \omega) = \dfrac{1}{T} H_0(j \omega) R^{*}(e^{j \omega T})E(j
+  \omega) 
+\end{equation}
+Se ci poniamo nella condizione $\omega \ll \omega_s$, possiamo
+approssimare lo spettro del ricostruttore come
+\[
+H_0(j \omega) = \dfrac{1 - e^{-j \omega T}}{j \omega} \simeq Te^{-j
+  \omega \frac{T}{2}}
+\]
+Questa approssimare \`e intrinsecamente verificata dal fatto che
+abbiamo ristretto l'analisi alle sole frequenze $\omega \in \left[ 0,
+  \dfrac{\omega_s}{2}\right]$, ma sar\`a sempre meno valida
+avvicinandoci ad $\omega = \dfrac{\omega_s}{2}$.
+
+Effettuando le sostituzioni nell'equazione~\ref{eq:HzeroRstarE}
+abbiamo che
+\[
+U(j \omega) \simeq \dfrac{1}{T} \cdot T \cdot e^{-j \omega
+  \frac{T}{2}}R^{*}(e^{j \omega T}) E(j \omega) \simeq  e^{-j \omega
+  \frac{T}{2}} R^{*}(e^{j \omega T}) E(j \omega)
+\]
+Sfruttando la relazione $s = j\omega$ per ritornare nel dominio della
+$s$, avremo
+\[
+U(s) = e^{-s \frac{T}{2}} R^{*}(e^{sT}) E(s)
+\]
+
+In conclusione possiamo scrivere che il controllore equivalente $R(s)$
+\`e
+\begin{equation}\label{eq:controlloreEquivalenteRs}
+  R(s) = \dfrac{U(s)}{E(s)} \simeq e^{-s \frac{T}{2}} R^{*}(e^{sT})
+\end{equation}
+
+\subsection{Discretizzazione inconsapevole del controllore equivalente
+$R(s)$}
+Per ottenere il controllore digitale $R^{*}(z)$ si potrebbe pensare di
+sfruttare una sostituzione del tipo:
+\[
+R^{*}(z) = e^{s \frac{T}{2}}R(s)|_{s = \frac{1}{T}\ln z}
+\]
+Purtroppo questa strada \`e impercorribile per alcuni motivi:
+\begin{itemize}
+\item sostituendo $s = \frac{1}{T}\ln z$ abbiamo una funzione
+  trascendente, il logaritmo appunto, che rende complicata
+  l'esecuzione di un calcolatore;
+\item dopo l'inversione
+  dell'equazione~\ref{eq:controlloreEquivalenteRs}, l'esponenziale,
+  che in principio era un ritardo, diventa ora un termine di anticipo
+  nel controllore digitale $R^{*}{z}$ che diventa ``anticausale''
+\item il controllore equivalente $R(s)$ \`e progettato direttamente
+  sulla base del processo $P(s)$ senza tener conto del degradante e
+  pericoloso ritarto $e^{-s \frac{T}{2}}$, introdotto dallo ZOH.
+\end{itemize}
+
+\subsection{L'approssimante di Pad\`e}
+Supponiamo di voler controllare il sistema descritto dalla seguente
+funzione di trasferimento:
+\[
+G(s) = \dfrac{1}{s(s + 1)}
+\]
+Sfruttiamo il diagramma di Bode per scegliere il tempo di
+campionamento $T$. La figura~\ref{fig:pade} mostra il diagramma di
+Bode della $G(s)$. Il sistema ha guadagno statico $\mu = 1$, un polo
+nell'origine e un punto di rottura in $\omega = 1$.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/pade.png}
+    \caption{Diagramma di Bode di G(s)}\label{fig:pade}
+  \end{center}
+\end{figure}
+Servendoci del diagramma di Bode, individuiamo la pulsazione tale per
+cui il $|G(j \omega)| = -4-dB$. Questa pulsazione sar\`a la nostra
+pulsazione di campionamento $\omega_s$. Scelta la pulsazione di
+campionamento $\omega_s = 10$, avremo il tempo di campionamento $T =
+\dfrac{2 \pi}{\omega_s} = \dfrac{\pi}{5}$.
+
+Il campionamento e il ricostruttore introducono dei ritardi sulla
+catena di andata, modellati come $e^{-sT}$. L'esponenziale complica
+l'analisi. Sfruttiamo l'approssimante di Pad\`e
+(\href{http://it.wikipedia.org/wiki/Approssimante_di_Pad%C3%A9}{Wikipedia})
+  per ricondurre l'esponenziale ad una funzione razionale
+  fratta. L'approssimante si basa sull'imposizione che i primi termini
+  dello sviluppo in serie di Taylor della funzione esponenziale
+  coincidano con i primi termini dello sviluppo in serie di Taylor di
+  una funzione approssimante razionale fratta.
+\begin{equation}\label{eq:pade}
+  e^{-sT} \simeq \dfrac{1 - s\frac{T}{2}}{1 + s\frac{T}{2}}
+\end{equation}
+Sostituendo l'approssimante nella definizione del ricostruttore di
+ordine zero, abbiamo
+\[
+H_0(s) \simeq \dfrac{1 - e^{-sT}}{s} \simeq \dfrac{1 - \dfrac{1 -
+    s\frac{T}{2}}{1 + s\frac{T}{2}}}{s} = \dfrac{T}{1 + s\frac{T}{2}}
+\]
+Tipicamente si considera
+\[
+H_0(s) \simeq \dfrac{1}{1 + s\frac{T}{2}}
+\]
+poich\`e la $T$ al numeratore compensa l'attenuazione $\dfrac{1}{T}$
+causata dal campionatore. Ultima nota: $T$ \`e proprio il tempo di
+campionamento. Ci accorgiamo come un tempo di campionamento troppo
+elevato possa creare un $H_0(s)$ grande che introdurr\`a un grande
+ritardo nella catena di andata del controllore.
+
+\section{Discretizzazione consapevole di un controllore equivalente
+  $R^{0}(s)$} 
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/controlloreEquivalente.png}
+    \caption{Controllore equivalente
+      $R(s)$}\label{fig:controlloreEquivalente}
+  \end{center}
+\end{figure}
+Abbiamo capito che discretizzare direttamente il controllore
+equivalente mostrato in figura~\ref{fig:controlloreEquivalente} \`e
+una tecnica controproducente.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/controlloreR0.png}
+    \caption{Controllore $R^0(s)$}\label{fig:controlloreR0}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:controlloreR0} mostra un nuovo approccio per
+ottenere il controllore $R^{*}(z)$:
+\begin{itemize}
+\item progettare un controllore
+  equivalente $R^{0}(s)$ sulla serie $P^{0}(s)$, costituita dal ritardo
+  sulla catena di andata introdotto dall'ZOH e dal processo $P(s)$. In
+  questa circostanza, il controllore equivalente $R^{0}(s)$ ha
+  cognizione del ritardo dello ZOH e pu\`o compensarlo, nonostante suoi
+  eventuali contributi sul margine di fase $\varphi_m$.
+\item discretizzare $R^{0}(s)$ ed ottenere $R^{*}(z)$
+\end{itemize}
+
+\chapter{Tecniche di discretizzazione}
+Il processo di discretizzazione di un controllore equivalente
+$R^{0}(s)$ parte dalla relazione
+\begin{equation}
+  R^{*}(z) = R^{0}(s)|_{s = \frac{1}{T}\ln z}
+\end{equation}
+La funzione trascendente \`e ancora un problema perch\`e \`e
+impossibile da trasformare comodamente in un algoritmo ricorsivo da
+usare in un calcolatore.
+
+Le principali tecniche di discretizzazione della funzione di
+trasferimento $R^{0}(s)$, basate sull'approssimazione dell'integrale
+in un equivalente discreto, sono quattro:
+\begin{itemize}
+\item metodo delle differenze all'indietro o metodo di Eulero
+  all'indietro
+\item metodo delle differenze in avanti o metodo di Eulero in avanti
+\item trasformazione bilineare o metodo di Tustin
+\item trasformazione bilineare con precompensazione frequenziale
+\end{itemize}
+
+Il nostro obbiettivo \`e discretizzare una funzione di trasferimento,
+quindi una equazione differenziale. Per il nostro studio useremo
+l'equazione d'esempio
+\begin{equation}\label{eq:discretizzazione02}
+  \dfrac{dy(t)}{dt} + ay(t) = ax(t)
+\end{equation}
+con relativa versione in funzione di trasferimento
+\begin{equation}\label{eq:discretizzazione01}
+  G(s) = \dfrac{a}{s + a}
+\end{equation}
+Il primo passo \`e l'integrazione di ambo i membri per giungere a quanti
+pi\`u valori numerici possibili:
+\[
+\int_{0}^{t} \dfrac{dy(t)}{dt} = - a\int_{0}^{t} y(t) +
+a\int_{0}^{t}x(t) 
+\]
+Ovviamente per $t = kT$:
+\[
+\int_{0}^{kT} \dfrac{dy(t)}{dt} = y(kT) - y(0) =
+\]
+\[
+y(kT) - y(0) = - a\int_{0}^{kT} y(t) + a\int_{0}^{kT}x(t) 
+\]
+e per $t = (k - 1)T$
+\[
+\int_{0}^{(k - 1)T} \dfrac{dy(t)}{dt} = y((k - 1)T) - y(0) =
+\]
+\[
+y((k - 1)T) - y(0) = - a\int_{0}^{(k - 1)T} y(t) + a\int_{0}^{(k -
+  1)T}x(t)
+\]
+Per la propriet\`a di linearit\`a dell'integrale, la differenza
+membro a membro delle espressioni precedenti ci porta a:
+\begin{equation}\label{eq:discretizzazione00}
+y(kT) - y((k - 1)T) = - a\int_{(k - 1)T}^{kT} y(t) + a\int_{(k -
+  1)T}^{kT}x(t) 
+\end{equation}
+Per calcolare numericamente gli ulteriori integrali presenti in questa
+relazione, dobbiamo approssimare l'area sottesa alle curve $y(t)$ e
+$x(t)$.
+
+\section{Metodo delle differenze all'indietro o di Eulero
+  all'indietro}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/euleroIndietro00.png}
+    \caption{Approssimazione con l'area del
+      rettangolo}\label{fig:euleroIndietro00} 
+  \end{center}
+\end{figure}
+Con il metodo di Eulero all'indietro, approssimiamo l'area sottesa
+alle curve $x(t)$ e $y(t)$, introdotte
+nell'equazione~\ref{eq:discretizzazione00} con dei rettangoli. Si
+considerano tra gli istanti $(k - 1)T$ e $kT$ i rettangoli di altezza
+pari a $y(kT)$ o $x(kT)$:
+\[
+\int_{(k - 1)T}^{kT} y(t) \simeq Ty(kT)
+\]
+\[
+\int_{(k - 1)T}^{kT} x(t) \simeq Tx(kT)
+\]
+cio\`e, banalmente, ``base $T$ per altezza $y(kT)$''. Sostituendo
+nell'equazione~\ref{eq:discretizzazione00}, otteniamo
+\begin{equation}\label{eq:discretizzazioneEuleroIndietro}
+  y(kT) = y((k - 1)T) - aT[y(kT) - x(kT)]
+\end{equation}
+che ha Z-trasformata pari a
+\[
+Y(z) = z^{-1}Y(z) - aT[Y(z) - X(z)]
+\]
+un mix di Z-trasformate pure e Z-trasformate di funzioni ritardate.
+
+Se ordiniamo la precedente equazione e consideriamo $Y(z)$ come
+l'uscita del sistema e $X(z)$ come lo stato del sistema, possiamo
+scrivere:
+\[
+\dfrac{Y(z)}{X(z)} = G(z) = \dfrac{aT}{1 - z^{-1} + aT} =
+\dfrac{a}{\frac{1 - z^{-1}}{T} + a}
+\]
+Se confrontiamo l'equazione~\ref{eq:discretizzazione01} con
+l'equazione appena ottenuta, ci accorgiamo che
+\[
+G(z) = G(s)|_{s = \frac{1 - z^{-1}}{T}}
+\]
+Le variabili complesse $s$ e $z$ sono, quindi, legate tra loro da una
+nuova relazione, stavolta approssimante:
+\begin{equation}\label{eq:approssimanteEuleroIndietro}
+  s = \dfrac{1 - z^{-1}}{T}
+\end{equation}
+Se avessimo sostituito la derivata col rapporto incrementale
+all'indietro 
+\[
+\dfrac{dy(t)}{dt} = \dfrac{y(kT) - y((k - 1)T)}{T}
+\]
+nell'equazione~\ref{eq:discretizzazione02} avremmo ottenuto lo stesso
+risultato. 
+
+L'equazione~\ref{eq:approssimanteEuleroIndietro} ci consente di
+mappare i punti del piano $s$ nel piano $z$. Se consideriamo la
+regione di stabilit\`a del piano $s$, abbiamo che
+\[
+Re(s) < 0
+\]
+\[
+Re\left(\dfrac{1 - z^{-1}}{T}\right) = Re\left(\dfrac{z - 1}{Tz}\right) < 0
+\]
+Se condideriamo che $T > 0$ e che $z$ \`e un numero complesso $z =
+\sigma + j \omega$, possiamo riscrivere l'equazione precedente come
+\[
+Re \left(\dfrac{\sigma + j \omega - 1}{\sigma + j \omega} \right) < 0
+\]
+Razionalizzando abbiamo:
+\[
+Re \left[ \dfrac{(\sigma + j \omega -1)(\sigma - j \omega)}{\sigma^2 +
+  \omega^2}\right] = \dfrac{\sigma^2 - \sigma + \omega^2}{\sigma^2 +
+  \omega^2} < 0
+\]
+Il denominatore \`e sicuramente positivo. Resta da definire pi\`u
+comodamente il numeratore. Se aggiungiamo e sottraiamo $\dfrac{1}{4}$,
+avremo:
+\[
+\sigma^2 - \sigma + \omega^2 + \dfrac{1}{4} - \dfrac{1}{4} < 0
+\]
+\[
+\left( \sigma - \dfrac{1}{2}\right)^2 + \omega^2 < \left(\dfrac{1}{2}\right)^2
+\]
+cio\`e una circonferenza di raggio $\dfrac{1}{2}$ centrata in
+$\left(\dfrac{1}{2},0 \right)$, come mostrato nella
+figura~\ref{fig:euleroIndietro01}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/euleroIndietro01.png}
+    \caption{Confronto relazione fondamentale esatta e
+      approssimante}\label{fig:euleroIndietro01}  
+  \end{center}
+\end{figure}
+Tutti i modi stabili in $s$ diventano modi stabili in $z$.
+
+\section{Metodo delle differenze in avanti o di Eulero in avanti}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/euleroAvanti00.png}
+    \caption{Metodo delle differenze in
+      avanti}\label{fig:euleroAvanti00}
+  \end{center}
+\end{figure}
+Anche questo metodo \`e una approssimazione del calcolo
+dell'integrale. A differenza del metodo ``all'indietro'', si considera
+per il generico periodo$(k~-~1)T~\leq~t~\leq~kT$, $y((k - 1)T)$ come
+valore iniziale e $y(kT)$ come valore finale. Consideriamo quindi
+\[
+\int_{(k - 1)T}^{kT} y(t) \simeq Ty((k - 1)T)
+\]
+\[
+\int_{(k - 1)T}^{kT} x(t) \simeq Tx((k - 1)T)
+\]
+Otteniamo cos\`i
+\[
+y(kT) = y((k - 1)T) - aT[y((k - 1)T) - x((k - 1)T)]
+\]
+che possiamo Z-trasformare in
+\[
+Y(z) = (1 - aT)z^{-1}Y(z) + aTz^{-1}X(z)
+\]
+da cui
+\[
+\dfrac{Y(z)}{X(z)} = G(z) = \dfrac{a}{\frac{1 - z^{-1}}{Tz^{-1}} + a}
+\]
+che trasformando con Laplace, ci d\`a
+\[
+G(z) = G(s)|_{s = \frac{z - 1}{T}}
+\]
+
+Purtroppo questa implementazione introduce un problema di stabilit\`a,
+poich\`e la condizione di stabilit\`a
+\[
+Re(s) = Re \left( \dfrac{z - 1}{T}\right) < 0 
+\]
+con $T > 0$, comporta
+\[
+Re(z) < 1
+\]
+Il semipiano alla sinistra dell'asse immaginario in $s$ viene
+trasformato nel semipiano alla sinistra dell'ascissa 1 in $z$:
+modi stabili in $s$ verranno riportati in $z$ all'esterno della
+circonferenza unitaria, risultando cos\`i instabili. Questa tecnica
+nella pratica non viene utilizzata.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/euleroAvanti01.png}
+    \caption{Confronto piano $s$ piano $z$}\label{fig:euleroAvanti01}
+  \end{center}
+\end{figure}
+
+\section{Metodo bilineare o metodo di Tustin}
+Definita anche integrazione trapezioidale, approssima l'integrale
+\[
+y(kT) - y((k - 1)T) = - a\int_{(k - 1)T}^{kT} y(t) + a\int_{(k -
+  1)T}^{kT}x(t) 
+\]
+con
+\[
+\int_{(k - 1)T}^{kT} y(t) \approx \dfrac{[y(kt) + y((k - 1)T)T]}{2}
+\]
+\[
+\int_{(k - 1)T}^{kT}x(t) \approx \dfrac{[x(kt) + x((k - 1)T)T]}{2}
+\]
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/discretizzazioneTustin00.png}
+    \caption{Approssimazione dell'integrale con
+      Tustin}\label{fig:discretizzazioneTustin00} 
+  \end{center}
+\end{figure}
+La figurare~\ref{fig:discretizzazioneTustin00} mostra come il metodo
+di Tustin si basi sul concetto di area del trapezio, di altezza $T$,
+base minore $ x((k - 1)T)$ e base maggiore $x(kT)$. Sostituendo i
+valori appena mostrati nell'integrale originario, abbiamo:
+\[
+y(kT) = y((k - 1)T) - \dfrac{aT}{2}[y(kT) + y((k - 1)T)] +
+\dfrac{aT}{2}[x(kT) + x((k - 1)T)]
+\]
+che Z-trasformata ci d\`aT
+\[
+Y(z) = z^{-1}Y(z) - \dfrac{aT}{2}\left[Y(z) + z^{-1}Y(z)\right] +
+\dfrac{aT}{2}\left[X(z) + z^{-1}X(z)\right]
+\]
+Se $X(z)$ \`e lo stato e $Y(z)$ l'uscita
+\[
+\dfrac{Y(z)}{X(z)} = G(z) = \dfrac{\frac{aT}{2} (1 + z^{-1})}{(1 -
+  z^{-1} + \frac{aT}{2}(1 + z^{-1}))} = \dfrac{a}{\frac{2}{T}\cdot
+  \frac{1 - z^{-1}}{1 + z^{-1}} + a}
+\]
+La relazione fondamentale approssimante, quindi, \`e
+\begin{equation}\label{eq:discretizzazioneTustin00}
+  s = \dfrac{2}{T}\cdot\dfrac{1 - z^{-1}}{1 + z^{-1}} =
+  \dfrac{2}{T}\dfrac{z - 1}{z + 1}
+\end{equation}
+\begin{equation}\label{eq:discretizzazioneTustin01}
+  z = \dfrac{1 + \frac{sT}{2}}{1 - \frac{sT}{2}}
+\end{equation}
+
+Per quanto riguarda la stabilit\`a, la corrisponda piano $s$ piano $z$
+\`e data data
+\[
+Re \left( \dfrac{2}{T}\dfrac{z - 1}{z + 1} \right) = Re \left(
+\dfrac{2}{T}\dfrac{z - 1}{z + 1} \right) = Re \left( \dfrac{z - 1}{z +
+  1}\right) < 0 \;\;\textrm{con}\; T > 0
+\]
+Sostituendo $z = \sigma + j \omega$, abbiamo
+\[
+ Re \left( \dfrac{z - 1}{z + 1}\right) = Re\left( \dfrac{\sigma + j
+   \omega -1}{\sigma + j \omega + 1}\right) = Re \left[
+   \dfrac{\sigma^2 - 1 + \omega^2 + j2\omega}{(\sigma + 1)^2 +
+     \omega^2}\right] < 0
+\]
+Il denominatore \`e sicuramente positivo. Il numeratore diventa
+\[
+\sigma^2 - 1 + \omega^2 + < 0 \Rightarrow \sigma^2 + \omega^2 + < 1  
+\]
+La regione di stabilit\`a in $s$, si trasforma in $z$ nella
+circonferenza unitaria: il metodo di Tustin trasforma una $G(s)$
+stabile in una $G(z)$ stabile e viceversa. La circonferenza viene
+percorsa una sola volta per $\omega$ che varia da $- \infty$ e
+$\infty$ in $s$ e quindi non si ha aliasing.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/discretizzazioneTustin01.png}
+    \caption{Corrispondenza piano $s$ piano
+      $z$}\label{fig:discretizzazioneTustin01} 
+  \end{center}
+\end{figure}
+
+Per dimostrare che la circonferenza viene percorsa una sola volta, si
+pone $s = j\Omega$, ottenendo
+\[
+\begin{array}{l}
+  z = \dfrac{1 + \frac{j \Omega T}{2}}{1 - \frac{j \Omega T}{2}}\\
+  \Omega = 0 \Rightarrow z = 1\\
+  \Omega = \pm \infty \Rightarrow z = -1
+\end{array}
+\]
+La corrispondenza tra i due piani \`e quindi simile a quella fornita
+dalla relazione fondamentale. Con la relazione fondamentale la
+circonferenza unitaria viene percorsa infinite volte e siamo costretti
+a considerare solo le frequenze all'interno della fascia
+primaria. Quindi, un vantaggio offerto
+dall'equazione~\ref{eq:discretizzazioneTustin01} \`e proprio l'assenza
+di aliasing, perch\`e non genera sovrapposizione frequenziale,
+sovrapposizione delle repliche dello spettro. 
+
+Uno svantaggio del metodo di Tustin \`e per\`o l'introduzione di
+compressione\index{Compressione} alle alte frequenze. Per dimostrare
+questa affermazione dobbiamo confrontare lo spettro di $R^{0}(j
+\Omega)$ del controllore equivalente $R^{0}(s)$ con lo spettro
+$R^{*}(e^{j \omega T})$ del controllore digitale $R^{*}(z)$.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/discretizzazioneTustin02.png}
+    \caption{Compressione alte
+      frequenze}\label{fig:discretizzazioneTustin02}
+  \end{center}
+\end{figure}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.4]{./figures/discretizzazioneTustin03.png}
+    \caption{}\label{fig:discretizzazioneTustin03}
+  \end{center}
+\end{figure}
+Una volta progettato il controllore equivalente $R^{0}(s)$ nel piano
+equivalente al piano $s$, lo proiettiamo sull'asse immaginario,
+sostituendo $s = j \Omega$ per calcolare $|R^{0}(j \Omega)|$, come
+mostrato in figura~\ref{fig:discretizzazioneTustin02} ($a)$).
+
+A questo punto, sfruttando la relazione inversa fondamentale
+approssimante~\ref{eq:discretizzazioneTustin01}, otteniamo il
+controllore discreto $R^{*}(z)$ nel piano $z$
+(figura~\ref{fig:discretizzazioneTustin02} $b)$).
+
+Concludiamo sfruttando la relazione fondamentale esatta $z = e^{sT}$
+per ottenere il controllore equivalente $R^{*}(e^{sT})$ nel piano $s$
+e lo proiettiamo sull'asse immaginario $j \omega$, sostituendo $s = j
+\omega$, volendo calcolare $|R^{*}(e^{sT})|$
+(figura~\ref{fig:discretizzazioneTustin02} $c)$).
+
+Analizzando il legame tra $\Omega$ e $\omega$, ci accorgiamo che
+l'intero asse immaginario $j \Omega$ in $s\; equivalente$ si trasforma
+nella circonferenza unitaria in $z$ che si trasforma nel segmento di
+lunghezza $\omega$, centrato in zero, che giace sull'asse $j \omega$
+nel piano $s$, cio\`e la fascia primaria.
+
+Tutte le componenti armoniche di $R^{0}(j \Omega)$ con $\Omega \in
+(-\infty, \infty)$ del controllore originario si comprimono in un
+segmento $\omega \in \left( -\dfrac{\omega_s}{2},
+\dfrac{\omega_s}{s}\right)$ dello spettro del controllore digitale
+$R^{*}(e^{j \omega T})$: una componente armonica in alta frequenza
+nello spettro $R^{0}(j \Omega)$ ricompare a bassa frequenza nello
+spettro di $R^{*}(e^{j \omega T})$.
+
+Dal punto di vista matematico, possiamo formalizzare questa relazione
+tra $\omega$ e $\Omega$ nel seguente modo.
+\[
+s = \dfrac{2}{T} \cdot \dfrac{z - 1}{z + 1}
+\]
+Sostituendo
+\[
+\begin{array}{l}
+  s = j \Omega \;\;\;0 \leq \Omega \leq \infty\\
+  z = e^{sT}|_{s = j \omega} = e^{j \omega T}
+\end{array}
+\]
+otteniamo
+\[
+j \Omega = \dfrac{2}{T} \cdot \dfrac{e^{j \omega T} - 1}{e^{j \omega
+    T} + 1}
+\]
+Mettendo in evidenza $e^{j \omega \frac{T}{2}}$ al numeratore ed al
+denominatore, abbiamo
+\[
+j \Omega = \dfrac{2}{T} \cdot \dfrac{e^{j \omega \frac{T}{2}} \left(
+  e^{j \omega \frac{T}{2}} - e^{-j \omega \frac{T}{2}}\right)}{e^{j
+    \omega \frac{T}{2}} \left(e^{j \omega \frac{T}{2}} + e^{-j \omega
+    \frac{T}{2}} \right)} 
+\]
+Al numeratore moltiplichiamo e dividiamo per $2j$. Al denominatore
+moltiplichiamo e dividiamo per 2:
+\[
+j \Omega = \dfrac{2}{T} \cdot \dfrac{\dfrac{\left( e^{j \omega \frac{T}{2}} -
+  e^{-j \omega \frac{T}{2}}\right)}{2j}2j}{\dfrac{\left(e^{j \omega \frac{T}{2}} +
+  e^{-j \omega \frac{T}{2}} \right)}{2}2} 
+\]
+Individuiamo forme note del seno e del coseno, effetuiamo delle
+semplificazioni ed otteniamo
+\[
+\Omega = \dfrac{2}{T} \cdot \dfrac{sin\left( \omega
+  \frac{T}{2}\right)}{cos \left( \omega \frac{T}{2}\right)}
+\]
+che, in conclusione, diventa
+\begin{equation}\label{eq:discretizzazioneTustin04}
+  \Omega = \dfrac{2}{T} \cdot tan\left( \omega \dfrac{T}{2}\right)
+\end{equation}
+\[
+\omega = \dfrac{2}{T} \cdot tan^{-1}\left( \Omega \dfrac{T}{2}\right)
+\]
+In assenza di compressione avremmo avuto $\Omega = \omega$, una
+relazione $1:1$ tra piano $s$ e piano $z$.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.3]{./figures/discretizzazioneTustin04.png}
+    \caption{}\label{fig:discretizzazioneTustin04}
+  \end{center}
+\end{figure}
+La figura~\ref{fig:discretizzazioneTustin04} mostra come, nonostante
+tutto, per valori di $\Omega \dfrac{T}{2} \ll 1$ l'approssimazione sia
+circa $1:1$, senza, quindi, compressione. Scegliendo, quindi,
+opportunamente un tempo di campionamento $T$ piccolo, tutte le
+componenti armoniche del controllore progettato $R^{0}(s)$ si trovano
+nella regione di corrispondenza $1:1$.
+
+\section{Tustin con precompensazione}
+Supponiamo di aver scelto il tempo di campionamento $T$ e la relativa
+pulsazione di campionamento $\omega_s$. Supponiamo di avere nelle
+vicinanze di $\dfrac{\omega_s}{2}$ una compressione compensazione
+indesiderata per una certa pulsazione $\omega_1$: influenza il margine
+di fase in quanto modifica la banda passante del sistema a ciclo
+chiuso e $\omega_c$ viene spostato a frequenze pi\`u basse.
+
+Per limitare gli effetti di compressione, si pu\`o agire con una
+precompensazione che limiti a priori la distorsione tipica della
+trasformazione di Tustin, per avere a pulsazione $\omega_1$ una
+relazione $\Omega_1 = \omega_1$. Per ottenere questo risultato,
+sostituiamo alla costante $\dfrac{2}{T}$
+nell'equazione~\ref{eq:discretizzazioneTustin04} il nuovo termine
+costante $\dfrac{\omega_1}{tan\left( T\frac{\omega_1}{2}\right)}$:
+\[
+\Omega = \dfrac{\omega_1}{tan\left( T\frac{\omega_1}{2}\right)} tan
+\left( \omega \frac{T}{2}\right)
+\]
+Quindi, quando $\omega = \omega_1$, avremo
+\[
+\Omega_1 = \dfrac{\omega_1}{tan\left( T\frac{\omega_1}{2}\right)} tan
+\left( \omega_1 \frac{T}{2}\right) = \omega_1
+\]
 
 
 
