@@ -8766,10 +8766,10 @@ pulsazione di campionamento\index{Pulsazione di campionamento}
 $\omega_s$ e la frequenza di campionamento\index{Frequenza di
   campionamento} $f_s$:
 \[
-\omega_s = 2 \pi
+\omega_s = 2 \pi f_s
 \]
 \[
-f_s = \dfrac{2 \pi}{T_s}
+f_s = \dfrac{1}{T_s}
 \]
 
 L'uscita prodotta dal controllore digitale \`e il segnale discreto
@@ -8782,7 +8782,7 @@ u(t) = u^{*}(k), \;\;\; kT_m \leq t \leq (k + 1)T_m
 mantenimento\index{Periodo di mantenimento}. Nuovamente, da $T_m$
 otteniamo la frequenza di mantenimento\index{Frequenza di mantenimento}
 \[
-f_m = \dfrac{1}{T}
+f_m = \dfrac{1}{T_m}
 \]
 e la pulsazione di mantenimento\index{Pulsazione di mantenimento}
 \[
@@ -8817,7 +8817,7 @@ Dovendo individuare una relazione ingresso-uscita, affermiamo che
 esiste una {\bo certa sequenza $u(kT)$} (o $u_k$) che \`e funzione
 lineare o non lineare dei campioni della {\bo sequenza $e(kT)$} (o $e_k$)
 a partire dall'istante $kT$ fino all'istante $(k - m)T$ e degli stessi
-campioni della {\bo sequenza di campioni $u(kT)$} a partire dall'istante $(k
+campioni della {\bo sequenza $u(kT)$} a partire dall'istante $(k
 - 1)T$ fino all'istante $(k - n)T$:
 \begin{equation}\label{eq:lineareDifferenzeDiscreto01}
   u_k = f(e_k, e_{k-1}, ... , e_{k-m};u_{k-1}, u_{k-2}, ..., u_{k-n}, k)
@@ -8839,15 +8839,16 @@ l'equazione~\ref{eq:lineareDifferenzeDiscreto01} come:
 che \`e {\bo l'equazione lineare alle differenze di ordine
   $n$}\index{Equazione lineare alle differenze di ordine $n$} del caso
 discreto, avendo trascurato solo per comodit\`a $T$.
+
 \subsubsection{Esempio: Serie di Fibonacci}
 La serie di Fibonacci \`e un comodo esempio introduttivo ai sistemi
 tempo discreto. Come \`e noto, la serie si basa sul concetto che
-l'n-esimo valore \`e la somma dei due valori precedenti. Formalizzando
+l'n-esimo valore sia la somma dei due valori precedenti. Formalizzando
 \begin{equation}\label{eq:fibonacci}
 u_k = u_{k-1} + u_{k-2}
 \end{equation}
 Per risolvere questa equazione abbiamo bisogno solo di conoscere i
-valori iniziali e l'istante iniziale di tempo:
+valori iniziali e l'istante iniziale di tempo $k$:
 \[
 \begin{array}{l}
   k = 2\\
@@ -8867,9 +8868,10 @@ i valori esplicitamente, assumiamo che la soluzione dell'equazione
 abbia una struttura con costanti da determinare in base alle
 condizioni iniziali. Nel caso continuo, si utilizzavano soluzioni di
 tipo esponenziale $e^{st}$. Analogamente, per i sistemi discreti
-utilizzeremo soluzioni di tipo $z^k$, con $z$ variabile complessa che
-sostituisce $s$ e $k$ \`e la variabile discreta indipendente che
-sostituisce $t$. Quindi l'equazione~\ref{eq:fibonacci} ha soluzione:
+utilizzeremo soluzioni di tipo potenziale $z^k$, con $z$ variabile
+complessa che sostituisce $s$ e $k$ \`e la variabile discreta
+indipendente che sostituisce $t$. Quindi
+l'equazione~\ref{eq:fibonacci} ha soluzione: 
 \begin{equation}\label{eq:fibonacci02}
   cz^k = cz^{k-1} + cz^{k-2}
 \end{equation}
@@ -8890,8 +8892,8 @@ con $c_1$ e $c_2$ costanti, calcolabili a partire dalle condizioni
 iniziali:
 \[
 \begin{array}{l}
-  c_1 + c_2 = u_0 = 1\\
-  c_1z_1 + c_2z_2 = u_1 = 1\\
+  k = 0 \Rightarrow  c_1 + c_2 = u_0 = 1\\
+  k = 1 \Rightarrow  c_1z_1 + c_2z_2 = u_1 = 1\\
   c_{1,2} = \dfrac{\pm 1 + \sqrt{5}}{2 \sqrt{5}}
 \end{array}
 \]
@@ -8917,11 +8919,12 @@ converger\`a a zero al crescere di $k$ per ogni condizione iniziale.
 \section{Rappresentazione di stato}
 Una rappresentazione alternativa alla equazione lineare alle
 differenze di ordine $n$ \`e la coppia di equazioni:
-\[
+\[\left\{
 \begin{array}{l}
   x(k + 1) = f(x(k), u(k), k)\\
   y(k) = g(x(k), u(k), k)
 \end{array}
+\right.
 \]
 $f$ e $g$ sono due funzioni vettoriali tali che:
 \begin{itemize}
@@ -8935,7 +8938,7 @@ $f$ e $g$ sono due funzioni vettoriali tali che:
 
 \section{Equilibrio di un sistema discreto}
 Un punto di equilibrio \`e un particolare punto in cui il sistema non
-presenta dinamica. Nel dominio del tempo discreto $k$, ci\`o equivale
+presenta dinamiche. Nel dominio del tempo discreto $k$, ci\`o equivale
 a dire che lo stato del sistema discreto non varia all'aumentare del
 tempo, cio\`e:
 \[
@@ -8955,10 +8958,12 @@ equilibrio.
 \section{Linearizzazione}
 Dato il sistema discreto SISO non-lineare e tempo invariante
 \begin{equation}\label{eq:sisoDiscretoStato}
+  \left\{
   \begin{array}{l}
     x (k + 1) = f(x(k), u(k))\\
     y(k) = g(x(k), u(k))
   \end{array}
+  \right.
 \end{equation}
 e un punto di equilibrio $P = (\overline{u}, \overline{x},
 \overline{y})$, possiamo ottenere un'approssimazione linearizzata del
@@ -8967,20 +8972,24 @@ nostro sistema intorno al punto di equilibrio $P$.
 Le variazioni dello stato, dell'ingresso e dell'uscita sono definite
 come: 
 \[
+\left[
 \begin{array}{l}
   \delta x(k) = x (k) - \overline{x}\\
   \delta u(k) = u (k) - \overline{u}\\
   \delta y(k) = y (k) - \overline{y}\\
 \end{array}
+\right.
 \]
 Possiamo riscrivere le equazioni~\ref{eq:sisoDiscretoStato} come:
 \begin{equation}
+  \left\{
   \begin{array}{l}
     \delta x (k + 1) + \overline{x} = f ( \delta x(k) + \overline{x},
     \delta u (k) + \overline{u})\\
     \delta y (k) + \overline{y} = g (\delta x (k) + \overline{x},
     \delta u(k) + \overline{u})
   \end{array}
+  \right.
 \end{equation}
 Sviluppando in serie di Taylor le funzioni $f$ e $g$ intorno al punto
 di equilibrio $P$ avremo:
@@ -9008,7 +9017,7 @@ possiamo dire che:
   \dfrac{\partial f(x,u)}{\partial x} = A \in R^{n \times m}\\
   \dfrac{\partial f(x,u)}{\partial u} = B \in R^{n \times 1}\\
   \dfrac{\partial g(x,u)}{\partial x} = C \in R^{1 \times n}\\
-  \dfrac{\partial g(x,u)}{\partial u} = C \in R^{1 \times 1}\\
+  \dfrac{\partial g(x,u)}{\partial u} = D \in R^{1 \times 1}\\
 \end{array}
 \]
 Ricordiamo che l'infinitesimo di ordine superiore al primo $o(\delta
@@ -9018,6 +9027,7 @@ equilibrio $P$.
 
 Possiamo riscrivere:
 \[
+\left\{
 \begin{array}{l}
   f (\delta x (k) + \overline{x}, \overline{u}(k) + \overline{u})
   \cong f(\overline{x}, \overline{u}) + A \cdot \delta x(k) + B\cdot
@@ -9027,32 +9037,39 @@ Possiamo riscrivere:
   \cong g(\overline{x}, \overline{u}) + C \cdot \delta x(k) + D\cdot
   \delta u(k)
 \end{array}
+\right.
 \]
 Riconsiderando
 \begin{equation*}
+  \left\{
   \begin{array}{l}
     \delta x(k + 1) + \overline{x} = f ( \delta x(k) + \overline{x},
     \delta u (k) + \overline{u})\\
     \delta y (k) + \overline{y} = g (\delta x (k) + \overline{x},
     \delta u(k) + \overline{u})
   \end{array}
+  \right.
 \end{equation*}
 \begin{equation}
+  \left\{
   \begin{array}{l}
     \delta x(k + 1) + \overline{x} = f(\overline{x}, \overline{u}) + A
     \cdot \delta x(k) + B\cdot \delta u(k) \\
-    \delta y (k) + \overline{y} = \cong g(\overline{x},
+    \delta y (k) + \overline{y} =  g(\overline{x},
     \overline{u}) + C \cdot \delta x(k) + D\cdot \delta u(k)
   \end{array}
+  \right.
 \end{equation}
 e ricordando che $\overline{x} = f(\overline{x}, \overline{u})$ e
 $\overline{y} = g(\overline{x}, \overline{u})$, otteniamo
 l'espressione del sistema linearizzato intorno al punto di equilibrio:
 \begin{equation}
+  \left\{
   \begin{array}{l}
     \delta x(k + 1)= A \cdot \delta x(k) + B\cdot \delta u(k) \\
     \delta y (k) = C \cdot \delta x(k) + D\cdot \delta u(k)
   \end{array}
+  \right.
 \end{equation}
 
 \chapter{Z-trasformata}
@@ -9064,8 +9081,8 @@ maggiore semplicit\`a di calcolo e garantisce la possibilit\`a di
 ritornare al dominio discreto grazie all'anti-trasformata.
 
 Nell'ipotesi di avere una sequenza di campioni $x(kT) \in R$, definita
-per $k = 0, 1, 2, ...$ e nulla per $k < 0$, si definisce
-Z-trasformata unilatera $( \Rightarrow k \in [0, + \infty))$:
+per $k~=~0, 1, 2, ...$ e nulla per $k < 0$, si definisce
+Z-trasformata unilatera\\ $( \Rightarrow~k~\in~[0, + \infty))$:
 \begin{equation}\label{eq:Z-trasformata01}
   Z[x(kT)] = \sum\limits_{k=0}^{\infty} x(kT) z^{-k}
 \end{equation}
@@ -9081,7 +9098,7 @@ Z[x(k)] = X(z) = x_0 + x_1z^{-1} + x_2 z^{-2} + ... =
 
 La Z-trasformata $Z[x(k)]$ esiste nella regione di spazio detta {\em
   dominio di convergenza}\index{Dominio di convergenza}, cio\`e
-nell'insieme dei punti $z$ per cio la serie~\ref{eq:Z-trasformata02}
+nell'insieme dei punti $z$ per cui la serie~\ref{eq:Z-trasformata02}
 converge. Poich\`e la $X(z)$ \`e una serie in $z^{-1}$, il dominio di
 convergenza \`e la zona del piano $z$ esterna ad un cerchio di raggio
 $R$ (raggio di convergenza\index{Raggio di convergenza}) centrato
@@ -9270,13 +9287,13 @@ Applichiamo ad entrambi i membri il $\lim_{z \to 1}$:
   1}\left[\sum_{k=0}^{\infty} \left[ x(kT)z^{-k} - x(k -
     1)z^{-k}\right]\right] 
 \]
-Al sedondo membro, tutti i termini $z^{-k}$ tenderanno ad 1 per
+Al secondo membro, tutti i termini $z^{-k}$ tenderanno ad 1 per
 qualsiasi valore di $k$. 
 \[
 \lim\limits_{z \to 1}X(z)(1 - z^{-1}) = \lim\limits_{z \to
   1}\left[\sum_{k=0}^{\infty} \left[x(kT) - x(k - 1) \right]\right]
 \]
-La commatoria al secondo membro pu\`o essere ``esplosa'' come:
+La sommatoria al secondo membro pu\`o essere ``esplosa'' come:
 \[
 \lim\limits_{z \to 1}X(z)(1 - z^{-1}) = [x(0) - x(-1)] + [x(1) - x(0)]
 + [x(2) - x(1)] + ... + [x(\infty) - x(\infty - 1)]
@@ -9393,11 +9410,11 @@ G(z) = \int\limits_{z}^{\infty} \dfrac{X(\zeta)}{\zeta} - \lim_{k \to
   0} x(k)
 \]
 Se nel dominio del tempo discreto $k$ dividiamo per $k$ la sequenza
-$x(k)$ nel dominio della variabile complessa $z$ stiamo
+$x(k)$, nel dominio della variabile complessa $z$ stiamo
 integrando opportunamente la Z-trasformata $z[x(k)]$.
 
 \subsection{Trasformazione di una sequenza periodica}
-Sia la sequenza $x_p(k)$ periodica id periodo $p$. Sia $x(k)$ la
+Sia la sequenza $x_p(k)$ periodica di periodo $p$. Sia $x(k)$ la
 seguente successione di campioni:
 \[
 x(k) =
@@ -9440,7 +9457,7 @@ Z[x_p(k)] = X(z)\sum_{i=0}^{\infty} z^{-ip}
 \]
 Se $|z| > 1$ 
 \[
-\sum_{i=0}^{\infty} z^{ip}
+\sum_{i=0}^{\infty} z^{-ip}
 \]
 \`e una serie geometrica di ragione $z^{-p}$, cio\`e una successione
 di potenze convergente ad $\dfrac{1}{1 - z^{-p}}$. Quindi
@@ -9455,7 +9472,7 @@ Ricordiamo che se $|x| < 1$ la serie esiste e vale:
 x^k = \lim\limits_{n \to \infty} \dfrac{1 - n^{n + 1}}{1 - x} =
 \dfrac{1}{1 - x^{1}}
 \]
-Ne caso preso in esame
+Nel caso preso in esame
 \[
 \sum_{i=0}^{\infty} z^{-p \cdot i}
 \]
@@ -10467,7 +10484,7 @@ Con la trasformata di Laplace $X_r(s)$ si ottiene una combinazione
 lineare di trasformate di Laplace del gradino traslato:
 \[
 X_r(s) = \sum_{k=0}^{\infty} x(kT) \left[ \dfrac{1}{s}e^{-kTs} -
-  \dfrac{1}{s}e^{-(k+1)T}\right] 
+  \dfrac{1}{s}e^{-(k+1)Ts}\right] 
 \]
 Mettendo in evidenza $e^{-kTs}$
 \[
@@ -10574,7 +10591,7 @@ x^{*}(t) = x(t) \delta_T(t) = x(t) \sum_{n = -\infty}^{\infty} \delta
 (t - nT)
 \]
 e considerare $\delta_T(t)$ estesa a tutto l'asse del tempo. Il nuovo
-segnale $\delta_T(t)$ \`e periodo di periodo $T$ e pu\`o essere
+segnale $\delta_T(t)$ \`e periodico di periodo $T$ e pu\`o essere
 sviluppato in serie di Fourier, usando la formula a coefficienti
 complessi:
 \[
@@ -10593,7 +10610,7 @@ propriet\`a di linearit\`a e traslazione:
 X^{*}(s) = \dfrac{1}{T} \sum_{n = - \infty}^{\infty} X(s - j n
 \omega_s)
 \end{equation}
-Si nota che la trasformata di Laplace di $X^{*}{s}$ del segnale
+Si nota che la trasformata di Laplace di $X^{*}(s)$ del segnale
 campionato \`e data dalla somma degli infiniti termini $X(s - j n
 \omega_s)$, ottenuto mediante traslazione di $j n \omega_s$. Va
 comunque tenuta in considerazione la costante moltiplicativa
@@ -10605,7 +10622,7 @@ Possiamo passare nel dominio della frequenza sostituendo $s = j
   X^{*}(j \omega) = \dfrac{1}{T} \sum_{n = - \infty}^{\infty} X(j\omega - j n
 \omega_s)
 \end{equation}
-L'andamento spettrale $X^{*}(j \omega$ del segnale campionato
+L'andamento spettrale $X^{*}(j \omega)$ del segnale campionato
 $x^{*}(t)$ si ottiene a partire dallo spettro del segnale $x(t)$ pi\`u
 una sommatoria di infinite repliche dello stesso spettro, ma traslato
 di $j n \omega_s$ con $n \in (-\infty, +\infty)$:
@@ -10634,8 +10651,9 @@ attraversamento della funzione $L(s)$.
       $x^{*}(t)$}\label{fig:spettroSegnaleCampionatoBandaLimitata01}    
   \end{center}
 \end{figure}
+
 Abbiamo supposto che il segnale $x(t)$ sia a banda limitata, cio\`e
-che vada a zero. Questa \`e esattamente una supposizione. Nella
+che vada a zero. Questa \`e purtroppo solo una supposizione. Nella
 realt\`a la banda non va mai a zero, ma avr\`a inevitabilmente delle
 code. Possiamo solo considerare ``nulle'' le componenti attenuate di 
 $20dB$ o $40dB$. Abbiamo indicato la pulsazione massima di interesse
@@ -10649,36 +10667,37 @@ fondamentale\index{Replica fondamentale} $\dfrac{|X(j \omega)|}{T}$
 che coincide, a meno della costante $\dfrac{1}{T}$, con lo spettro
 frequenziale $|X(j \omega)|$ del segnale originario $x(t)$. Per $n
 \neq 0$ abbiamo le componenti complementari $\dfrac{|X(j \omega + j n
-  \omega_s)}{T}$.
+  \omega_s)|}{T}$.
 
-Ricordiamo ancora una volta, che se la pulsazione di campionamento
-$\omega_s > 2 \omega_c$, cio\`e la distanza tra una replica e la
+Ricordiamo ancora una volta, che se la pulsazione di campionamento\\
+$\omega_s~>~2~\omega_c$, cio\`e la distanza tra una replica e la
 successiva \`e maggiore del doppio della banda passante del segnale
-originario $x(t)$ le repliche non si sovrapporranno.
+originario $x(t)$, le repliche non si sovrapporranno.
 
 \subsection{Teorema di Shannon}\index{Teorema di Shannon}
 \begin{definizione}
   Sia $\omega_s = \dfrac{2 \pi}{T}$ la pulsazione di campionamento e
   $\omega_c$ (o $\omega_b$) la pi\`u alta componente spettrale del
-  segnale a tempo continuo $x(t)$, il segnale originario $x(t)$ \`e
+  segnale a tempo continuo $x(t)$. Il segnale originario $x(t)$ \`e
   completamente ricostruibile a partire dal segnale campionato
   $x^{*}(t)$ se e solo se la pulsazione di campionamento $\omega_s$
   \`e maggiore del doppio della pulsazione $\omega_c$ (o $\omega_b$)
   \[
-  \omega_s = 2\cdot \omega_c
+  \omega_s > 2\cdot \omega_c
   \]
 \end{definizione}
 
 Se il Teorema di Shannon non \`e soddisfatto le repliche saranno
 parzialmente sovrapposte, dando vita al fenomeno
-dell'aliasing\index{Aliasing}, cio\`e mediante il campionamento si
+dell'aliasing\index{Aliasing}, cio\`e, mediante il campionamento, si
 generano componenti spettrali alla stessa frequenza della componente
-spettrale di partenza che impediscono la corretta ricostruzione del
-segnale di partenza. Ulteriore problema sar\`a la sovrapposizione
-delle repliche complementari sulla replica fondamentale, che sar\`a
-difficilmente isolabile tramite un filtro ideale, vanificando ogni
-possibilit\`a di ricostruire il segnale $x(t)$ a partire da
-$x^{*}(t)$. 
+spettrale di partenza. Queste componenti impediscono la corretta
+ricostruzione del segnale di partenza.
+
+Ulteriore problema sar\`a la sovrapposizione delle repliche
+complementari e della replica fondamentale, che sar\`a difficilmente
+isolabile tramite un filtro ideale, vanificando ogni possibilit\`a di
+ricostruire il segnale $x(t)$ a partire da $x^{*}(t)$. 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{./figures/aliasing.png}
@@ -10698,15 +10717,14 @@ $x^{*}(t)$.
 \end{figure}
 La figura~\ref{fig:spettroBandaIllimitata} mostra il confronto tra il
 caso ideale che abbiamo trattato finora, cio\`e un segnale a banda
-rigorosamente limitata e il caso reale in cui un segnale ha
+rigorosamente limitata, e il caso reale in cui un segnale ha
 tipicamente delle componenti ad alta frequenza che non possono essere
 semplicemente ignorate.
 
 I segnali reali vanno, quindi, valutati singolarmente e bisogna
-scegliere fino a quele pulsazione si vogliono considerare
+decidere fino a quale pulsazione si vogliono considerare
 significative le componenti del segnale. Bisogna, in sostanza,
 scegliere la banda passante $\omega_c$ (o $\omega_b$) del segnale.
-
 Tipicamente possiamo considerare trascurabili le componenti armoniche
 del segnale attenuate di $20dB$ o $40dB$. 
 
@@ -10720,7 +10738,7 @@ del segnale attenuate di $20dB$ o $40dB$.
 Cardine della teoria della ricostruzione del segnale \`e la
 possibilit\`a di ottenere la replica primaria, filtrando lo spettro
 $|X(j \omega)|$ del segnale campionato $x^{*}(t)$ con un filtro
-ideale. La figura\ref{fig:filtroIdeale} mostra lo spettro del filtro
+ideale. La figura~\ref{fig:filtroIdeale} mostra lo spettro del filtro
 ideale $G_I(j \omega)$. Dal punto di vista matematico, possiamo
 formalizzarlo come
 \begin{equation}
@@ -10747,15 +10765,15 @@ g_I(t) = \dfrac{1}{2 \pi} \int_{- \infty}^{\infty} G_I(j \omega) e^{j
 Dalla definizione di $G_I(j \omega)$ possiamo restringere l'intervallo
 di integrazione e sostituire i valori di $G_I(j \omega)$:
 \[
-g_I(t) = \dfrac{T}{2 \pi} \int_{-\dfrac{\omega_s}{2}}^{\dfrac{\omega_s}{2}}e^{j
+g_I(t) = \dfrac{T}{2 \pi} \int_{-\frac{\omega_s}{2}}^{\frac{\omega_s}{2}}e^{j
   \omega t} d\omega
 \]
 \[
-g_I(t) = \dfrac{T}{2 \pi} \left.\left[ \dfrac{e^{j \omega t}}{j \omega
-    t}\right]\right|_{-\frac{\omega_s}{2}}^{\frac{\omega_s}{2}}
+g_I(t) = \dfrac{T}{2 \pi} \left.\left[ \dfrac{e^{j \omega t}}{j
+    t}\right]\right|_{-\frac{\omega_s}{2}}^{\frac{\omega_s}{2}} 
 \]
 \[
-g_I(t) = \dfrac{T}{2 \pi} \left( e^{j \frac{\omega_2}{2}t} - e^{-j
+g_I(t) = \dfrac{T}{2 j \pi t} \left( e^{j \frac{\omega_2}{2}t} - e^{-j
   \frac{\omega_2}{2}t}\right) = \dfrac{T}{\pi
   t}sin\dfrac{\omega_s}{2}t
 \]
@@ -10834,7 +10852,7 @@ $H_r(s)$ semplicemente effettuando la trasformata di Laplace della
 risposta impulsiva del ricostruttore.
 
 \subsubsection{Astrazione matematica}\label{astrazioneMatematica}
-Se consideriamo che il ricostruttore \`e un sistema ibrido, formato da
+Se consideriamo che il ricostruttore sia un sistema ibrido, formato da
 una parte tempo-continua e da una parte tempo-discreta capiamo che \`e
 impossibile descrivere il ricostruttore con una funzione di
 trasferimento.
@@ -10866,6 +10884,13 @@ ingresso-uscita \`e definito come:
 \begin{equation}\label{eq:ricostruttoreOrdineZero00} 
   x_0(t) = x(kT) \;\;\; kT \leq t \leq (k + 1)T
 \end{equation}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[scale=0.5]{./figures/ricostruttoreOrdineZero00.png}
+    \caption{Ricostruttore di ordine
+      zero}\label{fig:ricostruttoreOrdineZero00} 
+  \end{center}
+\end{figure}
 
 Possiamo ottenere la funzione di trasferimento del ricostruttore di
 ordine zero $H_0(s)$ effettuando la trasformata di Laplace della
@@ -10910,7 +10935,7 @@ con $kT \leq t \leq (k + 1)T$
     \caption{Ricostruttore di ordine uno}\label{fig:ricostruttoreOrdineUno00}
   \end{center}
 \end{figure}
-La figura~\ref{fig:ricostruttoreOrdineUno} mostra un esempio di
+La figura~\ref{fig:ricostruttoreOrdineUno00} mostra un esempio di
 ricostruzione effettuata con un ricostruttore di ordine
 uno. Considerando l'intervallo di interesse  $kT \leq t \leq (k + 1)T$
 abbiamo la necessit\`a di rappresentare il segnale $x(t)$ di cui non
@@ -10920,7 +10945,7 @@ successivi ci sar\`a una funzione del primo ordine: una retta. La
 pendenza della retta \`e data dal rapporto incrementale dei valori dei
 due campioni a $x(kT)$ e $x((k - 1)T)$.
 
-La figura~\ref{fig:ricostruttoreOrdineUno} mostra anche il punto
+La figura~\ref{fig:ricostruttoreOrdineUno00} mostra anche il punto
 debole del ricostruttore di ordine uno: reagisce lentamente alle brusche
 variazioni di pendenza del segnale (inversioni di pendenza). Questa
 debolezza \`e comunque ``ben assorbita'' da un efficace campionamento:
@@ -10950,7 +10975,7 @@ g_1(t) = 1 + \dfrac{1 - 0}{T} = 1 + \dfrac{1}{T}t
 \]
 che \`e esattamente la rampa di pendenza $\dfrac{1}{T}$ mostra nella
 figura~\ref{fig:ricostruttoreOrdineUno01}. Iterando lo stesso
-ragionamento per per l'intervallo $T \leq t \leq 2T$:
+ragionamento per l'intervallo $T \leq t \leq 2T$:
 \[
 g_1(t) = 0 + \dfrac{0 - 1}{T} (t - T) = - \dfrac{t - T}{T} = 1 -
 \dfrac{1}{T}t
